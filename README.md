@@ -1,4 +1,4 @@
-# Sesiones de diseño
+# Proyecto Aspiradora
 
 Este es el repositorio de las sesiones de diseño de la asignatura de Ingeniería del Software II de UNEATLANTICO.
 
@@ -6,22 +6,14 @@ Se desarrolla, en un caso controlado, la disciplina de diseño, con el objetivo 
 
 <div align=center>
 
-| |Grupo|Estadísticas|Entrega oficial|
-|-|-|:-:|:-:|
-1|[pyPendiente](https://github.com/guzmangrianchoUNEAT/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/guzmangrianchoUNEAT/23-24-IdSw1-SDD/graphs/contributors)|
-2|[pyPendiente](https://github.com/VeronikaEspa/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/VeronikaEspa/23-24-IdSw1-SDD/graphs/contributors)|
-3|[pyPendiente](https://github.com/pablarce/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/pablarce/23-24-IdSw1-SDD/graphs/contributors)|
-4|[pyPendiente](https://github.com/MRSergio21/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/MRSergio21/23-24-IdSw1-SDD/graphs/contributors)|
-5|[pyPendiente](https://github.com/hugofresno20/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/hugofresno20/23-24-IdSw1-SDD/graphs/contributors)|
-6|[pyPendiente](https://github.com/jramsgz/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/jramsgz/23-24-IdSw1-SDD/graphs/contributors)|
+| |Grupo|Estadísticas|
+|-|-|:-:|
+1|[pyPendiente](https://github.com/puntoReflex/pyAspiradora)|[👁️📒](https://github.com/MRSergio21/23-24-IdSw2-SDD)|
 
 </div>
 
 <div align=center>
 
-||
-|-|
-![](/images/modelosUML/modelosUML/trabajoRepos.svg)
 
 </div>
 
