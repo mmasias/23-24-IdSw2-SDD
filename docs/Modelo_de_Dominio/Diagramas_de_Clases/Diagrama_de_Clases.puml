@@ -10,7 +10,9 @@ hide empty members
 
 class ASCENSOR 
 {
+    ID
     Capacidad
+    Acceso
 }
 
 class USUARIO 
@@ -21,18 +23,23 @@ class USUARIO
 
 class "CUADRO DE MANDO"
 {
-
+    Solicitudes
 }
 
 class PLANTA 
 {
     ID
     Personas
+    Capacidad
+    Acceso
 }
 
 class EDIFICIO 
 {
     Plantas
+    Ascensores
+    Capacidad
+    Acceso
 }
 
 
