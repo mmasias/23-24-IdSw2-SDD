@@ -1,0 +1,45 @@
+@startuml Diagrama_de_Clases
+
+title Diagrama de Clases
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+class ASCENSOR 
+{
+    Capacidad
+}
+
+class USUARIO 
+{
+    Origen
+    Destino
+}
+
+class "CUADRO DE MANDO"
+{
+
+}
+
+class PLANTA 
+{
+    ID
+    Personas
+}
+
+class EDIFICIO 
+{
+    Plantas
+}
+
+
+"CUADRO DE MANDO" --> ASCENSOR : Gobierna
+USUARIO -> ASCENSOR : Utiliza
+USUARIO --> "CUADRO DE MANDO" : Solicita al
+EDIFICIO --> PLANTA : Tiene
+PLANTA -> ASCENSOR : Tiene Acceso
+PLANTA -> USUARIO : Tiene
+@enduml

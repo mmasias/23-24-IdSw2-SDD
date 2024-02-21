@@ -1,35 +1,35 @@
-# Sesiones de diseño
+<h1 align="center">PyAscensores </h1>
+<img src="images/Logo.png" width="30%" align="right" style="margin-top:42px; height:267px"/>
 
-Este es el repositorio de las sesiones de diseño de la asignatura de Ingeniería del Software II de UNEATLANTICO.
+Modelar el funcionamiento de los ascensores de la universidad.
 
-Se desarrolla, en un caso controlado, la disciplina de diseño, con el objetivo de capacitarnos para la descomposición del trabajo de implementación en piezas manejables, las que serán gestionadas por diferentes equipos de desarrollo, posiblemente al mismo tiempo.
+```
+           Personas                                    Personas
+          esperando                                    en la planta
 
-<div align=center>
+Planta  3    _____     [v4v]    | |     | |     | |     __3__ 
+Planta  2    ___2_      | |     | |     | |     | |     __4__
+Planta  1    _____      | |     | |    [^2^]    | |     __2__
+Planta  B    _____      | |    [^0^]    | |     | |     __4__
+Planta -1    _____      | |     | |     | |     | |     __1__
+Planta -2    _____      | |     | |     | |    [v1v]    __0__
+Planta -3    ___1_      | |     | |     | |     | |     __1__
+                       /--------- Ascensores ------/
+   
+```
 
-| |Grupo|Estadísticas|Entrega oficial|
-|-|-|:-:|:-:|
-1|[pyPendiente](https://github.com/guzmangrianchoUNEAT/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/guzmangrianchoUNEAT/23-24-IdSw1-SDD/graphs/contributors)|
-2|[pyPendiente](https://github.com/VeronikaEspa/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/VeronikaEspa/23-24-IdSw1-SDD/graphs/contributors)|
-3|[pyPendiente](https://github.com/pablarce/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/pablarce/23-24-IdSw1-SDD/graphs/contributors)|
-4|[pyPendiente](https://github.com/MRSergio21/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/MRSergio21/23-24-IdSw1-SDD/graphs/contributors)|
-5|[pyPendiente](https://github.com/hugofresno20/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/hugofresno20/23-24-IdSw1-SDD/graphs/contributors)|
-6|[pyPendiente](https://github.com/jramsgz/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/jramsgz/23-24-IdSw1-SDD/graphs/contributors)|
+## Sobre las personas
 
-</div>
+- Las personas que llegan a la universidad hacen uso de los ascensores.
+- Cada persona que llega sabe a que planta va a ir, cuánto tiempo estará en esa planta, luego de lo cual tendrán que irse.
+- Para irse, una persona debe bajar a la planta baja.
 
-<div align=center>
+## Sobre los ascensores
 
-||
-|-|
-![](/images/modelosUML/modelosUML/trabajoRepos.svg)
+- Los ascensores tienen una capacidad máxima de 6 personas.
+- Si el ascensor está lleno, solo pueden salir las personas que están dentro
+  - Salvo que en la planta en la que bajan suba un número igual o menor de personas.
 
-</div>
+En un momento determinado del tiempo, un ascensor está subiendo, bajando o parado.
 
-## Algunas reglas
-
-- Reuniones oficiales (en horas de clase)
-  - A estas debe asistir el 100% de los integrantes de los grupos.
-  - Si a las reuniones asiste menos del 80% del grupo, la reunión se cancela y el grupo se da por cerrado. La evaluación se realiza de la forma tradicional (examen parcial, examen final).
-- Se debe utilizar el repo del coordinador del grupo y las herramientas de GitHub para gestionar las reuniones y comunicaciones entre el grupo, haciendo racional uso de la trazabilidad.
-- Las imágenes, en la medida de lo posible en formato plantUML.
-  - Todas las fuentes en la carpeta modelosUML y las imágenes exportadas, en formato svg.
+Cuando una persona llama a un ascensor, va el que está más cerca y al que le pilla de paso.
