@@ -1,16 +1,16 @@
 @startuml
 title Modelo del dominio Apiradora
 
-class Superficie { 
-
-    +elemento
-    +nivelSuciedad
-    +posicion
-}
-
 class Habitacion {
 
     +dimension
+}
+
+class Elemento { 
+
+    +mueble
+    +nivelSuciedad
+    +posicion
 }
 
 class Aspiradora {
@@ -23,7 +23,7 @@ class Gato {
     +posicion 
 }
 
-Habitacion -- Superficie
+Habitacion -- Elemento
 Habitacion -- Aspiradora
 Habitacion -- Gato
 
