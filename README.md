@@ -1,6 +1,6 @@
-<img src="images/Logo.png" width="30%" align="right"/>
-
 # pyAscensores
+
+## Enunciado
 
 Modelar el funcionamiento de los ascensores de la universidad.
 
