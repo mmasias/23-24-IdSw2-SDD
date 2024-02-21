@@ -1,5 +1,6 @@
-<h1 align="center">PyAscensores </h1>
-<img src="images/Logo.png" width="30%" align="right" style="margin-top:42px; height:267px"/>
+<img src="images/Logo.png" width="30%" align="right"/>
+
+# pyAscensores
 
 Modelar el funcionamiento de los ascensores de la universidad.
 
