@@ -1,33 +1,30 @@
-@startuml Modelo del dominio Ticket
-'https://plantuml.com/sequence-diagram
+@startuml
 title Modelo del dominio Apiradora
 
-class superficie { 
+class Superficie { 
 
     +elemento
     +nivelSuciedad
     +posicion
 }
 
-class habitacion {
+class Habitacion {
 
     +dimension
 }
 
-class aspiradora {
+class Aspiradora {
 
-    +bateria
-    +capacidad
     +posicion
 }
 
-class gato {
+class Gato {
 
     +posicion 
 }
 
-habitacion -- superficie
-superficie -- aspiradora
-superficie -- gato
+Habitacion -- Superficie
+Habitacion -- Aspiradora
+Habitacion -- Gato
 
 @enduml
