@@ -1,0 +1,11 @@
+@startuml
+title Diagrama de Estados de la Habitación
+
+[*] --> Limpia
+
+Limpia --> Sucia: Suciedad Detectada
+Sucia --> Limpia: Limpieza Completa
+
+
+
+@enduml
