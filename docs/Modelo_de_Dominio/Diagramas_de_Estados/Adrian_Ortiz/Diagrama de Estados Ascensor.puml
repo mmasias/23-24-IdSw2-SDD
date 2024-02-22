@@ -1,0 +1,3 @@
+[*] --> AscensorParadado
+AscensorParadado --> AscensorMoviendose
+AscensorMoviendose --> AscensorParadado 
