@@ -1,7 +1,6 @@
-# Sesiones de diseño
+Castelvania(nombre provisional programa)
 
 Enunciado: https://github.com/puntoReflex/pyBatalla/tree/main
-Castelvania(nombre provisional programa)
 
 Enlaces clave:
 
