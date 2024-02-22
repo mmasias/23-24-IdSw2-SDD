@@ -1,0 +1,7 @@
+[*] --> PlantaBaja : llega a la universidaad
+PlantaBaja --> [*] : se va
+PlantaBaja --> EsperandoAscensor : llama al ascensor
+EsperandoAscensor --> Ascensor : sube
+Ascensor --> PlantaDestino : llega a su destino
+PlantaDestino --> EsperandoAscensor : llama al ascensor
+Ascensor --> PlantaBaja
