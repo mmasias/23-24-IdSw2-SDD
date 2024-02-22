@@ -1,0 +1,20 @@
+@startuml Diagrama_De_Estados
+
+title Diagrama de Estados Ascensor
+
+state Ascensor{
+Activo-->Inactivo
+Activo-->AcudeSolicitud
+AcudeSolicitud-->RecogePersona
+RecogePersona-->RecogeOtraPersona
+RecogePersona-->DejaPersona 
+RecogeOtraPersona-->DejaPersona 
+RecogePersona-->Sobrecarga
+RecogeOtraPersona-->Sobrecarga
+RecogePersona-->PuertaAbierta
+RecogeOtraPersona-->PuertaAbierta
+Inactivo-->Activo
+}
+
+
+@enduml
