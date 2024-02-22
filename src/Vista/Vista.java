@@ -2,6 +2,6 @@ package Vista;
 
 public class Vista {
 
-    String[] elementos = {".","...","ooo","OOO","***","(0)","\"^\"","[####]"};
-    
+    String[] elementos = {"+","_","|",".","...","ooo","OOO","***","(0)","^-^","[####]"};
+
 }
