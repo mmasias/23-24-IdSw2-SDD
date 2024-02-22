@@ -1,0 +1,46 @@
+@startuml
+
+class ShoppingCenter {
+    - openingHour
+    - closingHour
+    - time
+    - arrivalProbability
+    - isOpen
+    - cashRegisters
+    - cashiers
+}
+
+class CashRegister {
+    - id
+    - customerQueue
+    - timePerItemPack
+}
+
+class Customer {
+    - id
+    - numberOfPacks
+}
+
+class Queue {
+    - numberOfCustomers
+}
+
+class Cashier {
+    - id
+    - workShift
+    - break
+}
+
+
+ShoppingCenter -- CashRegister: has
+ShoppingCenter -- Customer: receives
+ShoppingCenter -- Cashier: has
+
+Cashier -- CashRegister: serves at
+
+Customer -- Queue: waits in
+
+Queue -- CashRegister: delivers a customer to
+Customer -- CashRegister: is served at
+
+@enduml

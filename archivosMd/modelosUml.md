@@ -8,10 +8,10 @@
 | --------------------------------------------------------------------- | :-----------------------------------------------------: |
 | 1.                        | 
 | 2.                  |          ![]()           |
-| 3.   |          ![]()           |
+| 3.   |          ![](https://github.com/hugofresno20/23-24-IdSw2-SDD/blob/main/images/modelosUML/diagramaClases.svg)           |
 
 
-- [Codigo PUML]()
+- [Codigo PUML](https://github.com/hugofresno20/23-24-IdSw2-SDD/blob/main/modelosUML/diagramaClases.puml)
 
 
 
