@@ -1,11 +1,10 @@
 @startuml
-title Diagrama de Estados de la Habitación
+title Diagrama de Estados del Azulejo
 
-[*] --> Limpia
+[*] --> Limpio
 
-Limpia --> Sucia: Suciedad Detectada
-Sucia --> Limpia: Limpieza Completa
-
-
+Limpio --> Sucia
+Sucia --> Limpio
+Limpio -r-> [*] : Azulejo limpio
 
 @enduml

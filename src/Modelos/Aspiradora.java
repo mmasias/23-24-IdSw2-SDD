@@ -1,5 +1,3 @@
-package Modelos;
-
 import java.util.Random;
 
 public class Aspiradora {

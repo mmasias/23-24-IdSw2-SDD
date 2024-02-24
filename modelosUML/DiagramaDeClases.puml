@@ -1,6 +1,6 @@
 @startuml
 
-title Modelo del dominio Aspiradora
+title Modelo de clases Aspiradora
 
 class Habitacion { 
 
@@ -26,8 +26,6 @@ class Bateria {
 }
 
 Habitacion -- Azulejo
-
-
 Azulejo -- Aspiradora
 Azulejo--Elementos 
 Azulejo -- Gato
