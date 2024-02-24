@@ -41,3 +41,6 @@ public class Aspiradora {
                 System.out.println("Batería agotada. Deteniendo la aspiradora.");
                 break;  
             }
+        }
+    }
+}
