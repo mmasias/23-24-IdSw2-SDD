@@ -1,0 +1,17 @@
+@startuml
+title Diagrama de Estados de la Aspiradora
+
+[*] --> Inactiva
+
+Inactiva -r-> Encendida
+Encendida -r-> Inactiva
+Encendida -r-> Limpiando
+Limpiando --> Aspirando 
+Aspirando -r-> Limpiando 
+Limpiando -r-> Encendida 
+Limpiando -r-> Inactiva
+Limpiando -r-> Limpiando
+Inactiva --> [*]
+@enduml
+
+
