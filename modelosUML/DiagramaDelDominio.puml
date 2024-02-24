@@ -1,30 +1,36 @@
 @startuml
-title Modelo del dominio Apiradora
 
-class Habitacion {
+title Modelo del dominio Aspiradora
 
-    +dimension
+class Habitacion { 
+
 }
 
-class Elemento { 
+Class Azulejo {  
 
-    +mueble
-    +nivelSuciedad
-    +posicion
 }
 
-class Aspiradora {
+class Aspiradora { 
 
-    +posicion
 }
 
-class Gato {
+class Elementos  { 
 
-    +posicion 
 }
 
-Habitacion -- Elemento
-Habitacion -- Aspiradora
-Habitacion -- Gato
+class Gato { 
+
+}
+
+class Bateria { 
+}
+
+Habitacion -- Azulejo
+
+
+Azulejo -- Aspiradora
+Azulejo--Elementos 
+Azulejo -- Gato
+Aspiradora -- Bateria
 
 @enduml
