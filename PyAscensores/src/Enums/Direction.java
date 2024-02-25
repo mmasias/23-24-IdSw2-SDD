@@ -1,6 +1,6 @@
 package Enums;
 
-public enum Directions {
+public enum Direction {
     UP,
     DOWN,
     STOP
