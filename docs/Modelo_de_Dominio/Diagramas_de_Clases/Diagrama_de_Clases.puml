@@ -1,0 +1,62 @@
+@startuml Diagrama_de_Clases
+
+title Diagrama de Clases
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+class ASCENSOR 
+{
+    ID
+    Capacidad
+    Dirección
+    Acceso
+}
+
+class PERSONA 
+{
+    Posición
+    Tiempo en Planta
+    Destino
+}
+
+class "CUADRO DE MANDO"
+{
+    Solicitudes de Parada
+    Solicitudes de Destino
+}
+
+class PLANTA 
+{
+    ID
+    Personas
+    Acceso
+}
+
+class EDIFICIO 
+{
+    Plantas
+    Ascensores
+    Acceso
+}
+
+class TIEMPO 
+{
+
+}
+
+class "SOLICITUD PARADA"
+{
+    Origen
+    Movimiento
+}
+
+class "SOLICITUD DESTINO"
+{
+    Destino
+}
+
+@enduml
