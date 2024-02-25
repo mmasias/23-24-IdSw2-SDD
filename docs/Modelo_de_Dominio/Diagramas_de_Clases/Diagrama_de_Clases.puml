@@ -59,4 +59,19 @@ class "SOLICITUD DESTINO"
     Destino
 }
 
+
+EDIFICIO --> PLANTA : tiene
+PLANTA --> PERSONA : tiene
+PLANTA -left-> ASCENSOR : tiene acceso
+PERSONA --> ASCENSOR : utiliza
+
+PERSONA --> "SOLICITUD PARADA" : solicita
+PERSONA --> "SOLICITUD DESTINO" : solicita
+"CUADRO DE MANDO" --> ASCENSOR : gobierna
+"SOLICITUD PARADA" --> "CUADRO DE MANDO" : se envía
+"SOLICITUD DESTINO" --> "CUADRO DE MANDO" : se envía
+
+TIEMPO -left-> PERSONA : afecta
+TIEMPO --> EDIFICIO : afecta
+
 @enduml
