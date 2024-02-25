@@ -1,0 +1,49 @@
+@startuml Diagrama_de_Clases
+
+title Diagrama de Clases
+
+class Edificio {
+    Plantas
+    Ascensores
+}
+
+class Ascensor {
+    Numero Ascensor
+    Capacidad Personas
+    Capacidad Peso
+    Ocupacion
+    Piso Actual
+    Piso Maximo
+    Piso Minimo
+    Estado Movimiento
+}   
+
+class Planta {
+    Piso
+    Personas Planta
+    Personas Esperando
+}
+
+class Trayecto {
+    Destino
+    Siguiente Parada
+}
+
+class Persona {
+    Identificador
+    Peso
+    Destino
+    Ubicación
+    Numero Ascensor
+}
+
+
+Persona --> Trayecto : Solicita
+Trayecto --> Ascensor : Maneja
+Ascensor --> Persona : Lleva
+Trayecto --> Planta : Tiene
+Edificio --> Ascensor : Tiene
+Edificio --> Planta : Tiene
+
+
+@enduml
