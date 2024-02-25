@@ -11,6 +11,7 @@ hide empty members
 class ASCENSOR 
 {
     ID
+    Posición
     Capacidad
     Dirección
     Acceso
