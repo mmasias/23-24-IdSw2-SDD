@@ -5,10 +5,10 @@ import Enums.Direction;
 public class Elevator {
 
     private int Id;
-    private int Capacity = 0;
-    private int CurrentFloor = 0;
-    private Direction CurrentDirection = Direction.STOP;
-    private boolean Access = true;
+    private int Capacity;
+    private int CurrentFloor;
+    private Direction CurrentDirection;
+    private boolean Access;
 
     public Elevator(int id, int capacity, int currentFloor) {
         Id = id;
