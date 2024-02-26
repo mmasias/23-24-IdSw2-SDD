@@ -1,0 +1,34 @@
+@startuml
+
+class Guerrero {
+  - Poder: 20 HP
+  - Ataque: 2
+  - Prob. éxito ataque: 50%
+  - Energía inicial (Reto ext.): 150
+  - Arma 1 (7, 50%)
+  - Arma 2 (15, 25%)
+  - Arma 3 (30, 12%)
+  - Defensa (Reto adicional 1): 80%
+  - Poción (Reto adicional 3)
+  + batalla()
+}
+
+class Vampiro {
+  - Poder: 10 HP
+  - Ataque: 4
+  - Prob. éxito ataque: 50%
+  - Energía inicial (Reto ext.): 60
+  - Ataque 1 (5, 90%)
+  - Ataque 2 (10, 60%)
+  - Ataque 3 (20, 40%)
+  + batalla()
+}
+
+class BatallaSimulador {
+  + simularBatalla(Guerrero, Vampiro)
+}
+
+Guerrero --> BatallaSimulador : usa
+Vampiro --> BatallaSimulador : usa
+
+@enduml
