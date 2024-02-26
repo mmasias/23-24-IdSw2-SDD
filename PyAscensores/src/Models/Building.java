@@ -1,56 +1,45 @@
 package Models;
+
 import java.util.List;
 
-public class Building 
-{
-    List<Floor>    _floor;
+public class Building {
+    List<Floor> _floor;
     List<Elevator> _elevator;
-    boolean        _access;
-    int            _capacity;
-    
-    //region Setters
-    public void SetCapacity(int capacity)
-    {
-        _capacity = capacity; 
+    boolean _access;
+    int _capacity;
+
+    public Building(List<Floor> floor, List<Elevator> elevator) {
+        _floor = floor;
+        _elevator = elevator;
+        _access = true;
     }
 
-    public void SetAccess(boolean access)
-    {
+    // region Setters
+    public void SetAccess(boolean access) {
         _access = access;
     }
 
-    public void SetFloors(List<Floor> floor)
-    {
+    public void SetFloors(List<Floor> floor) {
         _floor = floor;
     }
 
-    public void SetElevators(List<Elevator> elevator)
-    {
+    public void SetElevators(List<Elevator> elevator) {
         _elevator = elevator;
     }
-    //endregion
+    // endregion
 
-    //region Getters
-    public int GetCapacity()
-    {
-        return _capacity;
+    // region Getters
+    public boolean GetAccess() {
+        return _access;
     }
 
-    public boolean GetAccess()
-    {
-        return _capacity;
-    }
-
-    public List<Floor> GetFloors()
-    {
+    public List<Floor> GetFloors() {
         return _floor;
     }
 
-    public List<Elevator> GetElevators()
-    {
+    public List<Elevator> GetElevators() {
         return _elevator;
     }
 
-  
-    //endregion
+    // endregion
 }
