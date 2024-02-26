@@ -9,6 +9,12 @@ public class MapController {
     private List<String[]> mapData = new ArrayList<String[]>();
     private FileReaderController fileReaderController;
 
+    public MapController(Map map) {
+        this.map = map;
+    }
 
-    
+    public void loadMapData() {
+        
+    }
+
 }
