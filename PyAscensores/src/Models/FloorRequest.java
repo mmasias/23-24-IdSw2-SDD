@@ -1,5 +1,24 @@
 package Models;
 
-public class FloorRequest {
+import java.util.List;
 
+public class FloorRequest {
+    private List<Integer> destinations;
+
+    public FloorRequest(){} 
+
+    public void addFloorToDestinations(int floor){
+        destinations.add(floor);
+    }
+
+    public void removeFloorToDestinations(int floor){
+        if(destinations.contains(floor)){
+            destinations.remove(destinations.indexOf(floor));
+        }
+    }
+
+    public List<Integer> getDestinations(){
+        return destinations;
+    }
+    
 }
