@@ -1,0 +1,46 @@
+@startuml
+
+object Guerrero {
+  poder = 20
+  ataque = 2
+  probExitoAtaque = 0.5
+  energiaInicial = 150
+  arma1: Arma
+  defensa: Defensa
+  pocion: Pocion
+}
+
+object Vampiro {
+  poder = 10
+  ataque = 4
+  probExitoAtaque = 0.5
+  energiaInicial = 60
+  ataque1: Ataque
+}
+
+object Arma {
+  daño
+  probExito
+}
+
+object Defensa {
+  probExito = 0.8
+  reduccionAtaque = 5
+}
+
+object Pocion {
+  turnosEspera = 3
+  recuperacion = 150
+}
+
+object Ataque {
+  daño
+  probExito
+}
+
+Guerrero -- Arma
+Guerrero -- Defensa
+Guerrero -- Pocion
+
+Vampiro -- Ataque
+@enduml
