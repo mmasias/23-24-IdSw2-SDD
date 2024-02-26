@@ -1,0 +1,56 @@
+@startuml
+
+class Guerrero {
+  - poder: int = 20
+  - ataque: int = 2
+  - probExitoAtaque: double = 0.5
+  - energiaInicial: int = 150
+  - arma1: Arma
+  - arma2: Arma
+  - arma3: Arma
+  - defensa: Defensa
+  - pocion: Pocion
+  + batalla(vampiro: Vampiro): void
+  + defenderse(): void
+  + beberPocion(): void
+}
+
+class Vampiro {
+  - poder: int = 10
+  - ataque: int = 4
+  - probExitoAtaque: double = 0.5
+  - energiaInicial: int = 60
+  - ataque1: Ataque
+  - ataque2: Ataque
+  - ataque3: Ataque
+  + batalla(guerrero: Guerrero): void
+}
+
+class Arma {
+  - danio: int
+  - probExito: double
+}
+
+class Defensa {
+  - probExito: double = 0.8
+  - reduccionAtaque: int = 5
+}
+
+class Pocion {
+  - turnosEspera: int = 3
+  - recuperacion: int = 150
+}
+
+class Ataque {
+  - danio: int
+  - probExito: double
+}
+
+Guerrero --|> Arma
+Guerrero --|> Defensa
+Guerrero --|> Pocion
+Guerrero --|> Ataque
+
+Vampiro --|> Ataque
+
+@enduml
