@@ -1,0 +1,11 @@
+@startuml
+[*] --> CentroAbierto :Iniciar
+CentroAbierto --> CajaVacia
+CajaVacia --> CajaAtendiendo: Cliente llega
+CajaVacia--> CajaCerrada: Cerrar caja
+CajaAtendiendo --> CajaVacia: Cliente atendido
+CajaCerrada --> CajaVacia: Abrir caja
+CajaCerrada --> CentroCerrado
+CentroCerrado --> [*]: Finalizar
+
+@enduml

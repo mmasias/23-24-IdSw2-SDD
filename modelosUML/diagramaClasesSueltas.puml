@@ -1,0 +1,36 @@
+@startuml
+
+class ShoppingCenter {
+    - openingHour
+    - closingHour
+    - time
+    - arrivalProbability
+    - isOpen
+}
+
+class CashRegister {
+    - id
+    - customerQueue
+    - timePerItemPack
+}
+
+class Customer {
+    - id
+    - numberOfItemPacks
+}
+
+class Queue {
+    - numberOfCustomers
+}
+
+class Cashier {
+    - id
+    - name
+    - workShift
+    - rest
+}
+
+
+
+
+@enduml
