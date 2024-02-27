@@ -1,0 +1,14 @@
+@startuml
+title Caso de Uso - CustomerServed
+
+left to right direction
+actor Customer as cust
+
+rectangle "CustomerServed" {
+    usecase "Exit Shopping Center" as UC1
+    usecase "Continue Shopping" as UC2
+}
+
+cust --> UC1
+cust --> UC2
+@enduml

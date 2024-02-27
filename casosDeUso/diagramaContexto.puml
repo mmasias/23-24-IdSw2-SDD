@@ -19,14 +19,19 @@ note on link
   Register Customer Arrival
 end note
 
-CustomerArrived --> CustomerSelectedProducts
+CustomerArrived --> CustomerSelectingProducts
 note on link
   Select Products
 end note
 
-CustomerSelectedProducts --> CustomerWaiting
+CustomerSelectingProducts --> CustomerWaiting
 note on link
   Join Queue
+end note
+
+CustomerSelectingProducts -right-> CustomerSelectingProducts
+note on link
+  Continue Shopping
 end note
 
 CustomerWaiting --> CustomerServed
@@ -34,7 +39,7 @@ note on link
   Serve at Cash Register
 end note
 
-CustomerServed -right-> CustomerSelectedProducts
+CustomerServed -right-> CustomerSelectingProducts
 note on link
   Continue Shopping
 end note
@@ -44,15 +49,9 @@ note on link
   Exit Shopping Center
 end note
 
-CustomerWaiting -up-> CustomerAbandonedQueue
+CustomerWaiting -up-> ShoppingCenterOpened
 note on link
   Abandon Queue
-end note
-
-CustomerAbandonedQueue --> ShoppingCenterOpened
-note on link
-  Exit
-  Continue Shopping
 end note
 
 ShoppingCenterOpened --> ShoppingCenterClosed
