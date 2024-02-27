@@ -18,7 +18,5 @@ public enum Elements{
     
     public String getElement(){
         return value;
-    }
-    
+    }   
 }
-

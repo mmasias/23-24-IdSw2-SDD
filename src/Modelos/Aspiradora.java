@@ -1,25 +1,24 @@
-import java.util.Random;
-
 public class Aspiradora {
     private int pasosRealizados;
     private int bateria;
-    private int posicionX;
-    private int posicionY;
+    private Posicion posicion;
 
     public Aspiradora(int capacidadBolsa, int suciedadMaxima) {
         this.pasosRealizados = 0;
         this.bateria = 100;
     }
-    
+
+    public Posicion getPosicion(){
+        return posicion;
+    }
 
     public int getPasosRealizados( ) { 
-        return pasosRealizados;}
+        return pasosRealizados;
+    }
     
-   
     public int getBateria() {
         return bateria;
     }
-
     
     public void setPasosRealizados(int pasosRealizados) {
         this.pasosRealizados = pasosRealizados;
@@ -29,9 +28,7 @@ public class Aspiradora {
         this.bateria = bateria;
     }
     
-  
-    
-    public void limpiar(int pasos) {
+    /*public void limpiar(int pasos) {
         Random random = new Random();
         for (int i = 0; i < pasos; i++) {
         
@@ -42,5 +39,5 @@ public class Aspiradora {
                 break;  
             }
         }
-    }
+    }*/
 }
