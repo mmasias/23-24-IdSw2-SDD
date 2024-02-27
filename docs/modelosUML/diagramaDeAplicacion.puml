@@ -1,0 +1,37 @@
+@startuml ModeloDeDominio-PyMundo
+
+class World{
+}
+
+class Time {
+}
+
+class Map{
+}
+
+class Tile {
+}
+
+abstract class Entity {
+}
+
+abstract class Character {
+}
+
+class PlayableCharacter{
+}
+class NonPlayableCharacter {
+}
+
+class Transport {
+}
+
+World --> Map
+World --> Entity
+World --> Time
+Map --> Tile
+Entity <|-- Character
+Character --> Transport
+Character <|-- PlayableCharacter
+Character <|-- NonPlayableCharacter
+@enduml

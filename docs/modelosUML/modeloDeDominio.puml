@@ -1,0 +1,32 @@
+@startuml
+class mundo{
++ tiempo
++ personajes
++ mapa
+}
+class mapa{
+ + tiles
+}
+class tiles{
+ + efectoEnVelocidad
+}
+abstract class personaje {
++ velocidad
++ transporteEnUso
++ posición
+}
+class transporte{
+ + tilesPasables
+ + efectoEnVelocidad
+}
+class jugable{}
+class npc{}
+
+mundo -- mapa
+mapa -- tiles
+mundo .. personaje
+tiles -- transporte
+transporte -- personaje
+personaje -- jugable
+personaje -- npc
+@enduml
