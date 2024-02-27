@@ -1,17 +1,10 @@
 @startuml
-[*] --> ShoppingCenterClosed : Start of Day
-
-ShoppingCenterClosed --> ShoppingCenterOpened : Shopping Center Opens
-ShoppingCenterOpened --> CashRegisterEmpty : Initialize Cash Registers
-
+[*] --> CenterOpened : Start
+CenterOpened --> CashRegisterEmpty
 CashRegisterEmpty --> CashRegisterServing : Customer Arrives
-CashRegisterServing --> CashRegisterEmpty : Last Customer Served\nNo Queue
-CashRegisterServing --> CashRegisterServing : Customer Served\nNext in Queue
-
-CashRegisterEmpty --> CashRegisterClosed : No Customers\nEnd of Shift
-CashRegisterClosed --> CashRegisterEmpty : Shift Starts\nCustomers Waiting
-
-CashRegisterClosed --> ShoppingCenterClosed : Shopping Center Closes\nEnd of Day
-
-ShoppingCenterClosed --> [*] : End of Day
+CashRegisterEmpty --> CashRegisterClosed : Close Cash Register
+CashRegisterServing --> CashRegisterEmpty : Customer Served
+CashRegisterClosed --> CashRegisterEmpty : Open Cash Register
+CashRegisterClosed --> CenterClosed 
+CenterClosed --> [*] : End
 @enduml

@@ -31,15 +31,15 @@ class Cashier {
 }
 
 
-ShoppingCenter -- CashRegister: has
-ShoppingCenter -- Customer: receives
-ShoppingCenter -- Cashier: has
+ShoppingCenter -- CashRegister
+ShoppingCenter -- Customer
+ShoppingCenter -- Cashier
 
-Cashier -- CashRegister: serves at
+Cashier -- CashRegister
 
-Customer -- Queue: waits in
+Customer -- Queue
 
-Queue -- CashRegister: delivers a customer to
-Customer -- CashRegister: is served at
+Queue -- CashRegister
+Customer -- CashRegister
 
 @enduml

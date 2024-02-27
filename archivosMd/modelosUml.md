@@ -1,12 +1,17 @@
 # Modelo del dominio
 
+
 ## - Diagrama de Clases
 
-Diagrama que muestra las distintas entidades que forman el centro comercial y sus cajas.
 
-| ![Clases](/images/modelosUML/diagramaCLases.svg) | 
-|  :-----------------------------------------------: |
-|      [Código](/modelosUML/diagramaClases.puml)     |
+  | Paso                                                                  |                         Detalle                         |
+| --------------------------------------------------------------------- | :-----------------------------------------------------: |
+| 1. Listamos las clases principales.                       | ShoppingCenter , CashRegister, Customer,  Queue, Cashier.
+| 2. Las representamos en un modelo de dominion inicial con sus atributos.                 |          ![](/images/modelosUML/diagramaClasesSueltas.svg)           |
+| 3. gestionar las relaciones entre las diferentes clases.  |          ![](/images/modelosUML/diagramaClasesRelacionadas.svg)           |
+
+
+- [Codigo PUML](/modelosUML/diagramaClasesRelacionadas.puml)
 
 ## - Diagrama de Estados
 
