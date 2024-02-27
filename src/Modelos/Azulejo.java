@@ -1,7 +1,7 @@
 public class Azulejo{
     private TipoSuciedad nivelSuciedad;
     private Posicion posicion;
-    private Elemento elemento;
+    private Elemento elemento = null;
 
     public Azulejo(TipoSuciedad nivelSuciedad, Posicion posicion) {
         this.nivelSuciedad = nivelSuciedad;

@@ -1,16 +1,15 @@
-public abstract class Elemento<T> {
+public abstract class Elemento {
+    private Posicion posicion;
 
-    private T elemento;
-
-    public Elemento(T elemento) {
-        this.elemento = elemento;
+    public Elemento(Posicion posicion) {
+        this.posicion = posicion;
     }
 
-    public T getElemento() {
-        return elemento;
+    public Posicion getPosicion() {
+        return posicion;
     }
 
-    public void setElemento(T elemento) {
-        this.elemento = elemento;
+    public void setPosicion(Posicion posicion) {
+        this.posicion = posicion;
     }
 }
