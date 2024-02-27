@@ -1,5 +1,3 @@
-package models;
-
 public class Tile {
     private TileTypes type;
 

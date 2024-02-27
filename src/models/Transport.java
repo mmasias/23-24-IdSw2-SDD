@@ -1,5 +1,3 @@
-package models;
-
 public class Transport {
     private TransportTypes type;
 

@@ -1,5 +1,3 @@
-package models;
-
 public enum TileTypes {
     Floor(1, "Color1", "Symbol1"),
     Sand(1, "Color2", "Symbol2"),
