@@ -1,4 +1,6 @@
-package models;
+package Models;
+
+import Utils.TileTypes;
 
 public class Tile {
     private TileTypes type;

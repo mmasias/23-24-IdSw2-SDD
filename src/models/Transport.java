@@ -1,4 +1,6 @@
-package models;
+package Models;
+
+import Utils.TransportTypes;
 
 public class Transport {
     private TransportTypes type;

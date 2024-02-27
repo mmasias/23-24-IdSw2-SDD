@@ -1,0 +1,281 @@
+@startuml ClasesPracticas-PyMundo
+
+class App {
+    MapController mapController
+    WorldController worldController
+    WorldView worldView
+    World world
+}
+
+enum TileTypes {
+    Floor
+    Sand
+    Wall
+    ShortGrass
+    MediumGrass
+    TallGrass
+    Water
+    DeepWater
+    Mountain
+
+    - int tileNumber
+    - String asciiColor
+    - String asciiSymbol
+
+    + getTileNumber()
+    + getAsciiColor()
+    + getAsciiSymbol()
+}
+
+enum Movement {
+    UP
+    DOWN
+    LEFT
+    RIGHT
+
+    - char key
+
+    + getKey()
+}
+
+enum TimesOfDay {
+    Morning
+    Afternoon
+    Evening
+    Night
+}
+
+enum TransportTypes {
+    Foot
+    Horse
+    Boat
+    MagicCarpet
+
+    - int speed
+    - String asciiSymbol
+    - TileTypes tilesItCanMoveThrough
+
+    + getSpeed()
+    + getAsciiSymbol()
+    + getTilesItCanMoveThrough()
+}
+
+class Point {
+    - int x
+    - int y
+
+    + getX()
+    + getY()
+
+    + setX()
+    + setY()
+
+    + toString()
+}
+
+
+
+package Models {
+    class World{
+        - Map map
+        - Entity[] entities
+        - Time time
+
+        + getMap()
+        + getEntities()
+        + getTime()
+
+        + setMap()
+        + setEntities()
+        + setTime()
+    }
+
+    class Time {
+        - TimesOfDay timeOfDay
+        - int currentTime
+
+        + getTimeOfDay()
+        + getCurrentTime()
+
+        + setTimeOfDay()
+        + setCurrentTime()
+    }
+
+    class Map{
+        + Tile[][] tiles
+    }
+
+    class Tile {
+        - TileTypes type
+
+        + getType()
+        + getAsciiSymbol()
+        + getAsciiColor()
+
+        + setType()
+    }
+
+    abstract class Entity {
+        - Point position
+
+        + getPosition()
+        + getX()
+        + getY()
+
+        + setPosition()
+    }
+
+    abstract class Character {
+        - Transport transportInUse
+        - Transport[] avaiableTransports
+
+        + getTransportInUse()
+        + getAvaiableTransports()
+
+        + setTransportInUse()
+        + setAvaiableTransports()
+    }
+
+    class PlayableCharacter{
+    }
+    class NonPlayableCharacter {
+    }
+
+    class Transport {
+        - TransportTypes type
+
+        + getType()
+        + getSpeed()
+        + getAsciiSymbol()
+    }
+
+}
+
+class WorldController {
+    - World world
+    - TimeController timeController
+    - MovementController movementController
+
+    + simulateWorldCycle()
+    + setWorldEntities()
+    + setWorldTime()
+}
+
+class FileReaderController {
+    - String filePath
+
+    + readCSV()
+}
+
+class MapController {
+    - Map map
+    - List<String[]> mapData
+    - FileReaderController fileReaderController
+
+    + loadMapData()
+    + createMap()
+    + getMap()
+}
+
+
+class InputController {
+    - Scanner scanner
+
+    + getUppercaseChar()
+}
+
+class RandomMovementController {
+    - Random random
+
+    + getRandomMovement()
+}
+
+class MovementController {
+    - Map map
+
+    + moveCharacter()
+    - getMovementFromInput()
+    - calculateNewPosition()
+    - adjustPositionWithinBounds()
+    - isPositionValid()
+}
+
+class CharacterController {
+    - Character character
+
+    + updateTransportInUse()
+    + moveCharacter()
+}
+
+class TimeController {
+    - Time time
+
+    + advanceTime()
+    - updateTimeOfDay()
+    + resetTime()
+}
+
+package View {
+    class WorldView {
+        + displayWorld()
+
+        - displayTime()
+        - formatTime()
+        - displayMap()
+        + cleanScreen()
+    }
+}
+
+class EntityFactory {
+    + createPlayableCharacter()
+    + createNonPlayableCharacter()
+}
+
+class TileFactory {
+    + createTile()
+}
+
+class TransportFactory {
+    + createTransport()
+}
+
+package Data {
+    File WorldData {
+    }
+}
+
+World --> Map
+World --> Entity
+World --> Time
+Map --> Tile
+Tile --> TileTypes
+Entity <|-- Character
+Character --> Transport
+Character <|-- PlayableCharacter
+Character <|-- NonPlayableCharacter
+Transport --> TransportTypes
+TransportTypes --> TileTypes
+Entity --> Point
+Time --> TimesOfDay
+MovementController --> Movement
+FileReaderController --> WorldData
+MovementController --> InputController
+MovementController --> RandomMovementController
+MovementController --> CharacterController
+MovementController --> MapController
+CharacterController --> Character
+MapController --> Map
+MapController --> FileReaderController
+MapController --> TileFactory
+TimeController --> Time
+WorldController --> World
+WorldController --> TimeController
+WorldController --> MovementController
+WorldView --> World
+
+App --> WorldController
+App --> WorldView
+App --> EntityFactory
+App --> TransportFactory
+
+@enduml
