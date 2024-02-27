@@ -1,6 +1,7 @@
 public class Azulejo{
     private TipoSuciedad nivelSuciedad;
     private Posicion posicion;
+    private Elemento elemento;
 
     public Azulejo(TipoSuciedad nivelSuciedad, Posicion posicion) {
         this.nivelSuciedad = nivelSuciedad;
@@ -21,5 +22,13 @@ public class Azulejo{
 
     public void setPosicion(Posicion posicion) {
         this.posicion = posicion;
+    }
+
+    public Elemento getElemento() {
+        return elemento;
+    }
+
+    public void setElemento(Elemento elemento) {
+        this.elemento = elemento;
     }
 }
