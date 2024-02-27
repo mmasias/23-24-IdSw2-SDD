@@ -10,10 +10,49 @@
 
 ### Actores
 
+- Customer
+- Employee
+
 ### Casos de uso
 
----
+#### - Shopping Center Closed
+
+|                                               |                                                   |
+| --------------------------------------------- | ------------------------------------------------- |
+| ![](../images/casosDeUso/casoUsoSCClosed.svg) | [Código PUML](../casosDeUso/casoUsoSCClosed.puml) |
+
+#### - Shopping Center Opened
+
+|                                               |                                                   |
+| --------------------------------------------- | ------------------------------------------------- |
+| ![](../images/casosDeUso/casoUsoSCOpened.svg) | [Código PUML](../casosDeUso/casoUsoSCOpened.puml) |
+
+#### - Customer Arrived
+
+|                                                  |                                                      |
+| ------------------------------------------------ | ---------------------------------------------------- |
+| ![](../images/casosDeUso/casoUsoCustArrived.svg) | [Código PUML](../casosDeUso/casoUsoCustArrived.puml) |
+
+#### - Customer Selecting Products
+
+|                                                         |                                                             |
+| ------------------------------------------------------- | ----------------------------------------------------------- |
+| ![](../images/casosDeUso/casoUsoCustSelectingProds.svg) | [Código PUML](../casosDeUso/casoUsoCustSelectingProds.puml) |
+
+#### - Customer Waiting
+
+|                                                  |                                                      |
+| ------------------------------------------------ | ---------------------------------------------------- |
+| ![](../images/casosDeUso/casoUsoCustWaiting.svg) | [Código PUML](../casosDeUso/casoUsoCustWaiting.puml) |
+
+#### - Customer Served
+
+|                                                 |                                                     |
+| ----------------------------------------------- | --------------------------------------------------- |
+| ![](../images/casosDeUso/casoUsoCustServed.svg) | [Código PUML](../casosDeUso/casoUsoCustServed.puml) |
 
 ## Diagrama de Contexto
 
-| ![]() | [Código PUML]() |
+|                                                |                                                    |
+| ---------------------------------------------- | -------------------------------------------------- |
+| ![](../images/casosDeUso/diagramaContexto.svg) | [Código PUML](../casosDeUso/diagramaContexto.puml) |
