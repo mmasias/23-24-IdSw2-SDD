@@ -36,11 +36,6 @@ class Defensa {
   - reduccionAtaque: int = 5
 }
 
-class Pocion {
-  - turnosEspera: int = 3
-  - recuperacion: int = 150
-}
-
 class Ataque {
   - danio: int
   - probExito: double
@@ -48,7 +43,6 @@ class Ataque {
 
 Guerrero --|> Arma
 Guerrero --|> Defensa
-Guerrero --|> Pocion
 Guerrero --|> Ataque
 
 Vampiro --|> Ataque
