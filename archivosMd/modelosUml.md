@@ -12,14 +12,14 @@ Diagrama que muestra las distintas entidades que forman el centro comercial y su
 
 Diagrama que refleja los distintos estados, del centro comercial y sus cajas.
 
- | ![Estados](/images/modelosUML/diagramaEstadosCentro.svg) |
+ | ![Estados](/images/modelosUML/diagramaEstados.svg) |
  |  :-------------------------------------------------: |
- |      [Código](/modelosUML/diagramaEstadosCentro.puml)      |
+ |      [Código](/modelosUML/diagramaEstados.puml)      |
 
 ## - Diagrama de Objetos
 
+Diagrama que muestra un ejemplo del funcionamiento del sistema.
 
-
-| ![Clases]() |
+| ![Clases](/images/modelosUML/diagramaObjetos.svg) |
 | :-------------------------------------------------: |
-|     [Código]()      |
+|     [Código](/modelosUML/diagramaObjetos.puml)      |

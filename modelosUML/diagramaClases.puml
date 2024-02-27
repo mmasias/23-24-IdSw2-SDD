@@ -27,7 +27,7 @@ class Cashier {
     - id
     - name
     - workShift
-    - break
+    - rest
 }
 
 
