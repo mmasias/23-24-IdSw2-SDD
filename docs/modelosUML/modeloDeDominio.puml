@@ -1,32 +1,37 @@
-@startuml
-class mundo{
-+ tiempo
-+ personajes
-+ mapa
-}
-class mapa{
- + tiles
-}
-class tiles{
- + efectoEnVelocidad
-}
-abstract class personaje {
-+ velocidad
-+ transporteEnUso
-+ posición
-}
-class transporte{
- + tilesPasables
- + efectoEnVelocidad
-}
-class jugable{}
-class npc{}
+@startuml ModeloDeDominio-PyMundo
 
-mundo -- mapa
-mapa -- tiles
-mundo .. personaje
-tiles -- transporte
-transporte -- personaje
-personaje -- jugable
-personaje -- npc
+class World{
+}
+
+class Time {
+}
+
+class Map{
+}
+
+class Tile {
+}
+
+abstract class Entity {
+}
+
+abstract class Character {
+}
+
+class PlayableCharacter{
+}
+class NonPlayableCharacter {
+}
+
+class Transport {
+}
+
+World --> Map
+World --> Entity
+World --> Time
+Map --> Tile
+Entity <|-- Character
+Character --> Transport
+Character <|-- PlayableCharacter
+Character <|-- NonPlayableCharacter
 @enduml
