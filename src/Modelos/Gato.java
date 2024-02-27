@@ -1,12 +1,13 @@
-package Gato;
-
-import java.util.Random;
-
 public class Gato {
     private int pasos;
+    private Posicion posicion;
 
     public Gato (){
         this.pasos = 0;
+    }
+
+    public Posicion getPosicion(){
+        return posicion;
     }
 
     public int getPasos(){
@@ -17,7 +18,7 @@ public class Gato {
         this.pasos = pasos;
     }
 
-    public void pasear(Matriz superficie){
+    /*public void pasear(Matriz superficie){
         Random random = new Random();
 
         int pasos = 25; 
@@ -32,8 +33,5 @@ public class Gato {
             pasos --;
         }
         this.pasos = 25;
-    }
-
-    
+    }*/
 }
-
