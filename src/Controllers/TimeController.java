@@ -36,16 +36,17 @@ public class TimeController {
 
     private void updateTimeOfDay() {
 
+        int currentTime = time.getCurrentTime();
 
-        if (time.getCurrentTime >= 600 || time.getCurrentTime <= 1200) {
+        if (currentTime >= 600 || currentTime <= 1200) {
 
             time.setTimeOfDay(TimesOfDay.Morning);
 
-        }else if (time.getCurrentTime >= 1215 || time.getCurrentTime <= 1600) {
+        }else if (currentTime >= 1215 || currentTime <= 1600) {
 
             time.setTimeOfDay(TimesOfDay.Afternoon);    
 
-        }else if (time.getCurrentTime >= 1615 || time.getCurrentTime <= 2200) {
+        }else if (currentTime >= 1615 || currentTime <= 2200) {
 
           time.setTimeOfDay(TimesOfDay.Evening);    
 
