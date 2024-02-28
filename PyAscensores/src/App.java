@@ -8,15 +8,15 @@ public class App {
     public static void main(String[] args) {
         ArrayList<Elevator> elevators = new ArrayList<Elevator>();
         elevators.add(new Elevator(0, 6, 3));
-        elevators.add(new Elevator(0, 6, 5));
-        elevators.add(new Elevator(0, 6, 5));
-        elevators.add(new Elevator(0, 6, 5));
+        elevators.add(new Elevator(1, 6, 5));
+        elevators.add(new Elevator(2, 6, 5));
+        elevators.add(new Elevator(3, 6, 5));
 
         elevators.get(0).setDirection(Direction.UP);
 
         ArrayList<String[]> screen = new ArrayList<String[]>();
         for (Elevator e : elevators) {
-            String eView = ElevatorView.render(e);
+            String eView = ElevatorView.render(e, 6);
             String eViewSplit[] = eView.split("\n");
             screen.add(eViewSplit);
         }
