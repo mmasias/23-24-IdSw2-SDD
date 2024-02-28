@@ -1,0 +1,46 @@
+@startuml Registro de un fichaje
+
+object "Mundo1: world" as mundo{
+    Map: Mapa1
+    nonPlayableCharacter= ["Bob Esponja","gato1"]  
+    PlayableCharacter = "Juanjo"
+    Time= "10:30"
+}
+
+object "10:30 : Time" as tiempo{
+    timesOfDay= "2024/2/28"
+    currentTime="10:30"
+}
+
+object "Mapa1: map" as mapa{
+    tile = "Cesped_Bajo"
+    tiles= {"Suelo", "Arena", "Paredes", "Cesped bajo",...} 
+}
+object "Bob Esponja: nonPlayableCharacter" as bob{
+    pointPosition: (100,20)
+    transport: boat
+}
+object "gato1: nonPlayableCharacter" as gato{
+    pointPosition: (160,80)
+    transport: null
+}
+object "Juanjo: PlayableCharacter " as juanjo{
+    pointPosition: (170,30)
+    transport: "horse"
+    transports: {"walk", "boat",...}
+}
+object "Tiles: Tiles" as tiles{
+    tiles: {"floor", "sand", "wall", "low grass", "medium grass", "high grass"...}
+}
+object "Transport: Transport" as transport{
+    transports: {"walk", "boat", "Flying carpet", "horse"}
+}
+
+mundo-- tiempo
+mundo-- mapa
+mundo-- bob
+mundo-- gato
+mundo-- juanjo
+mundo-- tiles
+mundo-- transport
+@enduml
