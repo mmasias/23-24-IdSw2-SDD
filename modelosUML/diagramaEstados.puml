@@ -1,0 +1,13 @@
+@startuml
+
+title Diagrama de Estados - Heroe vs. Vampiro
+
+[*] --> TurnoHeroe : Iniciar Juego
+
+TurnoHeroe -l--> TurnoVillano : Escoje Movida
+TurnoHeroe --> [*] : Muere Villano
+
+TurnoVillano -l--> TurnoHeroe : Movida
+TurnoVillano --> [*] : Muere Heroe
+
+@enduml
