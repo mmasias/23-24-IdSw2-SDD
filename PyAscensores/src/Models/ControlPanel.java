@@ -1,5 +1,7 @@
 package Models;
 
+import java.util.List;
+
 public class ControlPanel {
     private List<Integer> floorsToStop;
     private List<Integer> floorsToGo;
