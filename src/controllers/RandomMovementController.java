@@ -1,6 +1,6 @@
-package controllers;
+package Controllers;
 
-import utils.Movement;
+import Utils.Movement;
 
 import java.util.Random;
 

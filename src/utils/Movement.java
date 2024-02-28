@@ -1,4 +1,4 @@
-package utils;
+package Utils;
 
 public enum Movement {
     UP('W'), DOWN('S'), LEFT('A'), RIGHT('D');
