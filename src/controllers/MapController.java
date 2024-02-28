@@ -20,7 +20,7 @@ public class MapController {
     public MapController(Models.Map map2) {
         this.map = map2;
         mapData = new ArrayList<>();
-        fileReaderController = new FileReaderController();
+        fileReaderController = new FileReaderController("path");
     }
 
     public void loadMapData() {

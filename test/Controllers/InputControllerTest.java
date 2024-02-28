@@ -22,7 +22,7 @@ public class InputControllerTest {
         ByteArrayInputStream in = new ByteArrayInputStream(String.valueOf(letraIngresada).getBytes());
         System.setIn(in);
 
-        char resultadoObtenido = inputController.getUpperCaseChar();
+        char resultadoObtenido = inputController.getUpperCaseChar(letraIngresada);
 
         System.setIn(sysInBackup);
 

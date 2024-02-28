@@ -1,6 +1,6 @@
 package Models;
 
-import utils.TimesOfDay;
+import Utils.TimesOfDay;
 
 public class Time {
     private TimesOfDay timeOfDay;

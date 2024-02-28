@@ -8,8 +8,12 @@ class FileReaderController {
 
     private String filePath;
 
-    public FileReaderController() {
+    public FileReaderController(String filePath) {
+        this.filePath = filePath;
+    }
 
+    public void setFilePath(String path) {
+        this.filePath = path;
     }
 
     public List<String[]> readCSV() {
@@ -29,6 +33,8 @@ class FileReaderController {
                 count++;
                 character = fr.read();
             }
+
+            System.out.println(listTiles);
         } catch (FileNotFoundException e) {
 
             System.out.println("File not found");

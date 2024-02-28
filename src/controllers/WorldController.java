@@ -1,5 +1,8 @@
 package Controllers;
 
+import Models.Character;
+import Models.Entity;
+import Models.Time;
 import Models.World;
 
 import java.util.ArrayList;
@@ -27,10 +30,10 @@ public class WorldController {
     }
 
     public void simulateWorldCycle() {
-        timeController.advanceTime();
+        timeController.advanceTime(15);
 
         for (Entity entity : world.getEntities()) {
-            movementController.moveCharacter(entity);
+            movementController.moveCharacter((Character) entity);
         }
     }
 
@@ -38,7 +41,7 @@ public class WorldController {
         world.setEntities(entities);
     }
 
-    public void setWorldTime(long currentTimeMillis) {
-        timeController.setCurrentTime(currentTimeMillis);
+    public void setWorldTime(Time time) {
+        world.setTime(time);
     }
 }

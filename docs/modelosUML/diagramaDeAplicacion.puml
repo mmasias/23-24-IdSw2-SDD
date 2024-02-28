@@ -191,8 +191,6 @@ class RandomMovementController {
 }
 
 class MovementController {
-    - Map map
-
     + moveCharacter()
     - getMovementFromInput()
     - calculateNewPosition()
@@ -262,7 +260,6 @@ FileReaderController --> WorldData
 MovementController --> InputController
 MovementController --> RandomMovementController
 MovementController --> CharacterController
-MovementController --> MapController
 CharacterController --> Character
 MapController --> Map
 MapController --> FileReaderController
@@ -277,5 +274,6 @@ App --> WorldController
 App --> WorldView
 App --> EntityFactory
 App --> TransportFactory
+App --> MapController
 
 @enduml

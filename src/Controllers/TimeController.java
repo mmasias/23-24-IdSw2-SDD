@@ -1,72 +1,49 @@
-package controllers;
+package Controllers;
 
 import Models.Time;
+import Utils.TimesOfDay;
 
 public class TimeController {
-    private Time time;
+    private final Time time;
 
     public TimeController(Time time) {
         this.time = time;
     }
 
-    public void advanceTime() {
 
-     int currentTime = time.getCurrentTime();
-        int minutes = currentTime % 100; 
-        int hours = currentTime / 100; 
+    public void advanceTime(int minutes) {
+        int newTime = time.getCurrentTime() + minutes;
+        int hours = newTime / 100;
+        int mins = newTime % 100;
 
-        
-        minutes += 15;
-        if (minutes >= 60) {
-         
-            hours++;
-            minutes = 0;
-        }
-        
-       
-        if (hours > 23) {
-            hours = 0;
+        if (mins >= 60) {
+            hours += mins / 60;
+            mins = mins % 60;
         }
 
-      
-        time.setCurrentTime(hours * 100 + minutes);
+        hours = hours % 24;
+        newTime = hours * 100 + mins;
+
+        time.setCurrentTime(newTime);
+        updateTimesOfDay();
     }
-        
-    }
-
-    private void updateTimeOfDay() {
-
-        int currentTime = time.getCurrentTime();
-
-        if (currentTime >= 600 || currentTime <= 1200) {
-
-            time.setTimeOfDay(TimesOfDay.Morning);
-
-        }else if (currentTime >= 1215 || currentTime <= 1600) {
-
-            time.setTimeOfDay(TimesOfDay.Afternoon);    
-
-        }else if (currentTime >= 1615 || currentTime <= 2200) {
-
-          time.setTimeOfDay(TimesOfDay.Evening);    
-
-        }else {time.setTimeOfDay(TimesOfDay.Night);}
-
-
-    }
-    
 
     public void resetTime() {
+        time.setCurrentTime(0);
+        updateTimesOfDay();
+    }
 
+    private void updateTimesOfDay() {
         int currentTime = time.getCurrentTime();
-
-        if  (time.getCurrentTime >2345) {
-
-            time.setCurrentTime(0)
-
-
+        if (currentTime >= 0 && currentTime < 600) {
+            time.setTimeOfDay(TimesOfDay.Night);
+        } else if (currentTime >= 600 && currentTime < 1200) {
+            time.setTimeOfDay(TimesOfDay.Morning);
+        } else if (currentTime >= 1200 && currentTime < 1800) {
+            time.setTimeOfDay(TimesOfDay.Afternoon);
+        } else if (currentTime >= 1800 && currentTime <= 2359) {
+            time.setTimeOfDay(TimesOfDay.Evening);
         }
-
-        
     }
 }
+
