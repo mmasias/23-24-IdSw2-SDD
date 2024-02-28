@@ -7,7 +7,7 @@ import java.util.Random;
 public class RandomMovementController {
     Random random = new Random();
     int randomNumber = random.nextInt(4);
-    public void getRandomMovement(){
+    public char getRandomMovement(){
         switch (randomNumber){
             case 0:
                 System.out.println(Movement.UP.getKey());
@@ -22,9 +22,6 @@ public class RandomMovementController {
                 System.out.println(Movement.RIGHT.getKey());
                 break;
         }
-    }
-
-    public static void main(String[] args) {
-        new RandomMovementController().getRandomMovement();
+        return 4;
     }
 }

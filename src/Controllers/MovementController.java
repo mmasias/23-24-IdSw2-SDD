@@ -5,5 +5,7 @@ public class MovementController {
     private void getMovementFromInput(){}
     private void calculateNewPosition(){}
     private void adjustPositionWithinBounds(){}
-    private void isPositionValid(){}
+    private boolean isPositionValid(){
+        return true;
+    }
 }

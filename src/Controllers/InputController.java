@@ -3,12 +3,10 @@ package Controllers;
 import java.util.Scanner;
 
 public class InputController {
-    static Scanner inputDirection = new Scanner(System.in);
-    public char getUpperCaseChar(char inputDirection){
-        return Character.toUpperCase(inputDirection);
-    }
-    public static void main(String[] args) {
-        InputController inputController = new InputController();
-        System.out.println(inputController.getUpperCaseChar(inputDirection.next().charAt(0)));
+    public char getUpperCaseChar(){
+        Scanner inputDirection = new Scanner(System.in);
+        char inputChar = inputDirection.next().charAt(0);
+        inputDirection.close();
+        return Character.toUpperCase(inputChar);
     }
 }
