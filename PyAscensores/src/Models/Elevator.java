@@ -6,6 +6,7 @@ public class Elevator implements IModel {
 
     private int Id;
     private int Capacity;
+    private int PeopleInside;
     private int CurrentFloor;
     private Direction CurrentDirection;
     private boolean Access;
@@ -16,6 +17,7 @@ public class Elevator implements IModel {
         CurrentFloor = currentFloor;
         CurrentDirection = Direction.STOP;
         Access = true;
+        PeopleInside = 0;
     }
 
     public int getId() {
@@ -52,6 +54,14 @@ public class Elevator implements IModel {
 
     public void setAccess(boolean access) {
         Access = access;
+    }
+
+    public int getPeopleInside() {
+        return PeopleInside;
+    }
+
+    public void setPeopleInside(int peopleInside) {
+        PeopleInside = peopleInside;
     }
 
 }

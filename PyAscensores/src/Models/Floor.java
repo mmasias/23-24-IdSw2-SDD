@@ -6,11 +6,11 @@ public class Floor implements IModel {
     String id;
     List<Person> people;
     List<Person> waitingPeople;
-    boolean acces;
+    boolean access;
 
-    public Floor(String id, boolean acces, List<Person> people, List<Person> waitingPeople) {
+    public Floor(String id, boolean access, List<Person> people, List<Person> waitingPeople) {
         this.id = id;
-        this.acces = acces;
+        this.access = access;
         this.people = people;
         this.waitingPeople = waitingPeople;
 
@@ -29,11 +29,11 @@ public class Floor implements IModel {
     }
 
     public boolean getAccess() {
-        return acces;
+        return access;
     }
 
     public void setAcces(boolean acces) {
-        this.acces = acces;
+        this.access = acces;
     }
 
     public void setPeople(List<Person> people) {
