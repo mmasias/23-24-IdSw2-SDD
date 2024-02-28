@@ -3,7 +3,6 @@
 title Diagrama de Objetos de la Aspiradora
 
 object "habitacion: salon" as habitacion{
-    
 
 }
 object "azulejo1 : sofa" as azulejo1{
