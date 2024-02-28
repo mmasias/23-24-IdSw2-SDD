@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 public class MovementController {
     public void moveCharacter(){}
