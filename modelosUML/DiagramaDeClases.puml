@@ -22,13 +22,13 @@ class Gato {
 
 }
 
-class Bateria { 
+class Posicion { 
 }
 
 Habitacion -- Azulejo
 Azulejo -- Aspiradora
 Azulejo--Elementos 
 Azulejo -- Gato
-Aspiradora -- Bateria
+Azulejo -- Posicion
 
 @enduml

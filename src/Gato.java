@@ -18,7 +18,7 @@ public class Gato {
         this.pasos = pasos;
     }
 
-    /*public void pasear(Matriz superficie){
+    /*public void pasear(Habitacion superficie){
         Random random = new Random();
 
         int pasos = 25; 

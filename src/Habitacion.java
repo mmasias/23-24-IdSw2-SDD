@@ -6,7 +6,6 @@ public class Habitacion {
         this.matriz = matrix;
     }
 
-    public int[][] getMatriz() {
-        return matriz;
-    }
+
+
 }
