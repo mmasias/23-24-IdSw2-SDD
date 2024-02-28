@@ -16,19 +16,13 @@ RecibeAtaqueVampiro --> SeleccionArma: Héroe elige arma nuevamente
 AtaqueHeroe --> HeroeDesmayado: Energía Héroe < 30
 AtaqueVampiro --> VampiroDesmayado: Energía Vampiro < 20
 
-HeroeDesmayado --> RecuperacionHeroe: Recupera 2 puntos de energía por turno
-VampiroDesmayado --> RecuperacionVampiro: Recupera 2 puntos de energía por turno
-RecuperacionHeroe --> SeleccionArma: Energía Héroe >= 30
-RecuperacionVampiro --> AtaqueVampiro: Energía Vampiro >= 20
-
-SeleccionArma --> UsoPocion: Héroe usa poción
-UsoPocion --> EsperaPocion: Espera 3 turnos
+SeleccionArma --> EsperaPocion: Héroe usa poción
 EsperaPocion --> RecibeAtaque: Héroe recibe ataques durante espera
 EsperaPocion --> RecuperacionTotalHeroe: Finaliza espera
 
 RecibeAtaque --> FinVampiroGana: Héroe HP <= 0
 RecibeAtaqueVampiro --> FinHeroeGana: Vampiro HP <= 0
-RecuperacionTotalHeroe --> SeleccionArma: Héroe recupera toda su energía
+
 
 FinHeroeGana --> [*]
 FinVampiroGana --> [*]

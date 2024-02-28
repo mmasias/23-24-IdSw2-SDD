@@ -28,7 +28,7 @@ class BatallaSimulador {
   + simularBatalla(Guerrero, Vampiro)
 }
 
-Guerrero --> BatallaSimulador : usa
-Vampiro --> BatallaSimulador : usa
+BatallaSimulador --> Guerrero : usa
+BatallaSimulador --> Vampiro : usa
 
 @enduml
