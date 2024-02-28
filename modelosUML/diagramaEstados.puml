@@ -1,0 +1,15 @@
+@startuml
+
+title Diagrama de Estados - Heroe vs. Vampiro
+state c <<choice>>
+
+[*] -d-> TurnoHeroe : Iniciar Juego
+
+TurnoHeroe -r--> c : Acción
+TurnoVillano -l--> c : Acción
+
+c -l--> TurnoHeroe : Desición
+c -r--> TurnoVillano : Desición
+c -d-> [*] : Muere Heroe\nMuere Villano
+
+@enduml
