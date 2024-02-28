@@ -1,6 +1,6 @@
 package Models;
 
-public class Person {
+public class Person implements IModel {
     private int timeOnFloor;
     private int position;
     private int destination;

@@ -2,7 +2,7 @@ package Models;
 
 import Enums.Direction;
 
-public class Elevator {
+public class Elevator implements IModel {
 
     private int Id;
     private int Capacity;

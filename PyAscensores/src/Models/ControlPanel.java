@@ -2,7 +2,7 @@ package Models;
 
 import java.util.List;
 
-public class ControlPanel {
+public class ControlPanel implements IModel {
     private List<Integer> floorsToStop;
     private List<Integer> floorsToGo;
 
