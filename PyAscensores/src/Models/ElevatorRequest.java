@@ -3,27 +3,27 @@ package Models;
 import Enums.Direction;
 
 public class ElevatorRequest {
-    private Direction ElevatorDirection;
-    private int Origen;
+    private Direction Direction;
+    private int Origin;
 
-    public ElevatorRequest(int Origen, Direction ElevatorDirection) {
-        this.Origen = Origen;
-        this.ElevatorDirection = ElevatorDirection;
+    public ElevatorRequest(int Origin, Direction Direction) {
+        this.Origin = Origin;
+        this.Direction = Direction;
     }
 
-    public Direction getElevatorDirection() {
-        return ElevatorDirection;
+    public Direction getDirection() {
+        return Direction;
     }
 
-    public void setElevatorDirection(Direction ElevatorDirection) {
-        this.ElevatorDirection = ElevatorDirection;
+    public void setDirection(Direction Direction) {
+        this.Direction = Direction;
     }
 
-    public int getOrigen() {
-        return Origen;
+    public int getOrigin() {
+        return Origin;
     }
 
     public void setOrigen(int Origen) {
-        this.Origen = Origen;
+        this.Origin = Origen;
     }
 }
