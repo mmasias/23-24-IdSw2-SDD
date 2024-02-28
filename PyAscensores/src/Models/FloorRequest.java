@@ -2,26 +2,27 @@ package Models;
 
 import java.util.List;
 
-public class FloorRequest {
+public class FloorRequest implements IModel {
     private List<Integer> destinations;
 
-    public FloorRequest(){} 
+    public FloorRequest() {
+    }
 
-    public void addFloorToDestinations(int floor){
+    public void addFloorToDestinations(int floor) {
         destinations.add(floor);
     }
 
-    public void removeFloorToDestinations(int floor){
-        if(destinations.contains(floor)){
+    public void removeFloorToDestinations(int floor) {
+        if (destinations.contains(floor)) {
             destinations.remove(destinations.indexOf(floor));
         }
     }
 
-    public List<Integer> getDestinations(){
+    public List<Integer> getDestinations() {
         return destinations;
     }
-    
-    public void setDestinations(List<Integer> destinationsList){
+
+    public void setDestinations(List<Integer> destinationsList) {
         this.destinations = destinationsList;
     }
 }

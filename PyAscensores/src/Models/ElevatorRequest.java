@@ -2,7 +2,7 @@ package Models;
 
 import Enums.Direction;
 
-public class ElevatorRequest {
+public class ElevatorRequest implements IModel {
     private Direction Direction;
     private int Origin;
 
