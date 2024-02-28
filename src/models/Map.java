@@ -13,5 +13,9 @@ public class Map {
     public Tile[][] getMap() {
         return tiles;
     }
-    
+
+    public void setMap(Tile[][] tiles) {
+        this.tiles = tiles;
+    }
+
 }
