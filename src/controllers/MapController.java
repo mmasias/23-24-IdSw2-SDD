@@ -1,4 +1,4 @@
-package controllers;
+package Controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class MapController {
     private Tile[] tiles;
     
 
-    public MapController(models.Map map2) {
+    public MapController(Models.Map map2) {
         this.map = map2;
         mapData = new ArrayList<>();
         fileReaderController = new FileReaderController();
