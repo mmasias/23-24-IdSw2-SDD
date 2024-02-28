@@ -6,9 +6,9 @@
 
   | Paso                                                                  |                         Detalle                         |
 | --------------------------------------------------------------------- | :-----------------------------------------------------: |
-| 1. Listamos las clases principales.                       | ShoppingCenter , CashRegister, Customer,  Queue, Cashier.
-| 2. Las representamos en un modelo de dominion inicial con sus atributos.                 |          ![](/images/modelosUML/diagramaClasesSueltas.svg)           |
-| 3. gestionar las relaciones entre las diferentes clases.  |          ![](/images/modelosUML/diagramaClasesRelacionadas.svg)           |
+| 1. Listamos las clases principales.                       | ShoppingCenter , CashRegister, Customer,  Queue, Cashier, AttentionCenter, DataLog.
+| 2. Las representamos en un modelo de dominion inicial con sus atributos.                 |          ![](/images/modelosUML/diagramaEntidades.svg)           |
+| 3. gestionar las relaciones entre las diferentes clases.  |          ![](/images/modelosUML/diagramaClases.svg)           |
 
 
 - [Codigo PUML](/modelosUML/diagramaClasesRelacionadas.puml)
