@@ -3,22 +3,13 @@ package Views;
 import Models.Elevator;
 
 public class ElevatorView {
+    private static char[] directionIcons = {'↑', '↓', '-'};
+
     public static String render(Elevator elevator) {
         StringBuilder sb = new StringBuilder();
         int totalFloors = 10;
         int currentFloor = elevator.getCurrentFloor();
-        char direction;
-        switch (elevator.getDirection()) {
-            case UP:
-                direction = '↑';
-                break;
-            case DOWN:
-                direction = '↓';
-                break;
-            default:
-                direction = '-';
-                break;
-        }
+        char direction = directionIcons[elevator.getDirection().ordinal()];
 
         for (int i = totalFloors; i >= 0; i--) {
             if (i == currentFloor) {

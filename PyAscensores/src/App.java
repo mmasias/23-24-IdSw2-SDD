@@ -11,10 +11,6 @@ public class App {
         elevators.add(new Elevator(0, 6, 5));
         elevators.add(new Elevator(0, 6, 5));
         elevators.add(new Elevator(0, 6, 5));
-        elevators.add(new Elevator(0, 6, 5));
-        elevators.add(new Elevator(0, 6, 5));
-        elevators.add(new Elevator(0, 6, 5));
-        elevators.add(new Elevator(0, 6, 5));
 
         elevators.get(0).setDirection(Direction.UP);
 
