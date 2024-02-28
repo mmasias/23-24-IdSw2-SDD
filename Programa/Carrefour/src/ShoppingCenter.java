@@ -42,6 +42,9 @@ public class ShoppingCenter {
 
                 if (isOpen) {
                     System.out.println("Centro comercial abierto, abriendo cajas");
+                    
+
+
                 } else {
                     System.out.println("Centro comercial cerrado, esperando...");
                 }

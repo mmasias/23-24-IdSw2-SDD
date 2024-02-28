@@ -15,10 +15,11 @@ public class Cashier
 
     List<Cashier> cashiers = readJsonFile(filePath);
 
-    private int id;
+    int id;
     private String name;
     private char workShift;
-    private boolean rest;
+    private boolean workBreak;
+    private boolean isServing;
 
 public int GetID(String name)
 {
@@ -35,6 +36,41 @@ public int GetID(String name)
     }
 
     return 0;
+}
+
+public void SetIsServing(int id)
+{
+    List<Cashier> list = cashiers;
+
+    for (Cashier cashier : list) 
+    {
+        if (cashier.id == id) 
+        {
+            cashier.isServing = true;
+            
+        }
+
+    }
+
+    
+
+}
+public boolean GetIsServing(int id)
+{
+    List<Cashier> list = cashiers;
+
+    for (Cashier cashier : list) 
+    {
+        if (cashier.id == id) 
+        {
+            return cashier.isServing;
+            
+        }
+
+    }
+
+    return false;
+
 }
 
 public String GetName(int id)
@@ -80,7 +116,7 @@ public boolean GetRest(int id)
     {
         if (cashier.id == id) 
         {
-            return cashier.rest;
+            return cashier.workBreak;
             
         }
 
@@ -97,7 +133,7 @@ public void SetRest(int id)
     {
         if (cashier.id == id) 
         {
-            cashier.rest = true;
+            cashier.workBreak = true;
 
             writeJsonFile(filePath, list);
         }
@@ -105,6 +141,12 @@ public void SetRest(int id)
     }
 
     
+}
+
+public List<Cashier> GetAllCashier()
+{
+
+    return cashiers;
 }
 
 
