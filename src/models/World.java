@@ -1,4 +1,4 @@
-package models;
+package Models;
 
 import java.sql.Time;
 import java.util.ArrayList;

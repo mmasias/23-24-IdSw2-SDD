@@ -1,10 +1,10 @@
-package controllers;
+package Controllers;
 
-import models.World;
+import Models.World;
 
 import java.util.ArrayList;
 
-import models.Map;
+import Models.Map;
 
 public class WorldController {
     private World world;
