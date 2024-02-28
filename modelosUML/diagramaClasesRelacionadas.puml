@@ -1,5 +1,9 @@
 @startuml
 
+skinparam linetype polyline
+
+title Class Diagram - CCCF
+
 class ShoppingCenter {
     - openingHour
     - closingHour
@@ -8,10 +12,16 @@ class ShoppingCenter {
     - isOpen
 }
 
+class AttentionCenter{
+    - emptyCashRegisters
+}
+
 class CashRegister {
     - id
-    - customerQueue
+    - currentCashier
     - timePerItemPack
+    - isOcuppied
+    - isOpen
 }
 
 class Customer {
@@ -20,26 +30,39 @@ class Customer {
 }
 
 class Queue {
-    - numberOfCustomers
+    - size
 }
 
 class Cashier {
     - id
     - name
     - workShift
-    - rest
+    - workBreak
+    - isServing
+}
+
+class DataLog{
+
 }
 
 
-ShoppingCenter -- CashRegister
+ShoppingCenter -- Queue
 ShoppingCenter -- Customer
 ShoppingCenter -- Cashier
+ShoppingCenter -- CashRegister
 
-Cashier -- CashRegister
+Queue -- AttentionCenter
+Queue --  Customer
 
-Customer -- Queue
+AttentionCenter -left- Customer
+AttentionCenter -- CashRegister
 
-Queue -- CashRegister
-Customer -- CashRegister
+CashRegister -right- Cashier
+
+CashRegister -- Customer
+
+ShoppingCenter .. DataLog
+Queue .. DataLog
+CashRegister .. DataLog
 
 @enduml
