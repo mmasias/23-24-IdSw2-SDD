@@ -21,4 +21,7 @@ public class FloorRequest {
         return destinations;
     }
     
+    public void setDestinations(List<Integer> destinationsList){
+        this.destinations = destinationsList;
+    }
 }
