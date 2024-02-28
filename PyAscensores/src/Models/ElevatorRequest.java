@@ -1,19 +1,29 @@
 package Models;
 
-import java.util.List;
+import Enums.Direction;
 
 public class ElevatorRequest {
-    private List<Integer> floorsToStop;
+    private Direction ElevatorDirection;
+    private int Origen;
 
-    public ElevatorRequest(List<Integer> floorsToStop) {
-        this.floorsToStop = floorsToStop;
+    public ElevatorRequest(int Origen, Direction ElevatorDirection) {
+        this.Origen = Origen;
+        this.ElevatorDirection = ElevatorDirection;
     }
 
-    public List<Integer> getfloorsToStop() {
-        return floorsToStop;
+    public Direction getElevatorDirection() {
+        return ElevatorDirection;
     }
 
-    public void setfloorsToStop(List<Integer> floorsToStop) {
-        this.floorsToStop = floorsToStop;
+    public void setElevatorDirection(Direction ElevatorDirection) {
+        this.ElevatorDirection = ElevatorDirection;
+    }
+
+    public int getOrigen() {
+        return Origen;
+    }
+
+    public void setOrigen(int Origen) {
+        this.Origen = Origen;
     }
 }
