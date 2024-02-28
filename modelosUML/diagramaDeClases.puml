@@ -27,7 +27,7 @@ class Vampiro {
 }
 
 class Arma {
-  - danio: int
+  - daño: int
   - probExito: double
 }
 
@@ -37,7 +37,7 @@ class Defensa {
 }
 
 class Ataque {
-  - danio: int
+  - daño: int
   - probExito: double
 }
 
