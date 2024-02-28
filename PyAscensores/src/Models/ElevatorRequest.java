@@ -23,7 +23,7 @@ public class ElevatorRequest {
         return Origin;
     }
 
-    public void setOrigen(int Origen) {
-        this.Origin = Origen;
+    public void setOrigin(int Origin) {
+        this.Origin = Origin;
     }
 }
