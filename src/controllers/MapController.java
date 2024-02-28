@@ -1,4 +1,4 @@
-package Controllers;
+package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +7,11 @@ import java.util.Map;
 public class MapController {
 
     private Map map;
-    private List <String[]> mapData;
+    private List<String[]> mapData;
     private FileReaderController fileReaderController;
 
-    public MapController(Map map) {
-        this.map = map;
+    public MapController(models.Map map2) {
+        this.map = map2;
         mapData = new ArrayList<>();
     }
 
@@ -27,6 +27,4 @@ public class MapController {
         return map;
     }
 
-    
-    
 }
