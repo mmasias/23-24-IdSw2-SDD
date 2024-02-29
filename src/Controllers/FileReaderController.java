@@ -16,7 +16,7 @@ class FileReaderController {
         this.filePath = path;
     }
 
-    public List<String[]> readCSV() {
+    public List<String[]> readCSV() throws FileNotFoundException {
         List<String[]> listTiles = new ArrayList<String[]>();
         String[] tilesString = new String[0];
         int count = 0;
@@ -40,6 +40,8 @@ class FileReaderController {
             System.out.println("File not found");
 
             System.out.println(e.getMessage());
+
+            throw new FileNotFoundException(e.getMessage());
         } catch (Exception e) {
 
             System.out.println("Failed to read file");

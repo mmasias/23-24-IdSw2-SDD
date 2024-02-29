@@ -1,46 +1,68 @@
-@startuml Registro de un fichaje
+@startuml DiagramaObjetos-PyMundo
 
-object "Mundo1: world" as mundo{
-    Map: Mapa1
-    nonPlayableCharacter= ["Bob Esponja","gato1"]  
-    PlayableCharacter = "Juanjo"
-    Time= "10:30"
+object "World: World" as world {
+    Map = Map
+    Entities = [Cat, Dog, Másias,...]
+    Time = Time
 }
 
-object "10:30 : Time" as tiempo{
-    timesOfDay= "2024/2/28"
+object "Time: Time" as time {
+    timesOfDay= MORNING
     currentTime="10:30"
 }
 
-object "Mapa1: map" as mapa{
-    tile = "Cesped_Bajo"
-    tiles= {"Suelo", "Arena", "Paredes", "Cesped bajo",...} 
+object "Map: Map" as mapa{
+    tiles= [Floor, Sand, Wall,...]
 }
-object "Bob Esponja: nonPlayableCharacter" as bob{
-    pointPosition: (100,20)
-    transport: boat
+object "Sand: Tile" as sand{
+    tileType: SAND
 }
-object "gato1: nonPlayableCharacter" as gato{
-    pointPosition: (160,80)
-    transport: null
+object "Floor: Tile" as floor {
+    tileType: FLOOR
 }
-object "Juanjo: PlayableCharacter " as juanjo{
-    pointPosition: (170,30)
-    transport: "horse"
-    transports: {"walk", "boat",...}
+object "Wall: Tile" as wall {
+    tileType: WALL
 }
-object "Tiles: Tiles" as tiles{
-    tiles: {"floor", "sand", "wall", "low grass", "medium grass", "high grass"...}
+object "Cat: NonPlayableCharacter" as cat {
+    position: (100,20)
+    transportInUse: Foot
+    availableTransports: [Foot, MagicCarpet]
 }
-object "Transport: Transport" as transport{
-    transports: {"walk", "boat", "Flying carpet", "horse"}
+object "Dog: NonPlayableCharacter" as dog {
+    position: (160,80)
+    transportInUse: Foot
+    availableTransports: [Foot, MagicCarpet]
+}
+object "Masías: PlayableCharacter" as mmasias {
+    position: (170,30)
+    transportInUse: Foot
+    availableTransports: [Foot, MagicCarpet]
 }
 
-mundo-- tiempo
-mundo-- mapa
-mundo-- bob
-mundo-- gato
-mundo-- juanjo
-mundo-- tiles
-mundo-- transport
+package Transports {
+   object "Foot: Transport" as foot{
+      transportType: FOOT
+   }
+
+  object "MagicCarpet: Transport" as carpet {
+      transportType: MAGIC_CARPET
+   }
+}
+
+
+
+' Relationships
+world --> time : "has >"
+world --> mapa : "has >"
+mapa --> sand : "contains >"
+mapa --> floor : "contains >"
+mapa --> wall : "contains >"
+world --> cat : "contains >"
+world --> dog : "contains >"
+world --> mmasias : "contains >"
+
+cat --> Transports : "uses >"
+dog --> Transports : "uses >"
+mmasias --> Transports : "uses >"
+
 @enduml

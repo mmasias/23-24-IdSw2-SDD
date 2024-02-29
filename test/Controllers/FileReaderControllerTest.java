@@ -27,7 +27,7 @@ public class FileReaderControllerTest {
     }
 
     @Test
-    public void testReadCSV_ValidFile() {
+    public void testReadCSV_ValidFile() throws FileNotFoundException {
         List<String[]> result = fileReaderController.readCSV();
 
         assertNotNull("Result should not be null", result);

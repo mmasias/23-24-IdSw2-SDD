@@ -4,7 +4,15 @@ class App {
     MapController mapController
     WorldController worldController
     WorldView worldView
+    EntityFactory entityFactory
+    TransportFactory transportFactory
     World world
+
+    + createWorld()
+    - createEntities()
+    - createTransport()
+    - createMap()
+    + startGame()
 }
 
 enum TileTypes {
