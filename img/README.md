@@ -13,12 +13,20 @@ En este apartado se muestra los diagramas necesarios para entender el programa p
 
 | Imagen | Código |
 |--------|--------|
-|![Imagen]()|[Código UML](/modelosUML/DiagramaDeObjetos.puml)|
+|![Imagen](/img/ModeloDeObjetos.svg)|[Código UML](/modelosUML/DiagramaDeObjetos.puml)|
 
 ## Diagrama de Estado
 
+### Diagrama de Estado de la Aspiradora
+
 | Imagen | Código |
 |--------|--------|
-|![Imagen]()|[Código UML](/modelosUML/DiagramaDeEstado.puml)|
+|![Imagen](/img/diagrama_de_estado.svg)|[Código UML](/modelosUML/DiagramaDeEstado.puml)|
+
+### Diagrama de Estado de la Posición
+
+| Imagen | Código |
+|--------|--------|
+|![Imagen](/img/diagrama_de_estado_pt2.svg)|[Código UML](/modelosUML/DiagramaDeEstadopt2.puml)|
 
 [Regresar](/README.md)
