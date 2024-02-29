@@ -1,4 +1,4 @@
-@startuml ObjectDiagramRelations
+@startuml DiagramaObjetos-PyMundo
 
 object "World: World" as world {
     Map = Map

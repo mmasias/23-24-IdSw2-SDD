@@ -16,7 +16,7 @@ Se desarrolla, en un caso controlado, la disciplina de diseño, con el objetivo 
 
 ### Diagrama de Objetos
 
-<img src="./docs/images/DiagramaDeObjetos.svg">
+<img src="./docs/images/DiagramaObjetos-PyMundo.svg">
 
 ## Modelo de Aplicación
 
