@@ -1,4 +1,3 @@
-package Vista;
 
 public enum Elements{
     ZONA_LIMPIA("."),
@@ -18,5 +17,9 @@ public enum Elements{
     
     public String getElement(){
         return value;
-    }   
+    }
+
+    // public void setElement(Elemento elemento) {
+    //     this.values = elemento;
+    // }
 }
