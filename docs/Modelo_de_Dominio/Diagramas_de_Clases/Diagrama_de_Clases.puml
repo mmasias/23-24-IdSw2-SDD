@@ -11,7 +11,8 @@ hide empty members
 class ASCENSOR 
 {
     ID
-    Posición
+    ID Planta
+    Personas en el Ascensor
     Capacidad
     Dirección
     Acceso
@@ -19,7 +20,7 @@ class ASCENSOR
 
 class PERSONA 
 {
-    Posición
+    ID Planta
     Tiempo en Planta
     Destino
 }
@@ -33,7 +34,9 @@ class "CUADRO DE MANDO"
 class PLANTA 
 {
     ID
-    Personas
+    Nombre Planta
+    Personas en Planta
+    Personas Cambiando de Planta
     Acceso
 }
 

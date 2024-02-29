@@ -3,43 +3,38 @@ package Models;
 import java.util.List;
 
 public class Building implements IModel {
-    List<Floor> _floor;
-    List<Elevator> _elevator;
-    boolean _access;
-    int _capacity;
+    List<Floor> Floor;
+    List<Elevator> Elevator;
+    boolean Access;
+    int Capacity;
 
     public Building(List<Floor> floor, List<Elevator> elevator) {
-        _floor = floor;
-        _elevator = elevator;
-        _access = true;
+        Floor = floor;
+        Elevator = elevator;
+        Access = true;
     }
 
-    // region Setters
-    public void SetAccess(boolean access) {
-        _access = access;
+    public void setAccess(boolean access) {
+        Access = access;
     }
 
-    public void SetFloors(List<Floor> floor) {
-        _floor = floor;
+    public void setFloors(List<Floor> floor) {
+        Floor = floor;
     }
 
-    public void SetElevators(List<Elevator> elevator) {
-        _elevator = elevator;
-    }
-    // endregion
-
-    // region Getters
-    public boolean GetAccess() {
-        return _access;
+    public void setElevators(List<Elevator> elevator) {
+        Elevator = elevator;
     }
 
-    public List<Floor> GetFloors() {
-        return _floor;
+    public boolean getAccess() {
+        return Access;
     }
 
-    public List<Elevator> GetElevators() {
-        return _elevator;
+    public List<Floor> getFloors() {
+        return Floor;
     }
 
-    // endregion
+    public List<Elevator> getElevators() {
+        return Elevator;
+    }
 }

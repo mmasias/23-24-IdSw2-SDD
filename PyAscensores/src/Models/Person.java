@@ -2,12 +2,12 @@ package Models;
 
 public class Person implements IModel {
     private int timeOnFloor;
-    private int position;
+    private int currentFloor;
     private int destination;
 
-    public Person(int timeOnFloor, int position, int destination) {
+    public Person(int timeOnFloor, int currentFloor, int destination) {
         this.timeOnFloor = timeOnFloor;
-        this.position = position;
+        this.currentFloor = currentFloor;
         this.destination = destination;
     }
 
@@ -19,12 +19,12 @@ public class Person implements IModel {
         this.timeOnFloor = timeOnFloor;
     }
 
-    public int getPosition() {
-        return position;
+    public int getCurrentFloor() {
+        return currentFloor;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
+    public void setCurrentFloor(int floorId) {
+        this.currentFloor = floorId;
     }
 
     public int getDestination() {
