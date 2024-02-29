@@ -3,45 +3,58 @@ package Models;
 import java.util.List;
 
 public class Floor implements IModel {
-    String id;
-    List<Person> people;
-    List<Person> waitingPeople;
-    boolean access;
+    int Id;
+    String Label;
+    List<Person> PeopleOnFloor;
+    List<Person> WaitingPeople;
+    boolean Access;
 
-    public Floor(String id, boolean access, List<Person> people, List<Person> waitingPeople) {
-        this.id = id;
-        this.access = access;
-        this.people = people;
-        this.waitingPeople = waitingPeople;
-
+    public Floor(int id, String label, List<Person> peopleOnFloor, List<Person> waitingPeople) {
+        Id = id;
+        Label = label;
+        PeopleOnFloor = peopleOnFloor;
+        WaitingPeople = waitingPeople;
+        Access = true;
     }
 
-    public String getId() {
-        return id;
+    public int getId() {
+        return Id;
     }
 
-    public List<Person> getPeople() {
-        return people;
+    public List<Person> getPeopleOnFloor() {
+        return PeopleOnFloor;
     }
 
     public List<Person> getWaitingPeople() {
-        return waitingPeople;
+        return WaitingPeople;
     }
 
     public boolean getAccess() {
-        return access;
+        return Access;
     }
 
-    public void setAcces(boolean acces) {
-        this.access = acces;
+    public void setAcces(boolean access) {
+        Access = access;
     }
 
-    public void setPeople(List<Person> people) {
-        this.people = people;
+    public void setPeopleOnFloor(List<Person> people) {
+        PeopleOnFloor = people;
     }
 
-    public void setWaitingPeople(List<Person> waitingPeople) {
-        this.waitingPeople = waitingPeople;
+    public void setWaitingPeople(List<Person> people) {
+        WaitingPeople = people;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
+
+    public String getLabel() {
+        return Label;
+    }
+
+    public void setLabel(String label) {
+        Label = label;
     }
 
 }
