@@ -11,7 +11,7 @@ public class Heroe extends Personaje {
 
 	public Heroe() {
 
-		super(150, 20, 2, 0.5);
+		super(150, 20, 2, 0.5, "Heroe");
 
 		armas = new Arma[] {
 				new Arma(7, 0.5),
@@ -39,9 +39,13 @@ public class Heroe extends Personaje {
 	}
 
 	private void handleTurnoHeroe(Personaje objetivo) {
-		System.out.println("Elige un arma para atacar (1, 2 o 3):");
+		System.out.println("Elige un arma para atacar:\n" +
+				"1 - Cuchillo (Ataque: 7 | Probabilidad de éxito 50 %)\n" +
+				"2 - Espada (Ataque: 15 | Probabilidad de éxito 25 %)\n" +
+				"3 - Hacha (Ataque: 30 | Probabilidad de éxito 12 %)");
+
 		if (turnosRestantesParaAtacar < 1) {
-			System.out.println("Pulsa 4 para tomar una poción:");
+			System.out.println("4 - para tomar una poción(No podras atacar o defender por 3 turnos)");
 		}
 		int eleccion = scanner.nextInt();
 
