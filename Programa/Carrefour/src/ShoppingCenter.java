@@ -11,44 +11,55 @@ public class ShoppingCenter {
 
         new Thread(() -> {
             LocalTime startTime = LocalTime.of(8, 30); // 8:30 AM
-            LocalTime endTime = LocalTime.of(21, 0);  // 9:00 PM
+            LocalTime endTime = LocalTime.of(21, 30);  // 9:30PM
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-            System.out.println("Contador desde las 8:30 AM hasta las 9:00 PM:");
+            System.out.println("Inicio del dia.");
             LocalTime currentTime = startTime;
             while (currentTime.isBefore(endTime) || currentTime.equals(endTime)) {
                 Timer = currentTime.format(formatter);
                 System.out.println(Timer);
                 currentTime = currentTime.plusMinutes(30); // Incrementar cada 30 minutos
 
-                // Actualizar isOpen basado en el tiempo actual
+                
                 isOpen = currentTime.isAfter(LocalTime.of(9, 0)) && currentTime.isBefore(LocalTime.of(21, 0));
 
                 try {
-                    Thread.sleep(10000); // Simular espera
+                    Thread.sleep(1000); 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            System.out.println("Fin del dia.");
         }).start();
 
-        // Simular otras tareas que necesitan conocer el estado de isOpen
+        
         new Thread(() -> {
             
                 try {
-                    Thread.sleep(11000); // Espera entre verificaciones
+                    Thread.sleep(1100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
                 if (isOpen) {
                     System.out.println("Centro comercial abierto, abriendo cajas");
-                    
-
-
-                } else {
-                    System.out.println("Centro comercial cerrado, esperando...");
                 }
-            
+
+                while (isOpen) {
+                    
+                    //CashRegister cashRegister = new CashRegister();
+                    //int[] idcaja = cashRegister.GetIdOpenned();
+                    //for (int id : idcaja) {
+                        //System.out.println("caja[" + id + "] abierta");
+                    //}
+
+                }
+                try {
+                    Thread.sleep(1100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Centro comercial cerrando, cerrando cajas");
         }).start();
     }
 }

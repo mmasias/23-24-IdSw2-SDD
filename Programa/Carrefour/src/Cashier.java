@@ -1,11 +1,6 @@
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
+
 
 
 
@@ -13,13 +8,13 @@ public class Cashier
 {
     String filePath = "C:\\Users\\Sergio\\Desktop\\Caja Carrefour\\Carrefour\\src\\BD_Cashier";
 
-    List<Cashier> cashiers = readJsonFile(filePath);
+    List<Cashier> cashiers = getLCashiers();
 
     int id;
-    private String name;
-    private char workShift;
-    private boolean workBreak;
-    private boolean isServing;
+    String name;
+    String workShift;
+    boolean workBreak;
+    boolean isServing;
 
 public int GetID(String name)
 {
@@ -90,7 +85,7 @@ public String GetName(int id)
     return null;
 }
 
-public char GetWorkShift(int id)
+public String GetWorkShift(int id)
 {
     List<Cashier> list = cashiers;
 
@@ -105,7 +100,7 @@ public char GetWorkShift(int id)
     }
 
 
-    return 0;
+    return null;
 }
 
 public boolean GetRest(int id)
@@ -135,7 +130,7 @@ public void SetRest(int id)
         {
             cashier.workBreak = true;
 
-            writeJsonFile(filePath, list);
+            SaveNewData(list);
         }
 
     }
@@ -143,34 +138,14 @@ public void SetRest(int id)
     
 }
 
-public List<Cashier> GetAllCashier()
-{
-
+public List<Cashier> getLCashiers() {
+    if (cashiers == null) {
+        cashiers = BD_DATA.readJsonFile(filePath, new TypeToken<List<Cashier>>(){}.getType());
+    }
     return cashiers;
 }
 
 
-
-
-private static List<Cashier> readJsonFile(String filename) {
-        Gson gson = new Gson();
-        try (FileReader reader = new FileReader(filename)) {
-            Type listType = new TypeToken<List<Cashier>>() {}.getType();
-            List<Cashier> employees = gson.fromJson(reader, listType);
-            return employees;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-private static void writeJsonFile(String filename, List<Cashier> employees) {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        try (FileWriter writer = new FileWriter(filename)) {
-            gson.toJson(employees, writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+public void SaveNewData(List<Cashier> list){BD_DATA.writeJsonFile(filePath, cashiers);}
 
 }

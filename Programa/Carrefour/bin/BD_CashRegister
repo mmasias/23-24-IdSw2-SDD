@@ -1,0 +1,38 @@
+[
+    {
+        "id" : 1,
+        "CurrentCashier" : null,
+        "isOcuppied" : false,
+        "isOpen" : false
+    },
+    {
+        "id" : 2,
+        "CurrentCashier" : null,
+        "isOcuppied" : false,
+        "isOpen" : false
+    },
+    {
+        "id" : 3,
+        "CurrentCashier" : null,
+        "isOcuppied" : false,
+        "isOpen" : false
+    },
+    {
+        "id" : 4,
+        "CurrentCashier" : null,
+        "isOcuppied" : false,
+        "isOpen" : false
+    },
+    {
+        "id" : 5,
+        "CurrentCashier" : null,
+        "isOcuppied" : false,
+        "isOpen" : false
+    },
+    {
+        "id" : 6,
+        "CurrentCashier" : null,
+        "isOcuppied" : false,
+        "isOpen" : false
+    }    
+]

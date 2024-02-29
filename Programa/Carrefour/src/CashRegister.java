@@ -1,34 +1,82 @@
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import com.google.gson.reflect.TypeToken;
 
 public class CashRegister {
     
-    private int id;
-    Cashier CashierReference;
+    int id;
+    int CurrentCashier;
+    boolean isOcuppied;
+    boolean isOpen;
 
-    List<Cashier> list = CashierReference.GetAllCashier(); 
-    Map<Integer, Integer> empleadoPuestoMap = new HashMap<>();
+    String filePath = "C:\\Users\\Sergio\\Desktop\\Caja Carrefour\\Carrefour\\src\\BD_CashRegister";
 
+    List<CashRegister> lRegisters = getLRegisters();
+    
+    Cashier cashiers = new Cashier();
 
+    List<Cashier> lCashiers = cashiers.getLCashiers();
+
+    
+
+    // Aqui realiza al abrir el centro la apertura y asignacion de 2 cajas
     public CashRegister()
     {
-
-        for (Cashier cashier : list) {
-
-            if (cashier.id == 1) 
+        for (CashRegister cashRegister : lRegisters) 
+        {
+            if (cashRegister.id == 1 || cashRegister.id == 2) 
             {
-                empleadoPuestoMap.put(1, cashier.id); 
-            } else if (cashier.id == 2) 
+                cashRegister.isOpen = true;
+                cashRegister.CurrentCashier = cashRegister.id;
+                cashRegister.isOcuppied = true;              
+                
+                
+            }            
+
+        }
+        SaveNewData(lRegisters);
+        for (Cashier cashier : lCashiers) 
+                {
+                    if (cashier.id ==1 || cashier.id ==2) 
+                    {
+                        cashier.isServing = true;
+                        
+                    }
+                } 
+        
+        cashiers.SaveNewData(lCashiers);
+
+    }
+
+    public int[] GetIdOpenned()
+    {
+        List<CashRegister> list = lRegisters;
+        int[] openned = new int[list.size()];
+        int count = 0;
+        for (CashRegister rCashRegister : lRegisters) 
+        {
+            if (rCashRegister.isOpen) 
             {
-                empleadoPuestoMap.put(2, cashier.id);
+                openned[count] = rCashRegister.id; 
+                count++;
             }
             
         }
 
 
+        return openned;
     }
 
-   
+
+    public void SaveNewData(List<CashRegister> list){BD_DATA.writeJsonFile(filePath, lRegisters);}
+
+    public List<CashRegister> getLRegisters() {
+        if (lRegisters == null) {
+            lRegisters = BD_DATA.readJsonFile(filePath, new TypeToken<List<CashRegister>>(){}.getType());
+        }
+        return lRegisters;
+    }
+    
+
+
 
 }
