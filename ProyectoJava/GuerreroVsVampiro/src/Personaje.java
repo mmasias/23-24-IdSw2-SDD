@@ -6,16 +6,18 @@ public abstract class Personaje {
 	private int ataque;
 	private int energia;
 	private double prob_exito;
+	private String nombre;
 	private Random random;
-	
-	private static final int UMBRAL_DESMAYO = 0; 
-    private static final int RECUPERACION_ENERGIA = 0; 
 
-	public Personaje(int energia, int poder, int ataque, double prob_exito) {
+	private static final int UMBRAL_DESMAYO = 0;
+	private static final int RECUPERACION_ENERGIA = 0;
+
+	public Personaje(int energia, int poder, int ataque, double prob_exito, String nombre) {
 		this.energia = energia;
 		this.poder = poder;
 		this.ataque = ataque;
 		this.prob_exito = prob_exito;
+		this.nombre = nombre;
 		this.random = new Random();
 	}
 
@@ -51,22 +53,26 @@ public abstract class Personaje {
 		this.prob_exito = prob_exito;
 	}
 
-	public void atacar(Personaje objetivo) {		
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void atacar(Personaje objetivo) {
 	}
 
 	protected abstract void recibirDano(int dano);
-	
+
 	public boolean estaVivo() {
 		return this.poder > 0;
 	}
-	
-	public boolean estaDesmayado() {
-        return getEnergia() < UMBRAL_DESMAYO;
-    }
 
-    public void recuperarEnergia() {
-        if (estaDesmayado()) {
-            setEnergia(Math.min(getEnergia() + RECUPERACION_ENERGIA, getEnergia()));
-        }
-    }
+	public boolean estaDesmayado() {
+		return getEnergia() < UMBRAL_DESMAYO;
+	}
+
+	public void recuperarEnergia() {
+		if (estaDesmayado()) {
+			setEnergia(Math.min(getEnergia() + RECUPERACION_ENERGIA, getEnergia()));
+		}
+	}
 }
