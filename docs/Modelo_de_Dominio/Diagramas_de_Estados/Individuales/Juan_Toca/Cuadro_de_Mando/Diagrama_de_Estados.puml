@@ -1,0 +1,22 @@
+@startuml Diagrama_de_Estados
+
+title Diagrama de Estados del Cuadro de Mando
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+[*] --> CuadroDeMando : Iniciar
+CuadroDeMando --> [*] : Detener
+
+state CuadroDeMando {
+
+    [*] --> GestionandoSolicitudes
+    [*] --> GestionandoAscensores
+
+}
+
+@enduml
+```
