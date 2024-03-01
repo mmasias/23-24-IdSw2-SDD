@@ -1,8 +1,8 @@
-# - CASTLEVANIA
+# - CASTELVANIA
 
 ---
 
-## Descripción 📝
+## Descripción 
 
 Este es un proyecto de diseño y desarrollo de un juego en el que un **Héroe** y un **Villano** hacen batallas hasta que surge un ganador.
 
@@ -12,7 +12,7 @@ Este repositorio contiene modelos, propuestas, registros de reuniones y otros re
 
 ---
 
-## Recursos Clave 🔑
+## Recursos Clave 
 
 - **[Enunciado](https://github.com/puntoReflex/pyBatalla/tree/main):** Aquí puedes consultar el enunciado original del proyecto.
 
