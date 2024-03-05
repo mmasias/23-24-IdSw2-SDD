@@ -1,0 +1,13 @@
+@startuml CasoDeUsoMoverPersonaje
+
+start
+:Ingresar Direcciones;
+
+if (¿Dirección válida?) then (sí)
+    :Actualizar Coordenadas\ndel Personaje;
+else (no)
+    
+endif
+stop
+
+@enduml

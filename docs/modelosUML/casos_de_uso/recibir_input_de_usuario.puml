@@ -1,0 +1,13 @@
+@startuml CasoDeUsoInputDeUsuario
+
+start
+:Esperar Input de Usuario;
+:Procesar Input recibido;
+if (¿Input es válido?) then (sí)
+    :Retornar el valor del Input;
+else (no)
+    :Notificar Error de Input;
+endif
+stop
+
+@enduml

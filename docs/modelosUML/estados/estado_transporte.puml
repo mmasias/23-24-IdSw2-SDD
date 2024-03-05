@@ -1,0 +1,7 @@
+@startuml DiagramaDeEstadosTransporte
+
+    [*] --> NoEnUso : Inicia
+    NoEnUso --> EnUso : Comienza a usar
+    EnUso --> NoEnUso : Deja de usar
+
+@enduml
