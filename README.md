@@ -56,7 +56,7 @@ Se desarrolla, en un caso controlado, la disciplina de diseño, con el objetivo 
 
 ### Mover Personaje
 
-<img src="./docs/images/casos_de_uso/mover_personaje.svg">
+<img src="./docs/images/casos_de_uso/mover_personaje.png">
 
 ### Recibir Input de Usuario
 
