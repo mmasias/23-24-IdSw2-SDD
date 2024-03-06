@@ -225,6 +225,7 @@ package View {
     class WorldView {
         + displayWorld()
 
+        - displayEntities()
         - displayTime()
         - formatTime()
         - displayMap()
@@ -280,7 +281,6 @@ TimeController --> Time
 WorldController --> World
 WorldController --> TimeController
 WorldController --> MovementController
-WorldView --> World
 
 App --> WorldController
 App --> WorldView
