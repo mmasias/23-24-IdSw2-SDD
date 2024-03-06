@@ -3,7 +3,7 @@
 title Diagrama de Estados - Heroe vs. Vampiro
 state c <<choice>>
 
-[*] -d-> TurnoHeroe : Iniciar Juego
+[*] -d-> c : Iniciar Juego
 
 TurnoHeroe -r--> c : Acción
 TurnoVillano -l--> c : Acción

@@ -1,0 +1,79 @@
+@startuml
+
+object juego {
+  turnos = 0
+  personajes = [asesino, vampiro]
+  ganador = asesino
+}
+
+object asesino {
+  poder = 20
+  ataque = 2
+  energia = 150 
+  prob_exito = 0.5
+  nombre = "Asesino"
+  random = new(Random)
+  UMBRAL_DESMAYO = 30
+  RECUPERACION_ENERGIA = 2
+  armas[]: [arma1, arma2, arma3]
+}
+
+object vampiro {
+  poder = 10
+  ataque = 2
+  energia = 60  
+  prob_exito = 0.5
+  nombre = "Vampiro"
+  random = new(Random)
+  UMBRAL_DESMAYO = 20
+  RECUPERACION_ENERGIA = 2
+  armas[]: [arma4, arma5, arma6]
+}
+
+object arma1 {
+  nombre = "Dardo"
+  daño = 5
+  probExito = .5
+}
+
+object arma2 {
+  nombre = "Ballesta"
+  daño = 10
+  probExito = .4
+}
+
+object arma3 {
+  nombre = "Estoque"
+  daño = 20
+  probExito = .25
+}
+
+object arma4 {
+  nombre = "Golpe"
+  daño = 5
+  probExito = .9
+}
+
+object arma5 {
+  nombre = "Mordida"
+  daño = 10
+  probExito = .6
+}
+
+object arma6 {
+  nombre = "Hipnotismo"
+  daño = 20
+  probExito = .4
+}
+
+juego -- asesino
+
+juego -- vampiro
+asesino -- arma1
+asesino -- arma2
+asesino -- arma3
+
+vampiro -- arma4
+vampiro -- arma5
+vampiro -- arma6
+@enduml
