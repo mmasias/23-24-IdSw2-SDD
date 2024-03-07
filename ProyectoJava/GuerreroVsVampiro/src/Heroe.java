@@ -45,7 +45,7 @@ public class Heroe extends Personaje {
 				"3 - Hacha (Ataque: 30 | Probabilidad de éxito 12 %)");
 
 		if (turnosRestantesParaAtacar < 1) {
-			System.out.println("4 - para tomar una poción(No podras atacar o defender por 3 turnos)");
+			System.out.println("4 - Poción (No puedes atacar o defender por 3 turnos)");
 		}
 		int eleccion = scanner.nextInt();
 
@@ -67,7 +67,7 @@ public class Heroe extends Personaje {
 			}
 		} else if (eleccion == 4) {
 			tomarPocion();
-			System.out.println("EL guerrero ha tomado una pocion. No podras atacar o defender por 3 turnos");
+			System.out.println("El Guerrero ha tomado una poción. No podras atacar o defender por 3 turnos");
 		}
 
 		dejarDeDefender();
