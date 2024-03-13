@@ -1,57 +1,38 @@
 @startuml
-skinparam noteBackgroundColor #f5f5f5
-skinparam noteBorderColor #c90000
-skinparam arrowColor #218c00
-skinparam stateBackgroundColor #faf4b4
-skinparam stateBorderColor #c90000
-skinparam linetype polyline
-skinparam arrowThickness 1
 
-[*] --> ShoppingCenterClosed : Start Day
+[*] --> ShoppingCenterClosed 
+note on link
+Start day
+end note
 
 ShoppingCenterClosed --> ShoppingCenterOpened
 note on link
   Open Shopping Center
 end note
 
-ShoppingCenterOpened --> CustomerArrived
+ShoppingCenterOpened --> CustomerQueue
 note on link
   Register Customer Arrival
 end note
 
-CustomerArrived --> CustomerSelectingProducts
-note on link
-  Select Products
+ShoppingCenterOpened --> [*]
+note on link 
+exits
 end note
 
-CustomerSelectingProducts --> CustomerWaiting
+CustomerQueue --> CashRegisterLogic
 note on link
-  Join Queue
+  Gives Customer
 end note
 
-CustomerSelectingProducts -right-> CustomerSelectingProducts
+CashRegisterLogic --> CashRegister
 note on link
-  Continue Shopping
+  Sends Client, open or close CR
 end note
 
-CustomerWaiting --> CustomerServed
+CashRegister -right-> [*]
 note on link
-  Serve at Cash Register
-end note
-
-CustomerServed -right-> CustomerSelectingProducts
-note on link
-  Continue Shopping
-end note
-
-CustomerServed --> ShoppingCenterOpened
-note on link
-  Exit Shopping Center
-end note
-
-CustomerWaiting -up-> ShoppingCenterOpened
-note on link
-  Abandon Queue
+  Ends With Customer & Exit
 end note
 
 ShoppingCenterOpened --> ShoppingCenterClosed
