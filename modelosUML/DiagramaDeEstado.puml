@@ -3,14 +3,15 @@ title Diagrama de Estados de la Aspiradora
 
 [*] --> Apagada
 
-Apagada -r-> Encendida
-Encendida -r-> Apagada
-Encendida -r-> Limpiando
+Apagada --> Encendida
+Encendida --> Apagada
+state Encendida{
 Limpiando --> Aspirando 
 Aspirando -r-> Limpiando 
-Limpiando -r-> Encendida 
-Limpiando -r-> Apagada
 Limpiando -r-> Limpiando
+}
+Apagada -r-> Cargando
+Cargando -r-> Apagada
 Apagada --> [*]
 
 @enduml

@@ -24,11 +24,16 @@ class Gato {
 
 class Posicion { 
 }
+class Bateria { 
+}	
 
-Habitacion -- Azulejo
-Azulejo -- Aspiradora
-Azulejo--Elementos 
-Azulejo -- Gato
-Azulejo -- Posicion
+Habitacion o-- Azulejo
+Azulejo <|-- Aspiradora
+Azulejo o--Elementos 
+Azulejo <|-- Gato
+Azulejo *-- Posicion
+Aspiradora *-- Bateria
+
 
 @enduml
+
