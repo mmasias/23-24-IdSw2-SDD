@@ -1,79 +1,42 @@
 @startuml
 
-object juego {
-  turnos = 0
-  personajes = [asesino, vampiro]
-  ganador = asesino
+class Juego{
+  - turnos: int
+  - personajes[]: Personaje
+  - ganador: Personaje
+  + elegirPersonaje(): Personaje
+  + iniciar(Personaje, Personaje)
+  + gestionarTurnos():void
 }
 
-object asesino {
-  poder = 20
-  ataque = 2
-  energia = 150 
-  prob_exito = 0.5
-  nombre = "Asesino"
-  random = new(Random)
-  UMBRAL_DESMAYO = 30
-  RECUPERACION_ENERGIA = 2
-  armas[]: [arma1, arma2, arma3]
+abstract Personaje{
+  + estaVivo()
+  + estaDesmayado()
+  + recuperarEnergia()
+  + atacar(Personaje)
+  + recibirDano(int)
 }
 
-object vampiro {
-  poder = 10
-  ataque = 2
-  energia = 60  
-  prob_exito = 0.5
-  nombre = "Vampiro"
-  random = new(Random)
-  UMBRAL_DESMAYO = 20
-  RECUPERACION_ENERGIA = 2
-  armas[]: [arma4, arma5, arma6]
+class Heroe {
+  - defendiendo: boolean
+  - turnosRestantesParaAtacar: int
+  + tomarPocion(): void
 }
 
-object arma1 {
-  nombre = "Dardo"
-  daño = 5
-  probExito = .5
+class Villano{
+
 }
 
-object arma2 {
-  nombre = "Ballesta"
-  daño = 10
-  probExito = .4
+class Arma {
+  - nombre: string
+  - daño: int
+  - probExito: double
 }
 
-object arma3 {
-  nombre = "Estoque"
-  daño = 20
-  probExito = .25
-}
+Juego -- Personaje
+Heroe -r- Arma
+Villano -l- Arma
+Personaje <|-- Heroe
+Personaje <|-- Villano
 
-object arma4 {
-  nombre = "Golpe"
-  daño = 5
-  probExito = .9
-}
-
-object arma5 {
-  nombre = "Mordida"
-  daño = 10
-  probExito = .6
-}
-
-object arma6 {
-  nombre = "Hipnotismo"
-  daño = 20
-  probExito = .4
-}
-
-juego -- asesino
-
-juego -- vampiro
-asesino -- arma1
-asesino -- arma2
-asesino -- arma3
-
-vampiro -- arma4
-vampiro -- arma5
-vampiro -- arma6
 @enduml
