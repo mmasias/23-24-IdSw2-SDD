@@ -1,0 +1,45 @@
+@startuml
+
+class Juego{
+  - turnos: int
+  - personajes[]: Personaje
+  - ganador: Personaje
+  + elegirPersonaje(): Personaje
+  + iniciar(Personaje, Personaje)
+  + gestionarTurnos():void
+}
+
+interface Personaje{
+  - poder: int
+  - ataque: int
+  - energia: int
+  - prob_exito: double
+  - nombre: string
+  - random: Random
+  - UMBRAL_DESMAYO: int
+  - RECUPERACION_ENERGIA: int
+  - armas[]: Arma
+  + estaVivo(): boolean
+  + estaDesmayado(): boolean
+  + recuperarEnergia(): void
+  + atacar(Personaje): void
+  + recibirDano(int): void
+}
+
+interface Heroe {
+  - defendiendo: boolean
+  - turnosRestantesParaAtacar: int
+  + tomarPocion(): void
+}
+
+class Arma {
+  - nombre: string
+  - daño: int
+  - probExito: double
+}
+
+Juego -- Personaje
+Personaje -r- Arma
+Personaje <|-- Heroe
+
+@enduml
