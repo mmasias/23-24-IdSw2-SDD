@@ -1,0 +1,10 @@
+@startuml
+[*] --> CenterOpened : Start
+CenterOpened --> CashRegisterEmpty
+CashRegisterEmpty --> CashRegisterServing : Customer Arrives
+CashRegisterEmpty --> CashRegisterClosed : Close Cash Register
+CashRegisterServing --> CashRegisterEmpty : Customer Served
+CashRegisterClosed --> CashRegisterEmpty : Open Cash Register
+CashRegisterClosed --> CenterClosed 
+CenterClosed --> [*] : End
+@enduml

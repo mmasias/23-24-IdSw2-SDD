@@ -1,0 +1,23 @@
+@startuml
+title State Diagram - CCCF
+state ShoppingCenter {
+[*] --> SC_Closed
+SC_Closed -right-> [*]
+    SC_Closed --> SC_Opened : 9 am
+    SC_Opened --> SC_Closed : 9 pm +-
+}
+
+state Queue {
+    Q_Empty --> Q_Receiving: customer arrives
+    Q_Receiving --> Q_Empty: no customers left
+    Q_Receiving --> Q_Receiving: customers keep arriving
+}
+
+state CashRegister {
+    CR_Closed --> CR_Opened: queue>1 \n 9 am
+    CR_Opened --> CR_Closed: shift change \n queue<1 \n 9 pm+-
+    CR_Opened --> CR_Serving: items>=5
+    CR_Serving --> CR_Opened: items=0
+    CR_Serving --> CR_Serving: packItems>1
+}
+@enduml

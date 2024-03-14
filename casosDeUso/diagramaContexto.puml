@@ -1,0 +1,48 @@
+@startuml
+
+[*] --> ShoppingCenterClosed 
+note on link
+Start day
+end note
+
+ShoppingCenterClosed --> ShoppingCenterOpened
+note on link
+  Open Shopping Center
+end note
+
+ShoppingCenterOpened --> CustomerQueue
+note on link
+  Register Customer Arrival
+end note
+
+ShoppingCenterOpened --> [*]
+note on link 
+exits
+end note
+
+CustomerQueue --> CashRegisterLogic
+note on link
+  Gives Customer
+end note
+
+CashRegisterLogic --> CashRegister
+note on link
+  Sends Client, open or close CR
+end note
+
+CashRegister -right-> [*]
+note on link
+  Ends With Customer & Exit
+end note
+
+ShoppingCenterOpened --> ShoppingCenterClosed
+note on link
+  Close Shopping Center
+end note
+
+ShoppingCenterClosed --> [*]
+note on link
+  End Day
+end note
+
+@enduml
