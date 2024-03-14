@@ -29,12 +29,22 @@ class Posicion {
 class Bateria { 
 
 }	
+class CapacidadDeBasura { 
 
-Habitacion o-- Azulejo
-Azulejo <|-- Aspiradora
+}	
+
+
+
+Habitacion *-- Azulejo
+Habitacion o-- Aspiradora
+Habitacion o-- Gato
+Gato-->Posicion
 Azulejo o--Elementos 
-Azulejo <|-- Gato
-Azulejo *-- Posicion
-Aspiradora *-- Bateria
+Azulejo -- Gato
+Azulejo --> Posicion
+Aspiradora -- Posicion
+Aspiradora o-- Bateria
+Aspiradora --> CapacidadDeBasura
+
 
 @enduml
