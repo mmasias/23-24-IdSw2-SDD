@@ -6,14 +6,14 @@ Se desarrolla, en un caso controlado, la disciplina de diseño, con el objetivo 
 
 <div align=center>
 
-| |Grupo|Estadísticas|Entrega oficial|
-|-|-|:-:|:-:|
-1|[pyPendiente](https://github.com/guzmangrianchoUNEAT/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/guzmangrianchoUNEAT/23-24-IdSw1-SDD/graphs/contributors)|
-2|[pyPendiente](https://github.com/VeronikaEspa/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/VeronikaEspa/23-24-IdSw1-SDD/graphs/contributors)|
-3|[pyPendiente](https://github.com/pablarce/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/pablarce/23-24-IdSw1-SDD/graphs/contributors)|
-4|[pyPendiente](https://github.com/MRSergio21/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/MRSergio21/23-24-IdSw1-SDD/graphs/contributors)|
-5|[pyPendiente](https://github.com/hugofresno20/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/hugofresno20/23-24-IdSw1-SDD/graphs/contributors)|
-6|[pyPendiente](https://github.com/jramsgz/23-24-IdSw1-SDD/blob/main/README.md)|[👁️📒](https://github.com/jramsgz/23-24-IdSw1-SDD/graphs/contributors)|
+| |Grupo|Estadísticas|1º Entrega|Diseño|DiseñoModular|DiseñoOO|Final
+|-|-|:-:|:-:|:-:|:-:|:-:|:-:|
+1|[pyCCCF](https://github.com/hugofresno20/23-24-IdSw2-SDD/)|[👁️📒]()|[E](https://github.com/mmasias/23-24-IdSw2-SDD/tree/0880697ee31856ea14b09e12a93f1d423a3c6d52)
+2|[pyMundo](https://github.com/VeronikaEspa/23-24-IdSw2-SDD)|[👁️📒]()|[E](https://github.com/mmasias/23-24-IdSw2-SDD/tree/21d72820f2b4c71856378c2af1d2f4f8b4084d92)
+3|[pyHojaDeCalculo](https://github.com/pablarce/23-24-IdSw2-SDD)|[👁️📒]()|[E](https://github.com/mmasias/23-24-IdSw2-SDD/tree/cc7d5f1df519c24adb00395eeca83d001a38d360)
+4|[pyAspiradora](https://github.com/MRSergio21/23-24-IdSw2-SDD/tree/feature/version001)|[👁️📒]()|[E](https://github.com/mmasias/23-24-IdSw2-SDD/tree/053b7f8f39d2e91c7020341e712217f7f5237c73)
+5|[pyBatalla](https://github.com/federicobolanos/23-24-IdSw2-SDD)|[👁️📒]()|[E](https://github.com/mmasias/23-24-IdSw2-SDD/tree/01fba1882da1f484965233758545600078441abf)
+6|[pyAscensores](https://github.com/jramsgz/23-24-IdSw2-SDD/tree/develop)|[👁️📒]()|[E](https://github.com/mmasias/23-24-IdSw2-SDD/tree/b6aa1267a576c20cc51b13b3623fdad77d9115b9)
 
 </div>
 
