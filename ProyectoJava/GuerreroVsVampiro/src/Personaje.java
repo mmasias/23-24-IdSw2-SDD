@@ -2,15 +2,16 @@ import java.util.Random;
 
 public abstract class Personaje {
 
-	private int poder;
-	private int ataque;
-	private int energia;
-	private double prob_exito;
-	private String nombre;
-	private Random random;
+	protected int poder;
+	protected int ataque;
+	protected int energia;
+	protected double prob_exito;
+	protected String nombre;
+	protected Random random;
+	protected Arma[] armas = new Arma[3];
 
-	private static final int UMBRAL_DESMAYO = 0;
-	private static final int RECUPERACION_ENERGIA = 0;
+	protected static final int UMBRAL_DESMAYO = 0;
+	protected static final int RECUPERACION_ENERGIA = 0;
 
 	public Personaje(int energia, int poder, int ataque, double prob_exito, String nombre) {
 		this.energia = energia;
@@ -21,6 +22,22 @@ public abstract class Personaje {
 		this.random = new Random();
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre){
+		this.nombre = nombre;
+	}
+
+	public Arma[] getArmas(){
+		return armas;
+	}
+	public void setArmas(String nombre0, int ataque0, double prob_exito0, String nombre1, int ataque1, double prob_exito1, String nombre2, int ataque2, double prob_exito2){
+		this.armas[0] = new Arma(nombre0, ataque0, prob_exito0);
+		this.armas[1] = new Arma(nombre1, ataque1, prob_exito1);
+		this.armas[2] = new Arma(nombre2, ataque2, prob_exito2);
+	}
 	public int getPoder() {
 		return poder;
 	}
@@ -53,14 +70,12 @@ public abstract class Personaje {
 		this.prob_exito = prob_exito;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
+	public abstract void atacar(Personaje objetivo);
 
-	public void atacar(Personaje objetivo) {
-	}
-
-	protected abstract void recibirDano(int dano);
+	protected void recibirDano(int dano){
+		int poderActual = this.getPoder() - dano;
+        this.setPoder(poderActual);
+	};
 
 	public boolean estaVivo() {
 		return this.poder > 0;

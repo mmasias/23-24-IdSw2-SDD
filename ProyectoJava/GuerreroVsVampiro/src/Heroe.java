@@ -2,24 +2,16 @@ import java.util.Scanner;
 
 public class Heroe extends Personaje {
 
-	private Arma[] armas;
 	private boolean defendiendo;
 	private int turnosRestantesParaAtacar = 0;
 	private Scanner scanner;
 	private static final int UMBRAL_DESMAYO = 30;
 	private static final int RECUPERACION_ENERGIA = 2;
 
-	public Heroe() {
-
-		super(150, 20, 2, 0.5, "Heroe");
-
-		armas = new Arma[] {
-				new Arma(7, 0.5),
-				new Arma(15, 0.25),
-				new Arma(30, 0.12)
-		};
-
+	public Heroe(int energia, int poder, int ataque, double prob_exito, String nombre) {
+		super(energia, poder, ataque, prob_exito, nombre);
 		scanner = new Scanner(System.in);
+		//if statement con los datos de cada personaje?
 	}
 
 	@Override
@@ -31,7 +23,7 @@ public class Heroe extends Personaje {
 			turnosRestantesParaAtacar--;
 			if (turnosRestantesParaAtacar == 0) {
 				this.setPoder(20);
-				System.out.println("El Heroe ha sobrevivido 3 turnos. Ahora tiene todo su poder de regreso.");
+				System.out.println("El " + this.getNombre() + "ha sobrevivido 3 turnos. Ahora tiene todo su poder de regreso.");
 				handleTurnoHeroe(objetivo);
 			}
 		}
@@ -40,9 +32,9 @@ public class Heroe extends Personaje {
 
 	private void handleTurnoHeroe(Personaje objetivo) {
 		System.out.println("Elige un arma para atacar:\n" +
-				"1 - Cuchillo (Ataque: 7 | Probabilidad de éxito 50 %)\n" +
-				"2 - Espada (Ataque: 15 | Probabilidad de éxito 25 %)\n" +
-				"3 - Hacha (Ataque: 30 | Probabilidad de éxito 12 %)");
+				"1 - " + this.armas[0].getNombre() + " (Ataque: " + this.armas[0].getAtaque() + " | Probabilidad de éxito: " + this.armas[0].getProb() + " %)\n" +
+				"2 - " + this.armas[1].getNombre() + " (Ataque: " + this.armas[0].getAtaque() + " | Probabilidad de éxito: " + this.armas[0].getProb() + " %)\n" +
+				"3 - " + this.armas[2].getNombre() + " (Ataque: " + this.armas[0].getAtaque() + " | Probabilidad de éxito: " + this.armas[0].getProb() + " %)");
 
 		if (turnosRestantesParaAtacar < 1) {
 			System.out.println("4 - Poción (No puedes atacar o defender por 3 turnos)");
@@ -55,7 +47,7 @@ public class Heroe extends Personaje {
 		}
 
 		if (eleccion < 4) {
-			Arma armaElegida = armas[eleccion - 1];
+			Arma armaElegida = this.armas[eleccion - 1];
 
 			if (Math.random() < armaElegida.getProb()) {
 

@@ -9,27 +9,22 @@ class Juego{
   + gestionarTurnos():void
 }
 
-interface Personaje{
-  - poder: int
-  - ataque: int
-  - energia: int
-  - prob_exito: double
-  - nombre: string
-  - random: Random
-  - UMBRAL_DESMAYO: int
-  - RECUPERACION_ENERGIA: int
-  - armas[]: Arma
-  + estaVivo(): boolean
-  + estaDesmayado(): boolean
-  + recuperarEnergia(): void
-  + atacar(Personaje): void
-  + recibirDano(int): void
+abstract Personaje{
+  + estaVivo()
+  + estaDesmayado()
+  + recuperarEnergia()
+  + atacar(Personaje)
+  + recibirDano(int)
 }
 
-interface Heroe {
+class Heroe {
   - defendiendo: boolean
   - turnosRestantesParaAtacar: int
   + tomarPocion(): void
+}
+
+class Villano{
+
 }
 
 class Arma {
@@ -39,7 +34,9 @@ class Arma {
 }
 
 Juego -- Personaje
-Personaje -r- Arma
+Heroe -r- Arma
+Villano -l- Arma
 Personaje <|-- Heroe
+Personaje <|-- Villano
 
 @enduml
