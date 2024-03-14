@@ -1,0 +1,39 @@
+@startuml
+
+title Modelo de clases Aspiradora
+
+class Habitacion { 
+
+}
+
+Class Azulejo {  
+
+}
+
+class Aspiradora { 
+
+}
+
+class Elementos  { 
+
+}
+
+class Gato { 
+
+}
+
+class Posicion { 
+}
+class Bateria { 
+}	
+
+Habitacion o-- Azulejo
+Azulejo <|-- Aspiradora
+Azulejo o--Elementos 
+Azulejo <|-- Gato
+Azulejo *-- Posicion
+Aspiradora *-- Bateria
+
+
+@enduml
+
