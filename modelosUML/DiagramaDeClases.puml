@@ -23,8 +23,11 @@ class Gato {
 }
 
 class Posicion { 
+
 }
+
 class Bateria { 
+
 }	
 
 Habitacion o-- Azulejo
@@ -34,6 +37,4 @@ Azulejo <|-- Gato
 Azulejo *-- Posicion
 Aspiradora *-- Bateria
 
-
 @enduml
-
