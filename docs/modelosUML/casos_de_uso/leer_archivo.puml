@@ -1,0 +1,17 @@
+@startuml CasoDeUsoLeerArchivo
+
+start
+:Recibir path al archivo;
+if (¿Archivo existe?) then (sí)
+    if (¿Permisos de lectura suficientes?) then (sí)
+        :Abrir y leer archivo;
+    else (no)
+        :Reportar error - Permisos insuficientes;
+    endif
+else (no)
+    :Reportar error - Archivo no encontrado;
+endif
+:Proceso completado y se regresa la información leída;
+stop
+
+@enduml

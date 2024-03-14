@@ -1,0 +1,10 @@
+@startuml DiagramaDeEstadosTiempo
+
+  [*] --> TiempoInicial : Inicia Tiempo
+  TiempoInicial --> Mañana : Comienza el día
+  Mañana --> Tarde : Al mediodía
+  Tarde --> Noche : Al atardecer
+  Noche --> Mañana : A medianoche
+
+
+@enduml

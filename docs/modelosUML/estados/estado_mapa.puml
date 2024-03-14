@@ -1,0 +1,9 @@
+@startuml DiagramaDeEstadosMapa
+
+    [*] --> NoCreado : Inicia
+    NoCreado --> Creado : Crear Mapa
+    Creado --> Poblado : Poblar Mapa
+    Poblado --> Creado : Despoblar Mapa
+    Creado --> [*] : Destruir Mapa
+
+@enduml

@@ -1,0 +1,16 @@
+@startuml CasoDeUsoCambiarTransporteDePersonaje
+
+start
+:Recibir tile seleccionada;
+if (¿Tile coincide con lista\nde tiles permitidas para el transporte actual?) then (sí)
+    :Mantener transporte actual;
+else (no)
+    if (¿Existe transporte compatible\ncon la tile?) then (sí)
+        :Ajustar transporte a uno\ncompatible con la tile;
+    else (no)
+        :Error - No hay transporte\ncompatible con la tile;
+    endif
+endif
+stop
+
+@enduml
