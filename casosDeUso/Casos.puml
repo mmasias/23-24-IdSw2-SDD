@@ -1,0 +1,22 @@
+@startuml
+
+actor Usuario
+
+package Movimiento{
+    usecase "Registrar Movimiento" as UC1
+}
+
+package Salida{
+    usecase "Salir del programa" as UC4
+}
+
+package IntroducirDatos{
+    usecase "Introducir Datos" as UC2
+    usecase "Introducir Operación" as UC3
+}
+
+Usuario -up-> Movimiento
+Usuario -down-> Salida
+Usuario -right-> IntroducirDatos
+
+@enduml

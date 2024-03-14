@@ -1,0 +1,15 @@
+@startuml 
+
+[*] -right-> NoHayCaracter
+
+state NoHayCaracter{
+    [*] -down-> HayCaracter : Caracter introducido
+}
+
+state HayCaracter{
+    [*] -right-> DeterminarDireccion
+    DeterminarDireccion -down-> Mover : Producir movimiento
+}
+Mover -right-> [*]
+
+@enduml

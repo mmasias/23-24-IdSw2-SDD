@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="413px" preserveAspectRatio="none" style="width:431px;height:413px;background:#FFFFFF;" version="1.1" viewBox="0 0 431 413" width="431px" zoomAndPan="magnify"><defs/><g><!--MD5=[a47aac5da174bb9806e312329c58fe68]
+cluster NoHayCaracter--><g id="cluster_NoHayCaracter"><path d="M63.5,7 L150.5,7 A12.5,12.5 0 0 1 163,19.5 L163,34.6094 L51,34.6094 L51,19.5 A12.5,12.5 0 0 1 63.5,7 " fill="#F1F1F1" style="stroke:#F1F1F1;stroke-width:1.0;"/><rect fill="none" height="88" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="112" x="51" y="7"/><line style="stroke:#181818;stroke-width:0.5;" x1="51" x2="163" y1="34.6094" y2="34.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="96" x="59" y="25.5332">NoHayCaracter</text></g><!--MD5=[84ca346868611536c95db1860c939d23]
+cluster HayCaracter--><g id="cluster_HayCaracter"><path d="M121.5,161 L368.5,161 A12.5,12.5 0 0 1 381,173.5 L381,188.6094 L109,188.6094 L109,173.5 A12.5,12.5 0 0 1 121.5,161 " fill="#F1F1F1" style="stroke:#F1F1F1;stroke-width:1.0;"/><rect fill="none" height="246" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="272" x="109" y="161"/><line style="stroke:#181818;stroke-width:0.5;" x1="109" x2="381" y1="188.6094" y2="188.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="79" x="205.5" y="179.5332">HayCaracter</text></g><ellipse cx="117" cy="61" fill="#222222" rx="10" ry="10" style="stroke:none;stroke-width:1.0;"/><ellipse cx="162" cy="230" fill="#222222" rx="10" ry="10" style="stroke:none;stroke-width:1.0;"/><g id="HayCaracter.DeterminarDireccion"><rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="149" x="207.5" y="205"/><line style="stroke:#181818;stroke-width:0.5;" x1="207.5" x2="356.5" y1="232.6094" y2="232.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="217.5" y="224.5332">DeterminarDireccion</text></g><g id="HayCaracter.Mover"><rect fill="#F1F1F1" height="50" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;" width="59" x="252.5" y="333"/><line style="stroke:#181818;stroke-width:0.5;" x1="252.5" x2="311.5" y1="360.6094" y2="360.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="39" x="262.5" y="352.5332">Mover</text></g><ellipse cx="16" cy="61" fill="#222222" rx="10" ry="10" style="stroke:none;stroke-width:1.0;"/><ellipse cx="415" cy="358" fill="none" rx="10" ry="10" style="stroke:#222222;stroke-width:1.0;"/><ellipse cx="415.5" cy="358.5" fill="#222222" rx="6" ry="6" style="stroke:none;stroke-width:1.0;"/><!--MD5=[35321349a86170ec783c91f5f0509cfd]
+link *start to NoHayCaracter--><g id="link_*start_NoHayCaracter"><path d="M26.2,61 C31.91,61 37.62,61 43.33,61 C44.7575,61 46.185,61 47.6125,61 C48.3263,61 49.04,61 49.7538,61 C50.1106,61 50.4675,61 50.8244,61 C50.869,61 50.9136,61 50.9582,61 " fill="none" id="*start-to-NoHayCaracter" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="50.9582,61,41.9582,57,45.9582,61,41.9582,65,50.9582,61" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[fa98ee17998a874160eaee2cef49a8ac]
+link *start*NoHayCaracter to HayCaracter--><g id="link_*start*NoHayCaracter_HayCaracter"><path d="M117,71.46 C117,80.1525 117,94.1075 117,110.2084 C117,118.2589 117,126.8459 117,135.5797 C117,139.9467 117,144.3503 117,148.742 C117,150.9379 117,153.1307 117,155.3145 C117,156.4064 117,157.496 117,158.5826 C117,159.1259 117,159.6684 117,160.2101 " fill="none" id="*start*NoHayCaracter-to-HayCaracter" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="117,160.2101,121,151.2101,117,155.2101,113,151.2101,117,160.2101" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="116" x="118" y="133.4951">Caracter introducido</text></g><!--MD5=[b3c69854292ca407064919bc92641843]
+link *start*HayCaracter to DeterminarDireccion--><g id="link_*start*HayCaracter_DeterminarDireccion"><path d="M172.31,230 C182.29,230 192.26,230 202.23,230 " fill="none" id="*start*HayCaracter-to-DeterminarDireccion" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="207.45,230,198.45,226,202.45,230,198.45,234,207.45,230" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[73fcbbacc107a57cf0ac1710185216cc]
+link DeterminarDireccion to Mover--><g id="link_DeterminarDireccion_Mover"><path d="M282,255.29 C282,275.95 282,305.67 282,327.65 " fill="none" id="DeterminarDireccion-to-Mover" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="282,332.78,286,323.78,282,327.78,278,323.78,282,332.78" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="117" x="283" y="299.4951">Producir movimiento</text></g><!--MD5=[e9ba91e7017b7c47718486ab0b1e4857]
+link Mover to *end--><g id="link_Mover_*end"><path d="M311.61,358 C341.01,358 370.41,358 399.8,358 " fill="none" id="Mover-to-*end" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="404.9,358,395.9,354,399.9,358,395.9,362,404.9,358" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[7bfc5a324ea330c92d81f07d85da6507]
+@startuml 
+
+[*] -right-> NoHayCaracter
+
+state NoHayCaracter{
+    [*] -down-> HayCaracter : Caracter introducido
+}
+
+state HayCaracter{
+    [*] -right-> DeterminarDireccion
+    DeterminarDireccion -down-> Mover : Producir movimiento
+}
+Mover -right-> [*]
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1252
+Language: es
+Country: ES
+--></g></svg>

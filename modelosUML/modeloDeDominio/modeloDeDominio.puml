@@ -1,0 +1,56 @@
+@startuml 
+class Cell {
+    - cellValue: String
+    + getCellValue(): String
+    + setCellValue(cellValue: String): void
+}
+
+class Movement {
+    - currentRow: int
+    - currentColumn: int
+    + getCurrentRow(currentCell: String): int
+    + getCurrentColumn(currentCell: String): int
+    + handleCommand(command: String, currentCell: String): String
+    - moveUp(currentCell: String): String
+    - moveDown(currentCell: String): String
+    - moveLeft(currentCell: String): String
+    - moveRight(currentCell: String): String
+}
+
+class Sheet {
+    - rows: int
+    - columns: int
+    - sheetData: String[][]
+    - currentCell: String
+    - spacing: final int
+    + Sheet(rows: int, columns: int)
+    + getCellValue(row: int, column: int): String
+    + setCellValue(row: int, column: int, value: String): void
+    + getCurrentCell(): String
+    + setCurrentCell(cell: String): void
+    + getCurrentRow(cell: String): int
+    + getCurrentColumn(cell: String): int
+    + getCellContent(i: int, j: int): String
+    + setCellValue(row: int, col: int, value: String): void
+    + getSheetData(): String[][]
+    + getCellName(i: int, j: int): String
+}
+
+class Menu {
+    + showSheet(sheet: Sheet): void
+}
+
+class HojaDeCalculo {
+    - sheet: Sheet
+    - movement: Movement
+    - input: Scanner
+    + HojaDeCalculo()
+    + run(): void
+}
+
+Main --> HojaDeCalculo
+Sheet --> Cell
+HojaDeCalculo --> Movement
+Sheet --> Menu
+HojaDeCalculo --> Sheet 
+@enduml

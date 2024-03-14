@@ -1,0 +1,8 @@
+@startuml
+[*] --> Empty
+Empty : cellValue = null
+Empty --> WithValue : setCellValue
+WithValue : cellValue != null
+WithValue --> WithValue : setCellValue(newValue)
+WithValue --> Empty : setCellValue(null)
+@enduml

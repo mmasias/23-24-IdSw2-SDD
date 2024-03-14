@@ -1,0 +1,31 @@
+@startuml
+
+object Sheet {
+    Hoja de calculo 10x10
+    Current cell 29
+}
+
+object Cell {
+    Manolo
+}
+
+object Movimiento {
+    Derecha
+}
+
+object Sheet2{
+    Hoja de calculo 10x10
+    Current cell 30
+}
+
+object Cell2{
+    Juan
+}
+
+Sheet -right-> Cell
+Sheet --> Movimiento
+Movimiento --> Sheet2
+Sheet2 -right-> Cell2
+
+
+@enduml

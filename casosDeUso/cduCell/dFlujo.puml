@@ -1,0 +1,22 @@
+@startuml
+start
+:Start;
+partition "setCellValue" {
+    :Enter value;
+    if (Is value valid?) then (yes)
+        :Assign value to cellValue;
+        :Value is set;
+    else (no)
+        :Reject value;
+        :Value not set;
+    endif
+}
+partition "getCellValue" {
+    if (Is cellValue set?) then (yes)
+        :Return cellValue;
+    else (no)
+        :Return "Value is not valid";
+    endif
+}
+stop
+@enduml

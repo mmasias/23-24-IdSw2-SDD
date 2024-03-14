@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="413px" preserveAspectRatio="none" style="width:512px;height:413px;background:#FFFFFF;" version="1.1" viewBox="0 0 512 413" width="512px" zoomAndPan="magnify"><defs/><g><!--MD5=[447f69f856e80d321eb36205a57fab99]
+cluster Movimiento--><g id="cluster_Movimiento"><path d="M24.5,6 L108.5,6 A3.75,3.75 0 0 1 111,8.5 L118,29.6094 L262.5,29.6094 A2.5,2.5 0 0 1 265,32.1094 L265,111.5 A2.5,2.5 0 0 1 262.5,114 L24.5,114 A2.5,2.5 0 0 1 22,111.5 L22,8.5 A2.5,2.5 0 0 1 24.5,6 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="22" x2="118" y1="29.6094" y2="29.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="83" x="26" y="22.5332">Movimiento</text></g><!--MD5=[d9e7ad11c5c844a9541f34ce638b718c]
+cluster Salida--><g id="cluster_Salida"><path d="M24.5,301 L67.5,301 A3.75,3.75 0 0 1 70,303.5 L77,324.6094 L248.5,324.6094 A2.5,2.5 0 0 1 251,327.1094 L251,403.5 A2.5,2.5 0 0 1 248.5,406 L24.5,406 A2.5,2.5 0 0 1 22,403.5 L22,303.5 A2.5,2.5 0 0 1 24.5,301 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="22" x2="77" y1="324.6094" y2="324.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="42" x="26" y="317.5332">Salida</text></g><!--MD5=[3310d72cd4a26f3c6c0fa10d454a2bdb]
+cluster IntroducirDatos--><g id="cluster_IntroducirDatos"><path d="M83.5,154 L193.5,154 A3.75,3.75 0 0 1 196,156.5 L203,177.6094 L502.5,177.6094 A2.5,2.5 0 0 1 505,180.1094 L505,258.5 A2.5,2.5 0 0 1 502.5,261 L83.5,261 A2.5,2.5 0 0 1 81,258.5 L81,156.5 A2.5,2.5 0 0 1 83.5,154 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="81" x2="203" y1="177.6094" y2="177.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="109" x="85" y="170.5332">IntroducirDatos</text></g><g id="elem_UC1"><ellipse cx="152.8193" cy="69.9639" fill="#F1F1F1" rx="87.8193" ry="19.9639" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="133" x="86.3193" y="73.6924">Registrar Movimiento</text></g><g id="elem_UC4"><ellipse cx="146.1887" cy="363.5377" fill="#F1F1F1" rx="80.6887" ry="18.5377" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="116" x="87.5015" y="367.4661">Salir del programa</text></g><g id="elem_UC2"><ellipse cx="405.981" cy="217.2962" fill="#F1F1F1" rx="74.481" ry="17.2962" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="352.981" y="221.8128">Introducir Datos</text></g><g id="elem_UC3"><ellipse cx="210.1163" cy="217.6233" fill="#F1F1F1" rx="86.1163" ry="19.6233" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="129" x="145.6163" y="221.3518">Introducir Operación</text></g><!--MD5=[128f0757cf0ea77f14e95a88885fd9f7]
+entity Usuario--><g id="elem_Usuario"><ellipse cx="30" cy="187" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M30,195 L30,222 M17,203 L43,203 M30,222 L17,237 M30,222 L43,237 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="48" x="6" y="253.0332">Usuario</text></g><!--MD5=[267bfc8dde30fa20139eb91aac5a0d96]
+reverse link Movimiento to Usuario--><g id="link_Movimiento_Usuario"><path d="M30,114.4724 C30,114.6426 30,114.813 30,114.9837 C30,115.3251 30,115.6674 30,116.0107 C30,116.6974 30,117.3879 30,118.082 C30,120.8584 30,123.6921 30,126.5636 C30,132.3067 30,138.2013 30,144.093 C30,155.8762 30,167.6475 30,178.17 " fill="none" id="Movimiento-backto-Usuario" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="30,114.4724,26,123.4724,30,119.4724,34,123.4724,30,114.4724" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[1feb804ab478a16488f6540333d2a9fd]
+link Usuario to Salida--><g id="link_Usuario_Salida"><path d="M30,256.71 C30,267.21 30,278.9488 30,290.6806 C30,293.6136 30,296.5461 30,299.4588 C30,299.8229 30,300.1866 30,300.5501 " fill="none" id="Usuario-to-Salida" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="30,300.5501,34,291.5501,30,295.5501,26,291.5501,30,300.5501" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[0aa2a1c52d04cdc4756b56b30b850c32]
+link Usuario to IntroducirDatos--><g id="link_Usuario_IntroducirDatos"><path d="M54.43,217.5 C60.1,217.5 65.7725,217.5 71.445,217.5 C74.2813,217.5 77.1175,217.5 79.9534,217.5 C80.1307,217.5 80.3079,217.5 80.4852,217.5 C80.5738,217.5 80.6624,217.5 80.751,217.5 C80.7953,217.5 80.8397,217.5 80.884,217.5 " fill="none" id="Usuario-to-IntroducirDatos" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="80.884,217.5,71.884,213.5,75.884,217.5,71.884,221.5,80.884,217.5" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[afcde9093ca113802815da967ae0f151]
+@startuml
+
+actor Usuario
+
+package Movimiento{
+    usecase "Registrar Movimiento" as UC1
+}
+
+package Salida{
+    usecase "Salir del programa" as UC4
+}
+
+package IntroducirDatos{
+    usecase "Introducir Datos" as UC2
+    usecase "Introducir Operación" as UC3
+}
+
+Usuario -up-> Movimiento
+Usuario -down-> Salida
+Usuario -right-> IntroducirDatos
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: Cp1252
+Language: es
+Country: ES
+--></g></svg>

@@ -1,0 +1,20 @@
+@startuml
+
+:Leer entrada;
+
+if(caracter == "w") then (si)
+    :Mover arriba;
+else if(caracter == "s") then (si)
+    :Mover abajo;
+else if(caracter == "a") then (si)
+    :Mover izquierda;
+else if(caracter == "d") then (si)
+    :Mover derecha;
+else
+    :No hacer nada;
+endif
+
+:Actualizar posición;
+:Actualizar pantalla;
+
+@enduml

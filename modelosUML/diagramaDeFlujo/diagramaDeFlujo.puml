@@ -1,0 +1,20 @@
+@startuml
+start
+:Initialize sheet, movement, and input;
+while (true)
+    :Display sheet;
+    :Display movement menu for current cell;
+    :Read user command;
+    if (command is "q") then (yes)
+        :Break loop;
+    elseif (command is "e") then (yes)
+        :Input new value for current cell;
+        :Set new value for current cell in sheet;
+    else (no)
+        :Handle movement command;
+        :Update current cell in sheet;
+    endif
+endwhile
+:Close input scanner;
+stop
+@enduml
