@@ -1,0 +1,26 @@
+@startuml
+Class Universidad
+Class Ascensor
+{
+    Posición
+    Destino
+    Ocupantes
+}
+Class Usuario
+{
+    Posición
+    Destino
+    Esperando
+    TiempoAula
+}
+Class Controlador
+{
+    ListaAscensores
+    UsuarioEsperando
+}
+Universidad --> Controlador
+Universidad --> Usuario
+Controlador --> Ascensor : dirige
+Controlador .. Usuario : interactua
+Ascensor ..> Usuario : tiene
+Ascensor <.. Usuario : llama

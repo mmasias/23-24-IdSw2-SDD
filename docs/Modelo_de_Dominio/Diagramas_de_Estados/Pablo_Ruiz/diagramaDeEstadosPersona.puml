@@ -1,0 +1,15 @@
+@startuml Diagrama_De_Estados
+
+title Diagrama de Estados Persona
+
+state Persona{
+LlegaEdificio-->PermanecePlanta
+PermanecePlanta-->EsperaAscensor
+EsperaAscensor-->SubeAlAscensor
+SubeAlAscensor-->MarcaDestino
+MarcaDestino-->RecorreTrayecto
+RecorreTrayecto-->LlegaDestino
+LlegaDestino-->BajaDelAscensor
+BajaDelAscensor-->SaleEdificio
+BajaDelAscensor-->PermanecePlanta
+}
