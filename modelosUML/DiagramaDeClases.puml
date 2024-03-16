@@ -38,7 +38,7 @@ class CapacidadDeBasura {
 Habitacion *-- Azulejo
 Habitacion o-- Aspiradora
 Habitacion o-- Gato
-Gato-->Posicion
+Gato--Posicion
 Azulejo o--Elementos 
 Azulejo -- Gato
 Azulejo --> Posicion
