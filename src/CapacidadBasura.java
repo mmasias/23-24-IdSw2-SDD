@@ -1,8 +1,8 @@
-public class CapacidadDeBasura {
+public class CapacidadBasura {
     private int nivelBasura = 0;
     private int maximoNivelBasura;
 
-    public CapacidadDeBasura(int maximoNivelBasura){
+    public CapacidadBasura(int maximoNivelBasura){
         this.maximoNivelBasura = maximoNivelBasura;
     }
 
