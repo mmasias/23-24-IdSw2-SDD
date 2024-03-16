@@ -1,16 +1,17 @@
 public class Azulejo{
-    private Elements nivelSuciedad;
+    private int nivelSuciedad;
     private Posicion posicion;
+    private Boolean tieneMueble;
 
-    public Azulejo(Elements nivelSuciedad) {
+    public Azulejo(int nivelSuciedad) {
         this.nivelSuciedad = nivelSuciedad;
     }
 
-    public Elements getNivelSuciedad() {
+    public int getNivelSuciedad() {
         return nivelSuciedad;
     }
 
-    public void setNivelSuciedad(Elements nivelSuciedad) {
+    public void setNivelSuciedad(int nivelSuciedad) {
         this.nivelSuciedad = nivelSuciedad;
     }
 

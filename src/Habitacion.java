@@ -1,9 +1,9 @@
 public class Habitacion {
-    private int[][] matriz;
-    private Elements[][] elems;
+    private Azulejo[][] superficie;
 
-    public Habitacion (int[][] matrix) {
-        this.matriz = matrix;
+
+    public Habitacion (Azulejo[][] superficie) {
+        this.superficie = superficie;
     }
 
 

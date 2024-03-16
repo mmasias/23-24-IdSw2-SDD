@@ -2,30 +2,17 @@ public class Main {
 
      public static void main(String[] args) {
 
-          int rows = 25;
-          int columns = 10;
-          int[][] matriz = {{25},{10}};
+          Gato gato = new Gato();
+          Aspiradora aspiradora = new Aspiradora(0,0);
+          Azulejo azulejo = new Azulejo(0);
+          //Habitacion habitacion = new Habitacion(azulejo);
 
-
-          Habitacion matrix = new Habitacion(matriz);
-          
-          // imprimir matriz
-          for (int i = 0; i < rows; i++) {
-               for (int j = 0; j < columns; j++) {
-                    System.out.print("[]");
+          for(int x = 0; x < 10; x++){
+               for(int y = 0; y < 10; y++){
+ 
                }
-               System.out.println();
           }
-          
-          // rellenar la matriz
-          
-          
 
-          
-
-
-
-          
 
 
      }

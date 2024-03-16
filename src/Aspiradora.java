@@ -1,5 +1,4 @@
 public class Aspiradora {
-    private int pasosRealizados;
     private int bateria;
     private Posicion posicion;
 
@@ -12,7 +11,7 @@ public class Aspiradora {
         return posicion;
     }
 
-    public int getPasosRealizados( ) { 
+    public int getPasosRealizados( ) {
         return pasosRealizados;
     }
     
