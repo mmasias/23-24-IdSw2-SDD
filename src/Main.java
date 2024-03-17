@@ -1,19 +1,16 @@
+import java.util.Scanner;
+
 public class Main {
 
      public static void main(String[] args) {
+          Scanner scanner = new Scanner(System.in);
+          System.out.println("Especifica el largo y ancho de la habitación.");
+          int largo = Utils.obtenerEnteroValido(scanner, "Largo:");
+          int ancho = Utils.obtenerEnteroValido(scanner, "Ancho:");          
 
-          Gato gato = new Gato();
-          Aspiradora aspiradora = new Aspiradora(0,0);
-          Azulejo azulejo = new Azulejo(0);
-          //Habitacion habitacion = new Habitacion(azulejo);
-
-          for(int x = 0; x < 10; x++){
-               for(int y = 0; y < 10; y++){
- 
-               }
-          }
-
-
-
+          Gato gato = new Gato(0,0);
+          Habitacion habitacion = new Habitacion(ancho, largo);
+          habitacion.imprimir();
+          scanner.close();
      }
 }
