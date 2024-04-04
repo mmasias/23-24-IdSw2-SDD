@@ -7,39 +7,43 @@ import Models.Elevator;
 import Models.Floor;
 
 public class BuildingView {
-    private ArrayList<String[]> Building;
-    private ElevatorView ElevatorView;
-    private FloorView FloorView;
-    private PeopleOnFloorView PeopleOnFloorView;
-    private WaitingPeopleView PeopleWaitingView;
+    private ElevatorView elevatorView;
+    private FloorView floorView;
+    private PeopleOnFloorView peopleOnFloorView;
+    private WaitingPeopleView peopleWaitingView;
+
+    private ArrayList<String[]> renderedView;
 
     public BuildingView(Building building) {
-        List<Elevator> Elevators = building.getElevators();
-        List<Floor> Floors = building.getFloors();
+        List<Elevator> elevators = building.getElevators();
+        List<Floor> floors = building.getFloors();
 
-        Building = new ArrayList<String[]>();
-        ElevatorView = new ElevatorView(Elevators, Floors.size());
-        FloorView = new FloorView(Floors);
-        PeopleOnFloorView = new PeopleOnFloorView(Floors);
-        PeopleWaitingView = new WaitingPeopleView(Floors);
+        elevatorView = new ElevatorView(elevators, floors.size());
+        floorView = new FloorView(floors);
+        peopleOnFloorView = new PeopleOnFloorView(floors);
+        peopleWaitingView = new WaitingPeopleView(floors);
+
+        renderedView = new ArrayList<String[]>();
     }
 
-    public void render() {
-        Building = FloorView.render(Building);
-        Building = PeopleOnFloorView.render(Building);
-        Building = ElevatorView.render(Building);
-        Building = PeopleWaitingView.render(Building);
+    public String render() {
+        ArrayList<String[]> views = new ArrayList<String[]>();
 
-        printBuilding();
-    }
+        views.add(floorView.render());
+        views.add(peopleOnFloorView.render());
+        views.add(elevatorView.render());
+        views.add(peopleWaitingView.render());
 
-    private void printBuilding() {
-        for (int i = 0; i < Building.get(0).length; i++) {
-            for (int j = 0; j < Building.size(); j++) {
-                System.out.print(" " + Building.get(j)[i]);
+        // We need to return all the views in a single string
+        StringBuilder mergedView = new StringBuilder();
+        for (String[] view : views) {
+            for (String line : view) {
+                mergedView.append(line);
+                mergedView.append("\n");
             }
-            System.out.println();
         }
+
+        return mergedView.toString();
     }
 
 }

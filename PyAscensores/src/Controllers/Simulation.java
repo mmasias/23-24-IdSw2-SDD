@@ -22,6 +22,7 @@ public class Simulation {
     private void render() {
         Building building = Buildings.getBuilding();
         BuildingView buildingView = new BuildingView(building);
-        buildingView.render();
+        String view = buildingView.render();
+        System.out.println(view);
     }
 }
