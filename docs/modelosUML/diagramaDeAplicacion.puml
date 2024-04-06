@@ -2,6 +2,8 @@
 
 class App {
     - WorldController worldController
+    - World gameWorld
+    - WorldView gameWorldView
 
     + main()
     - initializeGame()
@@ -16,8 +18,7 @@ package "Model" {
 
         + simulateCycle()
         + addEntity(Entity newEntity)
-        + removeEntity(Entity entity)
-        + updateTime()
+        - updateTime()
     }
 
     class Time {
@@ -25,19 +26,22 @@ package "Model" {
         - int currentTime
 
         + advanceTime()
-        + resetDay()
+        + setTimeOfDay(int currentTime)
+        - resetDay()
     }
 
     class Map {
         - Tile[][] tiles
 
-        + updateTile(int x, int y, Tile newTile)
+        + updateTile(Point point, Tile newTile)
+        + getTile(Point point)
     }
 
     class Tile {
         - TileTypes type
 
         + changeType(TileTypes newType)
+        + getType() 
     }
 
     abstract class Entity {
@@ -46,11 +50,14 @@ package "Model" {
 
         + moveTo(Point newPosition)
         + changeTransport(Transport newTransport)
+        + getCurrentTransport()
     }
 
     class Character extends Entity {
         - CharacterType characterType
         - Transport[] availableTransports
+
+        + getAvailableTransports()
 
     }
 
@@ -104,9 +111,10 @@ package "Model" {
 package "View" {
     class WorldView {
         - String[][] View
-        + showWorldTime(Time time)
-        + showWorldMap(Map map)
-        + showWorldEntities(Entity[] entities)
+        + showWorld(World world)
+        - showWorldTime(Time time)
+        - showWorldMap(Map map)
+        - showWorldEntities(Entity[] entities)
     }
 }
 
@@ -116,8 +124,14 @@ package "Controller" {
         - WorldView worldView
 
         + initializeGame()
-        + runGameCycle()
-        + processUserInput(char input)
+        - initializeWorldMap()
+        - initializeWorldEntities()
+        - runGameCycle()
+        - moveCharacter(Character character)
+        - getCharacterMovement(Character character)
+        - getRandomCharacterMovement()
+        - getUserInput()
+        - processUserInput(char input)
     }
 }
 
@@ -130,7 +144,6 @@ Entity --> Point
 Entity --> Transport
 Transport --> TransportTypes
 Time --> TimesOfDay
-Entity ..> Character : <<instantiates>>
 Character --> CharacterType
 WorldController --> World
 WorldController --> WorldView

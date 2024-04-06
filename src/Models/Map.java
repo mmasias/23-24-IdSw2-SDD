@@ -1,5 +1,5 @@
 package Models;
 
-public class Time {
+public class Map {
     
 }
