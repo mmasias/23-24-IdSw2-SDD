@@ -1,0 +1,68 @@
+@startuml DiagramaObjetos-PyMundo
+
+object "World: World" as world {
+    Map = Map
+    Entities = [Cat, Dog, Másias,...]
+    Time = Time
+}
+
+object "Time: Time" as time {
+    timesOfDay= MORNING
+    currentTime="10:30"
+}
+
+object "Map: Map" as mapa{
+    tiles= [Floor, Sand, Wall,...]
+}
+object "Sand: Tile" as sand{
+    tileType: SAND
+}
+object "Floor: Tile" as floor {
+    tileType: FLOOR
+}
+object "Wall: Tile" as wall {
+    tileType: WALL
+}
+object "Cat: NonPlayableCharacter" as cat {
+    position: (100,20)
+    transportInUse: Foot
+    availableTransports: [Foot, MagicCarpet]
+}
+object "Dog: NonPlayableCharacter" as dog {
+    position: (160,80)
+    transportInUse: Foot
+    availableTransports: [Foot, MagicCarpet]
+}
+object "Masías: PlayableCharacter" as mmasias {
+    position: (170,30)
+    transportInUse: Foot
+    availableTransports: [Foot, MagicCarpet]
+}
+
+package Transports {
+   object "Foot: Transport" as foot{
+      transportType: FOOT
+   }
+
+  object "MagicCarpet: Transport" as carpet {
+      transportType: MAGIC_CARPET
+   }
+}
+
+
+
+' Relationships
+world --> time : "has >"
+world --> mapa : "has >"
+mapa --> sand : "contains >"
+mapa --> floor : "contains >"
+mapa --> wall : "contains >"
+world --> cat : "contains >"
+world --> dog : "contains >"
+world --> mmasias : "contains >"
+
+cat --> Transports : "uses >"
+dog --> Transports : "uses >"
+mmasias --> Transports : "uses >"
+
+@enduml
