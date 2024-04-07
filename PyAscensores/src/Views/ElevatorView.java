@@ -18,7 +18,7 @@ public class ElevatorView {
     public String[] render() {
         ArrayList<String[]> renderedElevators = new ArrayList<String[]>();
         for (Elevator elevator : elevators) {
-            String view[] = getElevatorView(elevator, totalFloors).split("\n");
+            String view[] = getElevatorView(elevator).split("\n");
             renderedElevators.add(view);
         }
 
@@ -26,7 +26,7 @@ public class ElevatorView {
         return view;
     }
 
-    private String getElevatorView(Elevator elevator, int totalFloors) {
+    private String getElevatorView(Elevator elevator) {
         StringBuilder elevatorView = new StringBuilder();
         int currentFloor = elevator.getCurrentFloor();
         char direction = directionIcons[elevator.getDirection().ordinal()];
@@ -47,13 +47,14 @@ public class ElevatorView {
 
     private String[] mergeElevatorsViews(ArrayList<String[]> views) {
         StringBuilder mergedView = new StringBuilder();
-        for (int i = 0; i < views.get(0).length; i++) {
+        
+        for (int i = 0; i < totalFloors; i++) {
             for (String[] view : views) {
                 mergedView.append(view[i]);
             }
             mergedView.append("\n");
         }
 
-        return new String[] { mergedView.toString() };
+        return mergedView.toString().split("\n");
     }
 }

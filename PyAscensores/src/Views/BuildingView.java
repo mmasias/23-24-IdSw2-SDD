@@ -7,14 +7,14 @@ import Models.Elevator;
 import Models.Floor;
 
 public class BuildingView {
+    private Building building;
     private ElevatorView elevatorView;
     private FloorView floorView;
     private PeopleOnFloorView peopleOnFloorView;
     private WaitingPeopleView peopleWaitingView;
 
-    private ArrayList<String[]> renderedView;
-
     public BuildingView(Building building) {
+        this.building = building;
         List<Elevator> elevators = building.getElevators();
         List<Floor> floors = building.getFloors();
 
@@ -22,8 +22,6 @@ public class BuildingView {
         floorView = new FloorView(floors);
         peopleOnFloorView = new PeopleOnFloorView(floors);
         peopleWaitingView = new WaitingPeopleView(floors);
-
-        renderedView = new ArrayList<String[]>();
     }
 
     public String render() {
@@ -34,13 +32,13 @@ public class BuildingView {
         views.add(elevatorView.render());
         views.add(peopleWaitingView.render());
 
-        // We need to return all the views in a single string
         StringBuilder mergedView = new StringBuilder();
-        for (String[] view : views) {
-            for (String line : view) {
-                mergedView.append(line);
-                mergedView.append("\n");
+        
+        for (int i = 0; i < building.getFloors().size(); i++) {
+            for (String[] view : views) {
+                mergedView.append(view[i] + "  ");
             }
+            mergedView.append("\n");
         }
 
         return mergedView.toString();
