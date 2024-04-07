@@ -34,10 +34,10 @@ public class ElevatorView {
         for (int i = totalFloors - 1; i >= 0; i--) {
             if (i == currentFloor) {
                 int peopleInside = elevator.getPeopleInside();
-                String elevatorStr = "[" + direction + peopleInside + direction + "]";
+                String elevatorStr = "[" + direction + peopleInside + direction + "] ";
                 elevatorView.append(elevatorStr);
             } else {
-                elevatorView.append(" | | ");
+                elevatorView.append(" | |  ");
             }
             elevatorView.append("\n");
         }
