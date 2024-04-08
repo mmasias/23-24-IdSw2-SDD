@@ -2,7 +2,7 @@ package Models;
 
 import java.util.List;
 
-public class Building implements IModel {
+public class Building {
     List<Floor> Floor;
     List<Elevator> Elevator;
     boolean Access;

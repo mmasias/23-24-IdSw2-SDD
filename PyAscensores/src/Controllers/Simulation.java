@@ -5,9 +5,12 @@ import Views.BuildingView;
 
 public class Simulation {
 
+    Buildings Buildings = new Buildings();
+
     public void start() {
         setInitialValues();
-        Buildings.createBuilding();
+        this.Buildings.create();
+        simulation();
         render();
     }
 
@@ -19,8 +22,17 @@ public class Simulation {
         InitialValues.setLabel("Planta ");
     }
 
-    private void render() {
-        Building building = Buildings.getBuilding();
+    private void simulation() {
+        while (true) {
+            for (Building building : this.Buildings.index()) {
+                render(0);
+            }
+        }
+
+    }
+
+    private void render(int buildingId) {
+        Building building = Buildings.get(buildingId);
         BuildingView buildingView = new BuildingView(building);
         String view = buildingView.render();
         System.out.println(view);

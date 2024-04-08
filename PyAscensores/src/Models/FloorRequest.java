@@ -2,7 +2,7 @@ package Models;
 
 import java.util.List;
 
-public class FloorRequest implements IModel {
+public class FloorRequest {
     private List<Integer> destinations;
 
     public FloorRequest() {

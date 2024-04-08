@@ -2,7 +2,7 @@ package Models;
 
 import java.util.List;
 
-public class Floor implements IModel {
+public class Floor {
     int Id;
     String Label;
     List<Person> PeopleOnFloor;

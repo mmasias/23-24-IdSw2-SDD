@@ -2,7 +2,7 @@ package Models;
 
 import java.util.Set;
 
-public class ControlPanel implements IModel {
+public class ControlPanel {
     private int id;
     private Set<Integer> floorsToStopList;
     private Set<Integer> floorsToGoList;
@@ -12,7 +12,7 @@ public class ControlPanel implements IModel {
         this.floorsToStopList = floorsToStop;
         this.floorsToGoList = floorsToGo;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -24,15 +24,19 @@ public class ControlPanel implements IModel {
     public Set<Integer> getfloorsToGo() {
         return floorsToGoList;
     }
+
     public void setFloorsToStopList(Set<Integer> floorsToStop) {
         this.floorsToStopList = floorsToStop;
     }
+
     public void setFloorsToGoList(Set<Integer> floorsToGo) {
         this.floorsToGoList = floorsToGo;
     }
+
     public Set<Integer> getFloorsToStopList() {
         return floorsToStopList;
     }
+
     public Set<Integer> getFloorsToGoList() {
         return floorsToGoList;
     }
