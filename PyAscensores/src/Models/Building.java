@@ -2,6 +2,8 @@ package Models;
 
 import java.util.ArrayList;
 import java.util.Set;
+import Controllers.Floors;
+import Controllers.Elevators;
 
 public class Building {
     private int id;
@@ -20,8 +22,12 @@ public class Building {
         return this.id;
     }
 
-    public ArrayList<Integer> getFloors() {
-        return new ArrayList<>(this.floors);
+    public ArrayList<Floor> getFloors() {
+        ArrayList<Floor> floors = new ArrayList<>();
+        for (int floor : this.floors) {
+            floors.add(Floors.get(floor));
+        }
+        return floors;
     }
 
     public void addFloor(int floor) {
@@ -32,8 +38,12 @@ public class Building {
         this.floors.remove(floor);
     }
 
-    public ArrayList<Integer> getElevators() {
-        return new ArrayList<>(this.elevators);
+    public ArrayList<Elevator> getElevators() {
+        ArrayList<Elevator> elevators = new ArrayList<>();
+        for (int elevator : this.elevators) {
+            elevators.add(Elevators.get(elevator));
+        }
+        return elevators;
     }
 
     public void addElevator(int elevator) {

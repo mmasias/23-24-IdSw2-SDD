@@ -4,34 +4,33 @@ import java.util.ArrayList;
 import Models.Elevator;
 
 public class Elevators {
-    private static ArrayList<Elevator> Elevators = new ArrayList<Elevator>();
-
-    public static ArrayList<Elevator> createElevators(int amount, int capacity, int currentFloor) {
-        for (int i = 0; i < amount; i++) {
-            Elevator elevator = new Elevator(i, capacity, currentFloor);
-            Elevators.add(elevator);
-        }
-        return Elevators;
-    }
+    private static ArrayList<Elevator> elevators = new ArrayList<Elevator>();
 
     public static ArrayList<Elevator> index() {
-        return Elevators;
+        return elevators;
     }
 
     public static Elevator get(int id) {
-        return Elevators.get(id);
+        if (id >= 0 && id < elevators.size()) {
+            return elevators.get(id);
+        }
+        return null;
     }
 
-    public static void update(int id, int amount, int capacity, int currentFloor) {
-        Elevators.get(id).setCapacity(capacity);
-        Elevators.get(id).setCurrentFloor(currentFloor);
-        Elevators.get(id).setPeopleInside(amount);
+    public static void create(int capacity, int currentFloor) {
+        elevators.add(new Elevator(elevators.size(), capacity, currentFloor));
+    }
 
+    public static void update(int id, Elevator updatedElevator) {
+        if (id >= 0 && id < elevators.size()) {
+            elevators.set(id, updatedElevator);
+        }
     }
 
     public static void delete(int id) {
-        Elevators.remove(Elevators.get(id));
-
+        if (id >= 0 && id < elevators.size()) {
+            elevators.remove(id);
+        }
     }
 
 }

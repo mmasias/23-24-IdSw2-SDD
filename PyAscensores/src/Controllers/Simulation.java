@@ -5,11 +5,9 @@ import Views.BuildingView;
 
 public class Simulation {
 
-    Buildings Buildings = new Buildings();
-
     public void start() {
         setInitialValues();
-        this.Buildings.create();
+        Buildings.create(500);
         simulation();
     }
 
@@ -23,7 +21,7 @@ public class Simulation {
 
     private void simulation() {
         while (true) {
-            for (Building building : this.Buildings.index()) {
+            for (Building building : Buildings.index()) {
                 render(0);
             }
         }

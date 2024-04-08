@@ -1,75 +1,59 @@
 package Models;
 
 import java.util.Set;
+import Enums.Direction;
+import Controllers.Elevators;
 
 public class ControlPanel {
     private int id;
-    private Set<Integer> floorsToStopList;
-    private Set<Integer> floorsToGoList;
+    private Set<ElevatorRequest> elevatorRequests;
+    private Set<FloorRequest> floorRequests;
+    private Set<Integer> elevators;
 
-    public ControlPanel(int id, Set<Integer> floorsToStop, Set<Integer> floorsToGo) {
+    public ControlPanel(int id) {
         this.id = id;
-        this.floorsToStopList = floorsToStop;
-        this.floorsToGoList = floorsToGo;
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
-    public Set<Integer> getfloorsToStop() {
-        return floorsToStopList;
+    public void addElevatorRequest(ElevatorRequest elevatorRequest) {
+        this.elevatorRequests.add(elevatorRequest);
     }
 
-    public Set<Integer> getfloorsToGo() {
-        return floorsToGoList;
+    public void removeElevatorRequest(ElevatorRequest elevatorRequest) {
+        this.elevatorRequests.remove(elevatorRequest);
     }
 
-    public void setFloorsToStopList(Set<Integer> floorsToStop) {
-        this.floorsToStopList = floorsToStop;
+    public void addFloorRequest(FloorRequest floorRequest) {
+        this.floorRequests.add(floorRequest);
     }
 
-    public void setFloorsToGoList(Set<Integer> floorsToGo) {
-        this.floorsToGoList = floorsToGo;
+    public void removeFloorRequest(FloorRequest floorRequest) {
+        this.floorRequests.remove(floorRequest);
     }
 
-    public Set<Integer> getFloorsToStopList() {
-        return floorsToStopList;
+    public boolean hasElevatorRequests() {
+        return !this.elevatorRequests.isEmpty();
     }
 
-    public Set<Integer> getFloorsToGoList() {
-        return floorsToGoList;
+    public boolean hasFloorRequests() {
+        return !this.floorRequests.isEmpty();
     }
 
-    public void addFloorToStop(int floor) {
-        this.floorsToStopList.add(floor);
-    }
+    public void setElevatorDirections() {
+        Elevator elevator = Elevators.get(this.elevators.iterator().next());
+        Direction direction = Direction.STOP;
 
-    public void addFloorToGo(int floor) {
-        this.floorsToGoList.add(floor);
-    }
+        for (ElevatorRequest elevatorRequest : this.elevatorRequests) {
+            if (elevatorRequest.getOrigin() > elevator.getCurrentFloor()) {
+                direction = Direction.UP;
+            } else if (elevatorRequest.getFloor() < elevator.getCurrentFloor()) {
+                direction = Direction.DOWN;
+            }
+        }
 
-    public void removeFloorToStop(int floor) {
-        this.floorsToStopList.remove(floor);
-    }
-
-    public void removeFloorToGo(int floor) {
-        this.floorsToGoList.remove(floor);
-    }
-
-    public void clearFloorsToStop() {
-        this.floorsToStopList.clear();
-    }
-
-    public void clearFloorsToGo() {
-        this.floorsToGoList.clear();
-    }
-
-    public boolean hasFloorsToStop() {
-        return !this.floorsToStopList.isEmpty();
-    }
-
-    public boolean hasFloorsToGo() {
-        return !this.floorsToGoList.isEmpty();
+        elevator.setDirection(direction);
     }
 }

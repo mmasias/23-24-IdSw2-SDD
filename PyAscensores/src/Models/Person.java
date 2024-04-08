@@ -13,6 +13,10 @@ public class Person {
         this.destination = destination;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public int getTimeOnFloor() {
         return timeOnFloor;
     }
