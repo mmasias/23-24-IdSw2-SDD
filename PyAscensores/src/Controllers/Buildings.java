@@ -28,4 +28,30 @@ public class Buildings {
         return Building;
     }
 
+    public void upadate(int index, Building updatedBuilding)
+	{
+		if (index >= 0 && index < this.Building.size())
+            this.Building.set(index, updatedBuilding);
+        else
+            System.out.println("Indice fuera de rango.");
+	}
+	
+	public void delete(int index)
+	{
+		if (index >= 0 && index < this.Building.size())
+			this.Building.remove(index);
+		else
+			System.out.println("Indice fuera de rango");
+	}
+	
+	public Building GetBuildingAtIndex(int index)
+	{
+		return Building.get(index);
+	}
+	
+	public ArrayList<Building> GetBuildings()
+	{
+		return this.Building;
+	}
+
 }
