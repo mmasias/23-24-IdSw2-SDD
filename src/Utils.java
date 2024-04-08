@@ -25,7 +25,7 @@ public class Utils {
         ZONA_SUCISIMA("***", 4),
         ASPIRADORA(")_(", -1),
         GATO("^-^", -2),
-        SOFA("≈≈≈", -3);
+        SOFA("[#]", -3);
 
         private final String simbolo;
         private final int valor;
@@ -46,7 +46,6 @@ public class Utils {
             return simbolo;
         }
 
-        // Método para obtener el valor
         public int obtenerValor() {
             return valor;
         }
@@ -55,7 +54,7 @@ public class Utils {
             if (map.containsKey(valor)) {
                 return map.get(valor).obtenerSimbolo();
             }
-            return null; // o lanzar una excepción si el valor no existe
+            return null;
         }
     }
 

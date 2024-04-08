@@ -6,11 +6,17 @@ public class Main {
           Scanner scanner = new Scanner(System.in);
           System.out.println("Especifica el largo y ancho de la habitación.");
           int largo = Utils.obtenerEnteroValido(scanner, "Largo:");
-          int ancho = Utils.obtenerEnteroValido(scanner, "Ancho:");          
+          int ancho = Utils.obtenerEnteroValido(scanner, "Ancho:");
 
           Gato gato = new Gato(0,0);
           Habitacion habitacion = new Habitacion(ancho, largo);
-          habitacion.imprimir();
+          Aspiradora aspiradora = new Aspiradora();
+
+          for (int i = 0; i < 20; i++) {
+               aspiradora.mover(habitacion);
+               habitacion.imprimir(aspiradora);
+          }
+
           scanner.close();
      }
 }

@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Aspiradora {
     private int pasosRealizados;
     private int limpiezaRealizada;
@@ -5,11 +7,10 @@ public class Aspiradora {
     private Bateria bateria;
     private Posicion posicion;
 
-    public Aspiradora(CapacidadBasura capacidadBolsa, int suciedadMaxima, int limpiezaRealizada, Bateria bateria) {
+    public Aspiradora() {
         this.pasosRealizados = 0;
         this.limpiezaRealizada = 0;
-        this.bateria = bateria;
-        this.capacidadBasura = capacidadBolsa;
+        this.posicion = new Posicion(0, 0);
     }
 
     public Posicion getPosicion(){
@@ -18,6 +19,10 @@ public class Aspiradora {
 
     public Bateria getBateria(){
         return bateria;
+    }
+    
+    public void setBateria(Bateria bateria){
+        this.bateria = bateria;
     }
 
     public CapacidadBasura getBasura(){
@@ -40,16 +45,35 @@ public class Aspiradora {
         this.limpiezaRealizada = limpiezaRealizada;
     }
     
-    /*public void limpiar(int pasos) {
+    public void mover(Habitacion habitacion){
+        Random random = new Random();
+        int dx = random.nextInt(3) - 1;
+        int dy = random.nextInt(3) - 1;
+
+        int nuevaX = posicion.getX() + dx;
+        int nuevaY = posicion.getY() + dy;
+
+        if (nuevaX >= 0 && nuevaX < habitacion.ancho && nuevaY >= 0 && nuevaY < habitacion.largo) {
+            if (!habitacion.muebles[nuevaX][nuevaY]) {
+                posicion.setX(nuevaX);
+                posicion.setY(nuevaY);
+            }
+        }
+        pasosRealizados+=1;
+    }
+
+
+    public void limpiar(int pasos) {
         Random random = new Random();
         for (int i = 0; i < pasos; i++) {
         
+            int nivBasura = bateria.getNivelBateria();
             pasosRealizados++;
-            bateria--;
-            if (bateria <= 0) {
+            nivBasura--;
+            if (nivBasura <= 0) {
                 System.out.println("Batería agotada. Deteniendo la aspiradora.");
-                break;  
+                break;
             }
         }
-    }*/
+    }
 }

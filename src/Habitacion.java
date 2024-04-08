@@ -31,6 +31,26 @@ public class Habitacion {
         imprimirBorderHorizontal();
     }
 
+    public void imprimir(Aspiradora aspiradora){
+        imprimirBorderHorizontal();
+        for (int y = 0; y < largo; y++) {
+            System.out.print("|");
+            for (int x = 0; x < ancho; x++) {
+                if (x == aspiradora.getPosicion().getX() && y == aspiradora.getPosicion().getY()) {
+                    System.out.print(Elements.ASPIRADORA.getElement());
+                } else if (muebles[x][y]) {
+                    System.out.print(Utils.Elementos.SOFA.obtenerSimbolo());
+                } else {
+                    System.out.print(Utils.Elementos.obtenerSimboloPorValor(superficie[x][y].getNivelSuciedad()));
+                }
+            }
+            System.out.println("|");
+        }
+        imprimirBorderHorizontal();
+    }
+
+
+    
     private void imprimirBorderHorizontal() {
         System.out.print("+---");
         System.out.print("---".repeat(ancho - 2));
@@ -55,7 +75,7 @@ public class Habitacion {
 
         for (int x = 0; x < ancho; x++) {
             for (int y = 0; y < largo; y++) {
-                superficie[x][y] = new Azulejo(0); // Asumiendo 0 como limpio
+                superficie[x][y] = new Azulejo(0);
             }
         }
 
@@ -71,4 +91,6 @@ public class Habitacion {
 
         return superficie;
     }
+
+    
 }
