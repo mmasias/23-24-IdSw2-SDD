@@ -75,7 +75,7 @@ public class Habitacion {
 
         for (int x = 0; x < ancho; x++) {
             for (int y = 0; y < largo; y++) {
-                superficie[x][y] = new Azulejo(0); // Asumiendo 0 como limpio
+                superficie[x][y] = new Azulejo(0);
             }
         }
 

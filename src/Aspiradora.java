@@ -10,7 +10,7 @@ public class Aspiradora {
     public Aspiradora() {
         this.pasosRealizados = 0;
         this.limpiezaRealizada = 0;
-        this.posicion = new Posicion(0, 0); // Inicializar la posición en (0, 0)
+        this.posicion = new Posicion(0, 0);
     }
 
     public Posicion getPosicion(){
@@ -47,16 +47,13 @@ public class Aspiradora {
     
     public void mover(Habitacion habitacion){
         Random random = new Random();
-        int dx = random.nextInt(3) - 1; // Desplazamiento en el eje X: -1, 0 o 1
-        int dy = random.nextInt(3) - 1; // Desplazamiento en el eje Y: -1, 0 o 1
+        int dx = random.nextInt(3) - 1;
+        int dy = random.nextInt(3) - 1;
 
-        // Calcula la nueva posición sumando los desplazamientos relativos a la posición actual
         int nuevaX = posicion.getX() + dx;
         int nuevaY = posicion.getY() + dy;
 
-        // Verifica si la nueva posición está dentro de los límites de la habitación
         if (nuevaX >= 0 && nuevaX < habitacion.ancho && nuevaY >= 0 && nuevaY < habitacion.largo) {
-            // Verifica si la nueva posición no está ocupada por un mueble
             if (!habitacion.muebles[nuevaX][nuevaY]) {
                 posicion.setX(nuevaX);
                 posicion.setY(nuevaY);

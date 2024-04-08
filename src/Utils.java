@@ -46,7 +46,6 @@ public class Utils {
             return simbolo;
         }
 
-        // Método para obtener el valor
         public int obtenerValor() {
             return valor;
         }
@@ -55,7 +54,7 @@ public class Utils {
             if (map.containsKey(valor)) {
                 return map.get(valor).obtenerSimbolo();
             }
-            return null; // o lanzar una excepción si el valor no existe
+            return null;
         }
     }
 
