@@ -4,14 +4,20 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class Building {
-    Set<Integer> floors;
-    Set<Integer> elevators;
-    boolean access;
-    int capacity;
+    private int id;
+    private Set<Integer> floors;
+    private Set<Integer> elevators;
+    private boolean access;
+    private int capacity;
 
-    public Building(int capacity) {
+    public Building(int id, int capacity) {
+        this.id = id;
         this.access = true;
         this.capacity = capacity;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public ArrayList<Integer> getFloors() {

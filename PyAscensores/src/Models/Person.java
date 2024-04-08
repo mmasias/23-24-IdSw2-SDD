@@ -1,11 +1,13 @@
 package Models;
 
 public class Person {
+    private int id;
     private int timeOnFloor;
     private int currentFloor;
     private int destination;
 
-    public Person(int timeOnFloor, int currentFloor, int destination) {
+    public Person(int id, int timeOnFloor, int currentFloor, int destination) {
+        this.id = id;
         this.timeOnFloor = timeOnFloor;
         this.currentFloor = currentFloor;
         this.destination = destination;

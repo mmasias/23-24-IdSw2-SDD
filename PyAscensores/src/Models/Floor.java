@@ -1,60 +1,64 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Floor {
-    int Id;
-    String Label;
-    List<Person> PeopleOnFloor;
-    List<Person> WaitingPeople;
-    boolean Access;
+    private int id;
+    private String label;
+    private Set<Integer> peopleOnFloor;
+    private Set<Integer> waitingPeople;
+    private boolean access;
 
-    public Floor(int id, String label, List<Person> peopleOnFloor, List<Person> waitingPeople) {
-        Id = id;
-        Label = label;
-        PeopleOnFloor = peopleOnFloor;
-        WaitingPeople = waitingPeople;
-        Access = true;
+    public Floor(int id, String label) {
+        this.id = id;
+        this.label = label;
+        this.access = true;
     }
 
     public int getId() {
-        return Id;
+        return this.id;
     }
 
-    public List<Person> getPeopleOnFloor() {
-        return PeopleOnFloor;
+    public ArrayList<Integer> getPeopleOnFloor() {
+        return new ArrayList<>(this.peopleOnFloor);
     }
 
-    public List<Person> getWaitingPeople() {
-        return WaitingPeople;
+    public void addPersonOnFloor(int person) {
+        this.peopleOnFloor.add(person);
+    }
+
+    public void removePersonOnFloor(int person) {
+        this.peopleOnFloor.remove(person);
+    }
+
+    public ArrayList<Integer> getWaitingPeople() {
+        return new ArrayList<>(this.waitingPeople);
+    }
+
+    public void addWaitingPerson(int person) {
+        this.waitingPeople.add(person);
+    }
+
+    public void removeWaitingPerson(int person) {
+        this.waitingPeople.remove(person);
     }
 
     public boolean getAccess() {
-        return Access;
+        return this.access;
     }
 
-    public void setAcces(boolean access) {
-        Access = access;
-    }
-
-    public void setPeopleOnFloor(List<Person> people) {
-        PeopleOnFloor = people;
-    }
-
-    public void setWaitingPeople(List<Person> people) {
-        WaitingPeople = people;
-    }
-
-    public void setId(int id) {
-        Id = id;
+    public void setAccess(boolean access) {
+        this.access = access;
     }
 
     public String getLabel() {
-        return Label;
+        return this.label;
     }
 
     public void setLabel(String label) {
-        Label = label;
+        this.label = label;
     }
 
 }
