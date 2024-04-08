@@ -2,6 +2,7 @@ package Controllers;
 
 import java.util.ArrayList;
 
+import Models.Elevator;
 import Models.Floor;
 import Models.Person;
 
@@ -9,11 +10,11 @@ public class Floors {
 
     private static ArrayList<Floor> Floors = new ArrayList<Floor>();
 
-    public static ArrayList<Floor> createFloors(int amount, String Label) {
+    public static ArrayList<Floor> createFloors(int amount, String label) {
         for (int i = 0; i < amount; i++) {
             ArrayList<Person> peopleOnFloor = People.createPeople(setAmountOfPeople(), i, setDestination());
             ArrayList<Person> peopleWaiting = People.createPeople(setAmountOfPeople(), i, setDestination());
-            Floor floor = new Floor(i, Label + i, peopleOnFloor, peopleWaiting);
+            Floor floor = new Floor(i, label + i, peopleOnFloor, peopleWaiting);
             Floors.add(floor);
         }
         return Floors;
@@ -23,14 +24,21 @@ public class Floors {
         return Floors;
     }
 
-    private static int setAmountOfPeople() {
-        // TODO: Implement randomization
-        return 1;
+    public static ArrayList<Floor> index() {
+        return Floors;
     }
 
-    public static int setDestination() {
-        // TODO: Implement randomization
-        return 3;
+    public static void update(int id,String label, ArrayList<Person> peopleOnFloor, ArrayList<Person> waitingPeople) {
+        Floors.get(id).setLabel(label);
+        Floors.get(id).setPeopleOnFloor(peopleOnFloor);
+        Floors.get(id).setWaitingPeople(waitingPeople);
+
     }
+
+    public static void delete(int id) {
+        Floors.remove(Floors.get(id));
+
+    }
+
 
 }
