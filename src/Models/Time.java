@@ -1,77 +1,52 @@
 package Models;
 
+import Enums.TimesOfDay;
+
 public class Time {
 
- private TimesOfDay timeOfDay;
- private int currentTime;
+  private TimesOfDay timeOfDay;
+  private int currentTime;
 
+  public void advanceTime() {
+    int minutes = currentTime % 100;
+    int hours = currentTime / 100;
 
- public void advanceTime()
- {
+    minutes += 15;
+    if (minutes >= 60) {
+      hours++;
+      minutes = 0;
+    }
 
-     int currentTime = time.getCurrentTime();
-     int minutes = currentTime % 100;
-     int hours = currentTime / 100;
+    if (hours > 23) {
+      hours = 0;
+    }
 
+    currentTime = hours * 100 + minutes;
+  }
 
-     minutes += 15;
-     if (minutes >= 60)
-     {
+  public void setTimeOfDay(int currentTime) {
+    if (currentTime >= 600 || currentTime <= 1200) {
+      this.timeOfDay = TimesOfDay.Morning;
+    } else if (currentTime >= 1215 || currentTime <= 1600) {
+      this.timeOfDay = TimesOfDay.Afternoon;
+    } else if (currentTime >= 1615 || currentTime <= 2200) {
+      this.timeOfDay = TimesOfDay.Evening;
+    } else {
+      this.timeOfDay = TimesOfDay.Night;
+    }
+  }
 
-         hours++;
-         minutes = 0;
-     }
+  public void resetDay() {
+    if (currentTime > 2345) {
+      currentTime = 0;
+    }
+  }
 
+  public TimesOfDay getTimeOfDay() {
+    return timeOfDay;
+  }
 
-     if (hours > 23)
-     {
-         hours = 0;
-     }
-
-
-     time.setCurrentTime(hours * 100 + minutes);
- }
-
-
- public void setTimeOfDay(int currentTime)
- {
-
-     int currentTime = time.getCurrentTime();
-
-     if (currentTime >= 600 || currentTime <= 1200)
-     {
-
-         time.setTimeOfDay(TimesOfDay.Morning);
-
-     }
-     else if (currentTime >= 1215 || currentTime <= 1600)
-     {
-
-         time.setTimeOfDay(TimesOfDay.Afternoon);
-
-     }
-     else if (currentTime >= 1615 || currentTime <= 2200)
-     {
-
-         time.setTimeOfDay(TimesOfDay.Evening);
-
-     }
-     else { time.setTimeOfDay(TimesOfDay.Night); }
- }
-
- public void resetDay()
- {
-
-     int currentTime = time.getCurrentTime();
-
-     if (time.getCurrentTime > 2345)
-     {
-
-         time.setCurrentTime(0)
-
-
-     }
-
- }
-    
+  public int getCurrentTime() {
+    return currentTime;
+  }
 }
