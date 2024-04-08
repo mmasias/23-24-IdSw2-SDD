@@ -14,8 +14,24 @@ public class Elevators {
         return Elevators;
     }
 
-    public static ArrayList<Elevator> getElevators() {
+    public static ArrayList<Elevator> index() {
         return Elevators;
+    }
+
+    public static Elevator get(int id) {
+        return Elevators.get(id);
+    }
+
+    public static void update(int id, int amount, int capacity, int currentFloor) {
+        Elevators.get(id).setCapacity(capacity);
+        Elevators.get(id).setCurrentFloor(currentFloor);
+        Elevators.get(id).setPeopleInside(amount);
+
+    }
+
+    public static void delete(int id) {
+        Elevators.remove(Elevators.get(id));
+
     }
 
 }
