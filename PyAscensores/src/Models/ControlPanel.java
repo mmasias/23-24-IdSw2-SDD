@@ -1,53 +1,71 @@
 package Models;
 
-import java.util.List;
+import java.util.Set;
 
 public class ControlPanel implements IModel {
-    private List<Integer> floorsToStop;
-    private List<Integer> floorsToGo;
+    private int id;
+    private Set<Integer> floorsToStopList;
+    private Set<Integer> floorsToGoList;
 
-    public ControlPanel(List<Integer> floorsToStop, List<Integer> floorsToGo) {
-        this.floorsToStop = floorsToStop;
-        this.floorsToGo = floorsToGo;
+    public ControlPanel(int id, Set<Integer> floorsToStop, Set<Integer> floorsToGo) {
+        this.id = id;
+        this.floorsToStopList = floorsToStop;
+        this.floorsToGoList = floorsToGo;
+    }
+    
+    public int getId() {
+        return id;
     }
 
-    public List<Integer> getfloorsToStop() {
-        return floorsToStop;
+    public Set<Integer> getfloorsToStop() {
+        return floorsToStopList;
     }
 
-    public List<Integer> getfloorsToGo() {
-        return floorsToGo;
+    public Set<Integer> getfloorsToGo() {
+        return floorsToGoList;
+    }
+    public void setFloorsToStopList(Set<Integer> floorsToStop) {
+        this.floorsToStopList = floorsToStop;
+    }
+    public void setFloorsToGoList(Set<Integer> floorsToGo) {
+        this.floorsToGoList = floorsToGo;
+    }
+    public Set<Integer> getFloorsToStopList() {
+        return floorsToStopList;
+    }
+    public Set<Integer> getFloorsToGoList() {
+        return floorsToGoList;
     }
 
     public void addFloorToStop(int floor) {
-        this.floorsToStop.add(floor);
+        this.floorsToStopList.add(floor);
     }
 
     public void addFloorToGo(int floor) {
-        this.floorsToGo.add(floor);
+        this.floorsToGoList.add(floor);
     }
 
     public void removeFloorToStop(int floor) {
-        this.floorsToStop.remove(floor);
+        this.floorsToStopList.remove(floor);
     }
 
     public void removeFloorToGo(int floor) {
-        this.floorsToGo.remove(floor);
+        this.floorsToGoList.remove(floor);
     }
 
     public void clearFloorsToStop() {
-        this.floorsToStop.clear();
+        this.floorsToStopList.clear();
     }
 
     public void clearFloorsToGo() {
-        this.floorsToGo.clear();
+        this.floorsToGoList.clear();
     }
 
     public boolean hasFloorsToStop() {
-        return !this.floorsToStop.isEmpty();
+        return !this.floorsToStopList.isEmpty();
     }
 
     public boolean hasFloorsToGo() {
-        return !this.floorsToGo.isEmpty();
+        return !this.floorsToGoList.isEmpty();
     }
 }
