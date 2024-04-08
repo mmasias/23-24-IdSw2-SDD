@@ -1,6 +1,10 @@
 public class Bateria {
 
-    private int nivelBateria = 100;
+    private int nivelBateria;
+
+    public Bateria(int nivelBateria){
+        this.nivelBateria = 100;
+    }
 
     public void descarga(){
         if(nivelBateria > 0){
@@ -15,6 +19,10 @@ public class Bateria {
     }
 
     public int getNivelBateria(){
+        return nivelBateria;
+    }
+
+    public int setNivelBateria(){
         return nivelBateria;
     }
 

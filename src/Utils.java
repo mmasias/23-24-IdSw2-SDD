@@ -25,7 +25,7 @@ public class Utils {
         ZONA_SUCISIMA("***", 4),
         ASPIRADORA(")_(", -1),
         GATO("^-^", -2),
-        SOFA("≈≈≈", -3);
+        SOFA("[#]", -3);
 
         private final String simbolo;
         private final int valor;

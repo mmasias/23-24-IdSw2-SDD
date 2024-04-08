@@ -7,7 +7,7 @@ public enum Elements{
     ZONA_SUCISIMA("***"),
     ASPIRADORA("(0)"),
     GATO("^-^"),
-    SOFA("[####]");
+    SOFA("[#]");
 
     private String value;
 
