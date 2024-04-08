@@ -6,11 +6,18 @@ import Models.Elevator;
 import Models.Floor;
 import Models.Building;
 
-public class Buildings {
+public class Buildings 
+{
 
-    private static Building Building = new Building(null, null);
-
-    public static void createBuilding() {
+    private ArrayList<Building> building;
+	
+    public Buildings()
+    {
+	building = new ArrayList<Building>();
+    }
+	
+    public static void createBuilding() 
+    {
         int amountFloors = InitialValues.getAmountFloors();
         int amountElevators = InitialValues.getAmountElevators();
         int elevatorCapacity = InitialValues.getElevatorCapacity();
@@ -19,39 +26,39 @@ public class Buildings {
 
         ArrayList<Floor> floors = Floors.createFloors(amountFloors, label);
         ArrayList<Elevator> elevators = Elevators.createElevators(amountElevators, elevatorCapacity, elevatorFloor);
-
-        Building.setFloors(floors);
-        Building.setElevators(elevators);
+	    
+	building.add(new Building(floors, elevators));
     }
 
-    public static Building getBuilding() {
-        return Building;
+    public static Building getBuilding()  
+    {
+        return building;
     }
 
-    public void update(int index, Building updatedBuilding)
-	{
-		if (index >= 0 && index < this.Building.size())
-            this.Building.set(index, updatedBuilding);
+    public void update(int index, Building updatedBuilding) 
+    {
+        if (index >= 0 && index < building.size())
+            building.set(index, updatedBuilding);
         else
-            System.out.println("Indice fuera de rango.");
-	}
-	
-	public void delete(int index)
-	{
-		if (index >= 0 && index < this.Building.size())
-			this.Building.remove(index);
-		else
-			System.out.println("Indice fuera de rango");
-	}
-	
-	public Building GetBuildingAtIndex(int index)
-	{
-		return Building.get(index);
-	}
-	
-	public ArrayList<Building> GetBuildings()
-	{
-		return this.Building;
-	}
+            System.out.println("Indice fuera de Rango.");
+    }
 
+    public void delete(int index)
+    {
+        if (index >= 0 && index < building.size())
+            building.remove(index);
+        else
+            System.out.println("Indice fuera de Rango");
+    }
+
+    public Building getBuildingAtIndex(int index) 
+    {
+	if (index >= 0 && index < building.size())
+            return building.get(index);
+    }
+
+    public ArrayList<Building> getBuildings() 
+    {
+        return buildings;
+    }
 }
