@@ -11,7 +11,6 @@ public class Simulation {
         setInitialValues();
         this.Buildings.create();
         simulation();
-        render();
     }
 
     private void setInitialValues() {
