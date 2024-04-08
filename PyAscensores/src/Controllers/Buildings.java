@@ -28,7 +28,7 @@ public class Buildings {
         return Building;
     }
 
-    public void upadate(int index, Building updatedBuilding)
+    public void update(int index, Building updatedBuilding)
 	{
 		if (index >= 0 && index < this.Building.size())
             this.Building.set(index, updatedBuilding);
