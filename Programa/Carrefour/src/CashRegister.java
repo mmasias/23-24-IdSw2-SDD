@@ -9,7 +9,7 @@ public class CashRegister implements TimeObserver {
     boolean isOpen;
 
     public void onTimeChange(String time, boolean isOpen) {
-        
+        //agregar TimePerItemPack
     }
 
     String filePath = "C:\\Users\\Sergio\\Desktop\\Caja Carrefour\\Carrefour\\src\\BD_CashRegister";
