@@ -1,14 +1,14 @@
 package Utils;
 public enum TileTypes {
-    Floor(0, "#8B4513", " _ "),
-    Sand(6, "#F5DEB3", " . "),
-    Wall(8, "#8B008B", " | "),
-    ShortGrass(1, "#32CD32", " - "),
-    MediumGrass(2, "#228B22", " = "),
-    TallGrass(3, "#006400", " / "),
-    Water(4, "	#00BFFF", " ~ "),
-    DeepWater(5, "#00008B", " @ "),
-    Mountain(7, "#696969", " ^ ");
+    Floor(0, "\u001B[37m", " _ "), 
+    Sand(6, "\u001B[33m", " . "), 
+    Wall(8, "\u001B[31m", " | "), 
+    ShortGrass(1, "\u001B[35m", " - "),
+    MediumGrass(2, "\u001B[31m", " = "),
+    TallGrass(3, "\u001B[32m", " / "),
+    Water(4, "\u001B[36m", " ~ "), 
+    DeepWater(5, "\u001B[34m", " @ "), 
+    Mountain(7, "\u001B[30m", " ^ "); 
 
     private final int tileNumber;
     private final String asciiColor;
