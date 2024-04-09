@@ -15,11 +15,16 @@ public class Main {
         for (int i = 0; i < 20; i++) {
             try {
                 aspiradora.mover(habitacion);
+                gato.mover(habitacion);
+                habitacion.imprimir(aspiradora, gato); 
             } catch (InterruptedException e) {
                 System.out.println("Error al pausar la ejecución: " + e.getMessage());
             }
         }
+        
 
         scanner.close();
     }
+
 }
+

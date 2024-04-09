@@ -31,13 +31,15 @@ public class Habitacion {
         imprimirBorderHorizontal();
     }
 
-    public void imprimir(Aspiradora aspiradora){
+    public void imprimir(Aspiradora aspiradora, Gato gato) {
         imprimirBorderHorizontal();
         for (int y = 0; y < largo; y++) {
             System.out.print("|");
             for (int x = 0; x < ancho; x++) {
                 if (x == aspiradora.getPosicion().getX() && y == aspiradora.getPosicion().getY()) {
                     System.out.print(Elements.ASPIRADORA.getElement());
+                } else if (x == gato.getPosicion().getX() && y == gato.getPosicion().getY()) {
+                    System.out.print(Elements.GATO.getElement());
                 } else if (muebles[x][y]) {
                     System.out.print(Utils.Elementos.SOFA.obtenerSimbolo());
                 } else {
@@ -49,8 +51,6 @@ public class Habitacion {
         imprimirBorderHorizontal();
     }
 
-
-    
     private void imprimirBorderHorizontal() {
         System.out.print("+---");
         System.out.print("---".repeat(ancho - 2));
@@ -92,5 +92,4 @@ public class Habitacion {
         return superficie;
     }
 
-    
 }

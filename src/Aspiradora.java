@@ -30,7 +30,6 @@ public class Aspiradora {
                 posicion.setX(nuevaX);
                 posicion.setY(nuevaY);
                 limpiarCasilla(habitacion, nuevaX, nuevaY); 
-                habitacion.imprimir(this); 
                 Thread.sleep(1000); 
             }
         }
