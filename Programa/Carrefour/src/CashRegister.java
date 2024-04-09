@@ -1,12 +1,16 @@
 import java.util.List;
 import com.google.gson.reflect.TypeToken;
 
-public class CashRegister {
+public class CashRegister implements TimeObserver {
     
     int id;
     int CurrentCashier;
     boolean isOcuppied;
     boolean isOpen;
+
+    public void onTimeChange(String time, boolean isOpen) {
+        
+    }
 
     String filePath = "C:\\Users\\Sergio\\Desktop\\Caja Carrefour\\Carrefour\\src\\BD_CashRegister";
 
