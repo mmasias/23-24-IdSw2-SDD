@@ -4,6 +4,7 @@ import Enums.CharacterType;
 import Enums.TileTypes;
 import Enums.TransportTypes;
 import Models.Map;
+import Models.Point;
 import Models.Tile;
 import Models.World;
 import Views.WorldView;
@@ -23,22 +24,14 @@ public class WorldController {
     private World world;
     private WorldView worldView;
 
-    private void runGameCycle() {
-    }
-
     private void initializeWorldMap() {
         String path = " ";
-
-        Map worldMap = this.world.getMap();
         List<String[]> mapData = this.readFileContent(path);
         populateMap(mapData, world.getMap());
     }
 
-    private void initializeWorldEntities() {
-
-    }
-
     public List<String[]> readFileContent(String filePath) {
+
         List<String[]> listTiles = new ArrayList<String[]>();
         try {
             File file = new File(filePath);
@@ -49,6 +42,7 @@ public class WorldController {
                 String[] tokens = line.split(",", 0);
                 listTiles.add(tokens);
             }
+            br.close();
         } catch (Exception e) {
             System.out.println("Failed to read file");
             System.out.println(e.getMessage());
@@ -59,14 +53,14 @@ public class WorldController {
     private void populateMap(List<String[]> mapData, Map worldMap) {
         for (int i = 0; i < mapData.size(); i++) {
             for (int j = 0; j < mapData.get(i).length; j++) {
-                worldMap.updateTile(i, j, createTileByNumber(mapData.get(i)[j]));
+                worldMap.updateTile(new Point(i, j), createTileByNumber(mapData.get(i)[j]));
             }
         }
     }
 
     private Tile createTileByNumber(String tileNumber) {
         for (TileTypes tileType : TileTypes.values()) {
-            if (tileType.getTileNumber().equals(tileNumber)) {
+            if (String.valueOf(tileType.getTileNumber()).equals(tileNumber)) {
                 return new Tile(tileType);
             }
         }
@@ -132,11 +126,11 @@ public class WorldController {
         return newLocation;
     }
 
-    private TransportTypes updateTransportInUse(Character character, TileTypes tileType) {
+    private void updateTransportInUse(Character character, TileTypes tileType) {
         for (int i = 0; i < character.getAvailableTransports().length; i++) {
-            TileTypes[] availableTiles = character.getAvailableTransports()[i].getType().getTilesItCanMoveThrough();
-            for (int j = 0; j < availableTiles.length; j++) {
-                if (availableTiles[j].getType() == tileType) {
+            List<TileTypes> availableTiles = character.getAvailableTransports()[i].getType().getTilesItCanMoveThrough();
+            for (int j = 0; j < availableTiles.size(); j++) {
+                if (availableTiles.get(j) == tileType) {
                     character.setTransportInUse(character.getAvailableTransports()[i]);
                 }
             }

@@ -1,5 +1,7 @@
 package Views;
 
+import java.util.List;
+
 import Models.*;
 
 public class WorldView {
@@ -20,20 +22,19 @@ public class WorldView {
     }
 
     public void displayMap(Map map, List<Entity> entities) {
-        Tile[][] tiles = map.getTiles();
         String[][] displayMatrix = new String[map.getHeight()][map.getWidth()];
 
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
-                displayMatrix[i][j] = tiles[i][j].getAsciiSymbol();
+        for (int i = 0; i < map.getHeight(); i++) {
+            for (int j = 0; j < map.getWidth(); j++) {
+                displayMatrix[i][j] = map.getTile(new Point(i, j)).getAsciiSymbol();
             }
         }
 
         for (Entity entity : entities) {
-            int x = entity.getPosition().getX();
-            int y = entity.getPosition().getY();
-
-            displayMatrix[y][x] = entity.getCurrentTransport().getAsciiSymbol();
+            Point position = entity.getPosition();
+            int x = position.getLocation()[0];
+            int y = position.getLocation()[1];
+            displayMatrix[y][x] = entity.getTransportInUse().getAsciiSymbol();
         }
 
         for (String[] row : displayMatrix) {

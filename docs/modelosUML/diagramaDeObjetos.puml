@@ -1,68 +1,66 @@
-@startuml DiagramaObjetos-PyMundo
+@startuml PyMundoObjects
 
-object "World: World" as world {
-    Map = Map
-    Entities = [Cat, Dog, Másias,...]
-    Time = Time
-}
-
-object "Time: Time" as time {
-    timesOfDay= MORNING
-    currentTime="10:30"
+object World {
+    maps = List<Map>{Map1, Map2}
+    time = TimeInstance
+    entities = List<Entity>{Character1, Transport1}
 }
 
-object "Map: Map" as mapa{
-    tiles= [Floor, Sand, Wall,...]
-}
-object "Sand: Tile" as sand{
-    tileType: SAND
-}
-object "Floor: Tile" as floor {
-    tileType: FLOOR
-}
-object "Wall: Tile" as wall {
-    tileType: WALL
-}
-object "Cat: NonPlayableCharacter" as cat {
-    position: (100,20)
-    transportInUse: Foot
-    availableTransports: [Foot, MagicCarpet]
-}
-object "Dog: NonPlayableCharacter" as dog {
-    position: (160,80)
-    transportInUse: Foot
-    availableTransports: [Foot, MagicCarpet]
-}
-object "Masías: PlayableCharacter" as mmasias {
-    position: (170,30)
-    transportInUse: Foot
-    availableTransports: [Foot, MagicCarpet]
+object TimeInstance {
+    currentTime = "1235"
 }
 
-package Transports {
-   object "Foot: Transport" as foot{
-      transportType: FOOT
-   }
-
-  object "MagicCarpet: Transport" as carpet {
-      transportType: MAGIC_CARPET
-   }
+object Map1 {
+    tiles = List<Tile>{Tile1, Tile2}
 }
 
+object Map2 {
+    tiles = List<Tile>{Tile3, Tile4}
+}
 
+object Tile1 {
+    coordinates = Point(x=0, y=0)
+    terrainType = Grassland
+}
 
-' Relationships
-world --> time : "has >"
-world --> mapa : "has >"
-mapa --> sand : "contains >"
-mapa --> floor : "contains >"
-mapa --> wall : "contains >"
-world --> cat : "contains >"
-world --> dog : "contains >"
-world --> mmasias : "contains >"
+object Tile2 {
+    coordinates = Point(x=1, y=0)
+    terrainType = Grassland
+}
 
-cat --> Transports : "uses >"
-dog --> Transports : "uses >"
-mmasias --> Transports : "uses >"
+object Tile3 {
+    coordinates = Point(x=0, y=1)
+    terrainType = Forest
+}
+
+object Tile4 {
+    coordinates = Point(x=1, y=1)
+    terrainType = Forest
+}
+
+object Character1 {
+    location = Point(x=0, y=0)
+}
+
+object Transport1 {
+    location = Point(x=1, y=1)
+}
+
+object Grassland {
+}
+
+object Forest {
+}
+
+World "1" --> "1" TimeInstance
+World "1" --> "*" Map1
+World "1" --> "*" Map2
+World "1" --> "*" Character1
+World "1" --> "*" Transport1
+Map1 "1" --> "*" Tile1
+Map1 "1" --> "*" Tile2
+Map2 "1" --> "*" Tile3
+Map2 "1" --> "*" Tile4
+Character1 "n" -down- "0..1" Transport1
 
 @enduml

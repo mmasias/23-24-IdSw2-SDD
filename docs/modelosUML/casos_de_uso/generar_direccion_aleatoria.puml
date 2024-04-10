@@ -1,8 +1,0 @@
-@startuml CasoDeUsoGenerarMovimientoRandom
-
-start
-:Generar Dirección Random\nbasada en direcciones permitidas;
-:Retornar la direccion generada;
-stop
-
-@enduml
