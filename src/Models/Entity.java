@@ -18,6 +18,10 @@ public abstract class Entity {
         return transportInUse;
     }
 
+    public void setTransportInUse(Transport transportInUse) {
+        this.transportInUse = transportInUse;
+    }
+
     public void moveTo(Point newPosPoint) {
         this.position = newPosPoint;
     }
@@ -25,6 +29,5 @@ public abstract class Entity {
     public void changeTransport(Transport newTransport) {
         this.transportInUse = newTransport;
     }
-
 
 }
