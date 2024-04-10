@@ -8,22 +8,9 @@ skinparam {
 
 hide empty members
 
-state Edificio {
-
-    [*] --> Disponible : Acceso Habilitado
-    [*] --> NoDisponible : Acceso Denegado
-    Disponible --> NoDisponible : Acceso Denegado
-    NoDisponible --> Disponible : Acceso Habilitado
-
-    state Disponible {
-        [*] --> Libre
-        Libre --> ParcialmenteLleno : Llenar
-        Libre --> Lleno : Llenar
-        ParcialmenteLleno --> Lleno : Llenar
-        Lleno --> Libre : Vaciar
-        Lleno --> ParcialmenteLleno : Vaciar
-        ParcialmenteLleno --> Libre : Vaciar
-    }
-}
+[*] --> Disponible : Acceso Habilitado
+[*] --> NoDisponible : Acceso Denegado
+Disponible --> NoDisponible : Acceso Denegado
+NoDisponible --> Disponible : Acceso Habilitado
 
 @enduml
