@@ -1,5 +1,6 @@
 package Controllers;
 
+import Enums.CharacterType;
 import Enums.TileTypes;
 import Enums.TransportTypes;
 import Models.Map;
@@ -7,6 +8,7 @@ import Models.Tile;
 import Models.World;
 import Views.WorldView;
 import Models.Point;
+import Models.Character;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -90,32 +92,52 @@ public class WorldController {
         }
     }
 
-    private void moveCharacter(Character character, char input) {
-        int[] actualLocation = character.getPosition().getLocation();
+    private void moveCharacter(Character character) {
+        int[] movement = getCharacterMovement(character);
+        Point newLocation = new Point(movement[0], movement[1]);
 
-        if (input == 'W')
-            actualLocation[1]++;
-        if (input == 'A')
-            actualLocation[0]--;
-        if (input == 'S')
-            actualLocation[1]--;
-        if (input == 'D')
-            actualLocation[0]++;
-
-        Point newLocation = new Point(actualLocation[0], actualLocation[1]);
         character.moveTo(newLocation);
     }
 
-    private char getCharacterMovement() {
-        return ' ';
+    private int[] getCharacterMovement(Character character) {
+        char direction = ' ';
+        int[] newLocation = character.getPosition().getLocation();
+
+        if (character.getCharacterType() == CharacterType.Playable) {
+            direction = getUserInput();
+        } else {
+            direction = getRandomCharacterMovement();
+        }
+
+        switch (direction) {
+            case 'W':
+                newLocation[0] = 0;
+                newLocation[1] = 1;
+                break;
+            case 'A':
+                newLocation[0] = -1;
+                newLocation[1] = 0;
+                break;
+            case 'S':
+                newLocation[0] = 0;
+                newLocation[1] = -1;
+                break;
+            case 'D':
+                newLocation[0] = 1;
+                newLocation[1] = 0;
+                break;
+            default:
+                break;
+        }
+        return newLocation;
     }
 
     private TransportTypes updateTransportInUse(Character character, TileTypes tileType) {
-        for (int i = 0; i < character.getAvailableTransports().lenght; i++) {
+        for (int i = 0; i < character.getAvailableTransports().length; i++) {
             TileTypes[] availableTiles = character.getAvailableTransports()[i].getType().getTilesItCanMoveThrough();
             for (int j = 0; j < availableTiles.length; j++) {
                 if (availableTiles[j].getType() == tileType) {
-                    character.setTransportInUse(availableTiles[j]);
+                    character.setTransportInUse(character.getAvailableTransports()[i]);
                 }
             }
         }
