@@ -32,4 +32,12 @@ public class Map {
         }
         return null;
     }
+
+    public int getHeight() {
+        return tiles.length;
+    }
+
+    public int getWidth() {
+        return tiles[0].length;
+    }
 }

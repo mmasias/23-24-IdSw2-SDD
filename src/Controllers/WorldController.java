@@ -2,6 +2,7 @@ package Controllers;
 
 import Enums.TileTypes;
 import Models.Map;
+import Models.Point;
 import Models.Tile;
 import Models.World;
 import Views.WorldView;
@@ -20,8 +21,6 @@ public class WorldController {
     private WorldView worldView;
     private void initializeWorldMap(){
         String path = " ";
-
-        Map worldMap = this.world.getMap();
         List<String[]> mapData = this.readFileContent(path);
         populateMap(mapData, world.getMap());
     }
@@ -37,6 +36,7 @@ public class WorldController {
                 String[] tokens = line.split(",", 0);
                 listTiles.add(tokens);
             }
+            br.close();
         } catch (Exception e) {
             System.out.println("Failed to read file");
             System.out.println(e.getMessage());
@@ -47,14 +47,14 @@ public class WorldController {
     private void populateMap(List<String[]> mapData, Map worldMap){
         for(int i = 0; i < mapData.size(); i++){
             for(int j = 0; j < mapData.get(i).length; j++){
-                worldMap.updateTile(i, j, createTileByNumber(mapData.get(i)[j]));
+                worldMap.updateTile(new Point(i, j), createTileByNumber(mapData.get(i)[j]));
             }
         }
     }
 
     private Tile createTileByNumber(String tileNumber){
         for(TileTypes tileType : TileTypes.values()){
-            if(tileType.getTileNumber().equals(tileNumber)){
+            if(String.valueOf(tileType.getTileNumber()).equals(tileNumber)){
                 return new Tile(tileType);
             }
         }
@@ -69,7 +69,7 @@ public class WorldController {
 
     private char getUserInput(){
         Scanner scanner = new Scanner(System.in);
-        return processUserInput(Character.toUpperCase(scanner.nextLine().charAt(0));
+        return processUserInput(Character.toUpperCase(scanner.nextLine().charAt(0)));
     }
 
     private char processUserInput(char input){
