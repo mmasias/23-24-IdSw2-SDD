@@ -1,7 +1,0 @@
-@startuml DiagramaDeEstadosPersonaje
-
-    [*] --> EnReposo : Inicia
-    EnReposo --> Moviendo : Comienza a moverse
-    Moviendo --> EnReposo : Se detiene
-
-@enduml
