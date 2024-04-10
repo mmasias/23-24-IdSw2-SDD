@@ -1,0 +1,37 @@
+@startuml PyMundo
+class World {
+    +List<Map> maps
+    +Time time
+    +List<Entity> entities
+}
+
+class Time {
+    +currentTime: DateTime
+}
+
+class Map {
+    +List<Tile> tiles
+}
+
+class Tile {
+    +coordinates: Point
+    +terrainType: Terrain
+}
+
+abstract class Entity {
+    +location: Point
+}
+
+class Character extends Entity {
+}
+
+class Transport {
+}
+
+
+World "1" --> "1" Time : has >
+World "1" --> "*" Map : contains >
+World "1" --> "*" Entity : includes >
+Map "1" --> "*" Tile : organized in >
+Character "n" -down- "0..1" Transport : uses >
+@enduml

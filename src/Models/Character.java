@@ -8,11 +8,10 @@ public class Character extends Entity {
   Transport[] availableTransports;
 
   public Character(
-    Point startingPosition,
-    Transport startingTransport,
-    CharacterType type,
-    Transport[] availableTransports
-  ) {
+      Point startingPosition,
+      Transport startingTransport,
+      CharacterType type,
+      Transport[] availableTransports) {
     super(startingPosition, startingTransport);
     this.type = type;
     this.availableTransports = availableTransports;
