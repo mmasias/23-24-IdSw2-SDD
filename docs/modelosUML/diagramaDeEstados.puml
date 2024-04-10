@@ -1,0 +1,27 @@
+@startuml PyMundoStates
+
+[*] --> Initialization
+
+state Initialization {
+    [*] --> SetupTime
+    SetupTime --> LoadMaps : maps loaded
+    LoadMaps --> PopulateEntities : entities placed
+    PopulateEntities --> Ready : setup complete
+}
+
+state Ready {
+    [*] --> Active
+    Active --> Paused : pause
+    Paused --> Active : resume
+}
+
+state Active {
+    [*] --> Operating
+    Operating : do / advance time\n update entities positions
+}
+
+Ready --> Terminated : shutdown
+Active --> Terminated : shutdown
+
+Terminated --> [*]
+@enduml
