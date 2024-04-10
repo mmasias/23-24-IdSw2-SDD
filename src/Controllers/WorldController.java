@@ -19,6 +19,7 @@ public class WorldController {
 
     private World world;
     private WorldView worldView;
+
     private void initializeWorldMap(){
         String path = " ";
         List<String[]> mapData = this.readFileContent(path);
@@ -26,6 +27,7 @@ public class WorldController {
     }
 
     public List<String[]> readFileContent(String filePath){
+
         List<String[]> listTiles = new ArrayList<String[]>();
         try {
             File file = new File(filePath);
@@ -71,7 +73,7 @@ public class WorldController {
         Scanner scanner = new Scanner(System.in);
         return processUserInput(Character.toUpperCase(scanner.nextLine().charAt(0)));
     }
-
+  
     private char processUserInput(char input){
         if(input == ('W' | 'A' | 'S' | 'D')){
             return input;
@@ -80,4 +82,35 @@ public class WorldController {
         }
     }
 
+
+    private void moveCharacter(Character character, char input) {
+        int[] actualLocation = character.getPosition().getLocation();
+
+        if (input == 'W')
+            actualLocation[1]++;
+        if (input == 'A')
+            actualLocation[0]--;
+        if (input == 'S')
+            actualLocation[1]--;
+        if (input == 'D')
+            actualLocation[0]++;
+
+        Point newLocation = new Point(actualLocation[0], actualLocation[1]);
+        character.moveTo(newLocation);
+    }
+
+    private char getCharacterMovement() {
+        return ' ';
+    }
+
+    private TransportTypes updateTransportInUse(Character character, TileTypes tileType) {
+        for (int i = 0; i < character.getAvailableTransports().lenght; i++) {
+            TileTypes[] availableTiles = character.getAvailableTransports()[i].getType().getTilesItCanMoveThrough();
+            for (int j = 0; j < availableTiles.length; j++) {
+                if (availableTiles[j].getType() == tileType) {
+                    character.setTransportInUse(availableTiles[j]);
+                }
+            }
+        }
+    }
 }
