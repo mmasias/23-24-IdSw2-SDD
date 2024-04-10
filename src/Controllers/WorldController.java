@@ -8,7 +8,6 @@ import Models.Point;
 import Models.Tile;
 import Models.World;
 import Views.WorldView;
-import Models.Point;
 import Models.Character;
 
 import java.io.BufferedReader;
@@ -28,6 +27,9 @@ public class WorldController {
         String path = " ";
         List<String[]> mapData = this.readFileContent(path);
         populateMap(mapData, world.getMap());
+    }
+
+    private void initializeWorldEntities() {
     }
 
     public List<String[]> readFileContent(String filePath) {
@@ -90,12 +92,23 @@ public class WorldController {
         int[] movement = getCharacterMovement(character);
         Point newLocation = new Point(movement[0], movement[1]);
 
+        if (movement[0] > world.getMap().getWidth())
+            movement[0]--;
+        if (movement[1] > world.getMap().getHeight())
+            movement[1]--;
+        if (movement[0] < 0)
+            movement[0]++;
+        if (movement[1] < 0)
+            movement[1]++;
+
+        updateTransportInUse(character, world.getMap().getTile(character.getPosition()).getType());
+
         character.moveTo(newLocation);
     }
 
     private int[] getCharacterMovement(Character character) {
         char direction = ' ';
-        int[] newLocation = character.getPosition().getLocation();
+        int[] actualLocation = character.getPosition().getLocation();
 
         if (character.getCharacterType() == CharacterType.Playable) {
             direction = getUserInput();
@@ -105,31 +118,27 @@ public class WorldController {
 
         switch (direction) {
             case 'W':
-                newLocation[0] = 0;
-                newLocation[1] = 1;
+                actualLocation[1]++;
                 break;
             case 'A':
-                newLocation[0] = -1;
-                newLocation[1] = 0;
+                actualLocation[0]--;
                 break;
             case 'S':
-                newLocation[0] = 0;
-                newLocation[1] = -1;
+                actualLocation[1]--;
                 break;
             case 'D':
-                newLocation[0] = 1;
-                newLocation[1] = 0;
+                actualLocation[0]++;
                 break;
             default:
                 break;
         }
-        return newLocation;
+        return actualLocation;
     }
 
     private void updateTransportInUse(Character character, TileTypes tileType) {
-        for (int i = 0; i < character.getAvailableTransports().length; i++) {
+        for (int i = 0; i <= character.getAvailableTransports().length; i++) {
             List<TileTypes> availableTiles = character.getAvailableTransports()[i].getType().getTilesItCanMoveThrough();
-            for (int j = 0; j < availableTiles.size(); j++) {
+            for (int j = 0; j <= availableTiles.size(); j++) {
                 if (availableTiles.get(j) == tileType) {
                     character.setTransportInUse(character.getAvailableTransports()[i]);
                 }
