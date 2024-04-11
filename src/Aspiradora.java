@@ -13,39 +13,11 @@ public class Aspiradora {
         this.posicion = new Posicion(0, 0);
     }
 
-    public Posicion getPosicion(){
+    public Posicion getPosicion() {
         return posicion;
     }
 
-    public Bateria getBateria(){
-        return bateria;
-    }
-    
-    public void setBateria(Bateria bateria){
-        this.bateria = bateria;
-    }
-
-    public CapacidadBasura getBasura(){
-        return capacidadBasura;
-    }
-
-    public int getPasosRealizados( ) {
-        return pasosRealizados;
-    }
-    
-    public void setPasosRealizados(int pasosRealizados) {
-        this.pasosRealizados = pasosRealizados;
-    }
-
-    public int getLimpiezaRealizada( ) {
-        return limpiezaRealizada;
-    }
-    
-    public void setLimpiezaRealizados(int limpiezaRealizada) {
-        this.limpiezaRealizada = limpiezaRealizada;
-    }
-    
-    public void mover(Habitacion habitacion){
+    public void mover(Habitacion habitacion) throws InterruptedException {
         Random random = new Random();
         int dx = random.nextInt(3) - 1;
         int dy = random.nextInt(3) - 1;
@@ -57,23 +29,20 @@ public class Aspiradora {
             if (!habitacion.muebles[nuevaX][nuevaY]) {
                 posicion.setX(nuevaX);
                 posicion.setY(nuevaY);
+                limpiarCasilla(habitacion, nuevaX, nuevaY); 
+                Thread.sleep(1000); 
             }
         }
-        pasosRealizados+=1;
+        pasosRealizados++;
     }
 
-
-    public void limpiar(int pasos) {
-        Random random = new Random();
-        for (int i = 0; i < pasos; i++) {
-        
-            int nivBasura = bateria.getNivelBateria();
-            pasosRealizados++;
-            nivBasura--;
-            if (nivBasura <= 0) {
-                System.out.println("Batería agotada. Deteniendo la aspiradora.");
-                break;
-            }
+    private void limpiarCasilla(Habitacion habitacion, int x, int y) {
+        if (habitacion.superficie[x][y].getNivelSuciedad() > 0) {
+            habitacion.superficie[x][y].setNivelSuciedad(0); 
+            limpiezaRealizada++; 
         }
     }
 }
+
+
+
