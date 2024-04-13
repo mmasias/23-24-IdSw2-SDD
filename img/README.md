@@ -6,7 +6,7 @@ En este apartado se muestra los diagramas necesarios para entender el programa p
 
 | Imagen | Código |
 |--------|--------|
-|![Imagen](/img/ModeloDelDominio.svg)|[Código UML](/modelosUML/DiagramaDelDominio.puml)|
+|![Imagen](/img/DiagramaDeClases.svg)|[Código UML](/modelosUML/DiagramaDeClases.puml)|
 
 
 ## Diagrama de Objetos
