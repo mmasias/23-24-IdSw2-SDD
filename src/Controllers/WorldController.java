@@ -9,12 +9,15 @@ import Models.Tile;
 import Models.World;
 import Views.WorldView;
 import Models.Character;
+import Models.Transport;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -30,6 +33,58 @@ public class WorldController {
     }
 
     private void initializeWorldEntities() {
+        int npcAmount = 3;
+        createPlayer();
+
+        for (int i = 0; i < npcAmount; i++) {
+            createNPC(i);
+        }
+    }
+
+    private void createPlayer() {
+        Transport[] playerTransports = new Transport[4];
+
+        for (int i = 0; i < TransportTypes.values().length; i++) {
+            playerTransports[i] = new Transport(TransportTypes.values()[i]);
+        }
+
+        Point startingPosition = new Point((int) Math.random() * world.getMap().getWidth(),
+                (int) Math.random() * world.getMap().getHeight());
+        createCharacter(playerTransports, startingPosition, CharacterType.Playable);
+    }
+
+    private void createNPC(int i) {
+        List<TransportTypes> randomTypes = new ArrayList<>(Arrays.asList(TransportTypes.values()));
+        Collections.shuffle(randomTypes);
+        Transport[] npcTransports = new Transport[2];
+
+        for (int j = 0; j < npcTransports.length; j++) {
+            npcTransports[j] = new Transport(randomTypes.get(i));
+        }
+
+        Point startingPosition = new Point(
+                (int) Math.random() * world.getMap().getWidth(),
+                (int) Math.random() * world.getMap().getHeight());
+
+        createCharacter(npcTransports, startingPosition, CharacterType.NonPlayable);
+
+    }
+
+    private void createCharacter(Transport[] playerTransports, Point startingPosition, CharacterType type) {
+        Tile positionTile = world.getMap().getTile(startingPosition);
+        for (Transport transport : playerTransports) {
+            for (TileTypes validTileType : transport.getType().getTilesItCanMoveThrough()) {
+                if (positionTile.getType() == validTileType) {
+                    Character player = new Character(startingPosition, transport, type,
+                            playerTransports);
+                    world.addEntity(player);
+                    return;
+                }
+            }
+        }
+        Point newPosition = new Point((int) (Math.random() * world.getMap().getWidth()),
+                (int) (Math.random() * world.getMap().getHeight()));
+        createCharacter(playerTransports, newPosition, type);
     }
 
     public List<String[]> readFileContent(String filePath) {
