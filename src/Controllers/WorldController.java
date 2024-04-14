@@ -26,6 +26,13 @@ public class WorldController {
     private World world;
     private WorldView worldView;
 
+    public void initializeGame() {
+    }
+
+    private void runDameCycle() {
+
+    }
+
     private void initializeWorldMap() {
         String path = " ";
         List<String[]> mapData = this.readFileContent(path);
