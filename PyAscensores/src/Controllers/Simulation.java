@@ -34,10 +34,9 @@ public class Simulation {
 
     private void getInitialElevators(BuildingList buildingList) {
         this.initalVaules.setElevatorCapacity(6);
-        this.initalVaules.setElevatorFloor(3);
         int amountElevators = this.initalVaules.getAmountElevators();
 
-        for (int i = 0; i <= amountElevators; i++) {
+        for (int i = 0; i < amountElevators; i++) {
             int currentFloor = this.initalVaules.getElevatorFloor();
             int capacity = this.initalVaules.getElevatorCapacity();
             buildingList.get(0).addElevator(capacity, currentFloor);
@@ -49,7 +48,7 @@ public class Simulation {
         String label = this.initalVaules.getLabel();
 
         for (int i = 0; i <= amountFloors; i++) {
-            buildingList.get(0).addFloor(label);
+            buildingList.get(0).addFloor(label + i);
         }
     }
 
@@ -57,8 +56,8 @@ public class Simulation {
         int amountPeople = this.initalVaules.getAmountPeople();
 
         for (int i = 0; i <= amountPeople; i++) {
-            int timeOnFloor = this.initalVaules.getRandomTimeOnFloor(2, 8);
-            int currentFloor = this.initalVaules.getRandomFloor();
+            int timeOnFloor = this.initalVaules.getRandomTimeOnFloor(0, 8);
+            int currentFloor = this.initalVaules.getElevatorFloor();
             int destination = this.initalVaules.getRandomFloor();
             buildingList.get(0).addPerson(timeOnFloor, currentFloor, destination);
         }

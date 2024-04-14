@@ -68,7 +68,7 @@ public class InitialValues {
     }
 
     private int randomInt(int minimum, int maximum) {
-        return minimum + (int) (Math.random() * ((minimum * maximum) + 1));
+        return minimum + (int) (Math.random() * ((maximum - minimum) + 1));
     }
 
     public int getRandomTimeOnFloor(int minimum, int maximum) {
