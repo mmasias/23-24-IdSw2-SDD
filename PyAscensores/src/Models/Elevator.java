@@ -3,65 +3,63 @@ package Models;
 import Enums.Direction;
 
 public class Elevator {
-
-    private int Id;
-    private int Capacity;
-    private int PeopleInside;
-    private int CurrentFloor;
-    private Direction CurrentDirection;
-    private boolean Access;
+    private int id;
+    private int capacity;
+    private int peopleInside;
+    private int currentFloor;
+    private Direction currentDirection;
+    private boolean access;
 
     public Elevator(int id, int capacity, int currentFloor) {
-        Id = id;
-        Capacity = capacity;
-        CurrentFloor = currentFloor;
-        CurrentDirection = Direction.STOP;
-        Access = true;
-        PeopleInside = 0;
+        this.id = id;
+        this.capacity = capacity;
+        this.currentFloor = currentFloor;
+        this.currentDirection = Direction.STOP;
+        this.access = true;
+        this.peopleInside = 0;
     }
 
     public int getId() {
-        return Id;
+        return this.id;
     }
 
     public int getCapacity() {
-        return Capacity;
+        return this.capacity;
     }
 
     public void setCapacity(int capacity) {
-        Capacity = capacity;
+        this.capacity = capacity;
     }
 
     public int getCurrentFloor() {
-        return CurrentFloor;
+        return this.currentFloor;
     }
 
     public void setCurrentFloor(int currentFloor) {
-        CurrentFloor = currentFloor;
+        this.currentFloor = currentFloor;
     }
 
     public Direction getDirection() {
-        return CurrentDirection;
+        return this.currentDirection;
     }
 
     public void setDirection(Direction direction) {
-        CurrentDirection = direction;
+        this.currentDirection = direction;
     }
 
     public boolean getAccess() {
-        return Access;
+        return this.access;
     }
 
     public void setAccess(boolean access) {
-        Access = access;
+        this.access = access;
     }
 
     public int getPeopleInside() {
-        return PeopleInside;
+        return this.peopleInside;
     }
 
     public void setPeopleInside(int peopleInside) {
-        PeopleInside = peopleInside;
+        this.peopleInside = peopleInside;
     }
-
 }

@@ -1,11 +1,9 @@
 package Views;
 
 import java.util.ArrayList;
-import java.util.List;
 import Models.Building;
 import Models.Elevator;
 import Models.Floor;
-import Controllers.Elevators;
 
 public class BuildingView {
     private Building building;
@@ -16,8 +14,8 @@ public class BuildingView {
 
     public BuildingView(Building building) {
         this.building = building;
-        ArrayList<Elevator> elevators = buildings.getElevators();
-        ArrayList<Floor> floors = buildings.getFloors();
+        ArrayList<Elevator> elevators = building.getElevators();
+        ArrayList<Floor> floors = building.getFloors();
 
         elevatorView = new ElevatorView(elevators, floors.size());
         floorView = new FloorView(floors);
@@ -44,5 +42,4 @@ public class BuildingView {
 
         return mergedView.toString();
     }
-
 }

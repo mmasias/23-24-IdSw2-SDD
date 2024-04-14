@@ -1,21 +1,23 @@
 package Models;
 
 import java.util.ArrayList;
-import java.util.Set;
-import Controllers.Floors;
-import Controllers.Elevators;
+import Lists.*;
 
 public class Building {
     private int id;
-    private Set<Integer> floors;
-    private Set<Integer> elevators;
     private boolean access;
-    private int capacity;
+    private FloorList floors;
+    private ElevatorList elevators;
+    private PersonList people;
+    private ControlPanelList controlPanels;
 
-    public Building(int id, int capacity) {
+    public Building(int id) {
         this.id = id;
         this.access = true;
-        this.capacity = capacity;
+        this.floors = new FloorList();
+        this.elevators = new ElevatorList();
+        this.people = new PersonList();
+        this.controlPanels = new ControlPanelList();
     }
 
     public int getId() {
@@ -23,35 +25,39 @@ public class Building {
     }
 
     public ArrayList<Floor> getFloors() {
-        ArrayList<Floor> floors = new ArrayList<>();
-        for (int floor : this.floors) {
-            floors.add(Floors.get(floor));
-        }
-        return floors;
+        return this.floors.index();
     }
 
-    public void addFloor(int floor) {
-        this.floors.add(floor);
+    public void addFloor(String label) {
+        this.floors.create(label);
     }
 
-    public void removeFloor(int floor) {
-        this.floors.remove(floor);
+    public void removeFloor(int id) {
+        this.floors.delete(id);
     }
 
     public ArrayList<Elevator> getElevators() {
-        ArrayList<Elevator> elevators = new ArrayList<>();
-        for (int elevator : this.elevators) {
-            elevators.add(Elevators.get(elevator));
-        }
-        return elevators;
+        return this.elevators.index();
     }
 
-    public void addElevator(int elevator) {
-        this.elevators.add(elevator);
+    public void addElevator(int capacity, int currentFloor) {
+        this.elevators.create(capacity, currentFloor);
     }
 
-    public void removeElevator(int elevator) {
-        this.elevators.remove(elevator);
+    public void removeElevator(int id) {
+        this.elevators.delete(id);
+    }
+
+    public ArrayList<Person> getPeople() {
+        return this.people.index();
+    }
+
+    public void addPerson(int timeOnFloor, int currentFloor, int destination) {
+        this.people.create(timeOnFloor, currentFloor, destination);
+    }
+
+    public void removePerson(int id) {
+        this.people.delete(id);
     }
 
     public boolean getAccess() {

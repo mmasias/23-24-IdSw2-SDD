@@ -18,7 +18,7 @@ public class Person {
     }
 
     public int getTimeOnFloor() {
-        return timeOnFloor;
+        return this.timeOnFloor;
     }
 
     public void setTimeOnFloor(int timeOnFloor) {
@@ -26,7 +26,7 @@ public class Person {
     }
 
     public int getCurrentFloor() {
-        return currentFloor;
+        return this.currentFloor;
     }
 
     public void setCurrentFloor(int floorId) {
@@ -34,7 +34,7 @@ public class Person {
     }
 
     public int getDestination() {
-        return destination;
+        return this.destination;
     }
 
     public void setDestination(int destination) {

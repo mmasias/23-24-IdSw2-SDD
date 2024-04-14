@@ -1,50 +1,82 @@
 package Controllers;
 
 public class InitialValues {
-    private static int AmountFloors = 0;
-    private static int AmountElevators = 0;
-    private static int ElevatorCapacity = 0;
-    private static int ElevatorFloor = 0;
-    private static String Label = "";
+    private int amountFloors;
+    private int amountElevators;
+    private int elevatorCapacity = -1;
+    private int elevatorFloor = -1;
+    private int amountPeople = -1;
+    private String label = null;
 
-    public static int getAmountFloors() {
-        return AmountFloors;
+    public InitialValues(int amountFloors, int amountElevators) {
+        this.amountFloors = amountFloors;
+        this.amountElevators = amountElevators;
     }
 
-    public static void setAmountFloors(int amount) {
-        AmountFloors = amount;
+    public int getAmountFloors() {
+        return this.amountFloors;
     }
 
-    public static int getAmountElevators() {
-        return AmountElevators;
+    public int getAmountElevators() {
+        return this.amountElevators;
     }
 
-    public static void setAmountElevators(int amount) {
-        AmountElevators = amount;
+    public int getElevatorCapacity() {
+        if (this.elevatorCapacity == -1) {
+            return this.randomInt(5, 10);
+        }
+        return this.elevatorCapacity;
     }
 
-    public static int getElevatorCapacity() {
-        return ElevatorCapacity;
+    public void setElevatorCapacity(int capacity) {
+        this.elevatorCapacity = capacity;
     }
 
-    public static void setElevatorCapacity(int capacity) {
-        ElevatorCapacity = capacity;
+    public int getElevatorFloor() {
+        if (this.elevatorFloor == -1) {
+            return this.randomInt(0, this.amountFloors - 1);
+        }
+        return this.elevatorFloor;
     }
 
-    public static int getElevatorFloor() {
-        return ElevatorFloor;
+    public void setElevatorFloor(int floor) {
+        elevatorFloor = floor;
     }
 
-    public static void setElevatorFloor(int floor) {
-        ElevatorFloor = floor;
+    public String getLabel() {
+        if (this.label == null) {
+            return "Planta ";
+        }
+        return this.label;
     }
 
-    public static String getLabel() {
-        return Label;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public static void setLabel(String label) {
-        Label = label;
+    public int getAmountPeople() {
+        if (this.amountPeople == -1) {
+            int minimum = this.amountFloors * 2;
+            int maximum = this.amountFloors * 20;
+            return this.randomInt(minimum, maximum);
+        }
+        return this.amountPeople;
+    }
+
+    public void setAmountPeople(int amountPeople) {
+        this.amountPeople = amountPeople;
+    }
+
+    private int randomInt(int minimum, int maximum) {
+        return minimum + (int) (Math.random() * ((minimum * maximum) + 1));
+    }
+
+    public int getRandomTimeOnFloor(int minimum, int maximum) {
+        return this.randomInt(minimum, maximum);
+    }
+
+    public int getRandomFloor() {
+        return this.randomInt(0, this.amountFloors - 1);
     }
 
 }

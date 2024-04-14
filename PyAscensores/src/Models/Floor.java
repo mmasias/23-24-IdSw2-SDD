@@ -1,19 +1,20 @@
 package Models;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class Floor {
     private int id;
     private String label;
-    private Set<Integer> peopleOnFloor;
-    private Set<Integer> waitingPeople;
+    private ArrayList<Integer> peopleOnFloor;
+    private ArrayList<Integer> waitingPeople;
     private boolean access;
 
     public Floor(int id, String label) {
         this.id = id;
         this.label = label;
         this.access = true;
+        peopleOnFloor = new ArrayList<Integer>();
+        waitingPeople = new ArrayList<Integer>();
     }
 
     public int getId() {
@@ -21,7 +22,7 @@ public class Floor {
     }
 
     public ArrayList<Integer> getPeopleOnFloor() {
-        return new ArrayList<>(this.peopleOnFloor);
+        return this.peopleOnFloor;
     }
 
     public void addPersonOnFloor(int person) {
@@ -33,7 +34,7 @@ public class Floor {
     }
 
     public ArrayList<Integer> getWaitingPeople() {
-        return new ArrayList<>(this.waitingPeople);
+        return this.waitingPeople;
     }
 
     public void addWaitingPerson(int person) {

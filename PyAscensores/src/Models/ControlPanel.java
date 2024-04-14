@@ -1,8 +1,6 @@
 package Models;
 
 import java.util.Set;
-import Enums.Direction;
-import Controllers.Elevators;
 
 public class ControlPanel {
     private int id;
@@ -18,12 +16,20 @@ public class ControlPanel {
         return this.id;
     }
 
+    public Set<ElevatorRequest> getElevatorRequests() {
+        return this.elevatorRequests;
+    }
+
     public void addElevatorRequest(ElevatorRequest elevatorRequest) {
         this.elevatorRequests.add(elevatorRequest);
     }
 
     public void removeElevatorRequest(ElevatorRequest elevatorRequest) {
         this.elevatorRequests.remove(elevatorRequest);
+    }
+
+    public Set<FloorRequest> getFloorRequests() {
+        return this.floorRequests;
     }
 
     public void addFloorRequest(FloorRequest floorRequest) {
@@ -34,26 +40,23 @@ public class ControlPanel {
         this.floorRequests.remove(floorRequest);
     }
 
+    public Set<Integer> getElevators() {
+        return this.elevators;
+    }
+
+    public void addElevator(int elevator) {
+        this.elevators.add(elevator);
+    }
+
+    public void removeElevator(int elevator) {
+        this.elevators.remove(elevator);
+    }
+
     public boolean hasElevatorRequests() {
         return !this.elevatorRequests.isEmpty();
     }
 
     public boolean hasFloorRequests() {
         return !this.floorRequests.isEmpty();
-    }
-
-    public void setElevatorDirections() {
-        Elevator elevator = Elevators.get(this.elevators.iterator().next());
-        Direction direction = Direction.STOP;
-
-        for (ElevatorRequest elevatorRequest : this.elevatorRequests) {
-            if (elevatorRequest.getOrigin() > elevator.getCurrentFloor()) {
-                direction = Direction.UP;
-            } else if (elevatorRequest.getFloor() < elevator.getCurrentFloor()) {
-                direction = Direction.DOWN;
-            }
-        }
-
-        elevator.setDirection(direction);
     }
 }
