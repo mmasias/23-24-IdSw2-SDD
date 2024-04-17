@@ -124,14 +124,20 @@ package "Controller" {
         - WorldView worldView
 
         + initializeGame()
+        - runGameCycle()
         - initializeWorldMap()
         - initializeWorldEntities()
-        - runGameCycle()
+        - createPlayer()
+        - createNPC(int i)
+        - createCharacter()
+        - readFileContent(String filePath)
+        - populateMap(List<String[]> mapData, Map worldMap)
+        - createTileByNumber(String tileNumber)
+        - getRandomCharacterMovement()
+        - processUserInput(char input)
         - moveCharacter(Character character)
         - getCharacterMovement(Character character)
-        - getRandomCharacterMovement()
-        - getUserInput()
-        - processUserInput(char input)
+        - updateTransportInUse(Character character, TileTypes tileType)
     }
 }
 

@@ -8,14 +8,16 @@ import Models.Point;
 import Models.Tile;
 import Models.World;
 import Views.WorldView;
-import Models.Point;
 import Models.Character;
+import Models.Transport;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -24,10 +26,72 @@ public class WorldController {
     private World world;
     private WorldView worldView;
 
+    public void initializeGame() {
+    }
+
+    private void runDameCycle() {
+
+    }
+
     private void initializeWorldMap() {
         String path = " ";
         List<String[]> mapData = this.readFileContent(path);
         populateMap(mapData, world.getMap());
+    }
+
+    private void initializeWorldEntities() {
+        int npcAmount = 3;
+        createPlayer();
+
+        for (int i = 0; i < npcAmount; i++) {
+            createNPC(i);
+        }
+    }
+
+    private void createPlayer() {
+        Transport[] playerTransports = new Transport[4];
+
+        for (int i = 0; i < TransportTypes.values().length; i++) {
+            playerTransports[i] = new Transport(TransportTypes.values()[i]);
+        }
+
+        Point startingPosition = new Point((int) Math.random() * world.getMap().getWidth(),
+                (int) Math.random() * world.getMap().getHeight());
+        createCharacter(playerTransports, startingPosition, CharacterType.Playable);
+    }
+
+    private void createNPC(int i) {
+        List<TransportTypes> randomTypes = new ArrayList<>(Arrays.asList(TransportTypes.values()));
+        Collections.shuffle(randomTypes);
+        Transport[] npcTransports = new Transport[2];
+
+        for (int j = 0; j < npcTransports.length; j++) {
+            npcTransports[j] = new Transport(randomTypes.get(i));
+        }
+
+        Point startingPosition = new Point(
+                (int) Math.random() * world.getMap().getWidth(),
+                (int) Math.random() * world.getMap().getHeight());
+
+        createCharacter(npcTransports, startingPosition, CharacterType.NonPlayable);
+
+    }
+
+    private void createCharacter(Transport[] playerTransports, Point startingPosition, CharacterType type) {
+        Tile positionTile = world.getMap().getTile(startingPosition);
+        for (Transport transport : playerTransports) {
+            for (TileTypes validTileType : transport.getType().getTilesItCanMoveThrough()) {
+                if (positionTile.getType() == validTileType) {
+                    Character player = new Character(startingPosition, transport, type,
+                            playerTransports);
+                    world.addEntity(player);
+                    return;
+                }
+            }
+        }
+        Point newPosition = new Point((int) (Math.random() * world.getMap().getWidth()),
+                (int) (Math.random() * world.getMap().getHeight()));
+        createCharacter(playerTransports, newPosition, type);
     }
 
     public List<String[]> readFileContent(String filePath) {
@@ -90,12 +154,23 @@ public class WorldController {
         int[] movement = getCharacterMovement(character);
         Point newLocation = new Point(movement[0], movement[1]);
 
+        if (movement[0] > world.getMap().getWidth())
+            movement[0]--;
+        if (movement[1] > world.getMap().getHeight())
+            movement[1]--;
+        if (movement[0] < 0)
+            movement[0]++;
+        if (movement[1] < 0)
+            movement[1]++;
+
+        updateTransportInUse(character, world.getMap().getTile(character.getPosition()).getType());
+
         character.moveTo(newLocation);
     }
 
     private int[] getCharacterMovement(Character character) {
         char direction = ' ';
-        int[] newLocation = character.getPosition().getLocation();
+        int[] actualLocation = character.getPosition().getLocation();
 
         if (character.getCharacterType() == CharacterType.Playable) {
             direction = getUserInput();
@@ -105,31 +180,27 @@ public class WorldController {
 
         switch (direction) {
             case 'W':
-                newLocation[0] = 0;
-                newLocation[1] = 1;
+                actualLocation[1]++;
                 break;
             case 'A':
-                newLocation[0] = -1;
-                newLocation[1] = 0;
+                actualLocation[0]--;
                 break;
             case 'S':
-                newLocation[0] = 0;
-                newLocation[1] = -1;
+                actualLocation[1]--;
                 break;
             case 'D':
-                newLocation[0] = 1;
-                newLocation[1] = 0;
+                actualLocation[0]++;
                 break;
             default:
                 break;
         }
-        return newLocation;
+        return actualLocation;
     }
 
     private void updateTransportInUse(Character character, TileTypes tileType) {
-        for (int i = 0; i < character.getAvailableTransports().length; i++) {
+        for (int i = 0; i <= character.getAvailableTransports().length; i++) {
             List<TileTypes> availableTiles = character.getAvailableTransports()[i].getType().getTilesItCanMoveThrough();
-            for (int j = 0; j < availableTiles.size(); j++) {
+            for (int j = 0; j <= availableTiles.size(); j++) {
                 if (availableTiles.get(j) == tileType) {
                     character.setTransportInUse(character.getAvailableTransports()[i]);
                 }
