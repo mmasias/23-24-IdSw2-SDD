@@ -31,6 +31,11 @@ class "CUADRO DE MANDO"
     Solicitudes de Destino
 }
 
+' Type	Symbol	Drawing
+' Extension	<|--	
+' Composition	*--	
+' Aggregation	o--	
+
 class PLANTA 
 {
     ID
@@ -64,18 +69,19 @@ class "SOLICITUD DESTINO"
 }
 
 
-EDIFICIO --> PLANTA : tiene
-PLANTA --> PERSONA : tiene
+EDIFICIO *-- PLANTA : tiene
+EDIFICIO *-- ASCENSOR : tiene
+PLANTA o-- PERSONA : tiene
 PLANTA -left-> ASCENSOR : tiene acceso
-PERSONA --> ASCENSOR : utiliza
+PERSONA ..> ASCENSOR : utiliza
 
-PERSONA --> "SOLICITUD PARADA" : solicita
-PERSONA --> "SOLICITUD DESTINO" : solicita
+PERSONA ..> "SOLICITUD PARADA" : solicita
+PERSONA ..> "SOLICITUD DESTINO" : solicita
 "CUADRO DE MANDO" --> ASCENSOR : gobierna
-"SOLICITUD PARADA" --> "CUADRO DE MANDO" : se envía
-"SOLICITUD DESTINO" --> "CUADRO DE MANDO" : se envía
+"SOLICITUD PARADA" --o "CUADRO DE MANDO" : se envía
+"SOLICITUD DESTINO" --o "CUADRO DE MANDO" : se envía
 
-TIEMPO -left-> PERSONA : afecta
-TIEMPO --> EDIFICIO : afecta
+TIEMPO .left.> PERSONA : afecta
+TIEMPO ..> EDIFICIO : afecta
 
 @enduml

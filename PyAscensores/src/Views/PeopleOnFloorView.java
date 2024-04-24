@@ -1,7 +1,7 @@
 package Views;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import Models.Floor;
 
 public class PeopleOnFloorView {
@@ -11,12 +11,10 @@ public class PeopleOnFloorView {
         Floors = floors;
     }
 
-    public ArrayList<String[]> render(ArrayList<String[]> building) {
-        String View = getPeopleOnFloorView();
-        String ViewSplit[] = View.split("\n");
-        building.add(ViewSplit);
+    public String[] render() {
+        String view[] = getPeopleOnFloorView().split("\n");
 
-        return building;
+        return view;
     }
 
     private String getPeopleOnFloorView() {

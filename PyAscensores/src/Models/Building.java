@@ -1,40 +1,70 @@
 package Models;
 
-import java.util.List;
+import java.util.ArrayList;
+import Lists.*;
 
-public class Building implements IModel {
-    List<Floor> Floor;
-    List<Elevator> Elevator;
-    boolean Access;
-    int Capacity;
+public class Building {
+    private int id;
+    private boolean access;
+    private FloorList floors;
+    private ElevatorList elevators;
+    private PersonList people;
+    private ControlPanelList controlPanels;
 
-    public Building(List<Floor> floor, List<Elevator> elevator) {
-        Floor = floor;
-        Elevator = elevator;
-        Access = true;
+    public Building(int id) {
+        this.id = id;
+        this.access = true;
+        this.floors = new FloorList();
+        this.elevators = new ElevatorList();
+        this.people = new PersonList();
+        this.controlPanels = new ControlPanelList();
     }
 
-    public void setAccess(boolean access) {
-        Access = access;
+    public int getId() {
+        return this.id;
     }
 
-    public void setFloors(List<Floor> floor) {
-        Floor = floor;
+    public ArrayList<Floor> getFloors() {
+        return this.floors.index();
     }
 
-    public void setElevators(List<Elevator> elevator) {
-        Elevator = elevator;
+    public void addFloor(String label) {
+        this.floors.create(label);
+    }
+
+    public void removeFloor(int id) {
+        this.floors.delete(id);
+    }
+
+    public ArrayList<Elevator> getElevators() {
+        return this.elevators.index();
+    }
+
+    public void addElevator(int capacity, int currentFloor) {
+        this.elevators.create(capacity, currentFloor);
+    }
+
+    public void removeElevator(int id) {
+        this.elevators.delete(id);
+    }
+
+    public ArrayList<Person> getPeople() {
+        return this.people.index();
+    }
+
+    public void addPerson(int timeOnFloor, int currentFloor, int destination) {
+        this.people.create(timeOnFloor, currentFloor, destination);
+    }
+
+    public void removePerson(int id) {
+        this.people.delete(id);
     }
 
     public boolean getAccess() {
-        return Access;
+        return this.access;
     }
 
-    public List<Floor> getFloors() {
-        return Floor;
-    }
-
-    public List<Elevator> getElevators() {
-        return Elevator;
+    public void setAccess(boolean access) {
+        this.access = access;
     }
 }

@@ -1,28 +1,21 @@
 package Models;
 
-import java.util.List;
+import Enums.Direction;
 
-public class FloorRequest implements IModel {
-    private List<Integer> destinations;
+public class FloorRequest {
+    private Direction direction;
+    private int destination;
 
-    public FloorRequest() {
+    public FloorRequest(int destination, Direction direction) {
+        this.destination = destination;
+        this.direction = direction;
     }
 
-    public void addFloorToDestinations(int floor) {
-        destinations.add(floor);
+    public Direction getDirection() {
+        return this.direction;
     }
 
-    public void removeFloorToDestinations(int floor) {
-        if (destinations.contains(floor)) {
-            destinations.remove(destinations.indexOf(floor));
-        }
-    }
-
-    public List<Integer> getDestinations() {
-        return destinations;
-    }
-
-    public void setDestinations(List<Integer> destinationsList) {
-        this.destinations = destinationsList;
+    public int getDestination() {
+        return this.destination;
     }
 }

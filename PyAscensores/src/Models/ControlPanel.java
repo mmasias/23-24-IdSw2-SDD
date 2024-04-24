@@ -1,53 +1,62 @@
 package Models;
 
-import java.util.List;
+import java.util.Set;
 
-public class ControlPanel implements IModel {
-    private List<Integer> floorsToStop;
-    private List<Integer> floorsToGo;
+public class ControlPanel {
+    private int id;
+    private Set<ElevatorRequest> elevatorRequests;
+    private Set<FloorRequest> floorRequests;
+    private Set<Integer> elevators;
 
-    public ControlPanel(List<Integer> floorsToStop, List<Integer> floorsToGo) {
-        this.floorsToStop = floorsToStop;
-        this.floorsToGo = floorsToGo;
+    public ControlPanel(int id) {
+        this.id = id;
     }
 
-    public List<Integer> getfloorsToStop() {
-        return floorsToStop;
+    public int getId() {
+        return this.id;
     }
 
-    public List<Integer> getfloorsToGo() {
-        return floorsToGo;
+    public Set<ElevatorRequest> getElevatorRequests() {
+        return this.elevatorRequests;
     }
 
-    public void addFloorToStop(int floor) {
-        this.floorsToStop.add(floor);
+    public void addElevatorRequest(ElevatorRequest elevatorRequest) {
+        this.elevatorRequests.add(elevatorRequest);
     }
 
-    public void addFloorToGo(int floor) {
-        this.floorsToGo.add(floor);
+    public void removeElevatorRequest(ElevatorRequest elevatorRequest) {
+        this.elevatorRequests.remove(elevatorRequest);
     }
 
-    public void removeFloorToStop(int floor) {
-        this.floorsToStop.remove(floor);
+    public Set<FloorRequest> getFloorRequests() {
+        return this.floorRequests;
     }
 
-    public void removeFloorToGo(int floor) {
-        this.floorsToGo.remove(floor);
+    public void addFloorRequest(FloorRequest floorRequest) {
+        this.floorRequests.add(floorRequest);
     }
 
-    public void clearFloorsToStop() {
-        this.floorsToStop.clear();
+    public void removeFloorRequest(FloorRequest floorRequest) {
+        this.floorRequests.remove(floorRequest);
     }
 
-    public void clearFloorsToGo() {
-        this.floorsToGo.clear();
+    public Set<Integer> getElevators() {
+        return this.elevators;
     }
 
-    public boolean hasFloorsToStop() {
-        return !this.floorsToStop.isEmpty();
+    public void addElevator(int elevator) {
+        this.elevators.add(elevator);
     }
 
-    public boolean hasFloorsToGo() {
-        return !this.floorsToGo.isEmpty();
+    public void removeElevator(int elevator) {
+        this.elevators.remove(elevator);
+    }
+
+    public boolean hasElevatorRequests() {
+        return !this.elevatorRequests.isEmpty();
+    }
+
+    public boolean hasFloorRequests() {
+        return !this.floorRequests.isEmpty();
     }
 }

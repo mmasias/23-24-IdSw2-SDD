@@ -1,0 +1,86 @@
+@startuml Diagrama_de_Objetos
+
+title Diagrama de Objetos
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+class "ASCENSOR 0:ASCENSOR"
+{
+    ID: 0
+    Capacidad: 6
+    Acceso: true
+}
+
+class "JUAN:USUARIO"
+{
+    Origen: Planta 0
+    Destino: Planta 1
+}
+
+class "PEDRO:USUARIO"
+{
+    Origen: Planta 1
+    Destino: Planta 0
+}
+
+class "CUADRO DE MANDO:CUADRO DE MANDO"
+{
+    Solicitudes
+}
+
+class "PLANTA 0:PLANTA"
+{
+    ID: 0
+    Personas: 100
+    Capacidad: 200
+    Acceso: true
+}
+
+class "PLANTA 1:PLANTA"
+{
+    ID: 1
+    Personas: 150
+    Capacidad: 200
+    Acceso: true
+}
+
+class "PLANTA 2:PLANTA"
+{
+    ID: 2
+    Personas: 50
+    Capacidad: 200
+    Acceso: false
+}
+
+class "UNEATLANTICO:EDIFICIO"
+{
+    Plantas: 3
+    Ascensores: 2
+    Capacidad: 600
+    Acceso: true
+}
+
+"UNEATLANTICO:EDIFICIO" --> "PLANTA 0:PLANTA" : Tiene
+"UNEATLANTICO:EDIFICIO" --> "PLANTA 1:PLANTA" : Tiene
+"UNEATLANTICO:EDIFICIO" --> "PLANTA 2:PLANTA" : Tiene
+
+"PLANTA 0:PLANTA" --> "JUAN:USUARIO" : Tiene
+"PLANTA 1:PLANTA" --> "PEDRO:USUARIO" : Tiene
+
+"PLANTA 0:PLANTA" --> "ASCENSOR 0:ASCENSOR" : Tiene Acceso
+"PLANTA 1:PLANTA" --> "ASCENSOR 0:ASCENSOR" : Tiene Acceso
+
+"JUAN:USUARIO" -up-> "ASCENSOR 0:ASCENSOR" : Utiliza
+"PEDRO:USUARIO" -up-> "ASCENSOR 0:ASCENSOR" : Utiliza
+
+"JUAN:USUARIO" --> "CUADRO DE MANDO:CUADRO DE MANDO" : Solicita al
+"PEDRO:USUARIO" --> "CUADRO DE MANDO:CUADRO DE MANDO" : Solicita al
+
+"CUADRO DE MANDO:CUADRO DE MANDO" --> "ASCENSOR 0:ASCENSOR" : Gobierna
+
+
+@enduml
