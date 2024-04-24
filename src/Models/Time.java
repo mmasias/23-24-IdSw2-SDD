@@ -24,6 +24,7 @@ public class Time {
     currentTime = hours * 100 + minutes;
   }
 
+  //TODO: No se usa el método setTimeOfDay
   public void setTimeOfDay(int currentTime) {
     if (currentTime >= 600 || currentTime <= 1200) {
       this.timeOfDay = TimesOfDay.Morning;
@@ -36,6 +37,7 @@ public class Time {
     }
   }
 
+  //TODO: No se usa el método resetDay
   public void resetDay() {
     if (currentTime > 2345) {
       currentTime = 0;

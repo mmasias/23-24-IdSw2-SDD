@@ -12,6 +12,7 @@ public class Point {
     return new int[] { this.x, this.y };
   }
 
+  //TODO: No se usa el método setLocation
   public void setLocation(int x, int y) {
     this.x = x;
     this.y = y;

@@ -27,19 +27,23 @@ public class WorldController {
     private World world;
     private WorldView worldView;
 
+    //TODO: No se usa el método initializeGame y no hay contenido
     public void initializeGame() {
     }
 
-    private void runDameCycle() {
+    //TODO: No se usa el método runGameCycle y no hay contenido
+    private void runGameCycle() {
 
     }
 
+    //TODO: No se usa el método initializeWorldMap
     private void initializeWorldMap() {
         String path = " ";
         List<String[]> mapData = this.readFileContent(path);
         populateMap(mapData, world.getMap());
     }
 
+    //TODO: No se usa el método initializeWorldEntities
     private void initializeWorldEntities() {
         int npcAmount = 3;
         createPlayer();
@@ -138,6 +142,7 @@ public class WorldController {
         return movements[random.nextInt(movements.length)];
     }
 
+    //TODO: El metodo toUpperCase no existe
     private char getUserInput() {
         Scanner scanner = new Scanner(System.in);
         return processUserInput(Character.toUpperCase(scanner.nextLine().charAt(0)));
@@ -151,6 +156,7 @@ public class WorldController {
         }
     }
 
+    //TODO: No se usa el método moveCharacters
     private void moveCharacter(Character character) {
         int[] movement = getCharacterMovement(character);
         Point newLocation = new Point(movement[0], movement[1]);

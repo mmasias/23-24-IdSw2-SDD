@@ -14,6 +14,7 @@ public class World {
         this.time = new Time();
     }
 
+    //TODO: No se usa el método simulateCycle
     public void simulateCycle() {
         updateTime();
     }
@@ -38,10 +39,12 @@ public class World {
         return this.time;
     }
 
+    //TODO: No se usa el método setMap
     public void setMap(Map map) {
         this.map = map;
     }
 
+    //TODO: No se usa el método setEntities
     public void setEntities(List<Entity> entities) {
         this.entities = entities;
     }

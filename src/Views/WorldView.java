@@ -5,7 +5,7 @@ import java.util.List;
 import Models.*;
 
 public class WorldView {
-
+    //TODO: No se usa el método displayWorld
     public void displayWorld(World world) {
         cleanScreen();
         displayTime(world.getTime());

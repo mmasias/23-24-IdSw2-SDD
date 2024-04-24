@@ -13,6 +13,7 @@ public class Transport {
         return type;
     }
 
+    //TODO: No se usa el método getSpeed
     public int getSpeed() {
         return type.getSpeed();
     }
