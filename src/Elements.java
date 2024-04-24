@@ -7,9 +7,9 @@ public enum Elements{
     ZONA_SUCISIMA("***"),
     ASPIRADORA("(0)"),
     GATO("^-^"),
-    SOFA("[####]");
+    SOFA("[#]");
 
-    private final String value;
+    private String value;
 
     private Elements(String value){
         this.value = value;
@@ -19,7 +19,7 @@ public enum Elements{
         return value;
     }
 
-    // public void setElement(Elemento elemento) {
-    //     this.values = elemento;
-    // }
+    public void setElement(String elemento) {
+        this.value = elemento;
+    }
 }

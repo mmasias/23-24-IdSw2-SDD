@@ -1,37 +1,34 @@
-public class Gato {
-    private int pasos;
-    private Posicion posicion;
+import java.util.Random;
 
-    public Gato (){
-        this.pasos = 0;
+public class Gato {
+    private Posicion posicion;
+    private int pasosRealizados;
+
+    public Gato(int x, int y) {
+        this.posicion = new Posicion(x, y);
     }
 
-    public Posicion getPosicion(){
+    public Posicion getPosicion() {
         return posicion;
     }
 
-    public int getPasos(){
-        return pasos;
-    }
-
-    public void setPasos(int pasos){
-        this.pasos = pasos;
-    }
-
-    /*public void pasear(Habitacion superficie){
+    public void mover(Habitacion habitacion) throws InterruptedException {
         Random random = new Random();
+        int dx = random.nextInt(3) - 1;
+        int dy = random.nextInt(3) - 1;
 
-        int pasos = 25; 
+        if (Math.abs(dx) + Math.abs(dy) == 1) {
+            int nuevaX = posicion.getX() + dx;
+            int nuevaY = posicion.getY() + dy;
 
-        while (pasos > 0) {
-            int x = random.nextInt(superficie.getAncho());
-            int y = random.nextInt(superficie.getAlto());
-            if (superficie.getGrid()[y][x] < 4) {
-                superficie.getGrid()[y][x]++;
-                superficie.setSuciedadTotal(superficie.getSuciedadTotal() + 1);
+            if (nuevaX >= 0 && nuevaX < habitacion.ancho && nuevaY >= 0 && nuevaY < habitacion.largo) {
+                if (!habitacion.muebles[nuevaX][nuevaY]) {
+                    posicion.setX(nuevaX);
+                    posicion.setY(nuevaY);
+                    Thread.sleep(1000);
+                }
             }
-            pasos --;
         }
-        this.pasos = 25;
-    }*/
+        pasosRealizados++;
+    }
 }

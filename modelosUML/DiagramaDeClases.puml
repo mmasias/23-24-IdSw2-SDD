@@ -3,37 +3,92 @@
 title Modelo de clases Aspiradora
 
 class Habitacion { 
-
+-Azulejo [][] superficie
+-boolean [][] muebles
+-int ancho
+-int largo 
++Habitacion(int ancho, int largo)
++void imprimir(Aspiradora aspiradora,Gato gato)
++void imprimirBordeHorizontal()
++boolean generarMuebles(boolean[][] muebles)	
++Azulejo[][] generarSuperficie(int ancho, int largo, int porcentajeSuciedad)
 }
 
 Class Azulejo {  
-
+-int nivelSuciedad
+-Posicion posicion
+-boolean tieneMueble
++Azulejo(int nivelSuciedad)}
++int getNivelSuciedad()
++void setNivelSuciedad(int nivelSuciedad)
 }
 
 class Aspiradora { 
-
+-int pasosRealizados
+-int limpiezaRealizada
+-CapacidadBasura capacidadBasura
+-Bateria bateria
+-Posicion posicion
++Aspiradora()
++getPosicion()
++void mover(Habitacion habitacion)
++void limpiarCasilla(Habitacion habitacion, int x, int y)
 }
 
 class Elementos  { 
-
+-String value
++Elements(String value)
++String getElement()
++void setElement(String elemento)
 }
 
 class Gato { 
-
+-Posicion posicion
+-int pasosRealizados
++Gato(int x, int y)
++Posicion getPosicion()
++void mover(Habitacion habitacion)
 }
 
 class Posicion { 
+-int x
+-int y
++Posicion(int x, int y)
++int getX()
++int getY()
++void setPosicion(int x, int y)
++void setX(int x)
++void setY(int y)
 }
+
 class Bateria { 
+-int nivelBateria
++void descarga()
++void carga()
++int getNivelBateria()
++int setNivelBateria()
+}	
+class CapacidadDeBasura { 
+-int nivelBasura
+-int maximoNivelBasura
++CapacidadBasura(int maximoNivelBasura)
++void rellenarBolsa()
++void vaciarBolsa()
++int getNivelBasura()
 }	
 
-Habitacion o-- Azulejo
-Azulejo <|-- Aspiradora
+
+
+Habitacion *-- Azulejo
+Habitacion o-- Aspiradora
+Habitacion o-- Gato
+Gato--Posicion
 Azulejo o--Elementos 
-Azulejo <|-- Gato
-Azulejo *-- Posicion
-Aspiradora *-- Bateria
+Azulejo -- Gato
+Azulejo --> Posicion
+Aspiradora -- Posicion
+Aspiradora o-- Bateria
+Aspiradora --> CapacidadDeBasura
 
 
 @enduml
-

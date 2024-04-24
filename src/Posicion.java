@@ -3,8 +3,7 @@ public class Posicion {
     private int y;
 
     public Posicion(int x, int y) {
-        this.x = x;
-        this.y = y;
+        setPosicion(x, y);
     }
     
     public int getX() {

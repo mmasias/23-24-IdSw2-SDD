@@ -6,7 +6,7 @@ En este apartado se muestra los diagramas necesarios para entender el programa p
 
 | Imagen | Código |
 |--------|--------|
-|![Imagen](/img/ModeloDelDominio.svg)|[Código UML](/modelosUML/DiagramaDelDominio.puml)|
+|![Imagen](/img/DiagramaDeClases.svg)|[Código UML](/modelosUML/DiagramaDeClases.puml)|
 
 
 ## Diagrama de Objetos
@@ -21,12 +21,12 @@ En este apartado se muestra los diagramas necesarios para entender el programa p
 
 | Imagen | Código |
 |--------|--------|
-|![Imagen](/img/diagrama_de_estado.svg)|[Código UML](/modelosUML/DiagramaDeEstado.puml)|
+|![Imagen](/img/DiagramaEstado.svg)|[Código UML](/modelosUML/DiagramaDeEstado.puml)|
 
 ### Diagrama de Estado de la Posición
 
 | Imagen | Código |
 |--------|--------|
-|![Imagen](/img/diagrama_de_estado_pt2.svg)|[Código UML](/modelosUML/DiagramaDeEstadopt2.puml)|
+|![Imagen](/img/DiagramaEstado2.svg)|[Código UML](/modelosUML/DiagramaDeEstadopt2.puml)|
 
 [Regresar](/README.md)

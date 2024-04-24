@@ -1,32 +1,30 @@
+import java.util.Scanner;
+
 public class Main {
 
-     public static void main(String[] args) {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Especifica el largo y ancho de la habitación.");
+        int largo = Utils.obtenerEnteroValido(scanner, "Largo:");
+        int ancho = Utils.obtenerEnteroValido(scanner, "Ancho:");
 
-          int rows = 25;
-          int columns = 10;
-          int[][] matriz = {{25},{10}};
+        Gato gato = new Gato(0, 0);
+        Habitacion habitacion = new Habitacion(ancho, largo);
+        Aspiradora aspiradora = new Aspiradora();
 
+        for (int i = 0; i < 20; i++) {
+            try {
+                aspiradora.mover(habitacion);
+                gato.mover(habitacion);
+                habitacion.imprimir(aspiradora, gato); 
+            } catch (InterruptedException e) {
+                System.out.println("Error al pausar la ejecución: " + e.getMessage());
+            }
+        }
+        
 
-          Habitacion matrix = new Habitacion(matriz);
-          
-          // imprimir matriz
-          for (int i = 0; i < rows; i++) {
-               for (int j = 0; j < columns; j++) {
-                    System.out.print("[]");
-               }
-               System.out.println();
-          }
-          
-          // rellenar la matriz
-          
-          
+        scanner.close();
+    }
 
-          
-
-
-
-          
-
-
-     }
 }
+

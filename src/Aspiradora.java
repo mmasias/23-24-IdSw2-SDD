@@ -1,43 +1,48 @@
+import java.util.Random;
+
 public class Aspiradora {
     private int pasosRealizados;
-    private int bateria;
+    private int limpiezaRealizada;
+    private CapacidadBasura capacidadBasura;
+    private Bateria bateria;
     private Posicion posicion;
 
-    public Aspiradora(int capacidadBolsa, int suciedadMaxima) {
+    public Aspiradora() {
         this.pasosRealizados = 0;
-        this.bateria = 100;
+        this.limpiezaRealizada = 0;
+        this.posicion = new Posicion(0, 0);
     }
 
-    public Posicion getPosicion(){
+    public Posicion getPosicion() {
         return posicion;
     }
 
-    public int getPasosRealizados( ) { 
-        return pasosRealizados;
-    }
-    
-    public int getBateria() {
-        return bateria;
-    }
-    
-    public void setPasosRealizados(int pasosRealizados) {
-        this.pasosRealizados = pasosRealizados;
-    }
-    
-    public void setBateria(int bateria) {
-        this.bateria = bateria;
-    }
-    
-    /*public void limpiar(int pasos) {
+    public void mover(Habitacion habitacion) throws InterruptedException {
         Random random = new Random();
-        for (int i = 0; i < pasos; i++) {
-        
-            pasosRealizados++;
-            bateria--;
-            if (bateria <= 0) {
-                System.out.println("Batería agotada. Deteniendo la aspiradora.");
-                break;  
+        int dx = random.nextInt(3) - 1;
+        int dy = random.nextInt(3) - 1;
+
+        int nuevaX = posicion.getX() + dx;
+        int nuevaY = posicion.getY() + dy;
+
+        if (nuevaX >= 0 && nuevaX < habitacion.ancho && nuevaY >= 0 && nuevaY < habitacion.largo) {
+            if (!habitacion.muebles[nuevaX][nuevaY]) {
+                posicion.setX(nuevaX);
+                posicion.setY(nuevaY);
+                limpiarCasilla(habitacion, nuevaX, nuevaY); 
+                Thread.sleep(1000); 
             }
         }
-    }*/
+        pasosRealizados++;
+    }
+
+    private void limpiarCasilla(Habitacion habitacion, int x, int y) {
+        if (habitacion.superficie[x][y].getNivelSuciedad() > 0) {
+            habitacion.superficie[x][y].setNivelSuciedad(0); 
+            limpiezaRealizada++; 
+        }
+    }
 }
+
+
+
