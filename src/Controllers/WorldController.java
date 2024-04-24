@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+//TODO: No se usa la clase WorldController
 public class WorldController {
 
     private World world;
