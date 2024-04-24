@@ -1,18 +1,24 @@
 package Models;
 
-public class Person implements IModel {
+public class Person {
+    private int id;
     private int timeOnFloor;
     private int currentFloor;
     private int destination;
 
-    public Person(int timeOnFloor, int currentFloor, int destination) {
+    public Person(int id, int timeOnFloor, int currentFloor, int destination) {
+        this.id = id;
         this.timeOnFloor = timeOnFloor;
         this.currentFloor = currentFloor;
         this.destination = destination;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
     public int getTimeOnFloor() {
-        return timeOnFloor;
+        return this.timeOnFloor;
     }
 
     public void setTimeOnFloor(int timeOnFloor) {
@@ -20,7 +26,7 @@ public class Person implements IModel {
     }
 
     public int getCurrentFloor() {
-        return currentFloor;
+        return this.currentFloor;
     }
 
     public void setCurrentFloor(int floorId) {
@@ -28,7 +34,7 @@ public class Person implements IModel {
     }
 
     public int getDestination() {
-        return destination;
+        return this.destination;
     }
 
     public void setDestination(int destination) {

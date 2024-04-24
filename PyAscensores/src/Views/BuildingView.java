@@ -1,7 +1,6 @@
 package Views;
 
 import java.util.ArrayList;
-import java.util.List;
 import Models.Building;
 import Models.Elevator;
 import Models.Floor;
@@ -15,8 +14,8 @@ public class BuildingView {
 
     public BuildingView(Building building) {
         this.building = building;
-        List<Elevator> elevators = building.getElevators();
-        List<Floor> floors = building.getFloors();
+        ArrayList<Elevator> elevators = building.getElevators();
+        ArrayList<Floor> floors = building.getFloors();
 
         elevatorView = new ElevatorView(elevators, floors.size());
         floorView = new FloorView(floors);
@@ -33,7 +32,7 @@ public class BuildingView {
         views.add(peopleWaitingView.render());
 
         StringBuilder mergedView = new StringBuilder();
-        
+
         for (int i = 0; i < building.getFloors().size(); i++) {
             for (String[] view : views) {
                 mergedView.append(view[i] + "  ");
@@ -43,5 +42,4 @@ public class BuildingView {
 
         return mergedView.toString();
     }
-
 }
