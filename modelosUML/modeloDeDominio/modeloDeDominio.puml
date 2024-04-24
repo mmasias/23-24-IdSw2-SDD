@@ -1,56 +1,68 @@
-@startuml 
+@startuml
 class Cell {
-    - cellValue: String
-    + getCellValue(): String
-    + setCellValue(cellValue: String): void
+    - cellValue
+    + getCellValue
+    + setCellValue
 }
 
 class Movement {
-    - currentRow: int
-    - currentColumn: int
-    + getCurrentRow(currentCell: String): int
-    + getCurrentColumn(currentCell: String): int
-    + handleCommand(command: String, currentCell: String): String
-    - moveUp(currentCell: String): String
-    - moveDown(currentCell: String): String
-    - moveLeft(currentCell: String): String
-    - moveRight(currentCell: String): String
+    - currentRow
+    - currentColumn
+    + getCurrentRow
+    + getCurrentColumn
+    + handleCommand
+    - moveUp
+    - moveDown
+    - moveLeft
+    - moveRight
 }
 
 class Sheet {
-    - rows: int
-    - columns: int
-    - sheetData: String[][]
-    - currentCell: String
-    - spacing: final int
-    + Sheet(rows: int, columns: int)
-    + getCellValue(row: int, column: int): String
-    + setCellValue(row: int, column: int, value: String): void
-    + getCurrentCell(): String
-    + setCurrentCell(cell: String): void
-    + getCurrentRow(cell: String): int
-    + getCurrentColumn(cell: String): int
-    + getCellContent(i: int, j: int): String
-    + setCellValue(row: int, col: int, value: String): void
-    + getSheetData(): String[][]
-    + getCellName(i: int, j: int): String
+    - rows
+    - columns
+    - cells
+    - currentCell
+    - spacing
+    + Sheet
+    + getCellValue
+    + setCellValue
+    + getCurrentCell
+    + setCurrentCell
+    + getCurrentRow
+    + getCurrentColumn
+    + getCellContent
+    + setCellValue
+    + getCells
+    + getCellName
 }
 
 class Menu {
-    + showSheet(sheet: Sheet): void
+    + showSheet
 }
 
 class HojaDeCalculo {
-    - sheet: Sheet
-    - movement: Movement
-    - input: Scanner
-    + HojaDeCalculo()
-    + run(): void
+    - sheet
+    - movement
+    - input
+    + HojaDeCalculo
+    + run
+}
+
+class MathOperations {
+    + evaluateFormula
+    - evaluateExpression
+    - getCellValue
+    - isOperator
+    - precedence
+    - applyOperation
 }
 
 Main --> HojaDeCalculo
-Sheet --> Cell
+Sheet *-down- Cell
+HojaDeCalculo *-down- Sheet
+Movement --> Sheet
 HojaDeCalculo --> Movement
-Sheet --> Menu
-HojaDeCalculo --> Sheet 
+Menu --> Sheet
+Sheet --> MathOperations
 @enduml
+

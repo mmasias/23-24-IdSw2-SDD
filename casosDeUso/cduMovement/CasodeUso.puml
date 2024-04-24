@@ -1,0 +1,18 @@
+@startuml Movement
+
+class Main {
+
+}
+class Movement {
+    + getCurrentRow(currentCell: String): int
+    + getCurrentColumn(currentCell: String): int
+    + handleCommand(command: String, currentCell: String): String
+    - moveUp(currentCell: String): String
+    - moveDown(currentCell: String): String
+    - moveLeft(currentCell: String): String
+    - moveRight(currentCell: String): String
+}
+
+Main -- Movement 
+
+@enduml

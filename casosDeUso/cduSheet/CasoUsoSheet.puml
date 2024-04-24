@@ -1,0 +1,27 @@
+@startuml Sheet
+
+class Sheet {
+    - sheetData
+    - currentCell
+    - spacing
+    + Sheet
+    + fillSheetData
+    + getCellContent
+    + getSpacing
+    + getCellName
+    + getCurrentCell
+    + setCurrentCell
+    + setCellValue
+    + getSheetData
+    + setCellSize
+}
+
+class Cell {
+    - cellValue
+    + setCellValue
+    + getCellValue
+}
+
+Sheet --> Cell 
+
+@enduml

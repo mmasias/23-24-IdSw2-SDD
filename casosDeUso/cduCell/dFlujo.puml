@@ -1,4 +1,4 @@
-@startuml
+@startuml cell
 start
 :Start;
 partition "setCellValue" {

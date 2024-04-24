@@ -1,0 +1,15 @@
+@startuml Menu
+
+class Menu {
+    + showSheet
+    + showMovementMenu
+}
+
+class Sheet {
+    + getSheetData()
+    + getCellContent
+}
+
+Menu --> Sheet  
+
+@enduml

@@ -1,0 +1,36 @@
+@startuml HojaDeCalculo
+
+class HojaDeCalculo {
+    - sheet: Sheet
+    - movement: Movement
+    - input: Scanner
+    + HojaDeCalculo()
+    + run(): void
+}
+
+class Sheet {
+    - rows: int
+    - columns: int
+    + Sheet
+    + setCellValue
+    + getCurrentCell()
+    + setCurrentCell
+    + setCellSize
+    + getSpacing()
+}
+
+class Movement {
+    + getCurrentRow
+    + getCurrentColumn
+    + handleCommand
+}
+
+class Scanner {
+    
+}
+
+HojaDeCalculo *-- Sheet 
+HojaDeCalculo *-- Movement 
+HojaDeCalculo *-- Scanner 
+
+@enduml

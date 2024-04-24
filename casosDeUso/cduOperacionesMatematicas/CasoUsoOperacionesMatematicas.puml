@@ -1,0 +1,19 @@
+@startuml OperacionesMatematicas
+
+class OperacionesMatematicas {
+    + evaluarFormula
+    - evaluarExpresion
+    - obtenerValorCelda
+    - esOperador
+    - precedencia
+    - aplicarOperacion
+}
+
+class Sheet {
+    + getSheetData()
+    + getCellValue
+}
+
+OperacionesMatematicas --> Sheet 
+
+@enduml

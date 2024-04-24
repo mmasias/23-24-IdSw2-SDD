@@ -1,0 +1,7 @@
+@startuml
+[*] --> NoSeleccionada
+NoSeleccionada --> Seleccionada : Seleccionar Celdas
+Seleccionada --> OperaciónAplicada : Aplicar Operación
+OperaciónAplicada --> ResultadoMostrado : Mostrar Resultado
+ResultadoMostrado --> [*]
+@enduml

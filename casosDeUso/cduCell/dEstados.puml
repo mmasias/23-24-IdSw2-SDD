@@ -1,4 +1,4 @@
-@startuml
+@startuml cell
 [*] --> Empty
 Empty : cellValue = null
 Empty --> WithValue : setCellValue

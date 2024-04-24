@@ -1,0 +1,12 @@
+@startuml
+start
+:Cargar Hoja de Cálculo;
+:Seleccionar Celdas;
+if (¿Realizar Operación?) then (sí)
+    :Aplicar Operación Matemática;
+else (no)
+    :Leer Valor de Celda;
+endif
+:Mostrar Resultado;
+stop
+@enduml

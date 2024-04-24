@@ -1,0 +1,22 @@
+@startuml Cell
+class Cell {
+    - cellValue: Object
+    + setCellValue(newValue)
+}
+
+class Empty {
+    - cellValue: null
+    + setCellValue(newValue)
+}
+
+class WithValue {
+    - cellValue: Object
+    + setCellValue(newValue)
+}
+
+Cell o-- Empty 
+Empty --> WithValue 
+WithValue -- WithValue 
+WithValue --> Empty 
+
+@enduml

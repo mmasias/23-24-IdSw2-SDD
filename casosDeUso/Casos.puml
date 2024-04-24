@@ -1,4 +1,4 @@
-@startuml
+@startuml casos 
 
 actor Usuario
 

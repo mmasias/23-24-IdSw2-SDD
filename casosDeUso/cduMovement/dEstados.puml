@@ -1,4 +1,4 @@
-@startuml 
+@startuml Movement
 
 [*] -right-> NoHayCaracter
 
@@ -13,3 +13,4 @@ state HayCaracter{
 Mover -right-> [*]
 
 @enduml
+
