@@ -1,24 +1,52 @@
 package Models;
 
-import Utils.TimesOfDay;
+import Enums.TimesOfDay;
 
 public class Time {
-    private TimesOfDay timeOfDay;
-    private int currentTime;
 
-    public TimesOfDay getTimeOfDay() {
-        return timeOfDay;
+  private TimesOfDay timeOfDay;
+  private int currentTime;
+
+  public void advanceTime() {
+    int minutes = currentTime % 100;
+    int hours = currentTime / 100;
+
+    minutes += 15;
+    if (minutes >= 60) {
+      hours++;
+      minutes = 0;
     }
 
-    public void setTimeOfDay(TimesOfDay timeOfDay) {
-        this.timeOfDay = timeOfDay;
+    if (hours > 23) {
+      hours = 0;
     }
 
-    public int getCurrentTime() {
-        return currentTime;
-    }
+    currentTime = hours * 100 + minutes;
+  }
 
-    public void setCurrentTime(int currentTime) {
-        this.currentTime = currentTime;
+  public void setTimeOfDay(int currentTime) {
+    if (currentTime >= 600 || currentTime <= 1200) {
+      this.timeOfDay = TimesOfDay.Morning;
+    } else if (currentTime >= 1215 || currentTime <= 1600) {
+      this.timeOfDay = TimesOfDay.Afternoon;
+    } else if (currentTime >= 1615 || currentTime <= 2200) {
+      this.timeOfDay = TimesOfDay.Evening;
+    } else {
+      this.timeOfDay = TimesOfDay.Night;
     }
+  }
+
+  public void resetDay() {
+    if (currentTime > 2345) {
+      currentTime = 0;
+    }
+  }
+
+  public TimesOfDay getTimeOfDay() {
+    return timeOfDay;
+  }
+
+  public int getCurrentTime() {
+    return currentTime;
+  }
 }

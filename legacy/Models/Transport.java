@@ -1,6 +1,6 @@
 package Models;
 
-import Enums.TransportTypes;
+import Utils.TransportTypes;
 
 public class Transport {
     private TransportTypes type;

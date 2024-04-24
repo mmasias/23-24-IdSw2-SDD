@@ -1,29 +1,27 @@
 package Models;
 
-public abstract class Character extends Entity {
-    private Transport transportInUse;
-    private Transport[] availableTransports;
+import Enums.CharacterType;
 
-    public Character(int x, int y, Transport[] availableTransports) {
-        super(x, y);
-        this.availableTransports = availableTransports;
-        transportInUse = availableTransports[0];
-    }
+public class Character extends Entity {
 
-    public Transport getTransportInUse() {
-        return transportInUse;
-    }
+  CharacterType type;
+  Transport[] availableTransports;
 
-    public Transport[] getAvailableTransports() {
-        return availableTransports;
-    }
+  public Character(
+      Point startingPosition,
+      Transport startingTransport,
+      CharacterType type,
+      Transport[] availableTransports) {
+    super(startingPosition, startingTransport);
+    this.type = type;
+    this.availableTransports = availableTransports;
+  }
 
-    public void setTransportInUse(Transport transportInUse) {
-        this.transportInUse = transportInUse;
-    }
+  public Transport[] getAvailableTransports() {
+    return availableTransports;
+  }
 
-    public void setAvailableTransports(Transport[] availableTransports) {
-        this.availableTransports = availableTransports;
-    }
+  public CharacterType getCharacterType() {
+    return type;
+  }
 }
-

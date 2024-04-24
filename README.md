@@ -7,71 +7,33 @@ Se desarrolla, en un caso controlado, la disciplina de diseño, con el objetivo 
 ## Proyecto
 
 **Nombre**: PyMundo
+=======
+
 
 ## Modelo de Dominio
 
+En esta sección se presentan los diversos diagramas utilizados para conceptualizar y estructurar el modelo de dominio del proyecto PyMundo. Cada diagrama aborda diferentes aspectos del diseño y la estructura del sistema.
+
 ### Diagrama de Clases
 
-<img src="./docs//images/ModeloDeDominio-PyMundo.svg">
+El Diagrama de Clases proporciona una visión estática del sistema, mostrando las clases que serán utilizadas junto con sus atributos, métodos y las relaciones entre ellas.
+
+![Diagrama de Clases de PyMundo](./docs/images/PyMundoClasses.svg)
 
 ### Diagrama de Objetos
 
-<img src="./docs/images/DiagramaObjetos-PyMundo.svg">
+El Diagrama de Objetos es una instantánea que muestra cómo las instancias de las clases están relacionadas en un momento específico durante la ejecución del sistema.
 
-### Diagramas de Estados
+![Diagrama de Objetos de PyMundo](./docs/images/PyMundoObjects.svg)
 
-#### Estado del Mundo
+### Diagrama de Estados
 
-<img src="./docs/images/estados/estadoMundo.png">
+El Diagrama de Estados ilustra los cambios de estado de los objetos más significativos dentro del sistema a lo largo del tiempo, en respuesta a eventos internos o externos.
 
-#### Estado del Mapa
+![Diagrama de Estados de PyMundo](./docs/images/PyMundoStates.svg)
 
-<img src="./docs/images/estados/estadoMapa.svg">
+## Clases Prácticas
 
-#### Estado del Tiempo
+Este diagrama visualiza las interacciones típicas y los flujos de trabajo durante las sesiones prácticas del proyecto, destacando la dinámica de las clases y su aplicabilidad en contextos de aprendizaje real.
 
-<img src="./docs/images/estados/estadoTiempo.png">
-
-#### Estado del Personaje
-
-<img src="./docs/images/estados/estadoPersonaje.svg">
-
-#### Estado del Transporte
-
-<img src="./docs/images/estados/estadoTransporte.svg">
-
-## Casos de Uso
-
-### Crear Mapa
-
-<img src="./docs/images/casos_de_uso/crear_mapa.svg">
-
-### Leer Archivo
-
-<img src="./docs/images/casos_de_uso/leer_archivo.svg">
-
-### Avanzar Tiempo
-
-<img src="./docs/images/casos_de_uso/avanzar_tiempo.svg">
-
-### Mover Personaje
-
-<img src="./docs/images/casos_de_uso/mover_personaje.png">
-
-### Recibir Input de Usuario
-
-<img src="./docs/images/casos_de_uso/input_de_usuario.svg">
-
-### Generar Dirección Aleatoria
-
-<img src="./docs/images/casos_de_uso/direcciones_random.png">
-
-### Cambiar Transporte
-
-<img src="./docs/images/casos_de_uso/cambiar_transporte.png">
-
-## Modelo de Aplicación
-
-### Diagrama de Clases Prácticas
-
-<img src="./docs/images/ClasesPracticas-PyMundo.svg">
+![Clases Prácticas de PyMundo](./docs/images/ClasesPracticas-PyMundo.svg)

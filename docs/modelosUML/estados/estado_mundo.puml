@@ -1,9 +1,0 @@
-@startuml DiagramaDeEstadosMundo
-
-    [*] --> NoCreado
-    NoCreado --> Creado : Crear Mundo
-    Creado --> EjecutandoCicloDeSimulacion : Iniciar Simulación
-    EjecutandoCicloDeSimulacion --> Creado : Detener Simulación
-    Creado --> [*] : Destruir Mundo
-
-@enduml

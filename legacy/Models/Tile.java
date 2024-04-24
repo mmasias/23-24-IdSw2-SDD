@@ -1,17 +1,12 @@
 package Models;
 
-
-import Enums.TileTypes;
+import Utils.TileTypes;
 
 public class Tile {
     private TileTypes type;
 
     public Tile(TileTypes type) {
         this.type = type;
-    }
-
-    public void changeType(TileTypes newType) {
-        this.type = newType;
     }
 
     public TileTypes getType() {
@@ -24,5 +19,9 @@ public class Tile {
 
     public String getAsciiColor() {
         return type.getAsciiColor();
+    }
+
+    public void setType(TileTypes type) {
+        this.type = type;
     }
 }
