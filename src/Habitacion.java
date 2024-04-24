@@ -67,26 +67,22 @@ public class Habitacion {
         return muebles;
     }
 
+
+// Cambiar x,y a posicion.getX, posicion.getY
+
     private static Azulejo[][] generarSuperficie(int ancho, int largo, int porcentajeSuciedad) {
         Azulejo[][] superficie = new Azulejo[ancho][largo];
         Random rand = new Random();
-        int totalAzulejos = ancho * largo;
-        int azulejosAEnsuciar = totalAzulejos * porcentajeSuciedad / 100;
 
-        for (int x = 0; x < ancho; x++) {
-            for (int y = 0; y < largo; y++) {
-                superficie[x][y] = new Azulejo(0);
+        for (int i = 0; i < ancho; i++) {
+            int x,y;
+            for (int j = 0; j < largo; j++) {
+                do {
+                    x = rand.nextInt(ancho);
+                    y = rand.nextInt(largo);
+                } while (superficie[x][y].getNivelSuciedad() != 0);
+                superficie[x][y] = new Azulejo(rand.nextInt(4) + 1);
             }
-        }
-
-        for (int i = 0; i < azulejosAEnsuciar; i++) {
-            int x, y;
-            do {
-                x = rand.nextInt(ancho);
-                y = rand.nextInt(largo);
-            } while (superficie[x][y].getNivelSuciedad() != 0);
-
-            superficie[x][y] = new Azulejo(rand.nextInt(4) + 1);
         }
 
         return superficie;

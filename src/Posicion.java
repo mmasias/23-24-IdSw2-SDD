@@ -14,6 +14,7 @@ public class Posicion {
         return y;
     }
 
+
     public void setPosicion(int x, int y) {
         this.x = x;
         this.y = y;

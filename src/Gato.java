@@ -12,7 +12,7 @@ public class Gato {
         return posicion;
     }
 
-    public void mover(Habitacion habitacion) throws InterruptedException {
+    public void mover(Habitacion habitacion) {
         Random random = new Random();
         int dx = random.nextInt(3) - 1;
         int dy = random.nextInt(3) - 1;
@@ -25,10 +25,11 @@ public class Gato {
                 if (!habitacion.muebles[nuevaX][nuevaY]) {
                     posicion.setX(nuevaX);
                     posicion.setY(nuevaY);
-                    Thread.sleep(1000);
                 }
             }
         }
         pasosRealizados++;
     }
+
+    
 }
