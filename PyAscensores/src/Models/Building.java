@@ -74,7 +74,7 @@ public ControlPanel controlPanelGet()
 }
 
 public void controlPanelSet(ControlPanelList controlPanelList)
-	{
+	{0
 		this.controlPanels.update(0, controlPanelList);
 	}
 }
