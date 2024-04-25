@@ -74,7 +74,7 @@ public class Habitacion {
     
         for (int i = 0; i < ancho; i++) {
             for (int j = 0; j < largo; j++) {
-                superficie[i][j] = new Azulejo(0); // Inicializa cada azulejo com nível de suciedade 0
+                superficie[i][j] = new Azulejo(0); 
             }
         }
     
@@ -87,7 +87,7 @@ public class Habitacion {
                 x = rand.nextInt(ancho);
                 y = rand.nextInt(largo);
             } while (superficie[x][y].getNivelSuciedad() != 0);
-            superficie[x][y] = new Azulejo(rand.nextInt(4) + 1); // Define um nível aleatório de sujeira para o azulejo
+            superficie[x][y] = new Azulejo(rand.nextInt(4) + 1); 
         }
     
         return superficie;

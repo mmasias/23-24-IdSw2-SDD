@@ -25,11 +25,19 @@ public class Gato {
                 if (!habitacion.muebles[nuevaX][nuevaY]) {
                     posicion.setX(nuevaX);
                     posicion.setY(nuevaY);
+                    ensuciarCasilla(habitacion, posicion); 
                 }
             }
         }
         pasosRealizados++;
     }
 
-    
+    private void ensuciarCasilla(Habitacion habitacion, Posicion posicion) {
+        Random random = new Random();
+        int nivelSuciedad = random.nextInt(5); 
+        if (habitacion.superficie[posicion.getX()][posicion.getY()].getNivelSuciedad() < nivelSuciedad) {
+            habitacion.superficie[posicion.getX()][posicion.getY()].setNivelSuciedad(nivelSuciedad); 
+            System.out.println("El gato ensució la casilla en las coordenadas: (" + posicion.getX() + ", " + posicion.getY() + ") con nivel de suciedad: " + nivelSuciedad);
+        }
+    }
 }
