@@ -72,17 +72,4 @@ public ControlPanel controlPanelGet()
 {
 	return this.ControlPanel;
 }
-    /*
-	public void controlPanelListAdd(ControlPanelList controlPanel)
-    {
-		this.controlPanels.add(controlPanel);
-    }
-    /*
-	public void panelListRemove(int index)
-    {
-		this.controlPanels(index);
-    }
-	*/
-}
-
 }
