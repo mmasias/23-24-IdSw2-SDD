@@ -70,6 +70,11 @@ public class Building {
 	
 public ControlPanel controlPanelGet()
 {
-	return this.ControlPanel;
+	return this.controlPanels.get(0);
 }
+
+public void controlPanelSet(ControlPanelList controlPanelList)
+	{
+		this.controlPanels.update(0, controlPanelList);
+	}
 }
