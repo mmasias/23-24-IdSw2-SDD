@@ -9,7 +9,7 @@ public class Building {
     private FloorList floors;
     private ElevatorList elevators;
     private PersonList people;
-    private ControlPanelList controlPanels;
+    private ControlPanel controlPanels;
 
     public Building(int id) {
         this.id = id;
@@ -67,4 +67,23 @@ public class Building {
     public void setAccess(boolean access) {
         this.access = access;
     }
+	private ControlPanelList controlPanels;
+
+public ControlPanel controlPanelGet()
+    {
+		return this.ControlPanel;
+    }
+    /*
+	public void controlPanelListAdd(ControlPanelList controlPanel)
+    {
+		this.controlPanels.add(controlPanel);
+    }
+    /*
+	public void panelListRemove(int index)
+    {
+		this.controlPanels(index);
+    }
+	*/
+}
+
 }
