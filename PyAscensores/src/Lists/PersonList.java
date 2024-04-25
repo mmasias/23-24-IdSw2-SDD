@@ -43,4 +43,8 @@ public class PersonList {
             this.people.remove(id);
         }
     }
+    public void add(Person person) {
+        this.people.add(person);
+        this.counter++;
+    }
 }
