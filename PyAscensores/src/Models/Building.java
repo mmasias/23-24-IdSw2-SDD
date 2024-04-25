@@ -67,12 +67,11 @@ public class Building {
     public void setAccess(boolean access) {
         this.access = access;
     }
-	private ControlPanelList controlPanels;
-
+	
 public ControlPanel controlPanelGet()
-    {
-		return this.ControlPanel;
-    }
+{
+	return this.ControlPanel;
+}
     /*
 	public void controlPanelListAdd(ControlPanelList controlPanel)
     {
