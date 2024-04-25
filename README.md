@@ -6,8 +6,9 @@ Se desarrolla, en un caso controlado, la disciplina de diseño, con el objetivo 
 
 <div align=center>
 
-| |Grupo|Estadísticas|1º Entrega|Diseño|DiseñoModular|DiseñoOO|Final
+| |Grupo|👁️|1º|D|DM|DOO|Final
 |-|-|:-:|:-:|:-:|:-:|:-:|:-:|
+| |||3/24|4/24|3/5/24|17/5/24|31/5/24
 1|[pyCCCF](https://github.com/hugofresno20/23-24-IdSw2-SDD/)|[👁️📒]()|[E](https://github.com/mmasias/23-24-IdSw2-SDD/tree/0880697ee31856ea14b09e12a93f1d423a3c6d52)
 2|[pyMundo](https://github.com/VeronikaEspa/23-24-IdSw2-SDD)|[👁️📒]()|[E](https://github.com/mmasias/23-24-IdSw2-SDD/tree/21d72820f2b4c71856378c2af1d2f4f8b4084d92)
 3|[pyHojaDeCalculo](https://github.com/pablarce/23-24-IdSw2-SDD)|[👁️📒]()|[E](https://github.com/mmasias/23-24-IdSw2-SDD/tree/cc7d5f1df519c24adb00395eeca83d001a38d360)
