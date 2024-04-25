@@ -6,40 +6,48 @@ import Models.Elevator;
 import Models.Floor;
 
 public class BuildingView {
-    private Building building;
-    private ElevatorView elevatorView;
-    private FloorView floorView;
-    private PeopleOnFloorView peopleOnFloorView;
-    private WaitingPeopleView peopleWaitingView;
+    private ArrayList<Building> buildings;
 
-    public BuildingView(Building building) {
-        this.building = building;
+    public BuildingView(ArrayList<Building> buildings) {
+        this.buildings = buildings;
+    }
+
+    public void render() {
+        for (Building building : buildings) {
+            ArrayList<String[]> views = this.getViews(building);
+            String mergedViews = this.mergeViews(views, building);
+            System.out.println(mergedViews);
+        }
+    }
+
+    private ArrayList<String[]> getViews(Building building) {
+        ArrayList<String[]> views = new ArrayList<String[]>();
+
         ArrayList<Elevator> elevators = building.getElevators();
         ArrayList<Floor> floors = building.getFloors();
 
-        elevatorView = new ElevatorView(elevators, floors.size());
-        floorView = new FloorView(floors);
-        peopleOnFloorView = new PeopleOnFloorView(floors);
-        peopleWaitingView = new WaitingPeopleView(floors);
+        ElevatorView elevator = new ElevatorView(elevators, floors.size());
+        FloorView floor = new FloorView(floors);
+        PeopleOnFloorView peopleOnFloor = new PeopleOnFloorView(floors);
+        WaitingPeopleView peopleWaiting = new WaitingPeopleView(floors);
+
+        views.add(floor.render());
+        views.add(peopleOnFloor.render());
+        views.add(elevator.render());
+        views.add(peopleWaiting.render());
+
+        return views;
     }
 
-    public String render() {
-        ArrayList<String[]> views = new ArrayList<String[]>();
-
-        views.add(floorView.render());
-        views.add(peopleOnFloorView.render());
-        views.add(elevatorView.render());
-        views.add(peopleWaitingView.render());
-
-        StringBuilder mergedView = new StringBuilder();
-
+    private String mergeViews(ArrayList<String[]> views, Building building) {
+        StringBuilder mergedViews = new StringBuilder();
         for (int i = 0; i < building.getFloors().size(); i++) {
             for (String[] view : views) {
-                mergedView.append(view[i] + "  ");
+                mergedViews.append(view[i] + "  ");
             }
-            mergedView.append("\n");
+            mergedViews.append("\n");
         }
 
-        return mergedView.toString();
+        return mergedViews.toString();
     }
 }

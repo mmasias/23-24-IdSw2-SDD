@@ -8,12 +8,11 @@ import java.util.Scanner;
 
 public class Simulation {
     private BuildingController buildingController;
-    private InitialValues initalVaules;
+    private InitialValues initialValues;
     private Time time;
 
-    public Simulation() {
-        this.buildingController = null;
-        this.initalVaules = null;
+    public Simulation(InitialValues values) {
+        this.initialValues = values;
         this.time = new Time();
     }
 
@@ -23,9 +22,10 @@ public class Simulation {
     }
 
     private void setInitialValues() {
-        this.initalVaules = new InitialValues(5, 3);
+        this.initialValues = new InitialValues(5, 3);
         BuildingList buildingList = new BuildingList();
         buildingList.create();
+
         this.getInitialElevators(buildingList);
         this.getInitialFloors(buildingList);
         this.getInitialPeople(buildingList);
@@ -33,19 +33,19 @@ public class Simulation {
     }
 
     private void getInitialElevators(BuildingList buildingList) {
-        this.initalVaules.setElevatorCapacity(6);
-        int amountElevators = this.initalVaules.getAmountElevators();
+        this.initialValues.setElevatorCapacity(6);
+        int amountElevators = this.initialValues.getAmountElevators();
 
         for (int i = 0; i < amountElevators; i++) {
-            int currentFloor = this.initalVaules.getElevatorFloor();
-            int capacity = this.initalVaules.getElevatorCapacity();
+            int currentFloor = this.initialValues.getElevatorFloor();
+            int capacity = this.initialValues.getElevatorCapacity();
             buildingList.get(0).addElevator(capacity, currentFloor);
         }
     }
 
     private void getInitialFloors(BuildingList buildingList) {
-        int amountFloors = this.initalVaules.getAmountFloors();
-        String label = this.initalVaules.getLabel();
+        int amountFloors = this.initialValues.getAmountFloors();
+        String label = this.initialValues.getLabel();
 
         for (int i = 0; i <= amountFloors; i++) {
             buildingList.get(0).addFloor(label + i);
@@ -53,12 +53,12 @@ public class Simulation {
     }
 
     private void getInitialPeople(BuildingList buildingList) {
-        int amountPeople = this.initalVaules.getAmountPeople();
+        int amountPeople = this.initialValues.getAmountPeople();
 
         for (int i = 0; i <= amountPeople; i++) {
-            int timeOnFloor = this.initalVaules.getRandomTimeOnFloor(0, 8);
-            int currentFloor = this.initalVaules.getElevatorFloor();
-            int destination = this.initalVaules.getRandomFloor();
+            int timeOnFloor = this.initialValues.getRandomTimeOnFloor(0, 8);
+            int currentFloor = this.initialValues.getElevatorFloor();
+            int destination = this.initialValues.getRandomFloor();
             buildingList.get(0).addPerson(timeOnFloor, currentFloor, destination);
         }
     }
@@ -66,20 +66,12 @@ public class Simulation {
     private void simulation() {
         Scanner scanner = new Scanner(System.in);
         String input = "";
+
         while (!input.equals("q")) {
             ArrayList<Building> buildings = time.tick(buildingController);
-            for (Building building : buildings) {
-                render(building);
-            }
+            new BuildingView(buildings).render();
             input = scanner.nextLine();
         }
         scanner.close();
     }
-
-    private void render(Building building) {
-        BuildingView buildingView = new BuildingView(building);
-        String view = buildingView.render();
-        System.out.println(view);
-    }
-
 }
