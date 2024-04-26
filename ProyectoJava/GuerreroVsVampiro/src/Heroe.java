@@ -11,7 +11,7 @@ public class Heroe extends Personaje {
 	public Heroe(int energia, int poder, int ataque, double prob_exito, String nombre) {
 		super(energia, poder, ataque, prob_exito, nombre);
 		scanner = new Scanner(System.in);
-		//if statement con los datos de cada personaje?
+		// if statement con los datos de cada personaje?
 	}
 
 	@Override
@@ -23,18 +23,27 @@ public class Heroe extends Personaje {
 			turnosRestantesParaAtacar--;
 			if (turnosRestantesParaAtacar == 0) {
 				this.setPoder(20);
-				System.out.println("El " + this.getNombre() + "ha sobrevivido 3 turnos. Ahora tiene todo su poder de regreso.");
+				System.out.println(
+						"El " + this.getNombre() + "ha sobrevivido 3 turnos. Ahora tiene todo su poder de regreso.");
 				handleTurnoHeroe(objetivo);
 			}
 		}
 
 	}
 
+	private void limpiarPantalla() {
+		System.out.print("\033[H\033[2J");
+		System.out.flush();
+	}
+
 	private void handleTurnoHeroe(Personaje objetivo) {
 		System.out.println("Elige un arma para atacar:\n" +
-				"1 - " + this.armas[0].getNombre() + " (Ataque: " + this.armas[0].getAtaque() + " | Probabilidad de éxito: " + this.armas[0].getProb() + " %)\n" +
-				"2 - " + this.armas[1].getNombre() + " (Ataque: " + this.armas[0].getAtaque() + " | Probabilidad de éxito: " + this.armas[0].getProb() + " %)\n" +
-				"3 - " + this.armas[2].getNombre() + " (Ataque: " + this.armas[0].getAtaque() + " | Probabilidad de éxito: " + this.armas[0].getProb() + " %)");
+				"1 - " + this.armas[0].getNombre() + " (Ataque: " + this.armas[0].getAtaque()
+				+ " | Probabilidad de éxito: " + this.armas[0].getProb() + " %)\n" +
+				"2 - " + this.armas[1].getNombre() + " (Ataque: " + this.armas[0].getAtaque()
+				+ " | Probabilidad de éxito: " + this.armas[0].getProb() + " %)\n" +
+				"3 - " + this.armas[2].getNombre() + " (Ataque: " + this.armas[0].getAtaque()
+				+ " | Probabilidad de éxito: " + this.armas[0].getProb() + " %)");
 
 		if (turnosRestantesParaAtacar < 1) {
 			System.out.println("4 - Poción (No puedes atacar o defender por 3 turnos)");
@@ -63,6 +72,7 @@ public class Heroe extends Personaje {
 		}
 
 		dejarDeDefender();
+		limpiarPantalla();
 	}
 
 	public Arma[] getArmas() {
