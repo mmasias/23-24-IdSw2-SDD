@@ -17,7 +17,7 @@ public class Aspiradora {
         return posicion;
     }
 
-    public void mover(Habitacion habitacion) throws InterruptedException {
+    public void mover(Habitacion habitacion) {
         Random random = new Random();
         int dx = random.nextInt(3) - 1;
         int dy = random.nextInt(3) - 1;
@@ -29,16 +29,16 @@ public class Aspiradora {
             if (!habitacion.muebles[nuevaX][nuevaY]) {
                 posicion.setX(nuevaX);
                 posicion.setY(nuevaY);
-                limpiarCasilla(habitacion, nuevaX, nuevaY); 
-                Thread.sleep(1000); 
+                
+                limpiarCasilla(habitacion,posicion);
             }
         }
         pasosRealizados++;
     }
 
-    private void limpiarCasilla(Habitacion habitacion, int x, int y) {
-        if (habitacion.superficie[x][y].getNivelSuciedad() > 0) {
-            habitacion.superficie[x][y].setNivelSuciedad(0); 
+    private void limpiarCasilla(Habitacion habitacion, Posicion posicion) {
+        if (habitacion.superficie[posicion.getX()][posicion.getY()].getNivelSuciedad() > 0) {
+            habitacion.superficie[posicion.getX()][posicion.getY()].setNivelSuciedad(0); 
             limpiezaRealizada++; 
         }
     }
