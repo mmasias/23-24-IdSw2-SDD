@@ -4,6 +4,8 @@ public class Habitacion {
     public Azulejo[][] superficie;
     public boolean[][] muebles;
     public int ancho, largo;
+    public Posicion estacionRecarga;
+
 
     public Habitacion(int ancho, int largo) {
         this.ancho = ancho;
@@ -13,6 +15,8 @@ public class Habitacion {
         Random rand = new Random();
         this.superficie = generarSuperficie(ancho, largo, rand.nextInt(20) + 20);
         this.muebles = generarMuebles(muebles);
+        this.estacionRecarga = new Posicion(10, 10); 
+
     }
 
     public void imprimir() {
@@ -92,4 +96,6 @@ public class Habitacion {
     
         return superficie;
     }
-}    
+
+    
+}
