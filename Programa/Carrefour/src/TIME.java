@@ -8,9 +8,12 @@ public class TIME  {
     private List<TimeObserver> observers = new ArrayList<>();
     private boolean isOpen;
     private String Timer;
-    private LocalTime startTime = LocalTime.of(8, 30); // 8:30 AM
-    private LocalTime endTime = LocalTime.of(21, 30);  // 9:30PM
+    private LocalTime startTime;
+    private LocalTime endTime;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+
+
+    public TIME(LocalTime startTime,LocalTime endTime){this.startTime = startTime; this.endTime = endTime;}
     
     public void addObserver(TimeObserver observer) {
         observers.add(observer);

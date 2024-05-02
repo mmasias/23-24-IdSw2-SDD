@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class Cashier 
 {
-    String filePath = "C:\\Users\\Sergio\\Desktop\\Caja Carrefour\\Carrefour\\src\\BD_Cashier";
+    String filePath = "C:\\Users\\Sergio\\Desktop\\Carrefour\\src\\BD_Cashier";
 
     List<Cashier> cashiers = getLCashiers();
 

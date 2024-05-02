@@ -3,95 +3,111 @@
         "id" : 1,
         "name" : "Juanjo",
         "workshift" : "A",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 2,
         "name" : "Carlos",
         "workshift" : "A",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 3,
         "name" : "Marta",
         "workshift" : "A",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 4,
         "name" : "Lorena",
         "workshift" : "A",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 5,
         "name" : "Marcos",
         "workshift" : "A",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 6,
         "name" : "Rodrigo",
         "workshift" : "A",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 7,
         "name" : "Iñaki",
         "workshift" : "A",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 8,
         "name" : "Guzman",
         "workshift" : "A",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },{
         "id" : 9,
         "name" : "Maria",
         "workshift" : "B",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 10,
         "name" : "Pedro",
         "workshift" : "B",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 11,
         "name" : "Carla",
         "workshift" : "B",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 12,
         "name" : "Josefina",
         "workshift" : "B",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 13,
         "name" : "Andra",
         "workshift" : "B",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 14,
         "name" : "Isabel",
         "workshift" : "B",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 15,
         "name" : "Sergio",
         "workshift" : "B",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     },
     {
         "id" : 16,
         "name" : "Manuel",
         "workshift" : "B",
-        "rest" : "false"
+        "workBreak" : "false",
+        "isServing" : "false"
     }
 ]
