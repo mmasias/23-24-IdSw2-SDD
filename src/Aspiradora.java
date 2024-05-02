@@ -6,13 +6,13 @@ public class Aspiradora {
     private CapacidadBasura capacidadBasura;
     private Bateria bateria;
     private Posicion posicion;
-    private Habitacion habitacion;
     private int esperaRecarga;
 
     public Aspiradora(Bateria bateria) {
         this.pasosRealizados = 0;
         this.limpiezaRealizada = 0;
         this.bateria = bateria;
+        this.capacidadBasura = new CapacidadBasura(10);
         this.posicion = new Posicion(0, 0);
         this.esperaRecarga = 0;
     }
@@ -20,6 +20,13 @@ public class Aspiradora {
     public Posicion getPosicion() {
         return posicion;
     }
+    public int getPasosRealizados() {
+        return pasosRealizados;
+    }
+    public int getLimpiezaRealizada() {
+        return limpiezaRealizada;
+    }
+    
 
     public void mover(Habitacion habitacion) {
         Random random = new Random();
@@ -35,8 +42,9 @@ public class Aspiradora {
         int nuevaX = posicion.getX() + dx;
         int nuevaY = posicion.getY() + dy;
 
-        if (nuevaX >= 0 && nuevaX < habitacion.ancho && nuevaY >= 0 && nuevaY < habitacion.largo) {
-            if (!habitacion.muebles[nuevaX][nuevaY] && !bateria.estaDescargada()) {
+        if (nuevaX >= 0 && nuevaX < habitacion.getDimension().getAncho() &&
+            nuevaY >= 0 && nuevaY < habitacion.getDimension().getLargo()) {
+            if (!habitacion.getMuebles()[nuevaX][nuevaY] && !bateria.estaDescargada()) {
                 posicion.setX(nuevaX);
                 posicion.setY(nuevaY);
                 limpiarCasilla(habitacion, posicion);
@@ -44,7 +52,7 @@ public class Aspiradora {
                 System.out.println("Nivel de bateria de la aspiradora: " + bateria.getNivelBateria());
                 pasosRealizados++;
             } else{
-                System.err.println("bateria agotada,  no se mueve.. entrando en recarga");
+                System.err.println("bateria agotada, no se mueve.. entrando en recarga");
                 esperaRecarga = 5;
                 bateria.recargar();
             }
@@ -52,13 +60,11 @@ public class Aspiradora {
     }
 
     private void limpiarCasilla(Habitacion habitacion, Posicion posicion) {
-        if (habitacion.superficie[posicion.getX()][posicion.getY()].getNivelSuciedad() > 0) {
-            habitacion.superficie[posicion.getX()][posicion.getY()].setNivelSuciedad(0); 
+        if (habitacion.getSuperficie()[posicion.getX()][posicion.getY()].getNivelSuciedad() > 0) {
+            habitacion.getSuperficie()[posicion.getX()][posicion.getY()].setNivelSuciedad(0); 
             limpiezaRealizada++;
-            System.out.println("La aspiradora limpio la casilla en las coordenadas: (" + posicion.getX() + ", " + posicion.getY()+ ")");
+            System.out.println("La aspiradora limpió la casilla en las coordenadas: (" + posicion.getX() + ", " + posicion.getY() + ")");
+
         }
     }
 }
-
-
-

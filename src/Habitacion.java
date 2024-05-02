@@ -3,27 +3,37 @@ import java.util.Random;
 public class Habitacion {
     public Azulejo[][] superficie;
     public boolean[][] muebles;
-    public int ancho, largo;
+    public Dimension dimension;
     public Posicion estacionRecarga;
 
-
-    public Habitacion(int ancho, int largo) {
-        this.ancho = ancho;
-        this.largo = largo;
-        this.superficie = new Azulejo[ancho][largo];
-        this.muebles = new boolean[ancho][largo];
-        Random rand = new Random();
-        this.superficie = generarSuperficie(ancho, largo, rand.nextInt(20) + 20);
-        this.muebles = generarMuebles(muebles);
+    public Habitacion(Dimension dimension) {
+        this.dimension = dimension;
+        this.superficie = new Azulejo[dimension.getAncho()][dimension.getLargo()];
+        this.muebles = new boolean[dimension.getAncho()][dimension.getLargo()];
         this.estacionRecarga = new Posicion(10, 10); 
 
+        Random rand = new Random();
+        this.superficie = generarSuperficie(dimension.getAncho(), dimension.getLargo(), rand.nextInt(20) + 20);
+        this.muebles = generarMuebles(muebles);
+    }
+
+    public Azulejo[][] getSuperficie() {
+        return superficie;
+    }
+
+    public boolean[][] getMuebles() {
+        return muebles;
+    }
+
+    public Dimension getDimension() {
+        return dimension;
     }
 
     public void imprimir() {
         imprimirBorderHorizontal();
-        for (int y = 0; y < largo; y++) {
+        for (int y = 0; y < dimension.getLargo(); y++) {
             System.out.print("|");
-            for (int x = 0; x < ancho; x++) {
+            for (int x = 0; x < dimension.getAncho(); x++) {
                 if (muebles[x][y]) {
                     System.out.print(Utils.Elementos.SOFA.obtenerSimbolo());
                     continue;
@@ -37,9 +47,9 @@ public class Habitacion {
 
     public void imprimir(Aspiradora aspiradora, Gato gato) {
         imprimirBorderHorizontal();
-        for (int y = 0; y < largo; y++) {
+        for (int y = 0; y < dimension.getLargo(); y++) {
             System.out.print("|");
-            for (int x = 0; x < ancho; x++) {
+            for (int x = 0; x < dimension.getAncho(); x++) {
                 if (x == aspiradora.getPosicion().getX() && y == aspiradora.getPosicion().getY()) {
                     System.out.print(Elements.ASPIRADORA.getElement());
                 } else if (x == gato.getPosicion().getX() && y == gato.getPosicion().getY()) {
@@ -57,7 +67,7 @@ public class Habitacion {
 
     private void imprimirBorderHorizontal() {
         System.out.print("+---");
-        System.out.print("---".repeat(ancho - 2));
+        System.out.print("---".repeat(dimension.getAncho() - 2));
         System.out.println("---+");
     }
 
@@ -70,7 +80,6 @@ public class Habitacion {
         }
         return muebles;
     }
-
 
     private static Azulejo[][] generarSuperficie(int ancho, int largo, int porcentajeSuciedad) {
         Azulejo[][] superficie = new Azulejo[ancho][largo];
@@ -96,6 +105,4 @@ public class Habitacion {
     
         return superficie;
     }
-
-    
 }
