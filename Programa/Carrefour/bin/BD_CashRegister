@@ -3,36 +3,42 @@
         "id" : 1,
         "CurrentCashier" : null,
         "isOcuppied" : false,
-        "isOpen" : false
+        "isOpen" : false,
+        "remainingPacks" : 0
     },
     {
         "id" : 2,
         "CurrentCashier" : null,
         "isOcuppied" : false,
-        "isOpen" : false
+        "isOpen" : false,
+        "remainingPacks" : 0
     },
     {
         "id" : 3,
         "CurrentCashier" : null,
         "isOcuppied" : false,
-        "isOpen" : false
+        "isOpen" : false,
+        "remainingPacks" : 0
     },
     {
         "id" : 4,
         "CurrentCashier" : null,
         "isOcuppied" : false,
-        "isOpen" : false
+        "isOpen" : false,
+        "remainingPacks" : 0
     },
     {
         "id" : 5,
         "CurrentCashier" : null,
         "isOcuppied" : false,
-        "isOpen" : false
+        "isOpen" : false,
+        "remainingPacks" : 0
     },
     {
         "id" : 6,
         "CurrentCashier" : null,
         "isOcuppied" : false,
-        "isOpen" : false
+        "isOpen" : false,
+        "remainingPacks" : 0
     }    
 ]
