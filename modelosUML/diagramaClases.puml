@@ -52,15 +52,16 @@ class DataLog{
 
 
 ShoppingCenter -- Queue
-ShoppingCenter -- Customer
-ShoppingCenter -- Cashier
-ShoppingCenter -- CashRegister
+ShoppingCenter "1" o-- "*" Customer
+ShoppingCenter "1" *-- "*" Cashier
+ShoppingCenter "1" *-- "*" CashRegister
 
 Queue -- AttentionCenter
 Queue --  Customer
 
 AttentionCenter -left- Customer
 AttentionCenter -- CashRegister
+AttentionCenter .. Time
 
 CashRegister -right- Cashier
 
