@@ -51,7 +51,7 @@ class DataLog{
 }
 
 
-ShoppingCenter "1" *-- "1" Queue
+ShoppingCenter -- Queue
 ShoppingCenter "1" o-- "*" Customer
 ShoppingCenter "1" *-- "*" Cashier
 ShoppingCenter "1" *-- "*" CashRegister
