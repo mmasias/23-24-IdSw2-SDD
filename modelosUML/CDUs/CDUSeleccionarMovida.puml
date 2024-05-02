@@ -1,0 +1,17 @@
+@startuml
+
+title Caso de Uso Castlevania - Seleccionar Movida
+
+left to right direction
+
+actor Jugador1 as user
+
+usecase "Atacar" as atacar
+usecase "Defender" as defender    
+usecase "Tomar Poción" as tomarPocion
+
+user -- atacar : ""
+user -- defender : ""
+user -- tomarPocion : ""
+
+@enduml
