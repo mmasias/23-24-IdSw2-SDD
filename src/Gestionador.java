@@ -1,16 +1,14 @@
-
-
 public class Gestionador {
     private Habitacion habitacion;
     private Gato gato;
     private Aspiradora aspiradora;
     private Bateria bateria;
 
-    public Gestionador(Habitacion habitacion) {
+    public Gestionador(Habitacion habitacion, int capacidadBasura) {
         this.habitacion = habitacion;
         this.gato = new Gato(0, 0);
         this.bateria = new Bateria();
-        this.aspiradora = new Aspiradora(bateria);
+        this.aspiradora = new Aspiradora(bateria, capacidadBasura); 
     }
 
     public void start() {

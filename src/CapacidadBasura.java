@@ -6,17 +6,26 @@ public class CapacidadBasura {
         this.maximoNivelBasura = maximoNivelBasura;
     }
 
-    public void rellenarBolsa(){
-        if(nivelBasura < maximoNivelBasura){
+    public void incrementar() {
+        if (nivelBasura < maximoNivelBasura) {
             nivelBasura++;
         }
     }
 
-    public void vaciarBolsa(){
+    public void vaciar() {
         nivelBasura = 0;
     }
 
-    public int getNivelDeBasura(){
+    public boolean estaLlena() {
+        return nivelBasura == maximoNivelBasura;
+    }
+
+    public int getNivelBasura(){
         return nivelBasura;
     }
+
+    public int getMaximoNivelBasura() {
+        return maximoNivelBasura;
+    }
 }
+
