@@ -51,6 +51,9 @@ public class Aspiradora {
                 limpiarCasilla(habitacion, posicion);
                 bateria.descargar();
                 capacidadBasura.incrementar();
+                if (capacidadBasura.estaLlena()) {
+                    System.out.println("¡La bolsa de basura de la aspiradora está llena!");
+                }
                 System.out.println("Nivel de bateria de la aspiradora: " + bateria.getNivelBateria());
                 pasosRealizados++;
             } else {
