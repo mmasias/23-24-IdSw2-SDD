@@ -2,6 +2,7 @@ package Models;
 
 import java.util.ArrayList;
 import Lists.*;
+import Models.*;
 
 public class Building {
     private int id;
@@ -9,7 +10,7 @@ public class Building {
     private FloorList floors;
     private ElevatorList elevators;
     private PersonList people;
-    private ControlPanelList controlPanels;
+    private ControlPanel controlPanel;
 
     public Building(int id) {
         this.id = id;
@@ -17,7 +18,7 @@ public class Building {
         this.floors = new FloorList();
         this.elevators = new ElevatorList();
         this.people = new PersonList();
-        this.controlPanels = new ControlPanelList();
+        this.controlPanel = new ControlPanel();
     }
 
     public int getId() {
@@ -67,14 +68,12 @@ public class Building {
     public void setAccess(boolean access) {
         this.access = access;
     }
-	
-public ControlPanelList controlPanelGet()
-{
-	return this.controlPanels.get(0);
-}
 
-public void controlPanelSet(ControlPanelList controlPanelList)
-{
-	this.controlPanels.update(0, controlPanelList);
-}
+    public ControlPanel getControlPanel() {
+        return this.controlPanel;
+    }
+
+    public void controlPanelSet(ControlPanel controlPanel) {
+        this.controlPanel = controlPanel;
+    }
 }
