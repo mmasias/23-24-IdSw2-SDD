@@ -1,20 +1,18 @@
-import java.util.Scanner;
+
+
+import Controlador.ControladorHabitacion;
+import Vista.Consola;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("Especifique el largo y ancho de la habitación.");
-        Dimension dimension = Dimension.obtenerDimension(scanner);
-        
-        System.out.println("Especifique la capacidad de basura de la aspiradora.");
-        int capacidadBasura = Utils.obtenerEnteroValido(scanner);
-        
-        Habitacion habitacion = new Habitacion(dimension);
-        Gestionador gestionador = new Gestionador(habitacion, capacidadBasura);
-        gestionador.start();
-        
-        scanner.close();
+        Consola consola = new Consola();
+        int largo = consola.obtenerLargo();
+        int ancho = consola.obtenerAncho();
+        int capacidadBasura = consola.obtenerCapacidadBasura();
+
+        ControladorHabitacion controlador = new ControladorHabitacion(largo, ancho, capacidadBasura);
+        controlador.start();
+        consola.cerrarScanner();
     }
 }

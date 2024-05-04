@@ -1,3 +1,4 @@
+package Modelo;
 public class CapacidadBasura {
     private int nivelBasura = 0;
     private int maximoNivelBasura;

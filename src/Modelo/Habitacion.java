@@ -1,3 +1,4 @@
+package Modelo;
 import java.util.Random;
 
 public class Habitacion {
@@ -27,48 +28,6 @@ public class Habitacion {
 
     public Dimension getDimension() {
         return dimension;
-    }
-
-    public void imprimir() {
-        imprimirBorderHorizontal();
-        for (int y = 0; y < dimension.getLargo(); y++) {
-            System.out.print("|");
-            for (int x = 0; x < dimension.getAncho(); x++) {
-                if (muebles[x][y]) {
-                    System.out.print(Utils.Elementos.SOFA.obtenerSimbolo());
-                    continue;
-                }
-                System.out.print(Utils.Elementos.obtenerSimboloPorValor(superficie[x][y].getNivelSuciedad()));
-            }
-            System.out.println("|");
-        }
-        imprimirBorderHorizontal();
-    }
-
-    public void imprimir(Aspiradora aspiradora, Gato gato) {
-        imprimirBorderHorizontal();
-        for (int y = 0; y < dimension.getLargo(); y++) {
-            System.out.print("|");
-            for (int x = 0; x < dimension.getAncho(); x++) {
-                if (x == aspiradora.getPosicion().getX() && y == aspiradora.getPosicion().getY()) {
-                    System.out.print(Elements.ASPIRADORA.getElement());
-                } else if (x == gato.getPosicion().getX() && y == gato.getPosicion().getY()) {
-                    System.out.print(Elements.GATO.getElement());
-                } else if (muebles[x][y]) {
-                    System.out.print(Utils.Elementos.SOFA.obtenerSimbolo());
-                } else {
-                    System.out.print(Utils.Elementos.obtenerSimboloPorValor(superficie[x][y].getNivelSuciedad()));
-                }
-            }
-            System.out.println("|");
-        }
-        imprimirBorderHorizontal();
-    }
-
-    private void imprimirBorderHorizontal() {
-        System.out.print("+---");
-        System.out.print("---".repeat(dimension.getAncho() - 2));
-        System.out.println("---+");
     }
 
     private static boolean[][] generarMuebles(boolean[][] muebles) {
@@ -102,7 +61,6 @@ public class Habitacion {
             } while (superficie[x][y].getNivelSuciedad() != 0);
             superficie[x][y] = new Azulejo(rand.nextInt(4) + 1); 
         }
-    
         return superficie;
     }
 }
