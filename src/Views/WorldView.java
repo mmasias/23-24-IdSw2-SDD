@@ -26,7 +26,8 @@ public class WorldView {
 
         for (int i = 0; i < map.getHeight(); i++) {
             for (int j = 0; j < map.getWidth(); j++) {
-                displayMatrix[i][j] = map.getTile(new Point(i, j)).getAsciiSymbol();
+                Tile readTile = map.getTile(new Point(i, j));
+                displayMatrix[i][j] = readTile.getAsciiColor() + readTile.getAsciiSymbol() + "\u001B[0m";
             }
         }
 
@@ -41,7 +42,7 @@ public class WorldView {
     }
 
     public void displayIntoConsole(Map map, List<Entity> entities) {
-        String[][] matrixMap = displayMap(map, estities);
+        String[][] matrixMap = displayMap(map, entities);
         for (String[] row : matrixMap) {
             for (String symbol : row) {
                 System.out.print(symbol + " ");
