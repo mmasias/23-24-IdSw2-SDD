@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum TransportTypes {
-
-    'TODO: #29 Asignar símbolos válidos para cada tipo de transporte'
     Foot(1, "Symbol1", Arrays.asList(TileTypes.Floor, TileTypes.Sand, TileTypes.ShortGrass, TileTypes.MediumGrass)),
     Horse(2, "Symbol2", Arrays.asList(TileTypes.ShortGrass, TileTypes.MediumGrass, TileTypes.TallGrass)),
     Boat(1, "Symbol3", Arrays.asList(TileTypes.Water, TileTypes.DeepWater)),
