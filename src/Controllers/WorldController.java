@@ -1,34 +1,23 @@
 package Controllers;
 
-import Enums.CharacterType;
-import Enums.TileTypes;
-import Enums.TransportTypes;
+import Enums.*;
+import Models.*;
 import Models.Character;
-import Models.Entity;
 import Models.Map;
-import Models.Point;
-import Models.Tile;
-import Models.Transport;
-import Models.World;
 import Views.WorldView;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.*;
+import java.nio.file.Paths;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 // (Jorge)
 // TODO: #30 Refactor the initialization methods to reduce coupling between the map data reading and the World model.
 // TODO: #31 Implement error handling strategies for better resilience, such as retries for file reading or fallbacks for missing data.
 public class WorldController {
 
-  private World world;
-  private WorldView worldView;
+  private final World world;
+  private final WorldView worldView;
 
   public WorldController(World world, WorldView worldView) {
     this.world = world;
@@ -44,15 +33,15 @@ public class WorldController {
   }
 
   public void runGameCycle() {
+    boolean isRunning = true;
     Scanner scanner = new Scanner(System.in);
     try {
-      while (true) {
+      while (isRunning) {
         System.out.println("Cycle begins.");
         moveCharacters(scanner);
         world.simulateCycle();
         worldView.displayWorld(world);
-        System.out.println("Cycle ends. Press Enter to continue...");
-        scanner.nextLine();
+        System.out.println("Cycle ends.");
       }
     } finally {
       scanner.close();
@@ -60,8 +49,7 @@ public class WorldController {
   }
 
   private void initializeWorldMap() {
-    // TODO: #41 Implement a better way of reading the map file
-    String path = "src/Data/Map";
+    Path path = Paths.get("src/Data/Map.csv");
   
     System.out.println("Reading map data from: " + path);
     try {
@@ -141,17 +129,14 @@ public class WorldController {
     }
   }
 
-  private List<String[]> readFileContent(String path) throws IOException {
+  private List<String[]> readFileContent(Path path) throws IOException {
     List<String[]> listTiles = new ArrayList<>();
-    String correctedPath = path.replace("/", File.separator);
-    File file = new File(correctedPath);
-    
 
-    if (!file.exists()) {
-      throw new IOException("File does not exist: " + correctedPath);
+    if (!Files.exists(path)) {
+      throw new IOException("File does not exist: " + path.toString());
     }
 
-    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+    try (BufferedReader br = Files.newBufferedReader(path)) {
       String line;
       while ((line = br.readLine()) != null) {
         String[] tokens = line.split(",");
