@@ -27,29 +27,29 @@ public class WorldController {
     private World world;
     private WorldView worldView;
 
-    //TODO: No se usa el método initializeGame y no hay contenido
+    // TODO: No se usa el método initializeGame y no hay contenido
     public void initializeGame() {
     }
 
-    //TODO: No se usa el método runGameCycle y no hay contenido
+    // TODO: No se usa el método runGameCycle y no hay contenido
     private void runGameCycle() {
 
     }
 
-    //TODO: No se usa el método initializeWorldMap
+    // TODO: No se usa el método initializeWorldMap
     private void initializeWorldMap() {
         String path = " ";
         List<String[]> mapData = this.readFileContent(path);
         populateMap(mapData, world.getMap());
     }
 
-    //TODO: No se usa el método initializeWorldEntities
+    // TODO: No se usa el método initializeWorldEntities
     private void initializeWorldEntities() {
         int npcAmount = 3;
         createPlayer();
 
         for (int i = 0; i < npcAmount; i++) {
-            createNPC(i);
+            createNPC();
         }
     }
 
@@ -59,34 +59,29 @@ public class WorldController {
         for (int i = 0; i < TransportTypes.values().length; i++) {
             playerTransports[i] = new Transport(TransportTypes.values()[i]);
         }
-
-        Point startingPosition = new Point((int) Math.random() * world.getMap().getWidth(),
-                (int) Math.random() * world.getMap().getHeight());
+        Point startingPosition = new Point(new Random().nextInt(64), new Random().nextInt(64));
         createCharacter(playerTransports, startingPosition, CharacterType.Playable);
     }
 
-    private void createNPC(int i) {
+    private void createNPC() {
         List<TransportTypes> randomTypes = new ArrayList<>(Arrays.asList(TransportTypes.values()));
         Collections.shuffle(randomTypes);
         Transport[] npcTransports = new Transport[2];
 
         for (int j = 0; j < npcTransports.length; j++) {
-            npcTransports[j] = new Transport(randomTypes.get(i));
+            npcTransports[j] = new Transport(randomTypes.get(j));
         }
 
-        Point startingPosition = new Point(
-                (int) Math.random() * world.getMap().getWidth(),
-                (int) Math.random() * world.getMap().getHeight());
+        Point startingPosition = new Point(new Random().nextInt(64), new Random().nextInt(64));
 
         createCharacter(npcTransports, startingPosition, CharacterType.NonPlayable);
 
     }
 
     private void createCharacter(Transport[] playerTransports, Point startingPosition, CharacterType type) {
-        Tile positionTile = world.getMap().getTile(startingPosition);
         for (Transport transport : playerTransports) {
             for (TileTypes validTileType : transport.getType().getTilesItCanMoveThrough()) {
-                if (positionTile.getType() == validTileType) {
+                if (world.getMap().getTile(startingPosition).getType() == validTileType) {
                     Character player = new Character(startingPosition, transport, type,
                             playerTransports);
                     world.addEntity(player);
@@ -94,8 +89,7 @@ public class WorldController {
                 }
             }
         }
-        Point newPosition = new Point((int) (Math.random() * world.getMap().getWidth()),
-                (int) (Math.random() * world.getMap().getHeight()));
+        Point newPosition = new Point(new Random().nextInt(64), new Random().nextInt(64));
         createCharacter(playerTransports, newPosition, type);
     }
 
@@ -142,10 +136,10 @@ public class WorldController {
         return movements[random.nextInt(movements.length)];
     }
 
-    //TODO: El metodo toUpperCase no existe
+    // TODO: El metodo toUpperCase no existe
     private char getUserInput() {
         Scanner scanner = new Scanner(System.in);
-        return processUserInput(Character.toUpperCase(scanner.nextLine().charAt(0)));
+        return processUserInput(scanner.nextLine().charAt(0));
     }
 
     private char processUserInput(char input) {
@@ -156,7 +150,7 @@ public class WorldController {
         }
     }
 
-    //TODO: No se usa el método moveCharacters
+    // TODO: No se usa el método moveCharacters
     private void moveCharacter(Character character) {
         int[] movement = getCharacterMovement(character);
         Point newLocation = new Point(movement[0], movement[1]);

@@ -20,13 +20,14 @@ public class Map {
         }
 
     }
+
     public Tile getTile(Point point) {
         int[] tileLocation = point.getLocation();
         int xCoord = tileLocation[0];
         int yCoord = tileLocation[1];
 
-        for (int i = 0; i < tiles.getWidth(); i++) {
-            for (int j = 0; j < tiles.getHeight(); j++) {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
                 if (i == xCoord && j == yCoord) {
                     return tiles[i][j];
                 }
@@ -37,8 +38,8 @@ public class Map {
 
     public Tile getRandomTile() {
         Random randomNumber = new Random();
-        int randomXCoord = rand.nextInt(64);
-        int randomYCoord = rand.nextInt(64);
+        int randomXCoord = randomNumber.nextInt(64);
+        int randomYCoord = randomNumber.nextInt(64);
 
         Tile randomTile = getTile(new Point(randomXCoord, randomYCoord));
         return randomTile;
