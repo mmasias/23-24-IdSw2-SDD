@@ -2,7 +2,7 @@ package Models;
 
 import java.util.ArrayList;
 
-public class Floor {
+public class Floor implements IModel {
     private int id;
     private String label;
     private ArrayList<Integer> peopleOnFloor;

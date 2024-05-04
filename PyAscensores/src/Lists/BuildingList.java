@@ -4,43 +4,34 @@ import java.util.ArrayList;
 import Models.Building;
 
 public class BuildingList {
-    private ArrayList<Building> buildings;
-    private int counter;
+
+    private ModelList<Building> buildings;
 
     public BuildingList() {
-        this.buildings = new ArrayList<Building>();
-        this.counter = 0;
+        this.buildings = new ModelList<Building>();
     }
 
     public Building get(int id) {
-        if (id >= 0 && id <= this.counter) {
-            for (Building building : this.buildings) {
-                if (building.getId() == id) {
-                    return building;
-                }
-            }
-        }
-        return null;
+        return this.buildings.get(id);
     }
 
     public ArrayList<Building> index() {
-        return this.buildings;
+        return this.buildings.index();
     }
 
-    public void create() {
-        this.buildings.add(new Building(this.counter));
-        this.counter++;
+    public void create(int id) {
+        this.buildings.add(new Building(id));
     }
 
     public void update(int id, Building updatedBuilding) {
-        if (id >= 0 && id <= this.counter) {
-            this.buildings.set(id, updatedBuilding);
-        }
+        this.buildings.update(id, updatedBuilding);
     }
 
     public void delete(int id) {
-        if (id >= 0 && id < this.counter) {
-            this.buildings.remove(id);
-        }
+        this.buildings.delete(id);
+    }
+
+    public void add(Building building) {
+        this.buildings.add(building);
     }
 }
