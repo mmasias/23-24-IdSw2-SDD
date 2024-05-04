@@ -11,7 +11,7 @@ import Views.WorldView;
 
 public class App {
 
-    private WorldController worldController;
+    private final WorldController worldController;
 
     public App() {
         World gameWorld = new World();

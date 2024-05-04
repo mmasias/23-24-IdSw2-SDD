@@ -18,7 +18,7 @@ public class WorldView {
     }
 
     public void displayTime(Time time) {
-        System.out.println("Hora actual: " + time.getCurrentTime() + " - " + time.getTimeOfDay());
+        System.out.println("Hora actual: " + time.getPreciseTimeFormatted() + " - " + time.getImpreciseTime());
     }
 
     public void displayMap(Map map, List<Entity> entities) {
