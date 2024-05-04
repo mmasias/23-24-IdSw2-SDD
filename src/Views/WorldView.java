@@ -14,14 +14,14 @@ import Models.*;
 public class WorldView {
     public void displayWorld(World world) {
         displayTime(world.getTime());
-        displayMap(world.getMap(), world.getEntities());
+        displayIntoConsole(world.getMap(), world.getEntities());
     }
 
     public void displayTime(Time time) {
         System.out.println("Hora actual: " + time.getCurrentTime() + " - " + time.getTimeOfDay());
     }
 
-    public void displayMap(Map map, List<Entity> entities) {
+    public String[][] displayMap(Map map, List<Entity> entities) {
         String[][] displayMatrix = new String[map.getHeight()][map.getWidth()];
 
         for (int i = 0; i < map.getHeight(); i++) {
@@ -36,8 +36,13 @@ public class WorldView {
             int y = position.getY();
             displayMatrix[y][x] = entity.getTransportInUse().getAsciiSymbol();
         }
+        return displayMatrix;
 
-        for (String[] row : displayMatrix) {
+    }
+
+    public void displayIntoConsole(Map map, List<Entity> entities) {
+        String[][] matrixMap = displayMap(map, estities);
+        for (String[] row : matrixMap) {
             for (String symbol : row) {
                 System.out.print(symbol + " ");
             }
