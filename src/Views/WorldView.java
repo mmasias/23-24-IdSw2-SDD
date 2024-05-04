@@ -21,7 +21,7 @@ public class WorldView {
         System.out.println("Hora actual: " + time.getCurrentTime() + " - " + time.getTimeOfDay());
     }
 
-    public String[][] displayMap(Map map, List<Entity> entities) {
+    private String[][] displayMap(Map map, List<Entity> entities) {
         String[][] displayMatrix = new String[map.getHeight()][map.getWidth()];
 
         for (int i = 0; i < map.getHeight(); i++) {
