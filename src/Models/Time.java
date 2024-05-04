@@ -2,6 +2,12 @@ package Models;
 
 import Enums.TimesOfDay;
 
+// (Veronika)
+// TODO: #34 Refactor the class to improve method naming conventions and better differentiate between precise and imprecise time representations.
+// TODO: #35 Implement initialization logic to set both preciseTime and impreciseTime correctly when a new Time object is instantiated.
+// TODO: #36 Change method name from setTimeOfDay to updateImpreciseTime to more accurately describe its functionality.
+// TODO: #37 Rename getCurrentTime to getPreciseTime to better differentiate it from the imprecise time representation.
+
 public class Time {
 
   private TimesOfDay timeOfDay;
@@ -24,7 +30,7 @@ public class Time {
     currentTime = hours * 100 + minutes;
   }
 
-  //TODO: No se usa el método setTimeOfDay
+
   public void setTimeOfDay(int currentTime) {
     if (currentTime >= 600 || currentTime <= 1200) {
       this.timeOfDay = TimesOfDay.Morning;
@@ -37,7 +43,7 @@ public class Time {
     }
   }
 
-  //TODO: No se usa el método resetDay
+  //TODO: Properly implement the reseting of the preciseTime after midnight
   public void resetDay() {
     if (currentTime > 2345) {
       currentTime = 0;

@@ -3,210 +3,294 @@ package Controllers;
 import Enums.CharacterType;
 import Enums.TileTypes;
 import Enums.TransportTypes;
+import Models.Character;
+import Models.Entity;
 import Models.Map;
 import Models.Point;
 import Models.Tile;
+import Models.Transport;
 import Models.World;
 import Views.WorldView;
-import Models.Character;
-import Models.Transport;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-
-//TODO: No se usa la clase WorldController
+// (Jorge)
+// TODO: #30 Refactor the initialization methods to reduce coupling between the map data reading and the World model.
+// TODO: #31 Implement error handling strategies for better resilience, such as retries for file reading or fallbacks for missing data.
 public class WorldController {
 
-    private World world;
-    private WorldView worldView;
+  private World world;
+  private WorldView worldView;
 
-    // TODO: No se usa el método initializeGame y no hay contenido
-    public void initializeGame() {
+  public WorldController(World world, WorldView worldView) {
+    this.world = world;
+    this.worldView = worldView;
+  }
+
+  public void initializeGame() {
+    System.out.println("Initializing game...");
+    initializeWorldMap();
+    initializeWorldEntities();
+    System.out.println("Initialization complete, displaying world.");
+    worldView.displayWorld(world);
+  }
+
+  public void runGameCycle() {
+    Scanner scanner = new Scanner(System.in);
+    try {
+      while (true) {
+        System.out.println("Cycle begins.");
+        moveCharacters(scanner);
+        world.simulateCycle();
+        worldView.displayWorld(world);
+        System.out.println("Cycle ends. Press Enter to continue...");
+        scanner.nextLine();
+      }
+    } finally {
+      scanner.close();
     }
+  }
 
-    // TODO: No se usa el método runGameCycle y no hay contenido
-    private void runGameCycle() {
-
+  private void initializeWorldMap() {
+    String path = "src/Data/Map.csv";
+    System.out.println("Reading map data from: " + path);
+    try {
+      List<String[]> mapData = readFileContent(path);
+      if (mapData.isEmpty()) {
+        System.out.println(
+          "Map data is empty or file is incorrectly formatted."
+        );
+        return;
+      }
+      populateMap(mapData, world.getMap());
+      System.out.println("Map populated successfully.");
+    } catch (IOException e) {
+      System.out.println("Error reading map file: " + e.getMessage());
+    } catch (IllegalArgumentException e) {
+      System.out.println("Error in map data: " + e.getMessage());
     }
+  }
 
-    // TODO: No se usa el método initializeWorldMap
-    private void initializeWorldMap() {
-        String path = " ";
-        List<String[]> mapData = this.readFileContent(path);
-        populateMap(mapData, world.getMap());
+  private void initializeWorldEntities() {
+    System.out.println("Initializing world entities...");
+    int npcAmount = 3;
+    createPlayer();
+
+    for (int i = 0; i < npcAmount; i++) {
+      createNPC();
     }
+    System.out.println("World entities initialized.");
+  }
 
-    // TODO: No se usa el método initializeWorldEntities
-    private void initializeWorldEntities() {
-        int npcAmount = 3;
-        createPlayer();
+  private void createPlayer() {
+    Transport[] playerTransports = new Transport[TransportTypes.values()
+      .length];
+    for (int i = 0; i < TransportTypes.values().length; i++) {
+      playerTransports[i] = new Transport(TransportTypes.values()[i]);
+    }
+    createCharacter(playerTransports, CharacterType.Playable);
+  }
 
-        for (int i = 0; i < npcAmount; i++) {
-            createNPC();
+  private void createNPC() {
+    List<TransportTypes> randomTypes = new ArrayList<>(
+      Arrays.asList(TransportTypes.values())
+    );
+    Collections.shuffle(randomTypes);
+    Transport[] npcTransports = new Transport[2];
+    for (int i = 0; i < npcTransports.length; i++) {
+      npcTransports[i] = new Transport(randomTypes.get(i));
+    }
+    createCharacter(npcTransports, CharacterType.NonPlayable);
+  }
+
+  private void createCharacter(Transport[] transports, CharacterType type) {
+    System.out.println("Creating a character of type: " + type);
+    for (Transport transport : transports) {
+      for (TileTypes tileType : transport
+        .getType()
+        .getTilesItCanMoveThrough()) {
+        Point position = world.getMap().getRandomTilePositionOfType(tileType);
+        if (position != null) {
+          Character character = new Character(
+            position,
+            transport,
+            type,
+            transports
+          );
+          world.addEntity(character);
+          System.out.println(
+            "Character successfully created at (" +
+            position.getX() +
+            ", " +
+            position.getY() +
+            ")"
+          );
+          return;
         }
+      }
+    }
+  }
+
+  private List<String[]> readFileContent(String filePath) throws IOException {
+    List<String[]> listTiles = new ArrayList<>();
+    String correctedPath = filePath.replace("/", File.separator);
+    File file = new File(correctedPath);
+
+    if (!file.exists()) {
+      throw new IOException("File does not exist: " + correctedPath);
     }
 
-    private void createPlayer() {
-        Transport[] playerTransports = new Transport[4];
+    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+      String line;
+      while ((line = br.readLine()) != null) {
+        String[] tokens = line.split(",");
+        listTiles.add(tokens);
+      }
+    }
+    return listTiles;
+  }
 
-        for (int i = 0; i < TransportTypes.values().length; i++) {
-            playerTransports[i] = new Transport(TransportTypes.values()[i]);
+  private void populateMap(List<String[]> mapData, Map worldMap) {
+    System.out.println("Populating map...");
+    for (int i = 0; i < mapData.size(); i++) {
+      for (int j = 0; j < mapData.get(i).length; j++) {
+        String tileNumberStr = mapData.get(i)[j];
+        Tile tile = createTileByNumber(tileNumberStr);
+        if (tile == null) {
+          System.out.println(
+            "Invalid or unrecognized tile number at position (" +
+            i +
+            ", " +
+            j +
+            "): '" +
+            tileNumberStr +
+            "'"
+          );
+          continue;
         }
-        Point startingPosition = new Point(new Random().nextInt(64), new Random().nextInt(64));
-        createCharacter(playerTransports, startingPosition, CharacterType.Playable);
+        worldMap.updateTile(new Point(i, j), tile);
+        System.out.println(
+          "Tile of type " + tile.getType() + " placed at (" + i + ", " + j + ")"
+        );
+      }
     }
+  }
 
-    private void createNPC() {
-        List<TransportTypes> randomTypes = new ArrayList<>(Arrays.asList(TransportTypes.values()));
-        Collections.shuffle(randomTypes);
-        Transport[] npcTransports = new Transport[2];
-
-        for (int j = 0; j < npcTransports.length; j++) {
-            npcTransports[j] = new Transport(randomTypes.get(j));
+  private Tile createTileByNumber(String tileNumber) {
+    tileNumber = tileNumber.trim();
+    try {
+      int number = Integer.parseInt(tileNumber);
+      for (TileTypes tileType : TileTypes.values()) {
+        if (tileType.getTileNumber() == number) {
+          System.out.println(
+            "Creating tile of type " + tileType + " for tile number " + number
+          );
+          return new Tile(tileType);
         }
-
-        Point startingPosition = new Point(new Random().nextInt(64), new Random().nextInt(64));
-
-        createCharacter(npcTransports, startingPosition, CharacterType.NonPlayable);
-
+      }
+    } catch (NumberFormatException e) {
+      System.out.println(
+        "Error parsing tile number: '" + tileNumber + "' - " + e.getMessage()
+      );
     }
+    System.out.println(
+      "No valid tile type found for tile number: " + tileNumber
+    );
+    return null;
+  }
 
-    private void createCharacter(Transport[] playerTransports, Point startingPosition, CharacterType type) {
-        for (Transport transport : playerTransports) {
-            for (TileTypes validTileType : transport.getType().getTilesItCanMoveThrough()) {
-                if (world.getMap().getTile(startingPosition).getType() == validTileType) {
-                    Character player = new Character(startingPosition, transport, type,
-                            playerTransports);
-                    world.addEntity(player);
-                    return;
-                }
-            }
+  private char getRandomCharacterMovement() {
+    Random random = new Random();
+    char[] movements = { 'W', 'A', 'S', 'D' };
+    return movements[random.nextInt(movements.length)];
+  }
+
+  private char getUserInput(Scanner scanner) {
+    System.out.print("Enter movement (WASD): ");
+    String input = scanner.nextLine().toUpperCase();
+    if (input.length() > 0 && "WASD".contains(input.substring(0, 1))) {
+      return input.charAt(0);
+    }
+    return ' ';
+  }
+
+  private void moveCharacters(Scanner scanner) {
+    for (Entity entity : world.getEntities()) {
+      if (entity instanceof Character) {
+        Character character = (Character) entity;
+        Point currentPosition = character.getPosition();
+        char direction = character.getCharacterType() == CharacterType.Playable
+          ? getUserInput(scanner)
+          : getRandomCharacterMovement();
+        Point newPosition = getNewPosition(currentPosition, direction);
+
+        if (isValidPosition(newPosition)) {
+          updateTransportInUse(
+            character,
+            world.getMap().getTile(newPosition).getType()
+          );
+          character.moveTo(newPosition);
         }
-        Point newPosition = new Point(new Random().nextInt(64), new Random().nextInt(64));
-        createCharacter(playerTransports, newPosition, type);
+      }
     }
+  }
 
-    public List<String[]> readFileContent(String filePath) {
+  private Point getNewPosition(Point currentPosition, char direction) {
+    int x = currentPosition.getX();
+    int y = currentPosition.getY();
 
-        List<String[]> listTiles = new ArrayList<String[]>();
-        try {
-            File file = new File(filePath);
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] tokens = line.split(",", 0);
-                listTiles.add(tokens);
-            }
-            br.close();
-        } catch (Exception e) {
-            System.out.println("Failed to read file");
-            System.out.println(e.getMessage());
-        }
-        return listTiles;
+    switch (direction) {
+      case 'W':
+        y -= 1;
+        break;
+      case 'S':
+        y += 1;
+        break;
+      case 'A':
+        x -= 1;
+        break;
+      case 'D':
+        x += 1;
+        break;
     }
+    return new Point(x, y);
+  }
 
-    private void populateMap(List<String[]> mapData, Map worldMap) {
-        for (int i = 0; i < mapData.size(); i++) {
-            for (int j = 0; j < mapData.get(i).length; j++) {
-                worldMap.updateTile(new Point(i, j), createTileByNumber(mapData.get(i)[j]));
-            }
-        }
+  private boolean isValidPosition(Point position) {
+    int x = position.getX();
+    int y = position.getY();
+    if (
+      x < 0 ||
+      x >= world.getMap().getWidth() ||
+      y < 0 ||
+      y >= world.getMap().getHeight()
+    ) {
+      return false;
     }
+    TileTypes tileType = world.getMap().getTile(position).getType();
+    return tileType != TileTypes.Wall;
+  }
 
-    private Tile createTileByNumber(String tileNumber) {
-        for (TileTypes tileType : TileTypes.values()) {
-            if (String.valueOf(tileType.getTileNumber()).equals(tileNumber)) {
-                return new Tile(tileType);
-            }
-        }
-        return null;
+  private void updateTransportInUse(
+    Character character,
+    TileTypes newTileType
+  ) {
+    Transport[] availableTransports = character.getAvailableTransports();
+    for (Transport transport : availableTransports) {
+      List<TileTypes> availableTiles = transport
+        .getType()
+        .getTilesItCanMoveThrough();
+      if (availableTiles.contains(newTileType)) {
+        character.setTransportInUse(transport);
+        break;
+      }
     }
-
-    private char getRandomCharacterMovement() {
-        Random random = new Random();
-        char[] movements = { 'W', 'A', 'S', 'D' };
-        return movements[random.nextInt(movements.length)];
-    }
-
-    // TODO: El metodo toUpperCase no existe
-    private char getUserInput() {
-        Scanner scanner = new Scanner(System.in);
-        return processUserInput(scanner.nextLine().charAt(0));
-    }
-
-    private char processUserInput(char input) {
-        if (input == ('W' | 'A' | 'S' | 'D')) {
-            return input;
-        } else {
-            return ' ';
-        }
-    }
-
-    // TODO: No se usa el método moveCharacters
-    private void moveCharacter(Character character) {
-        int[] movement = getCharacterMovement(character);
-        Point newLocation = new Point(movement[0], movement[1]);
-
-        if (movement[0] > world.getMap().getWidth())
-            movement[0]--;
-        if (movement[1] > world.getMap().getHeight())
-            movement[1]--;
-        if (movement[0] < 0)
-            movement[0]++;
-        if (movement[1] < 0)
-            movement[1]++;
-
-        updateTransportInUse(character, world.getMap().getTile(character.getPosition()).getType());
-
-        character.moveTo(newLocation);
-    }
-
-    private int[] getCharacterMovement(Character character) {
-        char direction = ' ';
-        int[] actualLocation = character.getPosition().getLocation();
-
-        if (character.getCharacterType() == CharacterType.Playable) {
-            direction = getUserInput();
-        } else {
-            direction = getRandomCharacterMovement();
-        }
-
-        switch (direction) {
-            case 'W':
-                actualLocation[1]++;
-                break;
-            case 'A':
-                actualLocation[0]--;
-                break;
-            case 'S':
-                actualLocation[1]--;
-                break;
-            case 'D':
-                actualLocation[0]++;
-                break;
-            default:
-                break;
-        }
-        return actualLocation;
-    }
-
-    private void updateTransportInUse(Character character, TileTypes tileType) {
-        for (int i = 0; i <= character.getAvailableTransports().length; i++) {
-            List<TileTypes> availableTiles = character.getAvailableTransports()[i].getType().getTilesItCanMoveThrough();
-            for (int j = 0; j <= availableTiles.size(); j++) {
-                if (availableTiles.get(j) == tileType) {
-                    character.setTransportInUse(character.getAvailableTransports()[i]);
-                }
-            }
-        }
-    }
-
+  }
 }

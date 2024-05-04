@@ -4,17 +4,17 @@ import java.util.List;
 
 import Models.*;
 
+//(Lucía)
+
+// TODO: #32 Consider separating the console display functionality into a separate class or method.
+
+// TODO: #33 Enhance the displayMap method to support color output by integrating ANSI color codes read from Tile and Transport enums.
+
+
 public class WorldView {
-    //TODO: No se usa el método displayWorld
     public void displayWorld(World world) {
-        cleanScreen();
         displayTime(world.getTime());
         displayMap(world.getMap(), world.getEntities());
-    }
-
-    public void cleanScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 
     public void displayTime(Time time) {
@@ -32,8 +32,8 @@ public class WorldView {
 
         for (Entity entity : entities) {
             Point position = entity.getPosition();
-            int x = position.getLocation()[0];
-            int y = position.getLocation()[1];
+            int x = position.getX();
+            int y = position.getY();
             displayMatrix[y][x] = entity.getTransportInUse().getAsciiSymbol();
         }
 
