@@ -2,7 +2,9 @@ package Views;
 
 import java.util.List;
 
+import Enums.CharacterType;
 import Models.*;
+import Models.Character;
 
 //(Lucía)
 
@@ -35,7 +37,10 @@ public class WorldView {
             Point position = entity.getPosition();
             int x = position.getX();
             int y = position.getY();
-            displayMatrix[y][x] = entity.getTransportInUse().getAsciiSymbol();
+            Transport entityTransport = entity.getTransportInUse();
+            Character entityCharacter = (Character) entity;
+            CharacterType characterType = entityCharacter.getCharacterType();
+            displayMatrix[y][x] = characterType.getAsciiColor() + entityTransport.getAsciiSymbol() + "\u001B[0m";
         }
         return displayMatrix;
 
