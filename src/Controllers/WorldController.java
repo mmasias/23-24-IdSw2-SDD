@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,7 +60,9 @@ public class WorldController {
   }
 
   private void initializeWorldMap() {
-    String path = "src/Data/Map.csv";
+    // TODO: #41 Implement a better way of reading the map file
+    String path = "src/Data/Map";
+  
     System.out.println("Reading map data from: " + path);
     try {
       List<String[]> mapData = readFileContent(path);
@@ -138,10 +141,11 @@ public class WorldController {
     }
   }
 
-  private List<String[]> readFileContent(String filePath) throws IOException {
+  private List<String[]> readFileContent(String path) throws IOException {
     List<String[]> listTiles = new ArrayList<>();
-    String correctedPath = filePath.replace("/", File.separator);
+    String correctedPath = path.replace("/", File.separator);
     File file = new File(correctedPath);
+    
 
     if (!file.exists()) {
       throw new IOException("File does not exist: " + correctedPath);
