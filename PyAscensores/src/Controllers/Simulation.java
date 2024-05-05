@@ -24,7 +24,7 @@ public class Simulation {
     private void setInitialValues() {
         this.initialValues = new InitialValues(5, 3);
         BuildingList buildingList = new BuildingList();
-        buildingList.create();
+        buildingList.create(0);
 
         this.getInitialElevators(buildingList);
         this.getInitialFloors(buildingList);
@@ -57,7 +57,7 @@ public class Simulation {
 
         for (int i = 0; i <= amountPeople; i++) {
             int timeOnFloor = this.initialValues.getRandomTimeOnFloor(0, 8);
-            int currentFloor = this.initialValues.getElevatorFloor();
+            int currentFloor = this.initialValues.getRandomFloor();
             int destination = this.initialValues.getRandomFloor();
             buildingList.get(0).addPerson(timeOnFloor, currentFloor, destination);
         }

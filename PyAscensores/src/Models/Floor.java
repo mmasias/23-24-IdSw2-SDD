@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import Lists.PersonList;
 
-public class Floor {
+public class Floor implements IModel {
     private int id;
     private String label;
     private PersonList peopleOnFloor;

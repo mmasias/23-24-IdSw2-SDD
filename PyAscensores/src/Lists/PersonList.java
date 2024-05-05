@@ -4,44 +4,34 @@ import java.util.ArrayList;
 import Models.Person;
 
 public class PersonList {
-    private ArrayList<Person> people;
-    private int counter;
+    private ModelList<Person> people;
 
     public PersonList() {
-        this.people = new ArrayList<Person>();
-        this.counter = 0;
+        this.people = new ModelList<Person>();
     }
 
     public ArrayList<Person> index() {
-        return this.people;
+        return this.people.index();
     }
 
     public Person get(int index) {
-        if (index >= 0 && index <= this.counter) {
-            for (Person person : this.people) {
-                if (person.getId() == index) {
-                    return person;
-                }
-            }
-        }
-        return null;
+        return this.people.get(index);
     }
 
-    public void create(int timeOnFloor, int currentFloor, int destination) {
-        this.people.add(new Person(this.counter, timeOnFloor, currentFloor, destination));
-        this.counter++;
+    public void create(int id, int timeOnFloor, int currentFloor, int destination) {
+        this.people.add(new Person(id, timeOnFloor, currentFloor, destination));
     }
 
     public void update(int id, Person updatedPerson) {
-        if (id >= 0 && id <= this.counter) {
-            this.people.set(id, updatedPerson);
-        }
+        this.people.update(id, updatedPerson);
     }
 
     public void delete(int id) {
-        if (id >= 0 && id <= this.people.size()) {
-            this.people.remove(id);
-        }
+        this.people.delete(id);
+    }
+
+    public void add(Person person) {
+        this.people.add(person);
     }
     public void add(Person person) {
         this.people.add(person);

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Enums.Direction;
 import Lists.PersonList;
 
-public class Elevator {
+public class Elevator implements IModel {
     private int id;
     private int capacity;
     private PersonList peopleInside;
