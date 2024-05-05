@@ -13,10 +13,6 @@ public class Transport {
         return type;
     }
 
-    public int getSpeed() {
-        return type.getSpeed();
-    }
-
     public String getAsciiSymbol() {
         return type.getAsciiSymbol();
     }

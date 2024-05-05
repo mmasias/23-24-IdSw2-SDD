@@ -38,14 +38,6 @@ public class World {
         return this.time;
     }
 
-    public void setMap(Map map) {
-        this.map = map;
-    }
-
-    public void setEntities(List<Entity> entities) {
-        this.entities = entities;
-    }
-
     public void setTime(Time time) {
         this.time = time;
     }
