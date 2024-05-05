@@ -2,7 +2,7 @@ package Models;
 
 import java.util.Set;
 
-public class ControlPanel {
+public class ControlPanel implements IModel {
     private int id;
     private Set<ElevatorRequest> elevatorRequests;
     private Set<FloorRequest> floorRequests;

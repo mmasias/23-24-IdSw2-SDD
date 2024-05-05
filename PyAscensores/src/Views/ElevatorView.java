@@ -33,7 +33,7 @@ public class ElevatorView {
 
         for (int i = totalFloors - 1; i >= 0; i--) {
             if (i == currentFloor) {
-                int peopleInside = elevator.getPeopleInside();
+                int peopleInside = elevator.getPeopleInside().size();
                 String elevatorStr = "[" + direction + peopleInside + direction + "] ";
                 elevatorView.append(elevatorStr);
             } else {
@@ -47,7 +47,7 @@ public class ElevatorView {
 
     private String[] mergeElevatorsViews(ArrayList<String[]> views) {
         StringBuilder mergedView = new StringBuilder();
-        
+
         for (int i = 0; i < totalFloors; i++) {
             for (String[] view : views) {
                 mergedView.append(view[i]);

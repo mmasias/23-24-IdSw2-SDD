@@ -2,47 +2,53 @@ package Models;
 
 import java.util.ArrayList;
 
-public class Floor {
+import Lists.PersonList;
+
+public class Floor implements IModel {
     private int id;
     private String label;
-    private ArrayList<Integer> peopleOnFloor;
-    private ArrayList<Integer> waitingPeople;
+    private PersonList peopleOnFloor;
+    private PersonList waitingPeople;
     private boolean access;
 
     public Floor(int id, String label) {
         this.id = id;
         this.label = label;
         this.access = true;
-        peopleOnFloor = new ArrayList<Integer>();
-        waitingPeople = new ArrayList<Integer>();
+        peopleOnFloor = new PersonList();
+        waitingPeople = new PersonList();
     }
 
     public int getId() {
         return this.id;
     }
 
-    public ArrayList<Integer> getPeopleOnFloor() {
-        return this.peopleOnFloor;
+    public ArrayList<Person> getPeopleOnFloor() {
+        return this.peopleOnFloor.index();
     }
 
-    public void addPersonOnFloor(int person) {
+    public void addPersonOnFloor(Person person) {
         this.peopleOnFloor.add(person);
     }
 
-    public void removePersonOnFloor(int person) {
-        this.peopleOnFloor.remove(person);
+    public void updatePersonOnFloor(int id, Person updatedPerson) {
+        this.peopleOnFloor.update(id, updatedPerson);
     }
 
-    public ArrayList<Integer> getWaitingPeople() {
-        return this.waitingPeople;
+    public void removePersonOnFloor(int id) {
+        this.peopleOnFloor.delete(id);
     }
 
-    public void addWaitingPerson(int person) {
+    public ArrayList<Person> getWaitingPeople() {
+        return this.waitingPeople.index();
+    }
+
+    public void addWaitingPerson(Person person) {
         this.waitingPeople.add(person);
     }
 
-    public void removeWaitingPerson(int person) {
-        this.waitingPeople.remove(person);
+    public void removeWaitingPerson(int id) {
+        this.waitingPeople.delete(id);
     }
 
     public boolean getAccess() {
