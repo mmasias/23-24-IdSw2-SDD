@@ -34,7 +34,8 @@ public class ModelList<T extends IModel> {
     }
 
     public void delete(int id) {
-        this.modelList.remove(id);
+        int position = this.getListPosition(id);
+        this.modelList.remove(position);
     }
 
     private int getListPosition(int id) {

@@ -52,12 +52,12 @@ public class ElevatorController {
     }
 
     private void movePersonToElevator(Elevator elevator, Floor floor, Person person) {
-        floor.removeWaitingPerson(person);
+        floor.removeWaitingPerson(person.getId());
         elevator.addPeopleInside(person);
     }
 
     private void removePersonFromElevator(Elevator elevator, Floor floor, Person person) {
-        elevator.removePeopleInside(person);
+        elevator.removePeopleInside(person.getId());
         floor.addPersonOnFloor(person);
     }
 

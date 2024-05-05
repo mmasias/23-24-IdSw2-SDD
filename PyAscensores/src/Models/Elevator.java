@@ -66,7 +66,7 @@ public class Elevator implements IModel {
         this.peopleInside.add(newPerson);
     }
 
-    public void deletePeopleInside(int id) {
+    public void removePeopleInside(int id) {
         this.peopleInside.delete(id);
     }
 
