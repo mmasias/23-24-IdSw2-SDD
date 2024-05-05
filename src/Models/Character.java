@@ -4,8 +4,8 @@ import Enums.CharacterType;
 
 public class Character extends Entity {
 
-  CharacterType type;
-  Transport[] availableTransports;
+  private CharacterType type;
+  private Transport[] availableTransports;
 
   public Character(
       Point startingPosition,

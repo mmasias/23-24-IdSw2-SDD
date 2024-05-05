@@ -2,8 +2,6 @@
 
 class App {
     - WorldController worldController
-    - World gameWorld
-    - WorldView gameWorldView
 
     + main()
     - initializeGame()
@@ -13,12 +11,15 @@ class App {
 package "Model" {
     class World {
         - Map map
-        - Entity[] entities
+        - List<Entity> entities
         - Time time
 
         + simulateCycle()
         + addEntity(Entity newEntity)
-        - updateTime()
+        + getMap()
+        + getEntities() : List<Entity>
+        + getTime() : Time
+        + setTime(Time time)
     }
 
     class Time {
@@ -27,21 +28,27 @@ package "Model" {
 
         + advanceTime()
         + setTimeOfDay(int currentTime)
-        - resetDay()
+        + resetDay()
+        + getCurrentTime() : int
+        + getTimeOfDay() : TimesOfDay
     }
 
     class Map {
         - Tile[][] tiles
 
         + updateTile(Point point, Tile newTile)
-        + getTile(Point point)
+        + getTile(Point point) : Tile
+        + getHeight() : int
+        + getWidth() : int
     }
 
     class Tile {
         - TileTypes type
 
         + changeType(TileTypes newType)
-        + getType() 
+        + getType() : TileTypes
+        + getAsciiSymbol() : String
+        + getAsciiColor() : String
     }
 
     abstract class Entity {
@@ -50,29 +57,30 @@ package "Model" {
 
         + moveTo(Point newPosition)
         + changeTransport(Transport newTransport)
-        + getCurrentTransport()
+        + getTransportInUse() : Transport
     }
 
     class Character extends Entity {
-        - CharacterType characterType
+        - CharacterType type
         - Transport[] availableTransports
 
-        + getAvailableTransports()
-
+        + getAvailableTransports() : Transport[]
+        + getCharacterType() : CharacterType
     }
 
     class Transport {
         - TransportTypes type
-        - Tile[] allowedTiles
 
-        + getAllowedTiles()
+        + getType() : TransportTypes
+        + getSpeed() : int
+        + getAsciiSymbol() : String
     }
 
     class Point {
         - int x
         - int y
 
-        + getLocation()
+        + getLocation() : int[]
         + setLocation(int x, int y)
     }
 
@@ -88,7 +96,7 @@ package "Model" {
         Mountain
     }
 
-    enum TimesOfDay {
+    enum ImpreciseTime {
         Morning
         Afternoon
         Evening
@@ -103,18 +111,19 @@ package "Model" {
     }
 
     enum CharacterType {
-        Playable
-        NonPlayable
+        Playable, NonPlayable
+        - String asciiColor
+        + CharacterType(String asciiColor)
+        + getAsciiColor()
     }
 }
 
 package "View" {
     class WorldView {
-        - String[][] View
-        + showWorld(World world)
-        - showWorldTime(Time time)
-        - showWorldMap(Map map)
-        - showWorldEntities(Entity[] entities)
+        + displayWorld(World world)
+        + displayTime(Time time)
+        + displayIntoConsole(Map map, List<Entity> entities)
+        - displayMap(Map map, List<Entity> entities) : String[][]
     }
 }
 
@@ -124,14 +133,21 @@ package "Controller" {
         - WorldView worldView
 
         + initializeGame()
+        + runGameCycle()
         - initializeWorldMap()
         - initializeWorldEntities()
-        - runGameCycle()
-        - moveCharacter(Character character)
-        - getCharacterMovement(Character character)
-        - getRandomCharacterMovement()
-        - getUserInput()
-        - processUserInput(char input)
+        - createPlayer()
+        - createNPC()
+        - createCharacter(Transport[] transports, CharacterType type)
+        - readFileContent(Path path, int count) : List<String[]>
+        - populateMap(List<String[]> mapData, Map worldMap)
+        - createTileByNumber(String tileNumber) : Tile
+        - getRandomCharacterMovement() : char
+        - getUserInput() : char
+        - moveCharacters(Scanner scanner)
+        - getNewPosition(Point currentPosition, char direction) : Point
+        - isValidPosition(Point position) : boolean
+        - updateTransportInUse()
     }
 }
 
@@ -143,7 +159,7 @@ Tile --> TileTypes
 Entity --> Point
 Entity --> Transport
 Transport --> TransportTypes
-Time --> TimesOfDay
+Time --> ImpreciseTime
 Character --> CharacterType
 WorldController --> World
 WorldController --> WorldView

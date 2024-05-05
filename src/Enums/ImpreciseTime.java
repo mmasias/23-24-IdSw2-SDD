@@ -1,6 +1,6 @@
 package Enums;
 
-public enum TimesOfDay {
+public enum ImpreciseTime {
     Morning,
     Afternoon,
     Evening,
