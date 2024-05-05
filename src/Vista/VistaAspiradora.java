@@ -5,6 +5,10 @@ public class VistaAspiradora {
         System.out.println("¡La bolsa de basura de la aspiradora está llena!");
     }
 
+    public static void bolsaDeBasuraVaciada() {
+        System.out.println("¡La bolsa de basura de la aspiradora ha sido vaciada!");
+    }
+
     public static void nivelDeBateria(int nivel) {
         System.out.println("Nivel de bateria de la aspiradora: " + nivel);
     }

@@ -17,7 +17,7 @@ public class ControladorHabitacion {
         this.habitacion = new Habitacion(new Dimension(largo, ancho));
         this.gato = new Gato(0, 0);
         this.bateria = new Bateria();
-        this.aspiradora = new Aspiradora(bateria, capacidadBasura); 
+        this.aspiradora = new Aspiradora(bateria, capacidadBasura);
     }
 
     public void start() {
@@ -25,6 +25,7 @@ public class ControladorHabitacion {
         ControladorGato controladorGato = new ControladorGato(gato);
         VistaHabitacion vistaHabitacion = new VistaHabitacion(habitacion);
         for (int i = 0; i < 50; i ++){
+            System.out.println("\nITERACION: " + i);
             controladorAspiradora.mover(habitacion);
             controladorGato.mover(habitacion);
             vistaHabitacion.imprimir(aspiradora.getPosicion(), gato.getPosicion());

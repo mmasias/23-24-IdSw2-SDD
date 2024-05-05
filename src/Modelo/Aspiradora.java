@@ -6,7 +6,6 @@ public class Aspiradora {
     private CapacidadBasura capacidadBasura;
     private Bateria bateria;
     private Posicion posicion;
-    private int esperaRecarga;
 
     public Aspiradora(Bateria bateria, int capacidadBasura) {
         this.pasosRealizados = 0;
@@ -14,7 +13,6 @@ public class Aspiradora {
         this.bateria = bateria;
         this.capacidadBasura = new CapacidadBasura(capacidadBasura);
         this.posicion = new Posicion(0, 0);
-        this.esperaRecarga = 0;
     }
 
     public Posicion getPosicion() {
@@ -37,10 +35,6 @@ public class Aspiradora {
         return bateria;
     }
 
-    public int getEsperaRecarga() {
-        return esperaRecarga;
-    }
-
     public void setPosicion(Posicion posicion) {
         this.posicion = posicion;
     }
@@ -61,7 +55,4 @@ public class Aspiradora {
         this.bateria = bateria;
     }
 
-    public void setEsperaRecarga(int esperaRecarga) {
-        this.esperaRecarga = esperaRecarga;
-    }
 }
