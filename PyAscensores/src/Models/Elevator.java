@@ -1,11 +1,14 @@
 package Models;
 
+import java.util.ArrayList;
+
 import Enums.Direction;
+import Lists.PersonList;
 
 public class Elevator implements IModel {
     private int id;
     private int capacity;
-    private int peopleInside;
+    private PersonList peopleInside;
     private int currentFloor;
     private Direction currentDirection;
     private boolean access;
@@ -16,7 +19,7 @@ public class Elevator implements IModel {
         this.currentFloor = currentFloor;
         this.currentDirection = Direction.STOP;
         this.access = true;
-        this.peopleInside = 0;
+        this.peopleInside = new PersonList();
     }
 
     public int getId() {
@@ -55,11 +58,23 @@ public class Elevator implements IModel {
         this.access = access;
     }
 
-    public int getPeopleInside() {
-        return this.peopleInside;
+    public ArrayList<Person> getPeopleInside() {
+        return this.peopleInside.index();
     }
 
-    public void setPeopleInside(int peopleInside) {
-        this.peopleInside = peopleInside;
+    public void addPeopleInside(Person newPerson) {
+        this.peopleInside.add(newPerson);
+    }
+
+    public void deletePeopleInside(int id) {
+        this.peopleInside.delete(id);
+    }
+
+    public void updatePeopleInside(int id, Person updatedPerson) {
+        this.peopleInside.update(id, updatedPerson);
+    }
+
+    public void createPersonInside(int id, int timeOnFloor, int currentFloor, int destination) {
+        this.peopleInside.create(id, timeOnFloor, currentFloor, destination);
     }
 }
