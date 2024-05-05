@@ -12,16 +12,16 @@ public class WorldView {
         displayMap(world.getMap(), world.getEntities());
     }
 
-    public void cleanScreen() {
+    private void cleanScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
-    public void displayTime(Time time) {
+    private void displayTime(Time time) {
         System.out.println("Hora actual: " + time.getCurrentTime() + " - " + time.getTimeOfDay());
     }
 
-    public void displayMap(Map map, List<Entity> entities) {
+    private void displayMap(Map map, List<Entity> entities) {
         String[][] displayMatrix = new String[map.getHeight()][map.getWidth()];
 
         for (int i = 0; i < map.getHeight(); i++) {
