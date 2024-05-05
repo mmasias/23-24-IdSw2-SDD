@@ -15,15 +15,11 @@ public class World {
     }
 
     public void simulateCycle() {
-        updateTime();
+        this.time.advanceTime();
     }
 
     public void addEntity(Entity newEntity) {
         this.entities.add(newEntity);
-    }
-
-    private void updateTime() {
-        this.time.advanceTime();
     }
 
     public Map getMap() {

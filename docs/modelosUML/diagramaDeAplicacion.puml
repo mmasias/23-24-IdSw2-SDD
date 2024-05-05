@@ -13,12 +13,11 @@ class App {
 package "Model" {
     class World {
         - Map map
-        - Entity[] entities
+        - List<Entity> entities
         - Time time
 
         + simulateCycle()
         + addEntity(Entity newEntity)
-        - updateTime()
     }
 
     class Time {
@@ -27,21 +26,27 @@ package "Model" {
 
         + advanceTime()
         + setTimeOfDay(int currentTime)
-        - resetDay()
+        + resetDay()
+        + getCurrentTime() : int
+        + getTimeOfDay() : TimesOfDay
     }
 
     class Map {
         - Tile[][] tiles
 
         + updateTile(Point point, Tile newTile)
-        + getTile(Point point)
+        + getTile(Point point) : Tile
+        + getHeight() : int
+        + getWidth() : int
     }
 
     class Tile {
         - TileTypes type
 
         + changeType(TileTypes newType)
-        + getType() 
+        + getType() : TileTypes
+        + getAsciiSymbol() : String
+        + getAsciiColor() : String
     }
 
     abstract class Entity {
@@ -50,29 +55,30 @@ package "Model" {
 
         + moveTo(Point newPosition)
         + changeTransport(Transport newTransport)
-        + getCurrentTransport()
+        + getTransportInUse() : Transport
     }
 
     class Character extends Entity {
-        - CharacterType characterType
+        - CharacterType type
         - Transport[] availableTransports
 
-        + getAvailableTransports()
-
+        + getAvailableTransports() : Transport[]
+        + getCharacterType() : CharacterType
     }
 
     class Transport {
         - TransportTypes type
-        - Tile[] allowedTiles
 
-        + getAllowedTiles()
+        + getType() : TransportTypes
+        + getSpeed() : int
+        + getAsciiSymbol() : String
     }
 
     class Point {
         - int x
         - int y
 
-        + getLocation()
+        + getLocation() : int[]
         + setLocation(int x, int y)
     }
 
@@ -110,11 +116,12 @@ package "Model" {
 
 package "View" {
     class WorldView {
-        - String[][] View
-        + showWorld(World world)
-        - showWorldTime(Time time)
-        - showWorldMap(Map map)
-        - showWorldEntities(Entity[] entities)
+        - String[][] displayMatrix
+
+        + displayWorld(World world)
+        - cleanScreen()
+        - displayTime(Time time)
+        - displayMap(Map map, List<Entity> entities)
     }
 }
 
@@ -124,20 +131,13 @@ package "Controller" {
         - WorldView worldView
 
         + initializeGame()
-        - runGameCycle()
-        - initializeWorldMap()
-        - initializeWorldEntities()
-        - createPlayer()
-        - createNPC(int i)
-        - createCharacter()
-        - readFileContent(String filePath)
-        - populateMap(List<String[]> mapData, Map worldMap)
-        - createTileByNumber(String tileNumber)
-        - getRandomCharacterMovement()
-        - processUserInput(char input)
-        - moveCharacter(Character character)
-        - getCharacterMovement(Character character)
-        - updateTransportInUse(Character character, TileTypes tileType)
+        + initializeWorldMap()
+        + readFileContent(String filePath) : List<String[]>
+        + populateMap(List<String[]> mapData, Map worldMap)
+        + createTileByNumber(String tileNumber) : Tile
+        + getRandomCharacterMovement() : char
+        + getUserInput() : char
+        + processUserInput(char input) : char
     }
 }
 
