@@ -2,15 +2,15 @@ package Models;
 
 import java.util.ArrayList;
 import Lists.*;
-import Models.*;
 
-public class Building {
+public class Building implements IModel {
     private int id;
     private boolean access;
     private FloorList floors;
     private ElevatorList elevators;
     private PersonList people;
     private ControlPanel controlPanel;
+    private Counters counters;
 
     public Building(int id) {
         this.id = id;
@@ -18,7 +18,8 @@ public class Building {
         this.floors = new FloorList();
         this.elevators = new ElevatorList();
         this.people = new PersonList();
-        this.controlPanel = new ControlPanel();
+        this.controlPanel = new ControlPanel(0);
+        this.counters = new Counters();
     }
 
     public int getId() {
@@ -30,7 +31,12 @@ public class Building {
     }
 
     public void addFloor(String label) {
-        this.floors.create(label);
+        this.floors.create(counters.getFloorCounter(), label);
+        counters.incrementFloorCounter();
+    }
+
+    public void updateFloor(Floor floor) {
+        this.floors.update(floor.getId(), floor);
     }
 
     public void removeFloor(int id) {
@@ -42,7 +48,12 @@ public class Building {
     }
 
     public void addElevator(int capacity, int currentFloor) {
-        this.elevators.create(capacity, currentFloor);
+        this.elevators.create(counters.getElevatorCounter(), capacity, currentFloor);
+        counters.incrementElevatorCounter();
+    }
+
+    public void updateElevator(Elevator elevator) {
+        this.elevators.update(elevator.getId(), elevator);
     }
 
     public void removeElevator(int id) {
@@ -54,7 +65,12 @@ public class Building {
     }
 
     public void addPerson(int timeOnFloor, int currentFloor, int destination) {
-        this.people.create(timeOnFloor, currentFloor, destination);
+        this.people.create(counters.getPersonCounter(), timeOnFloor, currentFloor, destination);
+        counters.incrementPersonCounter();
+    }
+
+    public void updatePerson(Person person) {
+        this.people.update(person.getId(), person);
     }
 
     public void removePerson(int id) {
@@ -73,7 +89,7 @@ public class Building {
         return this.controlPanel;
     }
 
-    public void controlPanelSet(ControlPanel controlPanel) {
+    public void setControlPanel(ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
     }
 }

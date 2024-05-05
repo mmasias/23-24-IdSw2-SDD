@@ -4,43 +4,33 @@ import java.util.ArrayList;
 import Models.Floor;
 
 public class FloorList {
-    private ArrayList<Floor> floors;
-    private int counter;
+    private ModelList<Floor> floors;
 
     public FloorList() {
-        this.floors = new ArrayList<Floor>();
-        this.counter = 0;
+        this.floors = new ModelList<Floor>();
     }
 
     public ArrayList<Floor> index() {
-        return this.floors;
+        return this.floors.index();
     }
 
     public Floor get(int id) {
-        if (id >= 0 && id <= this.counter) {
-            for (Floor floor : this.floors) {
-                if (floor.getId() == id) {
-                    return floor;
-                }
-            }
-        }
-        return null;
+        return this.floors.get(id);
     }
 
-    public void create(String label) {
-        this.floors.add(new Floor(this.counter, label));
-        this.counter++;
+    public void create(int id, String label) {
+        this.floors.add(new Floor(id, label));
     }
 
     public void update(int id, Floor updatedFloor) {
-        if (id >= 0 && id <= this.counter) {
-            this.floors.set(id, updatedFloor);
-        }
+        this.floors.update(id, updatedFloor);
     }
 
     public void delete(int id) {
-        if (id >= 0 && id <= this.counter) {
-            this.floors.remove(id);
-        }
+        this.floors.delete(id);
+    }
+
+    public void add(Floor floor) {
+        this.floors.add(floor);
     }
 }

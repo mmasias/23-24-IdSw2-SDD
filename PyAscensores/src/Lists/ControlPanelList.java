@@ -4,43 +4,33 @@ import java.util.ArrayList;
 import Models.ControlPanel;
 
 public class ControlPanelList {
-    private ArrayList<ControlPanel> controlPanels;
-    private int counter;
+    private ModelList<ControlPanel> controlPanels;
 
     public ControlPanelList() {
-        this.controlPanels = new ArrayList<ControlPanel>();
-        this.counter = 0;
+        this.controlPanels = new ModelList<ControlPanel>();
     }
 
     public ArrayList<ControlPanel> index() {
-        return this.controlPanels;
+        return this.controlPanels.index();
     }
 
     public ControlPanel get(int id) {
-        if (id >= 0 && id <= this.controlPanels.size()) {
-            for (ControlPanel controlPanel : this.controlPanels) {
-                if (controlPanel.getId() == id) {
-                    return controlPanel;
-                }
-            }
-        }
-        return null;
+        return this.controlPanels.get(id);
     }
 
-    public void create() {
-        this.controlPanels.add(new ControlPanel(this.counter));
-        this.counter++;
+    public void create(int id) {
+        this.controlPanels.add(new ControlPanel(id));
     }
 
     public void update(int id, ControlPanel updatedControlPanel) {
-        if (id >= 0 && id <= this.counter) {
-            this.controlPanels.set(id, updatedControlPanel);
-        }
+        this.controlPanels.update(id, updatedControlPanel);
     }
 
     public void delete(int id) {
-        if (id >= 0 && id <= this.counter) {
-            this.controlPanels.remove(id);
-        }
+        this.controlPanels.delete(id);
+    }
+
+    public void add(ControlPanel controlPanel) {
+        this.controlPanels.add(controlPanel);
     }
 }

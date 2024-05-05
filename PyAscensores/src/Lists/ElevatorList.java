@@ -4,43 +4,33 @@ import java.util.ArrayList;
 import Models.Elevator;
 
 public class ElevatorList {
-    private ArrayList<Elevator> elevators;
-    private int counter;
+    private ModelList<Elevator> elevators;
 
     public ElevatorList() {
-        this.elevators = new ArrayList<Elevator>();
-        this.counter = 0;
+        this.elevators = new ModelList<Elevator>();
     }
 
     public ArrayList<Elevator> index() {
-        return this.elevators;
+        return this.elevators.index();
     }
 
     public Elevator get(int id) {
-        if (id >= 0 && id <= this.counter) {
-            for (Elevator elevator : this.elevators) {
-                if (elevator.getId() == id) {
-                    return elevator;
-                }
-            }
-        }
-        return null;
+        return this.elevators.get(id);
     }
 
-    public void create(int capacity, int currentFloor) {
-        this.elevators.add(new Elevator(this.counter, capacity, currentFloor));
-        this.counter++;
+    public void create(int id, int capacity, int currentFloor) {
+        this.elevators.add(new Elevator(id, capacity, currentFloor));
     }
 
     public void update(int id, Elevator updatedElevator) {
-        if (id >= 0 && id <= this.counter) {
-            this.elevators.set(id, updatedElevator);
-        }
+        this.elevators.update(id, updatedElevator);
     }
 
     public void delete(int id) {
-        if (id >= 0 && id <= this.elevators.size()) {
-            this.elevators.remove(id);
-        }
+        this.elevators.delete(id);
+    }
+
+    public void add(Elevator elevator) {
+        this.elevators.add(elevator);
     }
 }
