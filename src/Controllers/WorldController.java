@@ -11,9 +11,6 @@ import java.nio.file.Path;
 import java.util.*;
 import java.nio.file.Paths;
 
-// (Jorge)
-// TODO: #30 Refactor the initialization methods to reduce coupling between the map data reading and the World model.
-// TODO: #31 Implement error handling strategies for better resilience, such as retries for file reading or fallbacks for missing data.
 public class WorldController {
 
     private final World world;

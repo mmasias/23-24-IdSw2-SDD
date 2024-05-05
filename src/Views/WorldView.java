@@ -6,29 +6,17 @@ import Enums.CharacterType;
 import Models.*;
 import Models.Character;
 
-//(Lucía)
-
-// TODO: #32 Consider separating the console display functionality into a separate class or method.
-
-// TODO: #33 Enhance the displayMap method to support color output by integrating ANSI color codes read from Tile and Transport enums.
-
-
 public class WorldView {
     public void displayWorld(World world) {
         displayTime(world.getTime());
-        displayMap(world.getMap(), world.getEntities());
+        displayIntoConsole(world.getMap(), world.getEntities());
     }
 
-    private void cleanScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+    public void displayTime(Time time) {
+        System.out.println("Hora actual: " + time.getPreciseTimeFormatted() + " - " + time.getImpreciseTime());
     }
 
-    private void displayTime(Time time) {
-        System.out.println("Hora actual: " + time.getCurrentTime() + " - " + time.getTimeOfDay());
-    }
-
-    private void displayMap(Map map, List<Entity> entities) {
+    private String[][] displayMap(Map map, List<Entity> entities) {
         String[][] displayMatrix = new String[map.getHeight()][map.getWidth()];
 
         for (int i = 0; i < map.getHeight(); i++) {

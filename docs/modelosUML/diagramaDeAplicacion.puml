@@ -131,13 +131,21 @@ package "Controller" {
         - WorldView worldView
 
         + initializeGame()
-        + initializeWorldMap()
-        + readFileContent(String filePath) : List<String[]>
-        + populateMap(List<String[]> mapData, Map worldMap)
-        + createTileByNumber(String tileNumber) : Tile
-        + getRandomCharacterMovement() : char
-        + getUserInput() : char
-        + processUserInput(char input) : char
+        + runGameCycle()
+        - initializeWorldMap()
+        - initializeWorldEntities()
+        - createPlayer()
+        - createNPC()
+        - createCharacter(Transport[] transports, CharacterType type)
+        - readFileContent(Path path, int count) : List<String[]>
+        - populateMap(List<String[]> mapData, Map worldMap)
+        - createTileByNumber(String tileNumber) : Tile
+        - getRandomCharacterMovement() : char
+        - getUserInput() : char
+        - moveCharacters(Scanner scanner)
+        - getNewPosition(Point currentPosition, char direction) : Point
+        - isValidPosition(Point position) : boolean
+        - updateTransportInUse()
     }
 }
 
