@@ -2,12 +2,19 @@ package Views;
 
 import java.util.List;
 
+import Enums.CharacterType;
 import Models.*;
+import Models.Character;
+
+//(Lucía)
+
+// TODO: #32 Consider separating the console display functionality into a separate class or method.
+
+// TODO: #33 Enhance the displayMap method to support color output by integrating ANSI color codes read from Tile and Transport enums.
+
 
 public class WorldView {
-
     public void displayWorld(World world) {
-        cleanScreen();
         displayTime(world.getTime());
         displayMap(world.getMap(), world.getEntities());
     }
@@ -26,18 +33,27 @@ public class WorldView {
 
         for (int i = 0; i < map.getHeight(); i++) {
             for (int j = 0; j < map.getWidth(); j++) {
-                displayMatrix[i][j] = map.getTile(new Point(i, j)).getAsciiSymbol();
+                Tile readTile = map.getTile(new Point(i, j));
+                displayMatrix[i][j] = readTile.getAsciiColor() + readTile.getAsciiSymbol() + "\u001B[0m";
             }
         }
 
         for (Entity entity : entities) {
             Point position = entity.getPosition();
-            int x = position.getLocation()[0];
-            int y = position.getLocation()[1];
-            displayMatrix[y][x] = entity.getTransportInUse().getAsciiSymbol();
+            int x = position.getX();
+            int y = position.getY();
+            Transport entityTransport = entity.getTransportInUse();
+            Character entityCharacter = (Character) entity;
+            CharacterType characterType = entityCharacter.getCharacterType();
+            displayMatrix[y][x] = characterType.getAsciiColor() + entityTransport.getAsciiSymbol() + "\u001B[0m";
         }
+        return displayMatrix;
 
-        for (String[] row : displayMatrix) {
+    }
+
+    public void displayIntoConsole(Map map, List<Entity> entities) {
+        String[][] matrixMap = displayMap(map, entities);
+        for (String[] row : matrixMap) {
             for (String symbol : row) {
                 System.out.print(symbol + " ");
             }

@@ -26,8 +26,4 @@ public abstract class Entity {
         this.position = newPosPoint;
     }
 
-    public void changeTransport(Transport newTransport) {
-        this.transportInUse = newTransport;
-    }
-
 }

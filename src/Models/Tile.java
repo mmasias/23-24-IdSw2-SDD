@@ -21,7 +21,7 @@ public class Tile {
     public String getAsciiSymbol() {
         return type.getAsciiSymbol();
     }
-
+    
     public String getAsciiColor() {
         return type.getAsciiColor();
     }

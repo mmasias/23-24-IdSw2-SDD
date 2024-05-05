@@ -8,8 +8,12 @@ public class Point {
     this.y = y;
   }
 
-  public int[] getLocation() {
-    return new int[] { this.x, this.y };
+  public int getX() {
+    return this.x;
+  }
+
+  public int getY() {
+    return this.y;
   }
 
   public void setLocation(int x, int y) {
