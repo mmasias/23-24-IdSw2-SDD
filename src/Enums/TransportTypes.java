@@ -19,10 +19,6 @@ public enum TransportTypes {
         this.tilesItCanMoveThrough = tilesItCanMoveThrough;
     }
 
-    public int getSpeed() {
-        return speed;
-    }
-
     public String getAsciiSymbol() {
         return asciiSymbol;
     }
