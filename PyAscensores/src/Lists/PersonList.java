@@ -33,8 +33,4 @@ public class PersonList {
     public void add(Person person) {
         this.people.add(person);
     }
-    public void add(Person person) {
-        this.people.add(person);
-        this.counter++;
-    }
 }

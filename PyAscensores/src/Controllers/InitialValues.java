@@ -67,7 +67,7 @@ public class InitialValues {
         this.amountPeople = amountPeople;
     }
 
-    private int randomInt(int minimum, int maximum) {
+    public int randomInt(int minimum, int maximum) {
         return minimum + (int) (Math.random() * ((maximum - minimum) + 1));
     }
 

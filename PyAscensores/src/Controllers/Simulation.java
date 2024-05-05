@@ -59,8 +59,33 @@ public class Simulation {
             int timeOnFloor = this.initialValues.getRandomTimeOnFloor(0, 8);
             int currentFloor = this.initialValues.getRandomFloor();
             int destination = this.initialValues.getRandomFloor();
-            buildingList.get(0).addPerson(timeOnFloor, currentFloor, destination);
+            int position = this.initialValues.randomInt(1, 3);
+
+            if (position == 1) {
+                this.addPersonToRandomElevator(buildingList, timeOnFloor, currentFloor, destination);
+            } else if (position == 2) {
+                this.addPersonToRandomFloor(buildingList, timeOnFloor, currentFloor, destination);
+            } else if (position == 3) {
+                this.addWaitingPersonToRandomFloor(buildingList, timeOnFloor, currentFloor, destination);
+            }
         }
+    }
+
+    private void addPersonToRandomElevator(BuildingList buildingList, int timeOnFloor, int currentFloor,
+            int destination) {
+        int elevatorId = this.initialValues.randomInt(0, buildingList.get(0).getElevators().size() - 1);
+        buildingList.get(0).addPersonInElevator(elevatorId, timeOnFloor, currentFloor, destination);
+    }
+
+    private void addPersonToRandomFloor(BuildingList buildingList, int timeOnFloor, int currentFloor, int destination) {
+        int floorId = this.initialValues.randomInt(0, buildingList.get(0).getFloors().size() - 1);
+        buildingList.get(0).addPersonOnFloor(floorId, timeOnFloor, currentFloor, destination);
+    }
+
+    private void addWaitingPersonToRandomFloor(BuildingList buildingList, int timeOnFloor, int currentFloor,
+            int destination) {
+        int floorId = this.initialValues.randomInt(0, buildingList.get(0).getFloors().size() - 1);
+        buildingList.get(0).addWaitingPersonOnFloor(floorId, timeOnFloor, currentFloor, destination);
     }
 
     private void simulation() {

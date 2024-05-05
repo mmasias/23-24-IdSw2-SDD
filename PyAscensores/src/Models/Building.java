@@ -8,7 +8,6 @@ public class Building implements IModel {
     private boolean access;
     private FloorList floors;
     private ElevatorList elevators;
-    private PersonList people;
     private ControlPanel controlPanel;
     private Counters counters;
 
@@ -17,7 +16,6 @@ public class Building implements IModel {
         this.access = true;
         this.floors = new FloorList();
         this.elevators = new ElevatorList();
-        this.people = new PersonList();
         this.controlPanel = new ControlPanel(0);
         this.counters = new Counters();
     }
@@ -60,23 +58,6 @@ public class Building implements IModel {
         this.elevators.delete(id);
     }
 
-    public ArrayList<Person> getPeople() {
-        return this.people.index();
-    }
-
-    public void addPerson(int timeOnFloor, int currentFloor, int destination) {
-        this.people.create(counters.getPersonCounter(), timeOnFloor, currentFloor, destination);
-        counters.incrementPersonCounter();
-    }
-
-    public void updatePerson(Person person) {
-        this.people.update(person.getId(), person);
-    }
-
-    public void removePerson(int id) {
-        this.people.delete(id);
-    }
-
     public boolean getAccess() {
         return this.access;
     }
@@ -92,4 +73,23 @@ public class Building implements IModel {
     public void setControlPanel(ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
     }
+
+    public void addPersonInElevator(int elevatorId, int timeOnFloor, int currentFloor, int destination) {
+        this.elevators.get(elevatorId).createPersonInside(counters.getPersonCounter(), timeOnFloor, currentFloor,
+                destination);
+        counters.incrementPersonCounter();
+    }
+
+    public void addWaitingPersonOnFloor(int floorId, int timeOnFloor, int currentFloor, int destination) {
+        this.floors.get(floorId)
+                .addWaitingPerson(new Person(counters.getPersonCounter(), timeOnFloor, currentFloor, destination));
+        counters.incrementPersonCounter();
+    }
+
+    public void addPersonOnFloor(int floorId, int timeOnFloor, int currentFloor, int destination) {
+        this.floors.get(floorId)
+                .addPersonOnFloor(new Person(counters.getPersonCounter(), timeOnFloor, currentFloor, destination));
+        counters.incrementPersonCounter();
+    }
+
 }
