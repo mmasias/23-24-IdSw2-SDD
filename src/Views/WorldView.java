@@ -1,7 +1,6 @@
 package Views;
 
 import java.util.List;
-
 import Enums.CharacterType;
 import Models.*;
 import Models.Character;

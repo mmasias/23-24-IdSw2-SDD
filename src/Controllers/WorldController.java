@@ -12,7 +12,6 @@ import java.util.*;
 import java.nio.file.Paths;
 
 public class WorldController {
-
     private final World world;
     private final WorldView worldView;
 
@@ -254,9 +253,7 @@ public class WorldController {
         return tileType != TileTypes.Wall;
     }
 
-    private void updateTransportInUse(
-            Character character,
-            TileTypes newTileType) {
+    private void updateTransportInUse(Character character, TileTypes newTileType) {
         Transport[] availableTransports = character.getAvailableTransports();
         for (Transport transport : availableTransports) {
             List<TileTypes> availableTiles = transport

@@ -2,8 +2,6 @@
 
 class App {
     - WorldController worldController
-    - World gameWorld
-    - WorldView gameWorldView
 
     + main()
     - initializeGame()
@@ -18,6 +16,10 @@ package "Model" {
 
         + simulateCycle()
         + addEntity(Entity newEntity)
+        + getMap()
+        + getEntities() : List<Entity>
+        + getTime() : Time
+        + setTime(Time time)
     }
 
     class Time {
@@ -94,7 +96,7 @@ package "Model" {
         Mountain
     }
 
-    enum TimesOfDay {
+    enum ImpreciseTime {
         Morning
         Afternoon
         Evening
@@ -109,19 +111,19 @@ package "Model" {
     }
 
     enum CharacterType {
-        Playable
-        NonPlayable
+        Playable, NonPlayable
+        - String asciiColor
+        + CharacterType(String asciiColor)
+        + getAsciiColor()
     }
 }
 
 package "View" {
     class WorldView {
-        - String[][] displayMatrix
-
         + displayWorld(World world)
-        - cleanScreen()
-        - displayTime(Time time)
-        - displayMap(Map map, List<Entity> entities)
+        + displayTime(Time time)
+        + displayIntoConsole(Map map, List<Entity> entities)
+        - displayMap(Map map, List<Entity> entities) : String[][]
     }
 }
 
@@ -157,7 +159,7 @@ Tile --> TileTypes
 Entity --> Point
 Entity --> Transport
 Transport --> TransportTypes
-Time --> TimesOfDay
+Time --> ImpreciseTime
 Character --> CharacterType
 WorldController --> World
 WorldController --> WorldView
