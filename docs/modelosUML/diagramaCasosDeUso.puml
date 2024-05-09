@@ -1,0 +1,31 @@
+@startuml UseCaseDiagram
+
+actor Player
+actor System
+
+usecase "InitializeGame" as InitializeGame
+usecase "SimulateGameCycle" as SimulateGameCycle
+usecase "AddEntity" as AddEntity
+usecase "MoveEntity" as MoveEntity
+usecase "ChangeTransport" as ChangeTransport
+usecase "UpdateTileType" as UpdateTileType
+usecase "AdvanceTime" as AdvanceTime
+usecase "DisplayWorld" as DisplayWorld
+usecase "UpdateTransportInUse" as UpdateTransportInUse
+
+Player --> InitializeGame
+Player --> SimulateGameCycle
+Player --> MoveEntity
+Player --> ChangeTransport
+
+System --> InitializeGame
+System --> SimulateGameCycle
+System --> AddEntity
+System --> MoveEntity
+System --> ChangeTransport
+System --> UpdateTileType
+System --> AdvanceTime
+System --> DisplayWorld
+System --> UpdateTransportInUse
+
+@enduml
