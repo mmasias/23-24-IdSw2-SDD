@@ -8,10 +8,12 @@ actor Jugador1 as user
 
 usecase "Atacar" as atacar
 usecase "Defender" as defender    
+usecase "Bloquear" as bloquear
 usecase "Tomar Poción" as tomarPocion
 
 user -- atacar : ""
 user -- defender : ""
+user -- bloquear : ""
 user -- tomarPocion : ""
 
 @enduml
