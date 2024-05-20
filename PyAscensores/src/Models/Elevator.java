@@ -3,6 +3,7 @@ package Models;
 import java.util.ArrayList;
 
 import Enums.Direction;
+import Lists.FloorsToGoList;
 import Lists.PersonList;
 
 public class Elevator implements IModel {
@@ -12,6 +13,7 @@ public class Elevator implements IModel {
     private int currentFloor;
     private Direction currentDirection;
     private boolean access;
+    private FloorsToGoList floorsToGoList;
 
     public Elevator(int id, int capacity, int currentFloor) {
         this.id = id;
@@ -20,6 +22,7 @@ public class Elevator implements IModel {
         this.currentDirection = Direction.STOP;
         this.access = true;
         this.peopleInside = new PersonList();
+        this.floorsToGoList = new FloorsToGoList();
     }
 
     public int getId() {
@@ -52,6 +55,9 @@ public class Elevator implements IModel {
 
     public boolean getAccess() {
         return this.access;
+    }
+    public FloorsToGoList getFloorsToGoList() {
+        return this.floorsToGoList;
     }
 
     public void setAccess(boolean access) {
