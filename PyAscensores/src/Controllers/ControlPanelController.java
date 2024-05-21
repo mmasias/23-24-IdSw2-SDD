@@ -75,20 +75,22 @@ public class ControlPanelController {
         int minDistance = Integer.MAX_VALUE;
         for (Elevator elevator : building.getElevators()) {
             int distance = Math.abs(elevator.getCurrentFloor() - origin);            
-            if (distance > 0 && distance < minDistance && elevator.getDirection() == direction){
+            if (distance < minDistance && elevator.getDirection() == direction){
                 minDistance = distance;
                 closestElevatorId = elevator.getId();
             }    
         }
         if (closestElevatorId == -1) {
-            closestElevatorId= someoneStopped(building.getElevators(),direction);
+            closestElevatorId= someoneStopped(building.getElevators(),direction,origin);
         }
         return closestElevatorId;
     }
-    private int someoneStopped(ArrayList<Elevator> elevators, Direction direction) {
+    private int someoneStopped(ArrayList<Elevator> elevators, Direction direction, int destination) {
         int elevatorId = -1;
+        int minDistance = Integer.MAX_VALUE;
         for (Elevator elevator : elevators) {
-            if (elevator.getDirection() == Direction.STOP && elevator.getAccess()) {
+            int distance = Math.abs(elevator.getCurrentFloor() - destination);            
+            if (distance < minDistance && elevator.getDirection() == Direction.STOP && elevator.getAccess()) {
                 elevatorId = elevator.getId();
             }
         }
