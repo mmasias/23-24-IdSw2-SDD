@@ -3,19 +3,18 @@ package Models;
 import Enums.Direction;
 
 public class FloorRequest {
-    private Direction direction;
     private int destination;
+    private int elevatorId;
 
-    public FloorRequest(int destination, Direction direction) {
+    public FloorRequest(int destination, int elevatorId) {
         this.destination = destination;
-        this.direction = direction;
-    }
-
-    public Direction getDirection() {
-        return this.direction;
+        this.elevatorId = elevatorId;
     }
 
     public int getDestination() {
         return this.destination;
+    }
+    public int getElevatorId() {
+        return this.elevatorId;
     }
 }
