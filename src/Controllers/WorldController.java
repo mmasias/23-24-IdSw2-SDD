@@ -207,7 +207,7 @@ public class WorldController {
                 char direction = character.getCharacterType() == CharacterType.Playable
                         ? getUserInput(scanner)
                         : getRandomCharacterMovement();
-                Point newPosition = getNewPosition(currentPosition, direction);
+                Point newPosition = validateRoundWorld(getNewPosition(currentPosition, direction));
 
                 if (isValidPosition(newPosition)) {
                     updateTransportInUse(
@@ -217,6 +217,26 @@ public class WorldController {
                 }
             }
         }
+    }
+
+    private Point validateRoundWorld(Point position) {
+        int x = position.getX();
+        int y = position.getY();
+
+        if (x < 0) {
+            x = world.getMap().getWidth() - 1;
+        }
+        if (x >= world.getMap().getWidth()) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = world.getMap().getHeight() - 1;
+        }
+        if (y >= world.getMap().getHeight()) {
+            y = 0;
+        }
+
+        return new Point(x, y);
     }
 
     private Point getNewPosition(Point currentPosition, char direction) {
