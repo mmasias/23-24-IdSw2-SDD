@@ -1,18 +1,13 @@
 package Controllers;
 
-import Models.Building;
-import Models.Person;
-import Models.Floor;
-import Models.ControlPanel;
-import Models.ElevatorRequest;
-import Models.FloorRequest;
+import Models.*;
 import Enums.Direction;
 
-public class PersonController {
+public class FloorController {
     private Building building;
     private ControlPanel controlPanel;
 
-    public PersonController(Building building, ControlPanel controlPanel) {
+    public FloorController(Building building, ControlPanel controlPanel) {
         this.building = building;
         this.controlPanel = controlPanel;
     }
@@ -42,9 +37,7 @@ public class PersonController {
     private void requestElevator(Person person) {
         Direction direction = determineDirection(person.getCurrentFloor(), person.getDestination());
         ElevatorRequest elevatorRequest = new ElevatorRequest(person.getCurrentFloor(), direction);
-        FloorRequest floorRequest = new FloorRequest(person.getDestination(), direction);
         controlPanel.addElevatorRequest(elevatorRequest);
-        controlPanel.addFloorRequest(floorRequest);
     }
 
     private Direction determineDirection(int currentFloor, int destination) {
