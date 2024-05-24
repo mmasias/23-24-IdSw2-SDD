@@ -17,7 +17,8 @@ public class ElevatorController {
     }
 
     private void updatePeople(Building building) {
-        for (Elevator elevator : building.getElevators()) {
+        for (int i = 0; i < building.getElevators().size(); i++) {
+            Elevator elevator = building.getElevators().get(i);
             if (elevator.getDirection() == Direction.STOP) {
                 updateElevatorPeople(building, elevator);
             }
@@ -25,24 +26,27 @@ public class ElevatorController {
     }
 
     private void updateElevatorPeople(Building building, Elevator elevator) {
-        for (Floor floor : building.getFloors()) {
+        for (int i = 0; i < building.getFloors().size(); i++) {
+            Floor floor = building.getFloors().get(i);
             processWaitingPeople(elevator, floor);
             processPeopleInside(elevator, floor);
         }
     }
 
     private void processWaitingPeople(Elevator elevator, Floor floor) {
-        for (Person person : floor.getWaitingPeople()) {
+        for (int i = 0; i < floor.getWaitingPeople().size(); i++) {
+            Person personOnFloor = floor.getWaitingPeople().get(i);
             if (elevatorHasSpace(elevator) && elevator.getAccess() == true) {
-                movePersonToElevator(elevator, floor, person);
+                movePersonToElevator(elevator, floor, personOnFloor);
             }
         }
     }
 
     private void processPeopleInside(Elevator elevator, Floor floor) {
-        for (Person person : elevator.getPeopleInside()) {
-            if (person.getDestination() == elevator.getCurrentFloor()) {
-                removePersonFromElevator(elevator, floor, person);
+        for (int i = 0; i < elevator.getPeopleInside().size(); i++) {
+            Person personInElevator = elevator.getPeopleInside().get(i);
+            if (personInElevator.getDestination() == elevator.getCurrentFloor()) {
+                removePersonFromElevator(elevator, floor, personInElevator);
             }
         }
     }
@@ -62,7 +66,8 @@ public class ElevatorController {
     }
 
     private void updatePosition(Building building) {
-        for (Elevator elevator : building.getElevators()) {
+        for (int i = 0; i < building.getElevators().size(); i++) {
+            Elevator elevator = building.getElevators().get(i);
             if (elevator.getDirection().equals(Direction.DOWN) && elevator.getAccess() == true) {
                 elevator.setCurrentFloor(elevator.getCurrentFloor() - 1);
             } else if (elevator.getDirection().equals(Direction.UP) & elevator.getAccess() == true) {
