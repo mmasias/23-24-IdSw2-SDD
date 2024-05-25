@@ -20,7 +20,8 @@ public class ControlPanelController {
         List<Elevator> elevators = building.getElevators();
         for (int i = 0; i < elevators.size(); i++) {
             Elevator elevator = elevators.get(i);
-            if (elevator.getFloorsToGoList().isEmpty() && elevator.getDirection() != Direction.STOP) {
+            if (elevator.getDirection() != Direction.STOP && isElevatorinFloor(elevator)) {
+                elevator.getFloorsToGoList().delete(elevator.getCurrentFloor());
                 elevator.setDirection(Direction.STOP);
             } else if (!elevator.getFloorsToGoList().isEmpty()) {
                 if (elevator.getCurrentFloor() < elevator.getFloorsToGoList().get(0)) {
@@ -30,6 +31,15 @@ public class ControlPanelController {
                 }
             }
         }
+    }
+
+    private boolean isElevatorinFloor(Elevator elevator) {
+        for (int i = 0; i < elevator.getFloorsToGoList().size(); i++) {
+            if (elevator.getCurrentFloor() == elevator.getFloorsToGoList().get(i)) {
+                return true;
+            }            
+        }
+        return false;
     }
 
     private void updateFloorRequests(ControlPanel controlPanel) {
@@ -96,18 +106,18 @@ public class ControlPanelController {
             }
         }
         if (closestElevatorId == -1) {
-            closestElevatorId = someoneStopped(building.getElevators(), direction, origin);
+            closestElevatorId = isSomeoneAvailable(building.getElevators(), direction, origin);
         }
         return closestElevatorId;
     }
 
-    private int someoneStopped(ArrayList<Elevator> elevators, Direction direction, int destination) {
+    private int isSomeoneAvailable(ArrayList<Elevator> elevators, Direction direction, int destination) {
         int elevatorId = -1;
         int minDistance = Integer.MAX_VALUE;
         for (int i = 0; i < elevators.size(); i++) {
             Elevator elevator = elevators.get(i);
             int distance = Math.abs(elevator.getCurrentFloor() - destination);
-            if (distance < minDistance && elevator.getDirection() == Direction.STOP && elevator.getAccess()) {
+            if (distance < minDistance && elevator.getFloorsToGoList().isEmpty() && elevator.getAccess()) {
                 elevatorId = elevator.getId();
             }
         }
