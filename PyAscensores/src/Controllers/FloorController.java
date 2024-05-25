@@ -6,15 +6,17 @@ import Enums.Direction;
 public class FloorController {
     private Building building;
 
-    public void update(Building building) {
+    public Building update(Building building) {
         this.building = building;
         this.updateFloors();
+        return this.building;
     }
 
     private void updateFloors() {
         for (int i = 0; i < building.getFloors().size(); i++) {
             Floor floor = building.getFloors().get(i);
             this.updatePeople(floor);
+            this.building.updateFloor(floor);
         }
     }
 
@@ -27,22 +29,25 @@ public class FloorController {
 
     private void updatePerson(Floor floor, Person person) {
         if (person.getTimeOnFloor() == 0) {
-            moveToWaitingList(floor, person);
-            requestElevator(person);
+            this.moveToWaitingList(floor, person);
+            this.requestElevator(person);
         } else {
             person.setTimeOnFloor(person.getTimeOnFloor() - 1);
+            this.building.getFloors().get(floor.getId()).updatePersonOnFloor(person);
         }
     }
 
     private void moveToWaitingList(Floor floor, Person person) {
-        floor.removePersonOnFloor(person.getId());
-        floor.addWaitingPerson(person);
+        Floor buildingFloor = this.building.getFloors().get(floor.getId());
+        buildingFloor.removePersonOnFloor(person.getId());
+        buildingFloor.addWaitingPerson(person);
+        this.building.updateFloor(buildingFloor);
     }
 
     private void requestElevator(Person person) {
         Direction direction = determineDirection(person.getCurrentFloor(), person.getDestination());
         ElevatorRequest elevatorRequest = new ElevatorRequest(person.getCurrentFloor(), direction);
-        building.getControlPanel().addElevatorRequest(elevatorRequest);
+        this.building.getControlPanel().addElevatorRequest(elevatorRequest);
     }
 
     private Direction determineDirection(int currentFloor, int destination) {

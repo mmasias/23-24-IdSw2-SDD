@@ -54,10 +54,10 @@ public class InitialValues {
         this.label = label;
     }
 
-    public int getAmountPeople() {
+    public int getAmountPeople(int min, int max) {
         if (this.amountPeople == -1) {
-            int minimum = this.amountFloors * 2;
-            int maximum = this.amountFloors * 20;
+            int minimum = this.amountFloors * min;
+            int maximum = this.amountFloors * max;
             return this.randomInt(minimum, maximum);
         }
         return this.amountPeople;

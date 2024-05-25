@@ -31,8 +31,8 @@ public class Floor implements IModel {
         this.peopleOnFloor.add(person);
     }
 
-    public void updatePersonOnFloor(int id, Person updatedPerson) {
-        this.peopleOnFloor.update(id, updatedPerson);
+    public void updatePersonOnFloor(Person updatedPerson) {
+        this.peopleOnFloor.update(updatedPerson.getId(), updatedPerson);
     }
 
     public void removePersonOnFloor(int id) {

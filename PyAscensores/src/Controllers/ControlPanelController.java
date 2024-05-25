@@ -10,59 +10,50 @@ import Models.*;
 public class ControlPanelController {
     Building building;
 
-    public void update(Building building) {
+    public Building update(Building building) {
         this.building = building;
-        updateElevatorDirections();
-        updateElevatorRequests(building.getControlPanel());
-        updateFloorRequests(building.getControlPanel());
-        printElvatorsStatus();
-    }
 
-    private void printElvatorsStatus() {
-        List<Elevator> elevators = building.getElevators();
-        for (int i = 0; i < elevators.size(); i++) {
-            Elevator elevator = elevators.get(i);
-            System.out.println("Elevator " + elevator.getId() + " is in floor " + elevator.getCurrentFloor() + " and is going " + elevator.getDirection()+ " with " + elevator.getPeopleInside().size() + " people inside"+ " and has a capacity of " + elevator.getCapacity() + " people");
-            System.out.println("Elevator " + elevator.getId() + " has to go to " + printList(elevator.getFloorsToGoList()));
-        
-        }
-    }
+        this.updateElevatorRequests();
+        this.updateFloorRequests();
+        this.updateElevatorDirections();
 
-    private String printList(FloorsToGoList floorsToGoList) {
-        String list = "";
-        for (int i = 0; i < floorsToGoList.size(); i++) {
-            list += floorsToGoList.get(i) + ", ";
-        }
-        return list;
+        return this.building;
     }
 
     private void updateElevatorDirections() {
-        List<Elevator> elevators = building.getElevators();
+        List<Elevator> elevators = this.building.getElevators();
         for (int i = 0; i < elevators.size(); i++) {
             Elevator elevator = elevators.get(i);
-            if (elevator.getDirection() != Direction.STOP && isElevatorinFloor(elevator)) {
+            if (elevator.getDirection() != Direction.STOP && isElevatorInFloor(elevator)) {
                 elevator.getFloorsToGoList().delete(elevator.getCurrentFloor());
                 elevator.setDirection(Direction.STOP);
+
+                this.building.updateElevator(elevator);
             } else if (!elevator.getFloorsToGoList().isEmpty()) {
                 if (elevator.getCurrentFloor() < elevator.getFloorsToGoList().get(0)) {
                     elevator.setDirection(Direction.UP);
+
+                    this.building.updateElevator(elevator);
                 } else if (elevator.getCurrentFloor() > elevator.getFloorsToGoList().get(0)) {
                     elevator.setDirection(Direction.DOWN);
+
+                    this.building.updateElevator(elevator);
                 }
             }
         }
     }
 
-    private boolean isElevatorinFloor(Elevator elevator) {
+    private boolean isElevatorInFloor(Elevator elevator) {
         for (int i = 0; i < elevator.getFloorsToGoList().size(); i++) {
             if (elevator.getCurrentFloor() == elevator.getFloorsToGoList().get(i)) {
                 return true;
-            }            
+            }
         }
         return false;
     }
 
-    private void updateFloorRequests(ControlPanel controlPanel) {
+    private void updateFloorRequests() {
+        ControlPanel controlPanel = this.building.getControlPanel();
         List<FloorRequest> floorRequests = new ArrayList<>(controlPanel.getFloorRequests());
         for (int i = 0; i < floorRequests.size(); i++) {
             FloorRequest floorRequest = floorRequests.get(i);
@@ -91,7 +82,8 @@ public class ControlPanelController {
         return direction;
     }
 
-    private void updateElevatorRequests(ControlPanel controlPanel) {
+    private void updateElevatorRequests() {
+        ControlPanel controlPanel = this.building.getControlPanel();
         List<ElevatorRequest> elevatorRequests = new ArrayList<>(controlPanel.getElevatorRequests());
         for (int i = 0; i < elevatorRequests.size(); i++) {
             ElevatorRequest elevatorRequest = elevatorRequests.get(i);
@@ -146,5 +138,4 @@ public class ControlPanelController {
         }
         return elevatorId;
     }
-
 }

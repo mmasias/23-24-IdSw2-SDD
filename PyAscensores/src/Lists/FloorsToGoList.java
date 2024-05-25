@@ -14,27 +14,10 @@ public class FloorsToGoList {
     public void add(int floor, Direction direction) {
         if (this.floorsToGo.isEmpty()) {
             this.floorsToGo.add(floor);
-            return;
-        }else if (!this.floorsToGo.contains(floor)) {
-            if (direction == Direction.UP) {
-                for (int i = 0; i < this.floorsToGo.size(); i++) {
-                    if (this.floorsToGo.get(i) > floor) {
-                        this.floorsToGo.add(i, floor);
-                        return;
-                    }
-                }
-                this.floorsToGo.add(floor);
-            } else {
-                for (int i = 0; i < this.floorsToGo.size(); i++) {
-                    if (this.floorsToGo.get(i) < floor) {
-                        this.floorsToGo.add(i, floor);
-                        return;
-                    }
-                }
-                this.floorsToGo.add(floor);
-            }
-        } 
-        
+        } else if (!this.floorsToGo.contains(floor)) {
+            this.sortRequests(floor, direction);
+        }
+
     }
 
     public void delete(int floor) {
@@ -56,5 +39,24 @@ public class FloorsToGoList {
     public void clear() {
         this.floorsToGo.clear();
     }
-    
+
+    private void sortRequests(int floor, Direction direction) {
+        if (direction == Direction.UP) {
+            for (int i = 0; i < this.floorsToGo.size(); i++) {
+                if (this.floorsToGo.get(i) > floor) {
+                    this.floorsToGo.add(i, floor);
+                    return;
+                }
+            }
+            this.floorsToGo.add(floor);
+        } else if (direction == Direction.DOWN) {
+            for (int i = 0; i < this.floorsToGo.size(); i++) {
+                if (this.floorsToGo.get(i) < floor) {
+                    this.floorsToGo.add(i, floor);
+                    return;
+                }
+            }
+            this.floorsToGo.add(floor);
+        }
+    }
 }

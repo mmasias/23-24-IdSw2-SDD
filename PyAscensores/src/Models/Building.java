@@ -70,7 +70,7 @@ public class Building implements IModel {
         return this.controlPanel;
     }
 
-    public void setControlPanel(ControlPanel controlPanel) {
+    public void updateControlPanel(ControlPanel controlPanel) {
         this.controlPanel = controlPanel;
     }
 

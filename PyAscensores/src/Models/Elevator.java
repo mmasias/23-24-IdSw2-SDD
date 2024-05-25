@@ -56,8 +56,17 @@ public class Elevator implements IModel {
     public boolean getAccess() {
         return this.access;
     }
+
     public FloorsToGoList getFloorsToGoList() {
         return this.floorsToGoList;
+    }
+
+    public void addFloorToGo(int floor, Direction direction) {
+        this.floorsToGoList.add(floor, direction);
+    }
+
+    public void removeFloorToGo(int floor) {
+        this.floorsToGoList.delete(floor);
     }
 
     public void setAccess(boolean access) {
