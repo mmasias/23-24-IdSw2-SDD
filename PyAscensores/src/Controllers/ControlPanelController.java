@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Enums.Direction;
+import Lists.FloorsToGoList;
 import Models.*;
 
 public class ControlPanelController {
@@ -14,6 +15,25 @@ public class ControlPanelController {
         updateElevatorDirections();
         updateElevatorRequests(building.getControlPanel());
         updateFloorRequests(building.getControlPanel());
+        printElvatorsStatus();
+    }
+
+    private void printElvatorsStatus() {
+        List<Elevator> elevators = building.getElevators();
+        for (int i = 0; i < elevators.size(); i++) {
+            Elevator elevator = elevators.get(i);
+            System.out.println("Elevator " + elevator.getId() + " is in floor " + elevator.getCurrentFloor() + " and is going " + elevator.getDirection()+ " with " + elevator.getPeopleInside().size() + " people inside"+ " and has a capacity of " + elevator.getCapacity() + " people");
+            System.out.println("Elevator " + elevator.getId() + " has to go to " + printList(elevator.getFloorsToGoList()));
+        
+        }
+    }
+
+    private String printList(FloorsToGoList floorsToGoList) {
+        String list = "";
+        for (int i = 0; i < floorsToGoList.size(); i++) {
+            list += floorsToGoList.get(i) + ", ";
+        }
+        return list;
     }
 
     private void updateElevatorDirections() {
