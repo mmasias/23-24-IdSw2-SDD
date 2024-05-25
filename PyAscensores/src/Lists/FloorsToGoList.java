@@ -15,24 +15,26 @@ public class FloorsToGoList {
         if (this.floorsToGo.isEmpty()) {
             this.floorsToGo.add(floor);
             return;
-        }
-        if (direction == Direction.UP) {
-            for (int i = 0; i < this.floorsToGo.size(); i++) {
-                if (this.floorsToGo.get(i) > floor) {
-                    this.floorsToGo.add(i, floor);
-                    return;
+        }else if (!this.floorsToGo.contains(floor)) {
+            if (direction == Direction.UP) {
+                for (int i = 0; i < this.floorsToGo.size(); i++) {
+                    if (this.floorsToGo.get(i) > floor) {
+                        this.floorsToGo.add(i, floor);
+                        return;
+                    }
                 }
-            }
-            this.floorsToGo.add(floor);
-        } else {
-            for (int i = 0; i < this.floorsToGo.size(); i++) {
-                if (this.floorsToGo.get(i) < floor) {
-                    this.floorsToGo.add(i, floor);
-                    return;
+                this.floorsToGo.add(floor);
+            } else {
+                for (int i = 0; i < this.floorsToGo.size(); i++) {
+                    if (this.floorsToGo.get(i) < floor) {
+                        this.floorsToGo.add(i, floor);
+                        return;
+                    }
                 }
+                this.floorsToGo.add(floor);
             }
-            this.floorsToGo.add(floor);
-        }
+        } 
+        
     }
 
     public void delete(int floor) {
