@@ -5,10 +5,9 @@ import Lists.ElevatorList;
 import Models.*;
 import Enums.Direction;
 
-
 public class ElevatorController {
     Building building;
-    InitialValues initialValues= new InitialValues(5,2);
+    InitialValues initialValues = new InitialValues(5, 2);
 
     public void update(Building building) {
         this.building = building;
@@ -38,6 +37,8 @@ public class ElevatorController {
             Person personOnFloor = floor.getWaitingPeople().get(i);
             if (elevatorHasSpace(elevator) && elevator.getAccess()) {
                 movePersonToElevator(elevator, floor, personOnFloor);
+            } else {
+
             }
         }
     }
@@ -64,7 +65,7 @@ public class ElevatorController {
     private void removePersonFromElevator(Elevator elevator, Floor floor, Person person) {
         elevator.removePeopleInside(person.getId());
         person.setDestination(initialValues.getRandomFloor());
-        person.setTimeOnFloor(initialValues.getRandomTimeOnFloor(0,100));
+        person.setTimeOnFloor(initialValues.getRandomTimeOnFloor(0, 100));
         floor.addPersonOnFloor(person);
     }
 

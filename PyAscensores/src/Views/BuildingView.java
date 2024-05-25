@@ -32,9 +32,9 @@ public class BuildingView {
         WaitingPeopleView peopleWaiting = new WaitingPeopleView(floors);
 
         views.add(floor.render());
-        views.add(peopleOnFloor.render());
-        views.add(elevator.render());
         views.add(peopleWaiting.render());
+        views.add(elevator.render());
+        views.add(peopleOnFloor.render());
 
         return views;
     }

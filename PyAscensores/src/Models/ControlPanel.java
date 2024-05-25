@@ -1,5 +1,6 @@
 package Models;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class ControlPanel implements IModel {
@@ -10,6 +11,9 @@ public class ControlPanel implements IModel {
 
     public ControlPanel(int id) {
         this.id = id;
+        elevatorRequests = new HashSet<ElevatorRequest>();
+        floorRequests = new HashSet<FloorRequest>();
+        elevators = new HashSet<Integer>();
     }
 
     public int getId() {

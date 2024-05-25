@@ -59,22 +59,14 @@ public class Simulation {
             int timeOnFloor = this.initialValues.getRandomTimeOnFloor(0, 8);
             int currentFloor = this.initialValues.getRandomFloor();
             int destination = this.initialValues.getRandomFloor();
-            int position = this.initialValues.randomInt(1, 3);
+            int position = this.initialValues.randomInt(1, 2);
 
             if (position == 1) {
-                this.addPersonToRandomElevator(buildingList, timeOnFloor, currentFloor, destination);
-            } else if (position == 2) {
                 this.addPersonToRandomFloor(buildingList, timeOnFloor, currentFloor, destination);
-            } else if (position == 3) {
+            } else if (position == 2) {
                 this.addWaitingPersonToRandomFloor(buildingList, timeOnFloor, currentFloor, destination);
             }
         }
-    }
-
-    private void addPersonToRandomElevator(BuildingList buildingList, int timeOnFloor, int currentFloor,
-            int destination) {
-        int elevatorId = this.initialValues.randomInt(0, buildingList.get(0).getElevators().size() - 1);
-        buildingList.get(0).addPersonInElevator(elevatorId, timeOnFloor, currentFloor, destination);
     }
 
     private void addPersonToRandomFloor(BuildingList buildingList, int timeOnFloor, int currentFloor, int destination) {
@@ -91,6 +83,9 @@ public class Simulation {
     private void simulation() {
         Scanner scanner = new Scanner(System.in);
         String input = "";
+
+        new BuildingView(buildingController.index()).render();
+        input = scanner.nextLine();
 
         while (!input.equals("q")) {
             ArrayList<Building> buildings = time.tick(buildingController);

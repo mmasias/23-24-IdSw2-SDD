@@ -20,7 +20,7 @@ public class PeopleOnFloorView {
     private String getPeopleOnFloorView() {
         StringBuilder peopleOnFloorView = new StringBuilder();
         for (int i = Floors.size() - 1; i >= 0; i--) {
-            String peopleOnFloorStr = "___" + Floors.get(i).getPeopleOnFloor().size() + "_";
+            String peopleOnFloorStr = "__" + Floors.get(i).getPeopleOnFloor().size() + "__";
 
             peopleOnFloorView.append(peopleOnFloorStr);
             peopleOnFloorView.append("\n");

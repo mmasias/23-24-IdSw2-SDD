@@ -5,19 +5,24 @@ import Enums.Direction;
 
 public class FloorController {
     private Building building;
-    private ControlPanel controlPanel;
 
-    public FloorController(Building building, ControlPanel controlPanel) {
+    public void update(Building building) {
         this.building = building;
-        this.controlPanel = controlPanel;
+        this.updateFloors();
     }
 
-    public void update() {
-        building.getFloors().forEach(this::updateFloor);
+    private void updateFloors() {
+        for (int i = 0; i < building.getFloors().size(); i++) {
+            Floor floor = building.getFloors().get(i);
+            this.updatePeople(floor);
+        }
     }
 
-    private void updateFloor(Floor floor) {
-        floor.getPeopleOnFloor().forEach(person -> updatePerson(floor, person));
+    private void updatePeople(Floor floor) {
+        for (int i = 0; i < floor.getPeopleOnFloor().size(); i++) {
+            Person person = floor.getPeopleOnFloor().get(i);
+            this.updatePerson(floor, person);
+        }
     }
 
     private void updatePerson(Floor floor, Person person) {
@@ -37,7 +42,7 @@ public class FloorController {
     private void requestElevator(Person person) {
         Direction direction = determineDirection(person.getCurrentFloor(), person.getDestination());
         ElevatorRequest elevatorRequest = new ElevatorRequest(person.getCurrentFloor(), direction);
-        controlPanel.addElevatorRequest(elevatorRequest);
+        building.getControlPanel().addElevatorRequest(elevatorRequest);
     }
 
     private Direction determineDirection(int currentFloor, int destination) {
