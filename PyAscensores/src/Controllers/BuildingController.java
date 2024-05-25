@@ -25,9 +25,9 @@ public class BuildingController {
 
     public ArrayList<Building> update() {
         for (Building building : this.buildings.index()) {
-            floorController.update(building);
             controlPanelController.update(building);
             elevatorController.update(building);
+            floorController.update(building);
         }
         return this.buildings.index();
     }
