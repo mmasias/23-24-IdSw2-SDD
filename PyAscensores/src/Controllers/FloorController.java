@@ -30,7 +30,7 @@ public class FloorController {
     private void updatePerson(Floor floor, Person person) {
         if (person.getTimeOnFloor() == 0) {
             this.moveToWaitingList(floor, person);
-            this.requestElevator(person);
+            this.requestElevator(floor, person);
         } else {
             person.setTimeOnFloor(person.getTimeOnFloor() - 1);
             this.building.getFloors().get(floor.getId()).updatePersonOnFloor(person);
@@ -39,14 +39,14 @@ public class FloorController {
 
     private void moveToWaitingList(Floor floor, Person person) {
         Floor buildingFloor = this.building.getFloors().get(floor.getId());
-        buildingFloor.removePersonOnFloor(person.getId());
+        buildingFloor.removePersonOnFloor(person);
         buildingFloor.addWaitingPerson(person);
         this.building.updateFloor(buildingFloor);
     }
 
-    private void requestElevator(Person person) {
-        Direction direction = determineDirection(person.getCurrentFloor(), person.getDestination());
-        ElevatorRequest elevatorRequest = new ElevatorRequest(person.getCurrentFloor(), direction);
+    private void requestElevator(Floor floor, Person person) {
+        Direction direction = determineDirection(floor.getId(), person.getDestination());
+        ElevatorRequest elevatorRequest = new ElevatorRequest(floor.getId(), direction);
         this.building.getControlPanel().addElevatorRequest(elevatorRequest);
     }
 

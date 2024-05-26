@@ -37,6 +37,12 @@ public class Elevator implements IModel {
         this.capacity = capacity;
     }
 
+    public boolean isFull() {
+        System.out.println("Elevator capacity: " + this.capacity);
+        System.out.println("People inside: " + this.getPeopleInside().size());
+        return this.peopleInside.index().size() == this.capacity;
+    }
+
     public int getCurrentFloor() {
         return this.currentFloor;
     }
@@ -87,9 +93,5 @@ public class Elevator implements IModel {
 
     public void updatePeopleInside(int id, Person updatedPerson) {
         this.peopleInside.update(id, updatedPerson);
-    }
-
-    public void createPersonInside(int id, int timeOnFloor, int currentFloor, int destination) {
-        this.peopleInside.create(id, timeOnFloor, currentFloor, destination);
     }
 }

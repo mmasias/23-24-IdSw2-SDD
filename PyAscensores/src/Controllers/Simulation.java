@@ -47,7 +47,7 @@ public class Simulation {
         int amountFloors = this.initialValues.getAmountFloors();
         String label = this.initialValues.getLabel();
 
-        for (int i = 0; i <= amountFloors; i++) {
+        for (int i = 0; i < amountFloors; i++) {
             buildingList.get(0).addFloor(label + i);
         }
     }
@@ -58,15 +58,10 @@ public class Simulation {
         for (int i = 0; i <= amountPeople; i++) {
             int timeOnFloor = this.initialValues.getRandomTimeOnFloor(0, 8);
             int currentFloor = this.initialValues.getRandomFloor();
-            int destination = this.initialValues.getRandomFloor();
+            int destination = this.initialValues.getRandomFloor(currentFloor);
 
-            this.addPersonToRandomFloor(buildingList, timeOnFloor, currentFloor, destination);
+            buildingList.get(0).addPersonOnFloor(timeOnFloor, currentFloor, destination);
         }
-    }
-
-    private void addPersonToRandomFloor(BuildingList buildingList, int timeOnFloor, int currentFloor, int destination) {
-        int floorId = this.initialValues.randomInt(0, buildingList.get(0).getFloors().size() - 1);
-        buildingList.get(0).addPersonOnFloor(floorId, timeOnFloor, currentFloor, destination);
     }
 
     private void simulation() {

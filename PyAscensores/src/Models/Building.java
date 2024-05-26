@@ -74,9 +74,8 @@ public class Building implements IModel {
         this.controlPanel = controlPanel;
     }
 
-    public void addPersonInElevator(int elevatorId, int timeOnFloor, int currentFloor, int destination) {
-        this.elevators.get(elevatorId).createPersonInside(counters.getPersonCounter(), timeOnFloor, currentFloor,
-                destination);
+    public void addPersonInElevator(int elevatorId, Person person) {
+        this.elevators.get(elevatorId).addPeopleInside(person);
         counters.incrementPersonCounter();
     }
 
@@ -86,8 +85,8 @@ public class Building implements IModel {
         counters.incrementPersonCounter();
     }
 
-    public void addPersonOnFloor(int floorId, int timeOnFloor, int currentFloor, int destination) {
-        this.floors.get(floorId)
+    public void addPersonOnFloor(int timeOnFloor, int currentFloor, int destination) {
+        this.floors.get(currentFloor)
                 .addPersonOnFloor(new Person(counters.getPersonCounter(), timeOnFloor, currentFloor, destination));
         counters.incrementPersonCounter();
     }

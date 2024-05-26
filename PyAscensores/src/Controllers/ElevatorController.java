@@ -33,8 +33,8 @@ public class ElevatorController {
     }
 
     private void updatePeople() {
-        for (int i = 0; i < building.getElevators().size(); i++) {
-            Elevator elevator = building.getElevators().get(i);
+        for (int i = 0; i < this.building.getElevators().size(); i++) {
+            Elevator elevator = this.building.getElevators().get(i);
             if (elevator.getDirection() == Direction.STOP) {
                 elevator = updateElevatorPeople(elevator);
             }
@@ -55,10 +55,12 @@ public class ElevatorController {
     private void processWaitingPeople(Elevator elevator, Floor floor) {
         for (int i = 0; i < floor.getWaitingPeople().size(); i++) {
             Person personOnFloor = floor.getWaitingPeople().get(i);
-            if (elevatorHasSpace(elevator)) {
-                movePersonToElevator(elevator, floor, personOnFloor);
+
+            if (!elevator.isFull()) {
+                this.movePersonToElevator(elevator, floor, personOnFloor);
             } else {
-                this.requestElevator(personOnFloor);
+                ElevatorRequest request = this.getRequestElevator(floor, personOnFloor);
+                this.building.getControlPanel().addElevatorRequest(request);
             }
         }
     }
@@ -67,32 +69,29 @@ public class ElevatorController {
         for (int i = 0; i < elevator.getPeopleInside().size(); i++) {
             Person personInElevator = elevator.getPeopleInside().get(i);
             if (personInElevator.getDestination() == elevator.getCurrentFloor()) {
-                removePersonFromElevator(elevator, floor, personInElevator);
+                this.removePersonFromElevator(elevator, floor, personInElevator);
             }
         }
     }
 
-    private boolean elevatorHasSpace(Elevator elevator) {
-        return elevator.getCapacity() > elevator.getPeopleInside().size();
-    }
-
     private void movePersonToElevator(Elevator elevator, Floor floor, Person person) {
-        floor.removeWaitingPerson(person.getId());
-        elevator.addPeopleInside(person);
-        ControlPanel controlPanel = this.building.getControlPanel();
         FloorRequest floorRequest = new FloorRequest(person.getDestination(), elevator.getId());
 
-        controlPanel.addFloorRequest(floorRequest);
+        this.building.getFloors().get(floor.getId()).removeWaitingPerson(person);
+        this.building.addPersonInElevator(elevator.getId(), person);
+        this.removeElevatorRequest(person, floor);
+        this.building.getControlPanel().addFloorRequest(floorRequest);
+    }
 
-        this.building.updateControlPanel(controlPanel);
-        this.building.updateFloor(floor);
-        this.building.updateElevator(elevator);
+    private void removeElevatorRequest(Person person, Floor floor) {
+        ElevatorRequest elevatorRequest = this.getRequestElevator(floor, person);
+        this.building.getControlPanel().removeElevatorRequest(elevatorRequest);
     }
 
     private void removePersonFromElevator(Elevator elevator, Floor floor, Person person) {
         elevator.removePeopleInside(person.getId());
         person.setDestination(initialValues.getRandomFloor(elevator.getCurrentFloor()));
-        person.setTimeOnFloor(initialValues.getRandomTimeOnFloor(0, 100));
+        person.setTimeOnFloor(initialValues.getRandomTimeOnFloor(0, 10));
         floor.addPersonOnFloor(person);
 
         this.building.updateElevator(elevator);
@@ -108,21 +107,26 @@ public class ElevatorController {
             } else if (elevator.getDirection().equals(Direction.UP)) {
                 elevator.setCurrentFloor(elevator.getCurrentFloor() + 1);
                 this.building.updateElevator(elevator);
-            } else if (elevator.getDirection().equals(Direction.STOP)) {
-                elevator.setCurrentFloor(elevator.getCurrentFloor());
-                this.building.updateElevator(elevator);
             }
         }
     }
 
-    private void requestElevator(Person person) {
-        Direction direction = determineDirection(person.getCurrentFloor(), person.getDestination());
-        ElevatorRequest elevatorRequest = new ElevatorRequest(person.getCurrentFloor(), direction);
-        building.getControlPanel().addElevatorRequest(elevatorRequest);
+    private ElevatorRequest getRequestElevator(Floor floor, Person person) {
+        Direction direction = determineDirection(floor.getId(), person.getDestination());
+        return new ElevatorRequest(floor.getId(), direction);
     }
 
     private Direction determineDirection(int currentFloor, int destination) {
         return currentFloor < destination ? Direction.UP : Direction.DOWN;
+    }
+
+    private boolean isElevatorInFloor(Elevator elevator) {
+        for (int i = 0; i < elevator.getFloorsToGoList().size(); i++) {
+            if (elevator.getCurrentFloor() == elevator.getFloorsToGoList().get(i)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

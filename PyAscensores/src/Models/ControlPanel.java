@@ -1,27 +1,29 @@
 package Models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import Lists.ElevatorRequestList;
+import Lists.FloorRequestList;
+
 public class ControlPanel implements IModel {
     private int id;
-    private Set<ElevatorRequest> elevatorRequests;
-    private Set<FloorRequest> floorRequests;
-    private Set<Integer> elevators;
+    private ElevatorRequestList elevatorRequests;
+    private FloorRequestList floorRequests;
 
     public ControlPanel(int id) {
         this.id = id;
-        elevatorRequests = new HashSet<ElevatorRequest>();
-        floorRequests = new HashSet<FloorRequest>();
-        elevators = new HashSet<Integer>();
+        elevatorRequests = new ElevatorRequestList();
+        floorRequests = new FloorRequestList();
     }
 
     public int getId() {
         return this.id;
     }
 
-    public Set<ElevatorRequest> getElevatorRequests() {
-        return this.elevatorRequests;
+    public ArrayList<ElevatorRequest> getElevatorRequests() {
+        return this.elevatorRequests.index();
     }
 
     public void addElevatorRequest(ElevatorRequest elevatorRequest) {
@@ -32,8 +34,8 @@ public class ControlPanel implements IModel {
         this.elevatorRequests.remove(elevatorRequest);
     }
 
-    public Set<FloorRequest> getFloorRequests() {
-        return this.floorRequests;
+    public ArrayList<FloorRequest> getFloorRequests() {
+        return this.floorRequests.index();
     }
 
     public void addFloorRequest(FloorRequest floorRequest) {
@@ -42,18 +44,6 @@ public class ControlPanel implements IModel {
 
     public void removeFloorRequest(FloorRequest floorRequest) {
         this.floorRequests.remove(floorRequest);
-    }
-
-    public Set<Integer> getElevators() {
-        return this.elevators;
-    }
-
-    public void addElevator(int elevator) {
-        this.elevators.add(elevator);
-    }
-
-    public void removeElevator(int elevator) {
-        this.elevators.remove(elevator);
     }
 
     public boolean hasElevatorRequests() {
