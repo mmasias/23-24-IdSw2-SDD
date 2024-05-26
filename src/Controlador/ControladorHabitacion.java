@@ -3,6 +3,7 @@ package Controlador;
 import Modelo.Aspiradora;
 import Modelo.Bateria;
 import Modelo.Dimension;
+import Modelo.FabricarElementos;
 import Modelo.Gato;
 import Modelo.Habitacion;
 import Vista.VistaHabitacion;
@@ -14,7 +15,7 @@ public class ControladorHabitacion {
     private Bateria bateria;
 
     public ControladorHabitacion(int largo, int ancho, int capacidadBasura) {
-        this.habitacion = new Habitacion(new Dimension(largo, ancho));
+        this.habitacion = FabricarElementos.crearHabitacion(new Dimension(largo, ancho));
         this.gato = new Gato(0, 0);
         this.bateria = new Bateria();
         this.aspiradora = new Aspiradora(bateria, capacidadBasura);
