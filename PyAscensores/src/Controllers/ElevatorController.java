@@ -26,6 +26,7 @@ public class ElevatorController {
 
             if (!floorsToGo.isEmpty() && floorsToGo.get(0) == currentFloor) {
                 elevator.setDirection(Direction.STOP);
+                elevator.getFloorsToGoList().delete(elevator.getCurrentFloor());
                 this.building.updateElevator(elevator);
             }
         }
