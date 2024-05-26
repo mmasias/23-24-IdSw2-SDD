@@ -13,12 +13,29 @@ public class WorldView {
     }
 
     public void displayWorld(World world) {
+        adjustVisionRadius(world.getTime());
         displayTime(world.getTime());
         displayIntoConsole(world.getMap(), world.getEntities());
     }
 
     public void displayTime(Time time) {
-        System.out.println("Hora actual: " + time.getPreciseTimeFormatted() + " - " + time.getImpreciseTime());
+        System.out.println("Hora actual: " + time.getPreciseTimeFormatted() + " - " + time.getImpreciseTime() + " es el momento:: " + time.getImpreciseTime());
+    }
+    private void adjustVisionRadius(Time time) {
+        switch (time.getImpreciseTime()){
+            case Morning:
+                setVisionRadius(8);
+                break;
+            case Afternoon:
+                setVisionRadius(10);
+                break;
+            case Evening:
+                setVisionRadius(5);
+                break;
+            case Night:
+                setVisionRadius(3);
+                break;
+        }
     }
 
     private String[][] displayMap(Map map, List<Entity> entities) {
