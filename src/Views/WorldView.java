@@ -22,28 +22,41 @@ public class WorldView {
     }
 
     private String[][] displayMap(Map map, List<Entity> entities) {
-        String[][] displayMatrix = new String[map.getHeight()][map.getWidth()];
-
+        // Obtener la posición del jugador (asumimos que el jugador es la primera
+        // entidad)
         Point playerPosition = entities.get(0).getPosition();
         int playerX = playerPosition.getX();
         int playerY = playerPosition.getY();
 
-        for (int i = 0; i < map.getHeight(); i++) {
-            for (int j = 0; j < map.getWidth(); j++) {
-                if (Math.abs(i - playerY) <= visionRadius && Math.abs(j - playerX) <= visionRadius) {
-                    Tile readTile = map.getTile(new Point(i, j));
-                    displayMatrix[i][j] = readTile.getAsciiColor() + readTile.getAsciiSymbol() + "\u001B[0m";
-                } else {
-                    displayMatrix[i][j] = " ";
-                }
+        // Calcular el tamaño del área de visualización basado en el radio de visión
+        int size = visionRadius * 2 + 1;
+        String[][] displayMatrix = new String[size][size];
+
+        // Inicializar la matriz con espacios en blanco
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                displayMatrix[i][j] = " ";
             }
         }
 
+        // Llenar la matriz solo con los tiles dentro del radio de visión
+        for (int i = -visionRadius; i <= visionRadius; i++) {
+            for (int j = -visionRadius; j <= visionRadius; j++) {
+                int mapX = (playerX + j + map.getWidth()) % map.getWidth();
+                int mapY = (playerY + i + map.getHeight()) % map.getHeight();
+                Tile readTile = map.getTile(new Point(mapY, mapX));
+                displayMatrix[i + visionRadius][j + visionRadius] = readTile.getAsciiColor() + readTile.getAsciiSymbol()
+                        + "\u001B[0m";
+            }
+        }
+
+        // Colocar las entidades dentro del rango de visión
         for (Entity entity : entities) {
             Point position = entity.getPosition();
-            int x = position.getX();
-            int y = position.getY();
-            if (Math.abs(y - playerY) <= visionRadius && Math.abs(x - playerX) <= visionRadius) {
+            int x = (position.getX() - playerX + visionRadius + map.getWidth()) % map.getWidth();
+            int y = (position.getY() - playerY + visionRadius + map.getHeight()) % map.getHeight();
+            if (Math.abs(position.getY() - playerY) <= visionRadius
+                    && Math.abs(position.getX() - playerX) <= visionRadius) {
                 Transport entityTransport = entity.getTransportInUse();
                 Character entityCharacter = (Character) entity;
                 CharacterType characterType = entityCharacter.getCharacterType();
