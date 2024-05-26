@@ -1,94 +1,176 @@
 @startuml
 
 title Modelo de clases Aspiradora
-
-class Habitacion { 
--Azulejo [][] superficie
--boolean [][] muebles
--int ancho
--int largo 
-+Habitacion(int ancho, int largo)
-+void imprimir(Aspiradora aspiradora,Gato gato)
-+void imprimirBordeHorizontal()
-+boolean generarMuebles(boolean[][] muebles)	
-+Azulejo[][] generarSuperficie(int ancho, int largo, int porcentajeSuciedad)
+package "Controlador"  {	
+   class ControladorAspiradora{
+    -Aspiradora aspiradora
+    +ControladorAspiradora(Aspiradora aspiradora)
+    #void realizarAccion(Habitacion habitacion,int nuevaX, int nuevaY)
+    #void Posicion getPosicion()
+    -void limpiarCasilla(Habitacion habitacion,Posicion posicion)
+   }
+   class ControladorGato{
+    -Gato gato
+    +controladorGato(Gato gato)
+    #void realizarAccion(Habitacion habitacion,int nuevaX, int nuevaY)
+    #void Posicion getPosicion()
+    -void ensuciarCasilla(Habitacion habitacion)
+   }
+   class ControladorHabitacion{
+    -Habitacion habitacion
+    -Gato gato
+    -Aspiradora aspiradora
+    -Bateria bateria
+    +controladorHabitacion(int largo,int ancho,int capacidadBasura)
+    +void start()
+   }
+   abstract class Movible{
+    +void mover(Habitacion habitacion)
+    #void realizarAccion(Habitacion habitacion,int nuevaX, int nuevaY)
+    #void Posicion getPosicion()
+   }
 }
+package "Modelo"  {	
+    class Aspiradora {
+    -int pasosRealizados
+    -int limpiezaRealizada
+    -CapacidadBasura capacidadBasura
+    -Bateria bateria
+    -Posicion posicion
+    +Aspiradora()
+    +getPosicion()
+    +getPasosRealizados()
+    +getLimpiezaRealizada()
+    +getCapacidadBasura()
+    +getBateria()
+    +void setPosicion(Posicion posicion)
+    +void setPasosRealizados(int pasosRealizados)
+    +void setLimpiezaRealizada(int limpiezaRealizada)
+    +void setCapacidadBasura(CapacidadBasura capacidadBasura)
+    +void setBateria(Bateria bateria)
+    }
+    class Azulejo {
+    -int nivelSuciedad
+    +Azulejo(int nivelSuciedad)
+    +int getNivelSuciedad()
+    +void setNivelSuciedad(int nivelSuciedad)
+    }
+    class Bateria {
+    -int nivelBateria
+    +Bateria()
+    +void descargar()
+    +void recargar()
+    +int getNivelBateria()
+    +boolean estaDescargada()
+    }
+    class CapacidadBasura {
+    -int nivelBasura
+    -int maximoNivelBasura
+    +CapacidadBasura(int maximoNivelBasura)
+    +void incrementar()
+    +void vaciar()
+    +boolean estaLlena()
+    +int getNivelBasura()
+    +int getMaximoNivelBasura()
+    }
+    class Dimension {
+    -int largo 
+    -int ancho
+    +Dimension(int largo, int ancho)
+    +int getLargo()
+    +int getAncho()
+    }
+    class Gato {
+    -Posicion posicion
+    +Gato(int x, int y)
+    +Posicion getPosicion()
+    }
+    class Habitacion {
+    +Azulejo[][] superficie
+    +boolean[][] muebles
+    +Dimension dimension
+    +Posicion estacionRecarga
+    +Habitacion(Dimension dimension)
+    +Azulejo[][] getSuperficie()
+    +boolean[][] getMuebles()
+    +Dimension getDimension()
+    -boolean [][] generarMuebles(boolean[][] muebles)
+    -Azulejo[][] generarSuperficie(int ancho, int largo, int porcentajeSuciedad)
+    }
+    class Posicion {
+    -int x
+    -int y
+    +Posicion(int x, int y)
+    +int getX()
+    +int getY()
+    +void setPosicion(int x, int y)
+    +void setX(int x)
+    +void setY(int y)
+    }
 
-Class Azulejo {  
--int nivelSuciedad
--Posicion posicion
--boolean tieneMueble
-+Azulejo(int nivelSuciedad)}
-+int getNivelSuciedad()
-+void setNivelSuciedad(int nivelSuciedad)
 }
-
-class Aspiradora { 
--int pasosRealizados
--int limpiezaRealizada
--CapacidadBasura capacidadBasura
--Bateria bateria
--Posicion posicion
-+Aspiradora()
-+getPosicion()
-+void mover(Habitacion habitacion)
-+void limpiarCasilla(Habitacion habitacion, int x, int y)
+package "Vista"  {	
+   class Consola{
+    -Scanner scanner
+    +Consola()
+    +int obtenerLargo()
+    +int obtenerAncho()
+    +int obtenerCapacidadBasura()
+    +void cerrarScanner()
+   }
+   class Utils{
+    +int obtenerEnteroValido(Scanner scanner)
+    +enum Elementos
+    -String simbolo 
+    -int valor 
+    -Map<Integer,Elementos>
+    +Elementos (String simbolo, int valor)
+    +String obtenerSimbolo()
+    +int obtenerValor()
+    +String obtenerSimboloPorValor(int valor)
 }
+    class VistaAspiradora{
+    +void bolsaDeBasuraLlena()
+    +void bolsaaDeBasuraVaciada()
+    +void nivelDeBateria(int nivel)
+    +void bateriaAgotada()
+    +void limpiarCasilla()
+    }
+    class VistaGato{
+    +void ensuciarCasilla(int x, int y,int nivelSuciedad)
+    }
+    class VistaHabitacion{
+    -Habitacion habitacion
+    +VistaHabitacion(Habitacion habitacion)
+    +void imprimir(Posicion posicionAspiradora, Posicion posicionGato)
+    +void imprimirBorderHorizontal()
+    }
 
-class Elementos  { 
--String value
-+Elements(String value)
-+String getElement()
-+void setElement(String elemento)
 }
-
-class Gato { 
--Posicion posicion
--int pasosRealizados
-+Gato(int x, int y)
-+Posicion getPosicion()
-+void mover(Habitacion habitacion)
+class Main {
+    +void main(String[] args)
 }
-
-class Posicion { 
--int x
--int y
-+Posicion(int x, int y)
-+int getX()
-+int getY()
-+void setPosicion(int x, int y)
-+void setX(int x)
-+void setY(int y)
-}
-
-class Bateria { 
--int nivelBateria
-+void descarga()
-+void carga()
-+int getNivelBateria()
-+int setNivelBateria()
-}	
-class CapacidadDeBasura { 
--int nivelBasura
--int maximoNivelBasura
-+CapacidadBasura(int maximoNivelBasura)
-+void rellenarBolsa()
-+void vaciarBolsa()
-+int getNivelBasura()
-}	
-
-
-
+Main --> ControladorHabitacion
 Habitacion *-- Azulejo
 Habitacion o-- Aspiradora
 Habitacion o-- Gato
+Habitacion o-- Dimension
 Gato--Posicion
-Azulejo o--Elementos 
 Azulejo -- Gato
 Azulejo --> Posicion
 Aspiradora -- Posicion
 Aspiradora o-- Bateria
-Aspiradora --> CapacidadDeBasura
+Aspiradora --> CapacidadBasura
+ControladorAspiradora --> Aspiradora
+ControladorGato --> Gato
+ControladorHabitacion --> Habitacion
+Movible <|-- ControladorAspiradora
+Movible <|-- ControladorGato
+ControladorHabitacion --> VistaHabitacion
+ControladorAspiradora --> VistaAspiradora
+ControladorGato --> VistaGato
+Consola --> Utils
+VistaHabitacion --> Utils
 
 
 @enduml
