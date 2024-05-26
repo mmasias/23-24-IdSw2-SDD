@@ -56,7 +56,7 @@ public class Simulation {
         int amountPeople = this.initialValues.getAmountPeople(2, 10);
 
         for (int i = 0; i <= amountPeople; i++) {
-            int timeOnFloor = this.initialValues.getRandomTimeOnFloor(0, 8);
+            int timeOnFloor = this.initialValues.getRandomTimeOnFloor(10, 40);
             int currentFloor = this.initialValues.getRandomFloor();
             int destination = this.initialValues.getRandomFloor(currentFloor);
 

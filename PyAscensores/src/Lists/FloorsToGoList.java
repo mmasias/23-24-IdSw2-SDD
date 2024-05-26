@@ -11,11 +11,11 @@ public class FloorsToGoList {
         this.floorsToGo = new ArrayList<Integer>();
     }
 
-    public void add(int floor, Direction direction) {
+    public void add(int floor, Direction direction, int currentFloor) {
         if (this.floorsToGo.isEmpty()) {
             this.floorsToGo.add(floor);
         } else if (!this.floorsToGo.contains(floor)) {
-            this.sortRequests(floor, direction);
+            this.sortRequests(floor, direction, currentFloor);
         }
 
     }
@@ -39,6 +39,7 @@ public class FloorsToGoList {
     public void clear() {
         this.floorsToGo.clear();
     }
+
     private String printList(ArrayList<Integer> floorsToGoList) {
         String list = "";
         for (int i = 0; i < floorsToGoList.size(); i++) {
@@ -46,13 +47,15 @@ public class FloorsToGoList {
         }
         return list;
     }
-    private void sortRequests(int floor, Direction direction) {
+
+    private void sortRequests(int floor, Direction direction, int currentFloor) {
         System.out.println("1Sort request: " + floor + " " + direction + " " + printList(this.floorsToGo) + "");
         if (direction == Direction.UP) {
             for (int i = 0; i < this.floorsToGo.size(); i++) {
-                if (this.floorsToGo.get(i) > floor) {
+                if ((this.floorsToGo.get(i) > floor) && (currentFloor < floor)) {
                     this.floorsToGo.add(i, floor);
-                    System.out.println("2Sort request: " + floor + " " + direction + " " + printList(this.floorsToGo) + "");
+                    System.out.println(
+                            "2Sort request: " + floor + " " + direction + " " + printList(this.floorsToGo) + "");
                     return;
                 }
             }
@@ -60,9 +63,10 @@ public class FloorsToGoList {
             System.out.println("2fSort request: " + floor + " " + direction + " " + printList(this.floorsToGo) + "");
         } else if (direction == Direction.DOWN) {
             for (int i = 0; i < this.floorsToGo.size(); i++) {
-                if (this.floorsToGo.get(i) < floor) {
+                if ((this.floorsToGo.get(i) < floor) && (currentFloor > floor)) {
                     this.floorsToGo.add(i, floor);
-                    System.out.println("3Sort request: " + floor + " " + direction + " " + printList(this.floorsToGo) + "");
+                    System.out.println(
+                            "3Sort request: " + floor + " " + direction + " " + printList(this.floorsToGo) + "");
                     return;
                 }
             }

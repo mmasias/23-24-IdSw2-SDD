@@ -13,8 +13,8 @@ public class ControlPanelController {
     public Building update(Building building) {
         this.building = building;
 
-        this.updateElevatorRequests();
         this.updateFloorRequests();
+        this.updateElevatorRequests();
         this.updateElevatorDirections();
         printElvatorsStatus();
 
@@ -96,7 +96,8 @@ public class ControlPanelController {
         int elevatorId = floorRequest.getElevatorId();
         Direction direction = getDirection(floorRequest.getDestination(), elevatorId);
         if (direction != Direction.STOP) {
-            building.getElevators().get(elevatorId).getFloorsToGoList().add(destination, direction);
+            int currentFloor = this.building.getElevators().get(elevatorId).getCurrentFloor();
+            this.building.getElevators().get(elevatorId).getFloorsToGoList().add(destination, direction, currentFloor);
         }
     }
 
@@ -130,7 +131,8 @@ public class ControlPanelController {
         int origin = elevatorRequest.getOrigin();
         int elevatorId = findClosestElevator(direction, origin);
         if (elevatorId != -1) {
-            building.getElevators().get(elevatorId).getFloorsToGoList().add(origin, direction);
+            int currentFloor = this.building.getElevators().get(elevatorId).getCurrentFloor();
+            building.getElevators().get(elevatorId).getFloorsToGoList().add(origin, direction, currentFloor);
             return true;
         }
         return false;
@@ -140,7 +142,9 @@ public class ControlPanelController {
         int closestElevatorId = -1;
         int minDistance = Integer.MAX_VALUE;
         List<Elevator> elevators = building.getElevators();
-        closestElevatorId = isSomeoneAvailable(building.getElevators(), direction, origin);
+        if (isSomeoneAvailable(building.getElevators(), direction, origin) != -1) {
+            return isSomeoneAvailable(building.getElevators(), direction, origin);
+        }
         if (closestElevatorId == -1) {
             for (int i = 0; i < elevators.size(); i++) {
                 Elevator elevator = elevators.get(i);
