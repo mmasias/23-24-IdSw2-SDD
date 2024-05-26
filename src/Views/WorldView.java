@@ -19,7 +19,7 @@ public class WorldView {
     }
 
     public void displayTime(Time time) {
-        System.out.println("Hora actual: " + time.getPreciseTimeFormatted() + " - " + time.getImpreciseTime() + " es el momento:: " + time.getImpreciseTime());
+        System.out.println("Hora actual: " + time.getPreciseTimeFormatted() + " - " + time.getImpreciseTime());
     }
     private void adjustVisionRadius(Time time) {
         switch (time.getImpreciseTime()){
