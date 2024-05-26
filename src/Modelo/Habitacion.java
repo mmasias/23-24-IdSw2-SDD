@@ -11,7 +11,7 @@ public class Habitacion {
         this.dimension = dimension;
         this.superficie = new Azulejo[dimension.getAncho()][dimension.getLargo()];
         this.muebles = new boolean[dimension.getAncho()][dimension.getLargo()];
-        this.estacionRecarga = new Posicion(10, 10); 
+        this.estacionRecarga = new Posicion(10, 10);
 
         Random rand = new Random();
         this.superficie = generarSuperficie(dimension.getAncho(), dimension.getLargo(), rand.nextInt(20) + 20);

@@ -1,13 +1,11 @@
 package Controlador;
 
-import java.util.Random;
-
 import Modelo.Aspiradora;
 import Modelo.Habitacion;
 import Modelo.Posicion;
 import Vista.VistaAspiradora;
 
-public class ControladorAspiradora {
+public class ControladorAspiradora extends Movible{
 
     private Aspiradora aspiradora;
 
@@ -15,40 +13,34 @@ public class ControladorAspiradora {
         this.aspiradora = aspiradora;
     }
 
-    public void mover(Habitacion habitacion) {
-        Random random = new Random();
-
-        int dx = random.nextInt(3) - 1;
-        int dy = random.nextInt(3) - 1;
-
-        int nuevaX = aspiradora.getPosicion().getX() + dx;
-        int nuevaY = aspiradora.getPosicion().getY() + dy;
-
-        if (nuevaX >= 0 && nuevaX < habitacion.getDimension().getAncho() &&
-                nuevaY >= 0 && nuevaY < habitacion.getDimension().getLargo()) {
+    @Override
+    protected void realizarAccion(Habitacion habitacion, int nuevaX, int nuevaY) {
+        if (!habitacion.getMuebles()[nuevaX][nuevaY] && !aspiradora.getBateria().estaDescargada()) {
+            aspiradora.getPosicion().setX(nuevaX);
+            aspiradora.getPosicion().setY(nuevaY);
             
-            if (!habitacion.getMuebles()[nuevaX][nuevaY] && !aspiradora.getBateria().estaDescargada()) {
-                aspiradora.getPosicion().setX(nuevaX);
-                aspiradora.getPosicion().setY(nuevaY);
-                
-                limpiarCasilla(habitacion, aspiradora.getPosicion());
-                aspiradora.getBateria().descargar();
-                aspiradora.getCapacidadBasura().incrementar();
-                
-                if (aspiradora.getCapacidadBasura().estaLlena()) {
-                    VistaAspiradora.bolsaDeBasuraLlena();
-                    aspiradora.getCapacidadBasura().vaciar();
-                    VistaAspiradora.bolsaDeBasuraVaciada();
-                }
-
-                VistaAspiradora.nivelDeBateria(aspiradora.getBateria().getNivelBateria());
-                aspiradora.setPasosRealizados(aspiradora.getPasosRealizados() + 1);
-
-            } else if (aspiradora.getBateria().estaDescargada()){
-                VistaAspiradora.bateriaAgotada();
-                aspiradora.getBateria().recargar();
+            limpiarCasilla(habitacion, aspiradora.getPosicion());
+            aspiradora.getBateria().descargar();
+            aspiradora.getCapacidadBasura().incrementar();
+            
+            if (aspiradora.getCapacidadBasura().estaLlena()) {
+                VistaAspiradora.bolsaDeBasuraLlena();
+                aspiradora.getCapacidadBasura().vaciar();
+                VistaAspiradora.bolsaDeBasuraVaciada();
             }
+
+            VistaAspiradora.nivelDeBateria(aspiradora.getBateria().getNivelBateria());
+            aspiradora.setPasosRealizados(aspiradora.getPasosRealizados() + 1);
+
+        } else if (aspiradora.getBateria().estaDescargada()){
+            VistaAspiradora.bateriaAgotada();
+            aspiradora.getBateria().recargar();
         }
+    }
+
+    @Override
+    protected Posicion getPosicion() {
+        return aspiradora.getPosicion();
     }
 
     private void limpiarCasilla(Habitacion habitacion, Posicion posicion) {
