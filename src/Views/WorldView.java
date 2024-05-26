@@ -22,24 +22,20 @@ public class WorldView {
     }
 
     private String[][] displayMap(Map map, List<Entity> entities) {
-        // Obtener la posición del jugador (asumimos que el jugador es la primera
-        // entidad)
+
         Point playerPosition = entities.get(0).getPosition();
         int playerX = playerPosition.getX();
         int playerY = playerPosition.getY();
 
-        // Calcular el tamaño del área de visualización basado en el radio de visión
         int size = visionRadius * 2 + 1;
         String[][] displayMatrix = new String[size][size];
 
-        // Inicializar la matriz con espacios en blanco
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 displayMatrix[i][j] = " ";
             }
         }
 
-        // Llenar la matriz solo con los tiles dentro del radio de visión
         for (int i = -visionRadius; i <= visionRadius; i++) {
             for (int j = -visionRadius; j <= visionRadius; j++) {
                 int mapX = (playerX + j + map.getWidth()) % map.getWidth();
@@ -50,7 +46,6 @@ public class WorldView {
             }
         }
 
-        // Colocar las entidades dentro del rango de visión
         for (Entity entity : entities) {
             Point position = entity.getPosition();
             int x = (position.getX() - playerX + visionRadius + map.getWidth()) % map.getWidth();
