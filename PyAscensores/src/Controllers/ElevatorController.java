@@ -90,7 +90,7 @@ public class ElevatorController {
 
     private void removePersonFromElevator(Elevator elevator, Floor floor, Person person) {
         elevator.removePeopleInside(person.getId());
-        person.setDestination(initialValues.getRandomFloor());
+        person.setDestination(initialValues.getRandomFloor(elevator.getCurrentFloor()));
         person.setTimeOnFloor(initialValues.getRandomTimeOnFloor(0, 100));
         floor.addPersonOnFloor(person);
 

@@ -79,4 +79,12 @@ public class InitialValues {
         return this.randomInt(0, this.amountFloors - 1);
     }
 
+    public int getRandomFloor(int excludedFloor) {
+        int floor;
+        do {
+            floor = this.randomInt(0, this.amountFloors - 1);
+        } while (floor == excludedFloor);
+        return floor;
+    }
+
 }

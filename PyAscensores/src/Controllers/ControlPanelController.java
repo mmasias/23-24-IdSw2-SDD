@@ -30,16 +30,20 @@ public class ControlPanelController {
 
                 this.building.updateElevator(elevator);
             } else if (!elevator.getFloorsToGoList().isEmpty()) {
-                if (elevator.getCurrentFloor() < elevator.getFloorsToGoList().get(0)) {
-                    elevator.setDirection(Direction.UP);
-
-                    this.building.updateElevator(elevator);
-                } else if (elevator.getCurrentFloor() > elevator.getFloorsToGoList().get(0)) {
-                    elevator.setDirection(Direction.DOWN);
-
-                    this.building.updateElevator(elevator);
-                }
+                this.setDirection(elevator);
             }
+        }
+    }
+
+    private void setDirection(Elevator elevator) {
+        if (elevator.getCurrentFloor() < elevator.getFloorsToGoList().get(0)) {
+            elevator.setDirection(Direction.UP);
+
+            this.building.updateElevator(elevator);
+        } else if (elevator.getCurrentFloor() > elevator.getFloorsToGoList().get(0)) {
+            elevator.setDirection(Direction.DOWN);
+
+            this.building.updateElevator(elevator);
         }
     }
 
