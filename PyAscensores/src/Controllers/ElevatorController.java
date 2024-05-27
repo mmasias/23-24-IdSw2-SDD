@@ -1,6 +1,11 @@
 package Controllers;
 
 import Models.*;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import Enums.Direction;
 import Lists.FloorsToGoList;
 
@@ -14,8 +19,29 @@ public class ElevatorController {
         this.checkElevatorRequests();
         this.updatePeople();
         this.updatePosition();
-
+        printElevatorPeople();
         return this.building;
+    }
+
+    private void printElevatorPeople() {
+        for (int i = 0; i < building.getElevators().size(); i++) {
+            Elevator elevator = building.getElevators().get(i);
+            System.out.println("Elevator " + elevator.getId() + " is in floor " + elevator.getCurrentFloor()
+                    + " and is going " + elevator.getDirection() + " with " + elevator.getPeopleInside().size()
+                    + " people inside" + " and has a capacity of " + elevator.getCapacity() + " people"
+                    + " and this people are " + printPeople(elevator.getPeopleInside()));
+
+        }
+    }
+
+    private String printPeople(ArrayList<Person> peopleInside) {
+        String people = "[";
+        for (int i = 0; i < peopleInside.size(); i++) {
+            Person person = peopleInside.get(i);
+            people+= ("Person " + person.getId() +", ");
+        }
+        people += "]";
+        return people;
     }
 
     private void checkElevatorRequests() {
@@ -36,33 +62,59 @@ public class ElevatorController {
         for (int i = 0; i < this.building.getElevators().size(); i++) {
             Elevator elevator = this.building.getElevators().get(i);
             if (elevator.getDirection() == Direction.STOP) {
-                elevator = updateElevatorPeople(elevator);
+                updateElevatorPeople(elevator);
             }
-            this.building.updateElevator(elevator);
         }
     }
-
-    private Elevator updateElevatorPeople(Elevator elevator) {
+    
+    private void updateElevatorPeople(Elevator elevator) {
         int currentFloorId = elevator.getCurrentFloor();
         Floor currentFloor = this.building.getFloors().get(currentFloorId);
-
+        
         this.processWaitingPeople(elevator, currentFloor);
         this.processPeopleInside(elevator, currentFloor);
-
-        return elevator;
+        
+        this.building.updateElevator(elevator);
     }
 
     private void processWaitingPeople(Elevator elevator, Floor floor) {
-        for (int i = 0; i < floor.getWaitingPeople().size(); i++) {
-            Person personOnFloor = floor.getWaitingPeople().get(i);
+        System.out.println("HAY "+floor.getWaitingPeople().size()+" personas en el piso "+floor.getId());
+        List<Person> waitingPeopleCopy = new ArrayList<>(floor.getWaitingPeople());
+        
+        for (int i = 0; i < waitingPeopleCopy.size(); i++) {
+            System.out.println("gen "+i);
+            Person personOnFloor = waitingPeopleCopy.get(i);
+            System.out.println("Elevator "+elevator.getId() +" GEnte: "+elevator.getPeopleInside().size());
 
-            if (!elevator.isFull()) {
+            if (elevator.getPeopleInside().size()<=6) {
+                System.out.println("Person " + personOnFloor.getId() + " is going to elevator " + elevator.getId() + " in floor " + floor.getId());
                 this.movePersonToElevator(elevator, floor, personOnFloor);
-            } else {
-                ElevatorRequest request = this.getRequestElevator(floor, personOnFloor);
-                this.building.getControlPanel().addElevatorRequest(request);
+
+            }
+            else {
+                ElevatorRequest equivalentRequest= getRequestElevator(floor, personOnFloor);
+                ElevatorRequest request= getElevatorRequest(equivalentRequest);
+                if(request != null) {
+                    request.setLinkedToElevator(false);
+                } else {
+
+                    ControlPanel controlPanel = this.building.getControlPanel();
+                    controlPanel.addElevatorRequest(equivalentRequest);
+                    this.building.updateControlPanel(controlPanel);
+                }
+            }
+           
+        }
+    }
+
+    private ElevatorRequest getElevatorRequest(ElevatorRequest elevatorRequest) {
+        ArrayList<ElevatorRequest> list= building.getControlPanel().getElevatorRequests();
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getDirection() == elevatorRequest.getDirection()&& list.get(i).getDirection() == elevatorRequest.getDirection()){
+                return list.get(i);
             }
         }
+        return null;
     }
 
     private void processPeopleInside(Elevator elevator, Floor floor) {
@@ -80,12 +132,16 @@ public class ElevatorController {
         this.building.getFloors().get(floor.getId()).removeWaitingPerson(person);
         this.building.addPersonInElevator(elevator.getId(), person);
         this.removeElevatorRequest(person, floor);
-        this.building.getControlPanel().addFloorRequest(floorRequest);
+        ControlPanel controlPanel = this.building.getControlPanel();
+        controlPanel.addFloorRequest(floorRequest);
+        this.building.updateControlPanel(controlPanel);
     }
 
     private void removeElevatorRequest(Person person, Floor floor) {
         ElevatorRequest elevatorRequest = this.getRequestElevator(floor, person);
-        this.building.getControlPanel().removeElevatorRequest(elevatorRequest);
+        ControlPanel controlPanel = this.building.getControlPanel();
+        controlPanel.removeElevatorRequest(elevatorRequest);
+        this.building.updateControlPanel(controlPanel);
     }
 
     private void removePersonFromElevator(Elevator elevator, Floor floor, Person person) {
