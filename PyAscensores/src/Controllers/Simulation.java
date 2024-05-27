@@ -8,21 +8,21 @@ import java.util.Scanner;
 
 public class Simulation {
     private BuildingController buildingController;
-    private InitialValues initialValues;
+    private Values initialValues;
     private Time time;
 
-    public Simulation(InitialValues values) {
+    public Simulation(Values values) {
         this.initialValues = values;
         this.time = new Time();
     }
 
-    public void start() {
+    public void start(boolean isTesting) {
         setInitialValues();
-        simulation();
+        simulation(isTesting);
     }
 
     private void setInitialValues() {
-        this.initialValues = new InitialValues(5, 3);
+        this.initialValues = new Values(5, 3);
         BuildingList buildingList = new BuildingList();
         buildingList.create(0);
 
@@ -56,7 +56,7 @@ public class Simulation {
         int amountPeople = this.initialValues.getAmountPeople(2, 10);
 
         for (int i = 0; i <= amountPeople; i++) {
-            int timeOnFloor = this.initialValues.getRandomTimeOnFloor(10, 40);
+            int timeOnFloor = this.initialValues.getRandomTimeOnFloor(0, 5);
             int currentFloor = this.initialValues.getRandomFloor();
             int destination = this.initialValues.getRandomFloor(currentFloor);
 
@@ -64,24 +64,24 @@ public class Simulation {
         }
     }
 
-    private void simulation() {
+    private void simulation(boolean isTesting) {
         Scanner scanner = new Scanner(System.in);
         String input = "";
 
-        new BuildingView(buildingController.index()).render();
+        new BuildingView(buildingController.index(), isTesting).render();
         input = scanner.nextLine();
 
         while (!input.equals("q")) {
             ArrayList<Building> buildings = time.tickFloors(buildingController);
-            new BuildingView(buildings).render();
+            new BuildingView(buildings, isTesting).render();
             input = scanner.nextLine();
 
             buildings = time.tickElevators(buildingController);
-            new BuildingView(buildings).render();
+            new BuildingView(buildings, isTesting).render();
             input = scanner.nextLine();
 
             buildings = time.tickControlPanels(buildingController);
-            new BuildingView(buildings).render();
+            new BuildingView(buildings, isTesting).render();
             input = scanner.nextLine();
         }
         scanner.close();

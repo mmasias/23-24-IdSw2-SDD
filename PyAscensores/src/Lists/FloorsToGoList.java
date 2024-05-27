@@ -40,39 +40,23 @@ public class FloorsToGoList {
         this.floorsToGo.clear();
     }
 
-    private String printList(ArrayList<Integer> floorsToGoList) {
-        String list = "";
-        for (int i = 0; i < floorsToGoList.size(); i++) {
-            list += floorsToGoList.get(i) + ", ";
-        }
-        return list;
-    }
-
     private void sortRequests(int floor, Direction direction, int currentFloor) {
-        System.out.println("1Sort request: " + floor + " " + direction + " " + printList(this.floorsToGo) + "");
         if (direction == Direction.UP) {
             for (int i = 0; i < this.floorsToGo.size(); i++) {
                 if ((this.floorsToGo.get(i) > floor) && (currentFloor < floor)) {
                     this.floorsToGo.add(i, floor);
-                    System.out.println(
-                            "2Sort request: " + floor + " " + direction + " " + printList(this.floorsToGo) + "");
                     return;
                 }
             }
             this.floorsToGo.add(floor);
-            System.out.println("2fSort request: " + floor + " " + direction + " " + printList(this.floorsToGo) + "");
         } else if (direction == Direction.DOWN) {
             for (int i = 0; i < this.floorsToGo.size(); i++) {
                 if ((this.floorsToGo.get(i) < floor) && (currentFloor > floor)) {
                     this.floorsToGo.add(i, floor);
-                    System.out.println(
-                            "3Sort request: " + floor + " " + direction + " " + printList(this.floorsToGo) + "");
                     return;
                 }
             }
             this.floorsToGo.add(floor);
-            System.out.println("3fSort request: " + floor + " " + direction + " " + printList(this.floorsToGo) + "");
-
         }
     }
 }
