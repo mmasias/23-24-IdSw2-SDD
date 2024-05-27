@@ -55,6 +55,21 @@ public class ElevatorRequestList {
             }
         }
     }
+    // public ElevatorRequest get(ElevatorRequest elevatorRequest) {
+    //     for (ElevatorRequest request : this.elevatorRequests) {
+    //         int requestOrigin = elevatorRequest.getOrigin();
+    //         Direction requestDirection = elevatorRequest.getDirection();
+
+    //         int currentOrigin = request.getOrigin();
+    //         Direction currentDirection = request.getDirection();
+
+    //         if (requestOrigin == currentOrigin && requestDirection == currentDirection) {
+    //             return request;
+    //         }
+    //     }
+        
+    //     return null; // Add this line to return a default value if no matching elevator request is found
+    // }
 
     public boolean isEmpty() {
         return this.elevatorRequests.isEmpty();

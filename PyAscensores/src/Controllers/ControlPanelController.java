@@ -116,13 +116,16 @@ public class ControlPanelController {
         ControlPanel controlPanel = this.building.getControlPanel();
         List<ElevatorRequest> elevatorRequests = new ArrayList<>(controlPanel.getElevatorRequests());
         for (int i = 0; i < elevatorRequests.size(); i++) {
-            System.out.println("Elevator request: " + elevatorRequests.get(i).getOrigin() + " "
-                    + elevatorRequests.get(i).getDirection());
-            ElevatorRequest elevatorRequest = elevatorRequests.get(i);
-            boolean canProcess = processElevatorRequest(elevatorRequest);
-            if (canProcess) {
-                controlPanel.removeElevatorRequest(elevatorRequest);
+            if (!elevatorRequests.get(i).isLinkedToElevator()) {
+                System.out.println("Elevator request: " + elevatorRequests.get(i).getOrigin() + " "
+                       + elevatorRequests.get(i).getDirection());
+                ElevatorRequest elevatorRequest = elevatorRequests.get(i);
+                boolean canProcess = processElevatorRequest(elevatorRequest);
+                if (canProcess) {
+                    elevatorRequest.setLinkedToElevator(true);                    
+                }
             }
+            
         }
     }
 
@@ -133,6 +136,7 @@ public class ControlPanelController {
         if (elevatorId != -1) {
             int currentFloor = this.building.getElevators().get(elevatorId).getCurrentFloor();
             building.getElevators().get(elevatorId).getFloorsToGoList().add(origin, direction, currentFloor);
+
             return true;
         }
         return false;
@@ -142,8 +146,8 @@ public class ControlPanelController {
         int closestElevatorId = -1;
         int minDistance = Integer.MAX_VALUE;
         List<Elevator> elevators = building.getElevators();
-        if (isSomeoneAvailable(building.getElevators(), direction, origin) != -1) {
-            return isSomeoneAvailable(building.getElevators(), direction, origin);
+        if (isSomeoneAvailable(building.getElevators(),  origin) != -1) {
+            return isSomeoneAvailable(building.getElevators(), origin);
         }
         if (closestElevatorId == -1) {
             for (int i = 0; i < elevators.size(); i++) {
@@ -158,7 +162,7 @@ public class ControlPanelController {
         return closestElevatorId;
     }
 
-    private int isSomeoneAvailable(ArrayList<Elevator> elevators, Direction direction, int destination) {
+    private int isSomeoneAvailable(ArrayList<Elevator> elevators, int destination) {
         int elevatorId = -1;
         int minDistance = Integer.MAX_VALUE;
         for (int i = 0; i < elevators.size(); i++) {
