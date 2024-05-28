@@ -66,7 +66,7 @@ public class ElevatorController {
             Person personOnFloor = waitingPeopleCopy.get(i);
             if (elevator.getPeopleInside().isEmpty()) {
                 this.movePersonToElevator(elevator, floor, personOnFloor);
-            } else if (elevator.getPeopleInside().size() <= 6) {
+            } else if (elevator.getPeopleInside().size() < elevator.getCapacity()) {
                 this.askPeopleInside(elevator, floor, personOnFloor);
             } else {
                 this.requestElevator(floor, personOnFloor);
