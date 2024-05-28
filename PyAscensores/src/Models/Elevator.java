@@ -37,6 +37,10 @@ public class Elevator implements IModel {
         this.capacity = capacity;
     }
 
+    public boolean isFull() {
+        return this.peopleInside.index().size() == this.capacity;
+    }
+
     public int getCurrentFloor() {
         return this.currentFloor;
     }
@@ -56,8 +60,17 @@ public class Elevator implements IModel {
     public boolean getAccess() {
         return this.access;
     }
+
     public FloorsToGoList getFloorsToGoList() {
         return this.floorsToGoList;
+    }
+
+    public void addFloorToGo(int floor, Direction direction, int currentFloor) {
+        this.floorsToGoList.add(floor, direction, currentFloor);
+    }
+
+    public void removeFloorToGo(int floor) {
+        this.floorsToGoList.delete(floor);
     }
 
     public void setAccess(boolean access) {
@@ -78,9 +91,5 @@ public class Elevator implements IModel {
 
     public void updatePeopleInside(int id, Person updatedPerson) {
         this.peopleInside.update(id, updatedPerson);
-    }
-
-    public void createPersonInside(int id, int timeOnFloor, int currentFloor, int destination) {
-        this.peopleInside.create(id, timeOnFloor, currentFloor, destination);
     }
 }

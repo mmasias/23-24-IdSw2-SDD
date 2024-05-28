@@ -8,21 +8,21 @@ import java.util.Scanner;
 
 public class Simulation {
     private BuildingController buildingController;
-    private InitialValues initialValues;
+    private Values initialValues;
     private Time time;
 
-    public Simulation(InitialValues values) {
+    public Simulation(Values values) {
         this.initialValues = values;
         this.time = new Time();
     }
 
-    public void start() {
+    public void start(boolean isTesting) {
         setInitialValues();
-        simulation();
+        simulation(isTesting);
     }
 
     private void setInitialValues() {
-        this.initialValues = new InitialValues(5, 3);
+        this.initialValues = new Values(5, 3);
         BuildingList buildingList = new BuildingList();
         buildingList.create(0);
 
@@ -47,49 +47,41 @@ public class Simulation {
         int amountFloors = this.initialValues.getAmountFloors();
         String label = this.initialValues.getLabel();
 
-        for (int i = 0; i <= amountFloors; i++) {
+        for (int i = 0; i < amountFloors; i++) {
             buildingList.get(0).addFloor(label + i);
         }
     }
 
     private void getInitialPeople(BuildingList buildingList) {
-        int amountPeople = this.initialValues.getAmountPeople();
+        int amountPeople = this.initialValues.getAmountPeople(2, 10);
 
         for (int i = 0; i <= amountPeople; i++) {
-            int timeOnFloor = this.initialValues.getRandomTimeOnFloor(0, 8);
+            int timeOnFloor = this.initialValues.getRandomTimeOnFloor(0, 5);
             int currentFloor = this.initialValues.getRandomFloor();
-            int destination = this.initialValues.getRandomFloor();
-            int position = this.initialValues.randomInt(1, 2);
+            int destination = this.initialValues.getRandomFloor(currentFloor);
 
-            if (position == 1) {
-                this.addPersonToRandomFloor(buildingList, timeOnFloor, currentFloor, destination);
-            } else if (position == 2) {
-                this.addWaitingPersonToRandomFloor(buildingList, timeOnFloor, currentFloor, destination);
-            }
+            buildingList.get(0).addPersonOnFloor(timeOnFloor, currentFloor, destination);
         }
     }
 
-    private void addPersonToRandomFloor(BuildingList buildingList, int timeOnFloor, int currentFloor, int destination) {
-        int floorId = this.initialValues.randomInt(0, buildingList.get(0).getFloors().size() - 1);
-        buildingList.get(0).addPersonOnFloor(floorId, timeOnFloor, currentFloor, destination);
-    }
-
-    private void addWaitingPersonToRandomFloor(BuildingList buildingList, int timeOnFloor, int currentFloor,
-            int destination) {
-        int floorId = this.initialValues.randomInt(0, buildingList.get(0).getFloors().size() - 1);
-        buildingList.get(0).addWaitingPersonOnFloor(floorId, timeOnFloor, currentFloor, destination);
-    }
-
-    private void simulation() {
+    private void simulation(boolean isTesting) {
         Scanner scanner = new Scanner(System.in);
         String input = "";
 
-        new BuildingView(buildingController.index()).render();
+        new BuildingView(buildingController.index(), isTesting).render();
         input = scanner.nextLine();
 
         while (!input.equals("q")) {
-            ArrayList<Building> buildings = time.tick(buildingController);
-            new BuildingView(buildings).render();
+            ArrayList<Building> buildings = time.tickFloors(buildingController);
+            new BuildingView(buildings, isTesting).render();
+            input = scanner.nextLine();
+
+            buildings = time.tickElevators(buildingController);
+            new BuildingView(buildings, isTesting).render();
+            input = scanner.nextLine();
+
+            buildings = time.tickControlPanels(buildingController);
+            new BuildingView(buildings, isTesting).render();
             input = scanner.nextLine();
         }
         scanner.close();

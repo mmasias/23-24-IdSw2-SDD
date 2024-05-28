@@ -9,30 +9,45 @@ import Models.*;
 public class ControlPanelController {
     Building building;
 
-    public void update(Building building) {
+    public Building update(Building building) {
         this.building = building;
-        updateElevatorDirections();
-        updateElevatorRequests(building.getControlPanel());
-        updateFloorRequests(building.getControlPanel());
+
+        this.updateFloorRequests();
+        this.updateElevatorRequests();
+        this.updateElevatorDirections();
+
+        return this.building;
     }
 
     private void updateElevatorDirections() {
-        List<Elevator> elevators = building.getElevators();
+        List<Elevator> elevators = this.building.getElevators();
         for (int i = 0; i < elevators.size(); i++) {
             Elevator elevator = elevators.get(i);
-            if (elevator.getFloorsToGoList().isEmpty() && elevator.getDirection() != Direction.STOP) {
+            int currentFloor = elevator.getCurrentFloor();
+            if (elevator.getDirection() != Direction.STOP && elevator.getFloorsToGoList().get(0) == currentFloor) {
                 elevator.setDirection(Direction.STOP);
+
+                this.building.updateElevator(elevator);
             } else if (!elevator.getFloorsToGoList().isEmpty()) {
-                if (elevator.getCurrentFloor() < elevator.getFloorsToGoList().get(0)) {
-                    elevator.setDirection(Direction.UP);
-                } else if (elevator.getCurrentFloor() > elevator.getFloorsToGoList().get(0)) {
-                    elevator.setDirection(Direction.DOWN);
-                }
+                this.setDirection(elevator);
             }
         }
     }
 
-    private void updateFloorRequests(ControlPanel controlPanel) {
+    private void setDirection(Elevator elevator) {
+        if (elevator.getCurrentFloor() < elevator.getFloorsToGoList().get(0)) {
+            elevator.setDirection(Direction.UP);
+
+            this.building.updateElevator(elevator);
+        } else if (elevator.getCurrentFloor() > elevator.getFloorsToGoList().get(0)) {
+            elevator.setDirection(Direction.DOWN);
+
+            this.building.updateElevator(elevator);
+        }
+    }
+
+    private void updateFloorRequests() {
+        ControlPanel controlPanel = this.building.getControlPanel();
         List<FloorRequest> floorRequests = new ArrayList<>(controlPanel.getFloorRequests());
         for (int i = 0; i < floorRequests.size(); i++) {
             FloorRequest floorRequest = floorRequests.get(i);
@@ -46,7 +61,8 @@ public class ControlPanelController {
         int elevatorId = floorRequest.getElevatorId();
         Direction direction = getDirection(floorRequest.getDestination(), elevatorId);
         if (direction != Direction.STOP) {
-            building.getElevators().get(elevatorId).getFloorsToGoList().add(destination, direction);
+            int currentFloor = this.building.getElevators().get(elevatorId).getCurrentFloor();
+            this.building.getElevators().get(elevatorId).getFloorsToGoList().add(destination, direction, currentFloor);
         }
     }
 
@@ -61,14 +77,18 @@ public class ControlPanelController {
         return direction;
     }
 
-    private void updateElevatorRequests(ControlPanel controlPanel) {
+    private void updateElevatorRequests() {
+        ControlPanel controlPanel = this.building.getControlPanel();
         List<ElevatorRequest> elevatorRequests = new ArrayList<>(controlPanel.getElevatorRequests());
         for (int i = 0; i < elevatorRequests.size(); i++) {
-            ElevatorRequest elevatorRequest = elevatorRequests.get(i);
-            boolean canProcess = processElevatorRequest(elevatorRequest);
-            if (canProcess) {
-                controlPanel.removeElevatorRequest(elevatorRequest);
+            if (!elevatorRequests.get(i).isLinkedToElevator()) {
+                ElevatorRequest elevatorRequest = elevatorRequests.get(i);
+                boolean canProcess = processElevatorRequest(elevatorRequest);
+                if (canProcess) {
+                    elevatorRequest.setLinkedToElevator(true);
+                }
             }
+
         }
     }
 
@@ -77,7 +97,9 @@ public class ControlPanelController {
         int origin = elevatorRequest.getOrigin();
         int elevatorId = findClosestElevator(direction, origin);
         if (elevatorId != -1) {
-            building.getElevators().get(elevatorId).getFloorsToGoList().add(elevatorId, direction);
+            int currentFloor = this.building.getElevators().get(elevatorId).getCurrentFloor();
+            building.getElevators().get(elevatorId).getFloorsToGoList().add(origin, direction, currentFloor);
+
             return true;
         }
         return false;
@@ -87,34 +109,35 @@ public class ControlPanelController {
         int closestElevatorId = -1;
         int minDistance = Integer.MAX_VALUE;
         List<Elevator> elevators = building.getElevators();
-        for (int i = 0; i < elevators.size(); i++) {
-            Elevator elevator = elevators.get(i);
-            int distance = Math.abs(elevator.getCurrentFloor() - origin);
-            if (distance < minDistance && elevator.getDirection() == direction) {
-                minDistance = distance;
-                closestElevatorId = elevator.getId();
-            }
+        if (isSomeoneAvailable(building.getElevators(), origin) != -1) {
+            return isSomeoneAvailable(building.getElevators(), origin);
         }
         if (closestElevatorId == -1) {
-            closestElevatorId = someoneStopped(building.getElevators(), direction, origin);
+            for (int i = 0; i < elevators.size(); i++) {
+                Elevator elevator = elevators.get(i);
+                int distance = Math.abs(elevator.getCurrentFloor() - origin);
+                if (distance < minDistance && elevator.getDirection() == direction) {
+                    minDistance = distance;
+                    closestElevatorId = elevator.getId();
+                }
+            }
         }
         return closestElevatorId;
     }
 
-    private int someoneStopped(ArrayList<Elevator> elevators, Direction direction, int destination) {
+    private int isSomeoneAvailable(ArrayList<Elevator> elevators, int destination) {
         int elevatorId = -1;
         int minDistance = Integer.MAX_VALUE;
         for (int i = 0; i < elevators.size(); i++) {
             Elevator elevator = elevators.get(i);
             int distance = Math.abs(elevator.getCurrentFloor() - destination);
-            if (distance < minDistance && elevator.getDirection() == Direction.STOP && elevator.getAccess()) {
+            if (distance < minDistance && elevator.getFloorsToGoList().isEmpty() && elevator.getAccess()) {
                 elevatorId = elevator.getId();
             }
         }
         if (elevatorId != -1) {
-            elevators.get(elevatorId).setDirection(direction);
+            elevators.get(elevatorId).setDirection(getDirection(destination, elevatorId));
         }
         return elevatorId;
     }
-
 }

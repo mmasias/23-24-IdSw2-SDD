@@ -1,6 +1,11 @@
 package Controllers;
 
-public class InitialValues {
+import Enums.Direction;
+import Models.ElevatorRequest;
+import Models.Floor;
+import Models.Person;
+
+public class Values {
     private int amountFloors;
     private int amountElevators;
     private int elevatorCapacity = -1;
@@ -8,7 +13,7 @@ public class InitialValues {
     private int amountPeople = -1;
     private String label = null;
 
-    public InitialValues(int amountFloors, int amountElevators) {
+    public Values(int amountFloors, int amountElevators) {
         this.amountFloors = amountFloors;
         this.amountElevators = amountElevators;
     }
@@ -54,10 +59,10 @@ public class InitialValues {
         this.label = label;
     }
 
-    public int getAmountPeople() {
+    public int getAmountPeople(int min, int max) {
         if (this.amountPeople == -1) {
-            int minimum = this.amountFloors * 2;
-            int maximum = this.amountFloors * 20;
+            int minimum = this.amountFloors * min;
+            int maximum = this.amountFloors * max;
             return this.randomInt(minimum, maximum);
         }
         return this.amountPeople;
@@ -67,7 +72,7 @@ public class InitialValues {
         this.amountPeople = amountPeople;
     }
 
-    public int randomInt(int minimum, int maximum) {
+    private int randomInt(int minimum, int maximum) {
         return minimum + (int) (Math.random() * ((maximum - minimum) + 1));
     }
 
@@ -77,6 +82,23 @@ public class InitialValues {
 
     public int getRandomFloor() {
         return this.randomInt(0, this.amountFloors - 1);
+    }
+
+    public int getRandomFloor(int excludedFloor) {
+        int floor;
+        do {
+            floor = this.randomInt(0, this.amountFloors - 1);
+        } while (floor == excludedFloor);
+        return floor;
+    }
+
+    public Direction getDirection(int currentFloor, int destination) {
+        return currentFloor < destination ? Direction.UP : Direction.DOWN;
+    }
+
+    public ElevatorRequest createElevatorRequest(Floor floor, Person person) {
+        Direction direction = this.getDirection(floor.getId(), person.getDestination());
+        return new ElevatorRequest(floor.getId(), direction);
     }
 
 }

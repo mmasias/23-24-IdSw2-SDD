@@ -7,9 +7,11 @@ import Models.Floor;
 
 public class BuildingView {
     private ArrayList<Building> buildings;
+    boolean isTesting;
 
-    public BuildingView(ArrayList<Building> buildings) {
+    public BuildingView(ArrayList<Building> buildings, boolean isTesting) {
         this.buildings = buildings;
+        this.isTesting = isTesting;
     }
 
     public void render() {
@@ -17,6 +19,9 @@ public class BuildingView {
             ArrayList<String[]> views = this.getViews(building);
             String mergedViews = this.mergeViews(views, building);
             System.out.println(mergedViews);
+
+            DebuggerView debugger = new DebuggerView(building, this.isTesting);
+            debugger.render();
         }
     }
 

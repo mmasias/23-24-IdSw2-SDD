@@ -1,7 +1,5 @@
 package Models;
 
-import Enums.Direction;
-
 public class FloorRequest {
     private int destination;
     private int elevatorId;
@@ -14,6 +12,7 @@ public class FloorRequest {
     public int getDestination() {
         return this.destination;
     }
+
     public int getElevatorId() {
         return this.elevatorId;
     }

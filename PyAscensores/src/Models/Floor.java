@@ -31,12 +31,12 @@ public class Floor implements IModel {
         this.peopleOnFloor.add(person);
     }
 
-    public void updatePersonOnFloor(int id, Person updatedPerson) {
-        this.peopleOnFloor.update(id, updatedPerson);
+    public void updatePersonOnFloor(Person updatedPerson) {
+        this.peopleOnFloor.update(updatedPerson.getId(), updatedPerson);
     }
 
-    public void removePersonOnFloor(int id) {
-        this.peopleOnFloor.delete(id);
+    public void removePersonOnFloor(Person person) {
+        this.peopleOnFloor.delete(person.getId());
     }
 
     public ArrayList<Person> getWaitingPeople() {
@@ -47,8 +47,8 @@ public class Floor implements IModel {
         this.waitingPeople.add(person);
     }
 
-    public void removeWaitingPerson(int id) {
-        this.waitingPeople.delete(id);
+    public void removeWaitingPerson(Person person) {
+        this.waitingPeople.delete(person.getId());
     }
 
     public boolean getAccess() {
