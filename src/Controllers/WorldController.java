@@ -11,6 +11,8 @@ import java.nio.file.Path;
 import java.util.*;
 import java.nio.file.Paths;
 
+//TODO: #48 Only print the field of vision instead of hiding the map in the terminal
+
 public class WorldController {
     private final World world;
     private final WorldView worldView;

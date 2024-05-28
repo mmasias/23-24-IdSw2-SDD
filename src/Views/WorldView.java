@@ -8,7 +8,7 @@ import Models.Character;
 public class WorldView {
     private int visionRadius = 5;
 
-    public void setVisionRadius(int radius) {
+    private void setVisionRadius(int radius) {
         this.visionRadius = radius;
     }
 
