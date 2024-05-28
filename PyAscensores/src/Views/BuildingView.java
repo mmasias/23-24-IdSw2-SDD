@@ -65,7 +65,7 @@ public class BuildingView {
         }
         
         sb.append(text);
-        
+
         for (int i = 0; i < numberOfSpacesAfter; i++) {
             sb.append(" ");
         }
