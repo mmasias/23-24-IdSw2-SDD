@@ -30,10 +30,16 @@ public class ControladorGato extends Movible{
 
     private void ensuciarCasilla(Habitacion habitacion) {
         Random random = new Random();
+        Posicion posicion = gato.getPosicion();
         int nivelSuciedad = random.nextInt(5);
+        
         if (habitacion.getSuperficie()[gato.getPosicion().getX()][gato.getPosicion().getY()].getNivelSuciedad() < nivelSuciedad) {
-            habitacion.getSuperficie()[gato.getPosicion().getX()][gato.getPosicion().getY()].setNivelSuciedad(nivelSuciedad);
-            VistaGato.ensuciarCasilla(gato.getPosicion().getX(), gato.getPosicion().getY(), nivelSuciedad);
+            setNivelSuciedadPosicion(habitacion, posicion, nivelSuciedad);
+VistaGato.ensuciarCasilla(posicion.getX(), posicion.getY(), nivelSuciedad);
         }
+    }
+
+    private void setNivelSuciedadPosicion(Habitacion habitacion, Posicion posicion, int nivelSuciedad) {
+        habitacion.getSuperficie()[posicion.getX()][posicion.getY()].setNivelSuciedad(nivelSuciedad);
     }
 }
