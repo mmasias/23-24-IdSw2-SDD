@@ -6,7 +6,7 @@ import java.util.List;
 import Models.Elevator;
 
 public class ElevatorView {
-    private char[] directionIcons = { '↑', '↓', '-' };
+    private char[] directionIcons = { '^', 'v', '-' };
     private List<Elevator> elevators;
     private int totalFloors;
 
