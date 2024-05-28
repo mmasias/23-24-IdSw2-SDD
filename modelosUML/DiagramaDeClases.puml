@@ -8,6 +8,7 @@ package "Controlador"  {
     #void realizarAccion(Habitacion habitacion,int nuevaX, int nuevaY)
     #void Posicion getPosicion()
     -void limpiarCasilla(Habitacion habitacion,Posicion posicion)
+    -void setNivelSuciedadPosicion(Habitacion habitacion,Posicion posicion,int nivelSuciedad)
    }
    class ControladorGato{
     -Gato gato
@@ -15,17 +16,20 @@ package "Controlador"  {
     #void realizarAccion(Habitacion habitacion,int nuevaX, int nuevaY)
     #void Posicion getPosicion()
     -void ensuciarCasilla(Habitacion habitacion)
+    -void setNivelSuciedadPosicion(Habitacion habitacion,Posicion posicion,int nivelSuciedad)
    }
    class ControladorHabitacion{
     -Habitacion habitacion
     -Gato gato
     -Aspiradora aspiradora
     -Bateria bateria
+    -int ITERACION 
     +controladorHabitacion(int largo,int ancho,int capacidadBasura)
     +void start()
    }
    abstract class Movible{
     +void mover(Habitacion habitacion)
+    -boolean esMovimientoValido(Habitacion habitacion,int nuevaX, int nuevaY)
     #void realizarAccion(Habitacion habitacion,int nuevaX, int nuevaY)
     #void Posicion getPosicion()
    }
@@ -57,6 +61,7 @@ package "Modelo"  {
     }
     class Bateria {
     -int nivelBateria
+    -int CAPACIDAD_MAXIMA
     +Bateria()
     +void descargar()
     +void recargar()
@@ -80,6 +85,13 @@ package "Modelo"  {
     +int getLargo()
     +int getAncho()
     }
+    class FabricarElementos {
+    +Habitacion crearHabitacion(Dimension dimension)
+    -boolean [][] generarMuebles(int ancho, int largo)
+    -Azulejo[][] generarSuperficie(int ancho, int largo, int porcentajeSuciedad)
+    -int totalAzulejos
+    -int azulejosSucios
+    }
     class Gato {
     -Posicion posicion
     +Gato(int x, int y)
@@ -89,13 +101,10 @@ package "Modelo"  {
     +Azulejo[][] superficie
     +boolean[][] muebles
     +Dimension dimension
-    +Posicion estacionRecarga
-    +Habitacion(Dimension dimension)
+    +Habitacion(Dimension dimension,Azulejo[][] superficie, boolean[][] muebles)
     +Azulejo[][] getSuperficie()
     +boolean[][] getMuebles()
     +Dimension getDimension()
-    -boolean [][] generarMuebles(boolean[][] muebles)
-    -Azulejo[][] generarSuperficie(int ancho, int largo, int porcentajeSuciedad)
     }
     class Posicion {
     -int x
@@ -161,6 +170,8 @@ Azulejo --> Posicion
 Aspiradora -- Posicion
 Aspiradora o-- Bateria
 Aspiradora --> CapacidadBasura
+FabricarElementos -u-> Habitacion
+FabricarElementos --> Azulejo
 ControladorAspiradora --> Aspiradora
 ControladorGato --> Gato
 ControladorHabitacion --> Habitacion
