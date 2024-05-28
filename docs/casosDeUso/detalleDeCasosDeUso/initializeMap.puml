@@ -1,0 +1,14 @@
+@startuml
+skin rose
+title Caso de Uso: Initialize Map
+
+state SIMULATION_RUNNING as "Simulation Running"
+state InitializeMap as "Initialize Map"
+state LoadMapData as "Load Map Data"
+
+[*] --> SIMULATION_RUNNING
+SIMULATION_RUNNING -[#blue]-> InitializeMap : System initializes map
+InitializeMap -[#blue]-> LoadMapData : System loads map data
+LoadMapData -[#blue]-> SIMULATION_RUNNING : Map initialized
+
+@enduml

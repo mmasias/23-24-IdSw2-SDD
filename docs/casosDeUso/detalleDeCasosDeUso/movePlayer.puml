@@ -1,0 +1,14 @@
+@startuml
+skin rose
+title Caso de Uso: Move Player
+
+state PLAYER_ACTIVE as "Player Active"
+state MovePlayer as "Move Player"
+state UpdatePlayerPosition as "Update Player Position"
+
+[*] --> PLAYER_ACTIVE
+PLAYER_ACTIVE -[#blue]-> MovePlayer : Player moves the player character
+MovePlayer -[#blue]-> UpdatePlayerPosition : System updates player position
+UpdatePlayerPosition -[#blue]-> PLAYER_ACTIVE : Player position updated
+
+@enduml

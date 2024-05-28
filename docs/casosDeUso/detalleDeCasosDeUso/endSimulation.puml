@@ -1,0 +1,11 @@
+@startuml
+skin rose
+title Caso de Uso: End Simulation
+
+state SIMULATION_ACTIVE as "Simulation Active"
+state EndSimulation as "End Simulation"
+
+[*] --> SIMULATION_ACTIVE
+SIMULATION_ACTIVE -[#blue]-> EndSimulation : Player ends simulation
+
+@enduml

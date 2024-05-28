@@ -1,0 +1,14 @@
+@startuml
+skin rose
+title Caso de Uso: Move NPC
+
+state SIMULATION_RUNNING as "Simulation Running"
+state MoveNPC as "Move NPC"
+state UpdateNPCPosition as "Update NPC Position"
+
+[*] --> SIMULATION_RUNNING
+SIMULATION_RUNNING -[#blue]-> MoveNPC : System moves non-player characters
+MoveNPC -[#blue]-> UpdateNPCPosition : System updates NPC positions
+UpdateNPCPosition -[#blue]-> SIMULATION_RUNNING : NPC positions updated
+
+@enduml
