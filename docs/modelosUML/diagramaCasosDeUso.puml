@@ -1,31 +1,21 @@
-@startuml UseCaseDiagram
+@startuml Diagrama de CDU
 
-actor Player
-actor System
+skin rose
+left to right direction
+title Use Cases
 
-usecase "InitializeGame" as InitializeGame
-usecase "SimulateGameCycle" as SimulateGameCycle
-usecase "AddEntity" as AddEntity
-usecase "MoveEntity" as MoveEntity
-usecase "ChangeTransport" as ChangeTransport
-usecase "UpdateTileType" as UpdateTileType
-usecase "AdvanceTime" as AdvanceTime
-usecase "DisplayWorld" as DisplayWorld
-usecase "UpdateTransportInUse" as UpdateTransportInUse
+actor System as system
 
-Player --> InitializeGame
-Player --> SimulateGameCycle
-Player --> MoveEntity
-Player --> ChangeTransport
+Player --> (Start simulation)
+Player --> (Move player)
 
-System --> InitializeGame
-System --> SimulateGameCycle
-System --> AddEntity
-System --> MoveEntity
-System --> ChangeTransport
-System --> UpdateTileType
-System --> AdvanceTime
-System --> DisplayWorld
-System --> UpdateTransportInUse
+system --> (Execute simulation cycle)
+system --> (Advance time)
+system --> (Move NPC)
+system --> (Initialize map)
+system --> (Initialize entities)
+system --> (Move transport)
+
+Player --> (End simulation)
 
 @enduml

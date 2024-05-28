@@ -27,7 +27,7 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 
 #### Diagrama General de Casos de Uso
 ![Diagrama de Casos de Uso](../images/DiagramaDeCasosDeUso.svg)  
-[Código PUML](../)
+[Código PUML](../modelosUML/diagramaCasosDeUso.puml)
 
 ---
 
