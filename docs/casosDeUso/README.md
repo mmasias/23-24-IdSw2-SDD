@@ -34,44 +34,50 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 ## Detalles de los Casos de Uso
 
 ### Start simulation
-
+![Diagrama de Casos de Uso](../casosDeUso/detalleDeCasosDeUso/startSimulation.puml)  
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/startSimulation.puml)
 ---
 ### Move player
-
-
+![Diagrama de Casos de Uso](../casosDeUso/detalleDeCasosDeUso/movePlayer.puml)  
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/movePlayer.puml)
 ---
 
 ### End simulation
+![Diagrama de Casos de Uso](../casosDeUso/detalleDeCasosDeUso/endSimulation.puml)  
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/endSimulation.puml)
 
 ---
 
 ## Casos de Uso para System
 ### Execute simulation cycle
-
+![Diagrama de Casos de Uso](../casosDeUso/detalleDeCasosDeUso/executeSimulationCircle.puml)  
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/executeSimulationCircle.puml)
 ---
 
 ### Advance time
-
-
+![Diagrama de Casos de Uso](../casosDeUso/detalleDeCasosDeUso/advanceTime.puml)  
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/advanceTime.puml)
 ---
 
 ### Move NPC
-
-
+![Diagrama de Casos de Uso](../casosDeUso/detalleDeCasosDeUso/moveNPC.puml)  
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/moveNPC.puml)
 ---
 
 ### Initialize map
-
+![Diagrama de Casos de Uso](../casosDeUso/detalleDeCasosDeUso/initializeMap.puml)  
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/initializeMap.puml)
 
 ---
 
 ### Initialize entities
-
-
+![Diagrama de Casos de Uso](../casosDeUso/detalleDeCasosDeUso/initializeEntities.puml)  
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/initializeEntities.puml)
 ---
 
 ### Move transport
-
+![Diagrama de Casos de Uso](../casosDeUso/detalleDeCasosDeUso/moveTransport.puml)  
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/moveTransport.puml)
 ---
 
 ## Diagramas de Contexto
