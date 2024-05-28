@@ -10,12 +10,11 @@ public class Main {
         // Inicialización del centro comercial, colas y cajas registradoras
         ShoppingCenter shoppingCenter = new ShoppingCenter("09:00", "20:40");
         CustomerQueue queue = new CustomerQueue();
-        List<Cashier> cashiers = loadCashiers("./cashiers.json"); // Cargar cajeros desde un archivo JSON
-        int maxCashRegisters = 5; // Límite de 5 cajas registradoras
+        List<Cashier> cashiers = loadCashiers("./cashiers.json");
+        int maxCashRegisters = 6; // Límite de 5 cajas registradoras
         CashRegister[] cashRegisters = new CashRegister[maxCashRegisters];
         DataLog dataLog = new DataLog();
-        AttentionCenter attentionCenter = new AttentionCenter(queue, cashRegisters, cashiers, dataLog); // Pasar DataLog
-                                                                                                        // aquí
+        AttentionCenter attentionCenter = new AttentionCenter(queue, cashRegisters, cashiers, dataLog);
 
         // Asignar cajeros a sus respectivas cajas
         for (int i = 0; i < maxCashRegisters; i++) {
@@ -33,12 +32,13 @@ public class Main {
 
             if (shoppingCenter.isOpen()) {
                 // Generar nuevos clientes de manera aleatoria
-                if (Math.random() <= 0.4 && spawnCustomers) {
+                if (Math.random() <= 0.45 && spawnCustomers) {
                     Customer newCustomer = new Customer((int) (Math.random() * 1000), (int) (Math.random() * 10) + 5);
                     shoppingCenter.addCustomer(newCustomer);
                     queue.addCustomer(newCustomer);
                     dataLog.incrementCustomersServed(); // Registrar nuevo cliente
                     dataLog.addItemsSold(newCustomer.getNumberOfItemPacks()); // Registrar ventas
+                    attentionCenter.updateOpenMinutes();
                 }
                 if (queue.getSize() == 0) {
                     dataLog.incrementMinutesWithZeroQueue();
@@ -74,7 +74,7 @@ public class Main {
             time.incrementTime(); // Avanzar el tiempo
 
             try {
-                Thread.sleep(250); // Simular tiempo real
+                Thread.sleep(5); // Simular tiempo real
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

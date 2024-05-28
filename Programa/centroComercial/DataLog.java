@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DataLog {
     private List<String> logEntries;
@@ -7,12 +9,14 @@ public class DataLog {
     private int totalItemsSold;
     private int minutesWithZeroQueue;
     private int totalCashRegisterClosures = 0;
+    private Map<Integer, Integer> openMinutesPerCashRegister = new HashMap<>();
 
     public DataLog() {
         this.logEntries = new ArrayList<>();
         this.totalCustomersServed = 0;
         this.totalItemsSold = 0;
         this.minutesWithZeroQueue = 0;
+
     }
 
     public void logEvent(String event) {
@@ -36,6 +40,10 @@ public class DataLog {
         totalCashRegisterClosures++;
     }
 
+    public void incrementOpenMinutes(int cashRegisterId) {
+        openMinutesPerCashRegister.put(cashRegisterId, openMinutesPerCashRegister.getOrDefault(cashRegisterId, 0) + 1);
+    }
+
     public void printStatistics(CustomerQueue queue) {
         System.out.println("======================================================================");
         System.out.println("RESUMEN");
@@ -45,6 +53,9 @@ public class DataLog {
         System.out.println("Artículos vendidos en el dia\t: " + totalItemsSold);
         System.out.println("Máximo número de clientes en cola: " + queue.getMaxQueueLength());
         System.out.println("Número de cierres de caja al día: " + totalCashRegisterClosures);
+        openMinutesPerCashRegister.forEach((id, minutes) -> {
+            System.out.println("Minutos abiertos para la caja " + id + ": " + minutes);
+        });
         System.out.println("======================================================================");
     }
 
