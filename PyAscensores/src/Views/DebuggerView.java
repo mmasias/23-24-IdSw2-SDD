@@ -84,7 +84,7 @@ public class DebuggerView {
                         System.out.println(
                                         "=======================================================================================================");
                         for (int j = 0; j < this.building.getFloors().size(); j++) {
-                                if (this.building.getFloors().get(j).getWaitingPeople().isEmpty()) {
+                                if (!this.building.getFloors().get(j).getWaitingPeople().isEmpty()) {
                                         for (int k = 0; k < this.building.getFloors().get(j).getWaitingPeople()
                                                         .size(); k++) {
                                                 Person person = this.building.getFloors().get(j).getWaitingPeople()
@@ -98,7 +98,26 @@ public class DebuggerView {
                         }
                         System.out.println(
                                         "=======================================================================================================");
-                        System.out.println("FLOORS REQUESTS STATUS");
+                        System.out.println("FLOOR REQUESTS PER PERSON");
+                        System.out.println(
+                                        "=======================================================================================================");
+                        for (int l = 0; l < this.building.getElevators().size(); l++) {
+                                if (!this.building.getElevators().get(l).getPeopleInside().isEmpty()) {
+                                        for (int m = 0; m < this.building.getElevators().get(l).getPeopleInside()
+                                                        .size(); m++) {
+                                                Person person = this.building.getElevators().get(l).getPeopleInside()
+                                                                .get(m);
+                                                System.out.println("Person " + person.getId() + " is in elevator "
+                                                                + this.building.getElevators().get(l).getId()
+                                                                + " going to floor " + person.getDestination());
+
+                                        }
+                                }
+                        }
+
+                        System.out.println(
+                                        "=======================================================================================================");
+                        System.out.println("FLOOR REQUESTS STATUS");
                         System.out.println(
                                         "=======================================================================================================");
                         System.out.println("Elevator ID | Destination | Direction");
