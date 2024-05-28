@@ -20,7 +20,8 @@ public class WaitingPeopleView {
     private String getWaitingPeopleViewView() {
         StringBuilder waitingPeopleView = new StringBuilder();
         for (int i = floors.size() - 1; i >= 0; i--) {
-            String peopleOnFloorStr = "___" + floors.get(i).getWaitingPeople().size() + "_";
+            int peopleWaitingOnFloor = floors.get(i).getWaitingPeople().size() ;
+            String peopleOnFloorStr = "___" + peopleWaitingOnFloor + (peopleWaitingOnFloor > 9? "_" : "_ ");
 
             waitingPeopleView.append(peopleOnFloorStr);
             waitingPeopleView.append("\n");
