@@ -1,10 +1,7 @@
 package Views;
 
-import java.util.ArrayList;
-
 import Enums.Direction;
 import Models.Building;
-import Models.Floor;
 import Models.Person;
 
 public class DebuggerView {
@@ -87,7 +84,7 @@ public class DebuggerView {
                         System.out.println(
                                         "=======================================================================================================");
                         for (int j = 0; j < this.building.getFloors().size(); j++) {
-                                if (this.building.getFloors().get(j).getWaitingPeople().size() > 0) {
+                                if (this.building.getFloors().get(j).getWaitingPeople().isEmpty()) {
                                         for (int k = 0; k < this.building.getFloors().get(j).getWaitingPeople()
                                                         .size(); k++) {
                                                 Person person = this.building.getFloors().get(j).getWaitingPeople()

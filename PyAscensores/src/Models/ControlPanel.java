@@ -1,8 +1,6 @@
 package Models;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import Lists.ElevatorRequestList;
 import Lists.FloorRequestList;
@@ -22,7 +20,7 @@ public class ControlPanel implements IModel {
         return this.id;
     }
 
-    public ArrayList<ElevatorRequest> getElevatorRequests() {
+    public List<ElevatorRequest> getElevatorRequests() {
         return this.elevatorRequests.index();
     }
 
@@ -34,7 +32,7 @@ public class ControlPanel implements IModel {
         this.elevatorRequests.remove(elevatorRequest);
     }
 
-    public ArrayList<FloorRequest> getFloorRequests() {
+    public List<FloorRequest> getFloorRequests() {
         return this.floorRequests.index();
     }
 

@@ -100,10 +100,9 @@ public class ElevatorController {
     }
 
     private ElevatorRequest getElevatorRequest(ElevatorRequest elevatorRequest) {
-        ArrayList<ElevatorRequest> list = building.getControlPanel().getElevatorRequests();
+        List<ElevatorRequest> list = building.getControlPanel().getElevatorRequests();
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getDirection() == elevatorRequest.getDirection()
-                    && list.get(i).getDirection() == elevatorRequest.getDirection()) {
+            if (list.get(i).getDirection() == elevatorRequest.getDirection()) {
                 return list.get(i);
             }
         }

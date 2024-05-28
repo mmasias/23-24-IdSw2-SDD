@@ -8,7 +8,7 @@ public class FloorsToGoList {
     private ArrayList<Integer> floorsToGo;
 
     public FloorsToGoList() {
-        this.floorsToGo = new ArrayList<Integer>();
+        this.floorsToGo = new ArrayList<>();
     }
 
     public void add(int floor, Direction direction, int currentFloor) {

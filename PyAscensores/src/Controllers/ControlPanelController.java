@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Enums.Direction;
-import Lists.FloorsToGoList;
 import Models.*;
 
 public class ControlPanelController {
@@ -27,7 +26,6 @@ public class ControlPanelController {
             int currentFloor = elevator.getCurrentFloor();
             if (elevator.getDirection() != Direction.STOP && elevator.getFloorsToGoList().get(0) == currentFloor) {
                 elevator.setDirection(Direction.STOP);
-                // elevator.getFloorsToGoList().delete(elevator.getCurrentFloor());
 
                 this.building.updateElevator(elevator);
             } else if (!elevator.getFloorsToGoList().isEmpty()) {

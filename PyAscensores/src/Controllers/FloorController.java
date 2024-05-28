@@ -1,7 +1,6 @@
 package Controllers;
 
 import Models.*;
-import Enums.Direction;
 
 public class FloorController {
     private Building building;
