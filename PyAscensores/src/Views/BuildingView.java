@@ -54,6 +54,8 @@ public class BuildingView {
             mergedViews.append("\n");
         }
 
+         mergedViews.append(appendTextWithSpacesBeforeAndAfter(15, 0, "/---- Ascensores ----/\n"));
+
         return mergedViews.toString();
     }
 
