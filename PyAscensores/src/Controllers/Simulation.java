@@ -16,50 +16,11 @@ public class Simulation {
     }
 
     public void start(boolean isTesting) {
-        setInitialValues();
+        Creation creation = new Creation(initialValues);
+        this.building = creation.createBuilding();
+        this.buildingController = creation.createBuildingController(this.building);
+        
         simulation(isTesting);
-    }
-
-    private void setInitialValues() {
-        this.initialValues = new Values(5, 3);
-        this.building = new Building(0);
-
-        this.getInitialElevators();
-        this.getInitialFloors();
-        this.getInitialPeople();
-        this.buildingController = new BuildingController(building);
-    }
-
-    private void getInitialElevators() {
-        this.initialValues.setElevatorCapacity(6);
-        int amountElevators = this.initialValues.getAmountElevators();
-
-        for (int i = 0; i < amountElevators; i++) {
-            int currentFloor = this.initialValues.getElevatorFloor();
-            int capacity = this.initialValues.getElevatorCapacity();
-            building.addElevator(capacity, currentFloor);
-        }
-    }
-
-    private void getInitialFloors() {
-        int amountFloors = this.initialValues.getAmountFloors();
-        String label = this.initialValues.getLabel();
-
-        for (int i = 0; i < amountFloors; i++) {
-            building.addFloor(label + i);
-        }
-    }
-
-    private void getInitialPeople() {
-        int amountPeople = this.initialValues.getAmountPeople(2, 10);
-
-        for (int i = 0; i <= amountPeople; i++) {
-            int timeOnFloor = this.initialValues.getRandomTimeOnFloor(0, 5);
-            int currentFloor = this.initialValues.getRandomFloor();
-            int destination = this.initialValues.getRandomFloor(currentFloor);
-
-            building.addPersonOnFloor(timeOnFloor, currentFloor, destination);
-        }
     }
 
     private void simulation(boolean isTesting) {
