@@ -45,7 +45,7 @@ public class Simulation {
         int amountFloors = this.initialValues.getAmountFloors();
         String label = this.initialValues.getLabel();
 
-        for (int i = 0; i <= amountFloors; i++) {
+        for (int i = 0; i < amountFloors; i++) {
             building.addFloor(label + i);
         }
     }
@@ -70,15 +70,15 @@ public class Simulation {
         input = scanner.nextLine();
 
         while (!input.equals("q")) {
-            time.tickFloors(buildingController);
+            Building building = time.tickFloors(buildingController);
             new BuildingView(building, isTesting).render();
             input = scanner.nextLine();
 
-            time.tickElevators(buildingController);
+            building = time.tickElevators(buildingController);
             new BuildingView(building, isTesting).render();
             input = scanner.nextLine();
 
-            time.tickControlPanels(buildingController);
+            building = time.tickControlPanels(buildingController);
             new BuildingView(building, isTesting).render();
             input = scanner.nextLine();
         }
