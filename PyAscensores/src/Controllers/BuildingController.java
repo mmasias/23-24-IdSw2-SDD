@@ -1,54 +1,40 @@
 package Controllers;
 
-import java.util.ArrayList;
-
-import Lists.BuildingList;
 import Models.Building;
 
 public class BuildingController {
-    private BuildingList buildings;
+    private Building building;
     private ElevatorController elevatorController;
     private FloorController floorController;
     private ControlPanelController controlPanelController;
 
-    public BuildingController(BuildingList buildingList) {
-        this.buildings = buildingList;
+    public BuildingController(Building building) {
+        this.building = building;
         this.elevatorController = new ElevatorController();
         this.floorController = new FloorController();
         this.controlPanelController = new ControlPanelController();
     }
 
-    public ArrayList<Building> index() {
-        return this.buildings.index();
+    public Building index() {
+        return this.building;
     }
 
-    public ArrayList<Building> update() {
-        for (Building building : this.buildings.index()) {
-            floorController.update(building);
-            elevatorController.update(building);
-            controlPanelController.update(building);
-        }
-        return this.buildings.index();
+    public Building update() {
+        floorController.update(building);
+        elevatorController.update(building);
+        controlPanelController.update(building);
+        return this.building;
     }
 
-    public ArrayList<Building> updateFloors() {
-        for (Building building : this.buildings.index()) {
-            building = floorController.update(building);
-        }
-        return this.buildings.index();
+    public Building updateFloors() {
+        return floorController.update(building);
     }
 
-    public ArrayList<Building> updateElevators() {
-        for (Building building : this.buildings.index()) {
-            building = elevatorController.update(building);
-        }
-        return this.buildings.index();
+    public Building updateElevators() {
+        return elevatorController.update(building);
     }
 
-    public ArrayList<Building> updateControlPanels() {
-        for (Building building : this.buildings.index()) {
-            building = controlPanelController.update(building);
-        }
-        return this.buildings.index();
+    public Building updateControlPanels() {
+        return controlPanelController.update(building);
     }
 }
