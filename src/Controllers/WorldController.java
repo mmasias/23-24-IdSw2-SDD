@@ -11,8 +11,6 @@ import java.nio.file.Path;
 import java.util.*;
 import java.nio.file.Paths;
 
-//TODO: #48 Only print the field of vision instead of hiding the map in the terminal
-
 public class WorldController {
     private final World world;
     private final WorldView worldView;
@@ -40,6 +38,12 @@ public class WorldController {
                 world.simulateCycle();
                 worldView.displayWorld(world);
                 System.out.println("Cycle ends.");
+
+                System.out.println("Press 'Q' to quit or any other key to continue...");
+                String input = scanner.nextLine();
+                if (input.equalsIgnoreCase("Q")) {
+                    isRunning = false;
+                }
             }
         } finally {
             scanner.close();
@@ -59,6 +63,15 @@ public class WorldController {
             }
             populateMap(mapData, world.getMap());
             System.out.println("Map populated successfully.");
+
+            for (int i = 0; i < world.getMap().getHeight(); i++) {
+                for (int j = 0; j < world.getMap().getWidth(); j++) {
+                    TileTypes tileType = world.getMap().getTile(new Point(i, j)).getType();
+                    if (tileType == TileTypes.Wall) {
+                        System.out.printf("Tile at (%d, %d) is of type: %s%n", i, j, tileType);
+                    }
+                }
+            }
         } catch (IOException e) {
             System.out.println("Error reading map file: " + e.getMessage());
         } catch (IllegalArgumentException e) {
@@ -210,12 +223,17 @@ public class WorldController {
                         ? getUserInput(scanner)
                         : getRandomCharacterMovement();
                 Point newPosition = validateRoundWorld(getNewPosition(currentPosition, direction));
-
+                TileTypes tileType = world.getMap().getTile(newPosition).getType();
+                System.out.printf("Character %s is trying to move to a tile of type: %s%n",
+                        character.getCharacterType(), tileType);
                 if (isValidPosition(newPosition)) {
                     updateTransportInUse(
                             character,
                             world.getMap().getTile(newPosition).getType());
                     character.moveTo(newPosition);
+
+                    System.out.printf("Character %s is at Lat: %d, Long: %d%n",
+                            character.getCharacterType(), newPosition.getY(), newPosition.getX());
                 }
             }
         }
