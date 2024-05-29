@@ -43,7 +43,6 @@ public class DebuggerView {
         }
 
         private void printElevatorsStatus() {
-                print
                 System.out.println("ELEVATORS STATUS");
                 System.out.println(
                                 "Elevator ID | Current Floor | People Inside | Capacity | Direction | People Inside IDs | FloorsToGoList");
