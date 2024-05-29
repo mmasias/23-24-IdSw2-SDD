@@ -36,10 +36,12 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 ### Start simulation
 ![Diagrama de Casos de Uso](../images/detalleCasosDeUso/DetalleCasoDeUsoStartSimulation.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/startSimulation.puml)
+
 ---
 ### Move player
 ![Diagrama de Casos de Uso](../images/detalleCasosDeUso/DetalleCasoDeUsoMovePlayer.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/movePlayer.puml)
+
 ---
 
 ### End simulation
