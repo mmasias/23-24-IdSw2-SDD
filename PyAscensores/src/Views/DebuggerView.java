@@ -33,7 +33,6 @@ public class DebuggerView {
                         printFloorRequestsStatus();
                         printSeparator();
                         printElevatorsRequestsStatus();
-                        printSeparator();
                 }
         }
 
@@ -44,8 +43,10 @@ public class DebuggerView {
 
         private void printElevatorsStatus() {
                 System.out.println("ELEVATORS STATUS");
+                printSeparator();
                 System.out.println(
                                 "Elevator ID | Current Floor | People Inside | Capacity | Direction | People Inside IDs | FloorsToGoList");
+                printSeparator();
                 this.printSeparator();
                 building.getElevators().forEach(elevator -> {
                         System.out.print(elevator.getId() + "           | ");
@@ -79,6 +80,7 @@ public class DebuggerView {
 
         private void printFloorsStatus() {
                 System.out.println("FLOORS STATUS");
+                printSeparator();
                 System.out.println(
                                 "Floor ID | People Waiting | People On Floor | People Waiting IDs | People On Floor IDs");
                 printSeparator();
@@ -103,6 +105,7 @@ public class DebuggerView {
 
         private void printElevatorRequestsPerPerson() {
                 System.out.println("ELEVATOR REQUESTS PER PERSON");
+                printSeparator();
                 building.getFloors().forEach(floor -> {
                         if (!floor.getWaitingPeople().isEmpty()) {
                                 floor.getWaitingPeople().forEach(person -> {
@@ -115,6 +118,7 @@ public class DebuggerView {
 
         private void printFloorRequestsPerPerson() {
                 System.out.println("FLOOR REQUESTS PER PERSON");
+                printSeparator();
                 building.getElevators().forEach(elevator -> {
                         if (!elevator.getPeopleInside().isEmpty()) {
                                 elevator.getPeopleInside().forEach(person -> {
@@ -128,6 +132,7 @@ public class DebuggerView {
 
         private void printFloorRequestsStatus() {
                 System.out.println("FLOOR REQUESTS STATUS");
+                printSeparator();
                 System.out.println("Elevator ID | Destination | Direction");
                 printSeparator();
                 building.getControlPanel().getFloorRequests().forEach(request -> {
@@ -142,6 +147,7 @@ public class DebuggerView {
 
         private void printElevatorsRequestsStatus() {
                 System.out.println("ELEVATORS REQUESTS STATUS");
+                printSeparator();
                 System.out.println("Origin | Direction | isLinkedToElevator");
                 printSeparator();
                 building.getControlPanel().getElevatorRequests().forEach(request -> {
