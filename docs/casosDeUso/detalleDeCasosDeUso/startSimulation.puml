@@ -1,0 +1,14 @@
+@startuml
+skin rose
+title Caso de Uso: Start Simulation
+
+state SYSTEM_IDLE as "System Idle"
+state StartSimulation as "Start Simulation"
+state InitializeSimulation as "Initialize Simulation"
+
+[*] --> SYSTEM_IDLE
+SYSTEM_IDLE -[#blue]-> StartSimulation : Player starts simulation
+StartSimulation -[#blue]-> InitializeSimulation : System initializes simulation
+InitializeSimulation -[#blue]-> SYSTEM_IDLE : Simulation initialized
+
+@enduml
