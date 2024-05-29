@@ -6,16 +6,15 @@ import Models.Elevator;
 import Models.Floor;
 
 public class BuildingView {
-    private ArrayList<Building> buildings;
+    private Building building;
     boolean isTesting;
 
-    public BuildingView(ArrayList<Building> buildings, boolean isTesting) {
-        this.buildings = buildings;
+    public BuildingView(Building building, boolean isTesting) {
+        this.building = building;
         this.isTesting = isTesting;
     }
 
     public void render() {
-        for (Building building : buildings) {
             ArrayList<String[]> views = this.getViews(building);
             String mergedViews = this.mergeViews(views, building);
             System.out.println(mergedViews);
@@ -23,7 +22,6 @@ public class BuildingView {
             DebuggerView debugger = new DebuggerView(building, this.isTesting);
             debugger.render();
         }
-    }
 
     private ArrayList<String[]> getViews(Building building) {
         ArrayList<String[]> views = new ArrayList<String[]>();
