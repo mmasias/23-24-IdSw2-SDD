@@ -34,55 +34,55 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 ## Detalles de los Casos de Uso
 
 ### Start simulation
-![Diagrama de Casos de Uso](../images/detalleCasosDeUso/DetalleCasoDeUsoStartSimulation.svg)  
+![Diagrama de Casos de Uso](../images/detalleCasosDeUso/StartSimulation.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/startSimulation.puml)
 
 ---
 ### Move player
-![Diagrama de Casos de Uso](../images/detalleCasosDeUso/DetalleCasoDeUsoMovePlayer.svg)  
+![Diagrama de Casos de Uso](../images/detalleCasosDeUso/MovePlayer.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/movePlayer.puml)
 
 ---
 
 ### End simulation
-![Diagrama de Casos de Uso](../images/detalleCasosDeUso/DetalleCasoDeUsoEndSimulation.svg)  
+![Diagrama de Casos de Uso](../images/detalleCasosDeUso/EndSimulation.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/endSimulation.puml)
 
 ---
 
 ## Casos de Uso para System
 ### Execute simulation cycle
-![Diagrama de Casos de Uso](../images/detalleCasosDeUso/DetalleCasoDeUsoExecuteSimulationCycle.svg)  
+![Diagrama de Casos de Uso](../images/detalleCasosDeUso/ExecuteSimulationCycle.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/executeSimulationCircle.puml)
 
 ---
 
 ### Advance time
-![Diagrama de Casos de Uso](../images/detalleCasosDeUso/DetalleCasoDeUsoAdvanceTime.svg)  
+![Diagrama de Casos de Uso](../images/detalleCasosDeUso/AdvanceTime.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/advanceTime.puml)
 
 ---
 
 ### Move NPC
-![Diagrama de Casos de Uso](../images/detalleCasosDeUso/DetalleCasoDeUsoMoveNPC.svg)  
+![Diagrama de Casos de Uso](../images/detalleCasosDeUso/MoveNPC.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/moveNPC.puml)
 
 ---
 
 ### Initialize map
-![Diagrama de Casos de Uso](../images/detalleCasosDeUso/DetalleCasoDeUsoInitializeMap.svg)  
+![Diagrama de Casos de Uso](../images/detalleCasosDeUso/InitializeMap.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/initializeMap.puml)
 
 ---
 
 ### Initialize entities
-![Diagrama de Casos de Uso](../images/detalleCasosDeUso/DetalleCasoDeUsoInitializeEntities.svg)  
+![Diagrama de Casos de Uso](../images/detalleCasosDeUso/InitializeEntities.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/initializeEntities.puml)
 
 ---
 
 ### Move transport
-![Diagrama de Casos de Uso](../images/detalleCasosDeUso/DetalleCasoDeUsoMoveTransport.svg)  
+![Diagrama de Casos de Uso](../images/detalleCasosDeUso/MoveTransport.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/moveTransport.puml)
 
 ---
