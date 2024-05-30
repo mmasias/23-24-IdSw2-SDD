@@ -3,49 +3,54 @@
 class App {
     - WorldController worldController
 
-    + main()
+    + App()
     - initializeGame()
     - runGameCycle()
+    + main(String[] args)
 }
 
-package "Model" {
+package "Models" {
     class World {
         - Map map
         - List<Entity> entities
         - Time time
 
+        + World()
         + simulateCycle()
         + addEntity(Entity newEntity)
-        + getMap()
+        + getMap() : Map
         + getEntities() : List<Entity>
         + getTime() : Time
         + setTime(Time time)
     }
 
     class Time {
-        - TimesOfDay timeOfDay
-        - int currentTime
+        - ImpreciseTime impreciseTime
+        - int preciseTime
 
+        + Time()
+        - initializeTime()
         + advanceTime()
-        + setTimeOfDay(int currentTime)
-        + resetDay()
-        + getCurrentTime() : int
-        + getTimeOfDay() : TimesOfDay
+        - updateImpreciseTime(int currentTime)
+        + getImpreciseTime() : ImpreciseTime
+        + getPreciseTimeFormatted() : String
     }
 
     class Map {
         - Tile[][] tiles
 
+        + Map()
         + updateTile(Point point, Tile newTile)
         + getTile(Point point) : Tile
         + getHeight() : int
         + getWidth() : int
+        + getRandomTilePositionOfType(TileTypes type) : Point
     }
 
     class Tile {
         - TileTypes type
 
-        + changeType(TileTypes newType)
+        + Tile(TileTypes type)
         + getType() : TileTypes
         + getAsciiSymbol() : String
         + getAsciiColor() : String
@@ -55,15 +60,18 @@ package "Model" {
         - Point position
         - Transport transportInUse
 
-        + moveTo(Point newPosition)
-        + changeTransport(Transport newTransport)
+        + Entity(Point startingPosition, Transport startingTransport)
+        + moveTo(Point newPosPoint)
+        + getPosition() : Point
         + getTransportInUse() : Transport
+        + setTransportInUse(Transport transportInUse)
     }
 
     class Character extends Entity {
         - CharacterType type
         - Transport[] availableTransports
 
+        + Character(Point startingPosition, Transport startingTransport, CharacterType type, Transport[]: availableTransports)
         + getAvailableTransports() : Transport[]
         + getCharacterType() : CharacterType
     }
@@ -71,8 +79,8 @@ package "Model" {
     class Transport {
         - TransportTypes type
 
+        + Transport(TransportTypes type)
         + getType() : TransportTypes
-        + getSpeed() : int
         + getAsciiSymbol() : String
     }
 
@@ -80,58 +88,84 @@ package "Model" {
         - int x
         - int y
 
-        + getLocation() : int[]
+        + Point(int x, int y)
+        + getX() : int
+        + getY() : int
         + setLocation(int x, int y)
     }
 
     enum TileTypes {
-        Floor
-        Sand
-        Wall
-        ShortGrass
-        MediumGrass
-        TallGrass
-        Water
-        DeepWater
+        Floor,    
+        Sand,     
+        Wall,     
+        ShortGrass, 
+        MediumGrass, 
+        TallGrass,  
+        Water,     
+        DeepWater,  
         Mountain
+
+        - int tileNumber
+        - String asciiColor
+        - String asciiSymbol
+
+        + TileTypes(int tileNumber, String asciiColor, String asciiSymbol)
+        + getTileNumber() : int
+        + getAsciiColor() : String
+        + getAsciiSymbol() : String
     }
 
     enum ImpreciseTime {
-        Morning
-        Afternoon
-        Evening
+        Morning,
+        Afternoon,
+        Evening,
         Night
     }
 
     enum TransportTypes {
-        Foot
-        Horse
-        Boat
+        Foot,
+        Horse,
+        Boat,
         MagicCarpet
+
+        - int speed
+        - String asciiSymbol
+        - List<TileTypes> tilesItCanMoveThrough
+
+        + TransportTypes(int speed, String asciiSymbol, List<TileTypes> tilesItCanMoveThrough)
+        + getAsciiSymbol() : String
+        + getTilesItCanMoveThrough() : List<TileTypes>
     }
 
     enum CharacterType {
-        Playable, NonPlayable
+        Playable,
+        NonPlayable
+
         - String asciiColor
         + CharacterType(String asciiColor)
-        + getAsciiColor()
+        + getAsciiColor() : String
     }
 }
 
-package "View" {
+package "Views" {
     class WorldView {
+        - int visionRadius
+
         + displayWorld(World world)
         + displayTime(Time time)
         + displayIntoConsole(Map map, List<Entity> entities)
         - displayMap(Map map, List<Entity> entities) : String[][]
+        - setVisionRadius(int radius)
+        - adjustVisionRadius(Time time)
     }
 }
 
-package "Controller" {
+package "Controllers" {
     class WorldController {
         - World world
         - WorldView worldView
 
+        + WorldController(World world, WorldView worldView)
         + initializeGame()
         + runGameCycle()
         - initializeWorldMap()
@@ -143,11 +177,12 @@ package "Controller" {
         - populateMap(List<String[]> mapData, Map worldMap)
         - createTileByNumber(String tileNumber) : Tile
         - getRandomCharacterMovement() : char
-        - getUserInput() : char
+        - getUserInput(Scanner scanner) : char
         - moveCharacters(Scanner scanner)
         - getNewPosition(Point currentPosition, char direction) : Point
         - isValidPosition(Point position) : boolean
-        - updateTransportInUse()
+        - updateTransportInUse(Character character, TileTypes newTileType)
+        - validateRoundWorld(Point position) : Point
     }
 }
 
@@ -164,4 +199,5 @@ Character --> CharacterType
 WorldController --> World
 WorldController --> WorldView
 App --> WorldController
+
 @enduml
