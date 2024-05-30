@@ -139,7 +139,7 @@ public class ElevatorController {
     private void removePersonFromElevator(Elevator elevator, Floor floor, Person person) {
         elevator.removePeopleInside(person.getId());
         person.setDestination(this.values.getRandomFloor(elevator.getCurrentFloor()));
-        person.setTimeOnFloor(this.values.getRandomTimeOnFloor(0, 5));
+        person.setTimeOnFloor(this.values.getRandomTimeOnFloor(5, 20));
         floor.addPersonOnFloor(person);
 
         this.building.updateElevator(elevator);

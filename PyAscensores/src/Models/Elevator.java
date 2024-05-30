@@ -12,7 +12,6 @@ public class Elevator implements IModel {
     private PersonList peopleInside;
     private int currentFloor;
     private Direction currentDirection;
-    private boolean access;
     private FloorsToGoList floorsToGoList;
 
     public Elevator(int id, int capacity, int currentFloor) {
@@ -20,7 +19,6 @@ public class Elevator implements IModel {
         this.capacity = capacity;
         this.currentFloor = currentFloor;
         this.currentDirection = Direction.STOP;
-        this.access = true;
         this.peopleInside = new PersonList();
         this.floorsToGoList = new FloorsToGoList();
     }
@@ -57,10 +55,6 @@ public class Elevator implements IModel {
         this.currentDirection = direction;
     }
 
-    public boolean getAccess() {
-        return this.access;
-    }
-
     public FloorsToGoList getFloorsToGoList() {
         return this.floorsToGoList;
     }
@@ -71,10 +65,6 @@ public class Elevator implements IModel {
 
     public void removeFloorToGo(int floor) {
         this.floorsToGoList.delete(floor);
-    }
-
-    public void setAccess(boolean access) {
-        this.access = access;
     }
 
     public ArrayList<Person> getPeopleInside() {

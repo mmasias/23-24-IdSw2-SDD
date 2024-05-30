@@ -5,7 +5,6 @@ import Lists.*;
 
 public class Building implements IModel {
     private int id;
-    private boolean access;
     private FloorList floors;
     private ElevatorList elevators;
     private ControlPanel controlPanel;
@@ -13,7 +12,6 @@ public class Building implements IModel {
 
     public Building(int id) {
         this.id = id;
-        this.access = true;
         this.floors = new FloorList();
         this.elevators = new ElevatorList();
         this.controlPanel = new ControlPanel(0);
@@ -58,14 +56,6 @@ public class Building implements IModel {
         this.elevators.delete(id);
     }
 
-    public boolean getAccess() {
-        return this.access;
-    }
-
-    public void setAccess(boolean access) {
-        this.access = access;
-    }
-
     public ControlPanel getControlPanel() {
         return this.controlPanel;
     }
@@ -79,15 +69,9 @@ public class Building implements IModel {
         counters.incrementPersonCounter();
     }
 
-    public void addWaitingPersonOnFloor(int floorId, int timeOnFloor, int currentFloor, int destination) {
-        this.floors.get(floorId)
-                .addWaitingPerson(new Person(counters.getPersonCounter(), timeOnFloor, currentFloor, destination));
-        counters.incrementPersonCounter();
-    }
-
     public void addPersonOnFloor(int timeOnFloor, int currentFloor, int destination) {
-        this.floors.get(currentFloor)
-                .addPersonOnFloor(new Person(counters.getPersonCounter(), timeOnFloor, currentFloor, destination));
+        Person person = new Person(counters.getPersonCounter(), timeOnFloor, destination);
+        this.floors.get(currentFloor).addPersonOnFloor(person);
         counters.incrementPersonCounter();
     }
 

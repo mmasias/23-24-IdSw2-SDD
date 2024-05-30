@@ -6,10 +6,9 @@ public class Person implements IModel {
     private int currentFloor;
     private int destination;
 
-    public Person(int id, int timeOnFloor, int currentFloor, int destination) {
+    public Person(int id, int timeOnFloor, int destination) {
         this.id = id;
         this.timeOnFloor = timeOnFloor;
-        this.currentFloor = currentFloor;
         this.destination = destination;
     }
 
