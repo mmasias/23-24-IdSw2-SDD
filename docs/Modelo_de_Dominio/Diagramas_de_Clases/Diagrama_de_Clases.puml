@@ -15,7 +15,6 @@ class ASCENSOR
     Personas en el Ascensor
     Capacidad
     Dirección
-    Acceso
 }
 
 class PERSONA 
@@ -31,25 +30,18 @@ class "CUADRO DE MANDO"
     Solicitudes de Destino
 }
 
-' Type	Symbol	Drawing
-' Extension	<|--	
-' Composition	*--	
-' Aggregation	o--	
-
 class PLANTA 
 {
     ID
     Nombre Planta
     Personas en Planta
     Personas Cambiando de Planta
-    Acceso
 }
 
 class EDIFICIO 
 {
     Plantas
     Ascensores
-    Acceso
 }
 
 class TIEMPO 
@@ -60,14 +52,13 @@ class TIEMPO
 class "SOLICITUD PARADA"
 {
     Origen
-    Movimiento
+    Direccion
 }
 
 class "SOLICITUD DESTINO"
 {
     Destino
 }
-
 
 EDIFICIO *-- PLANTA : tiene
 EDIFICIO *-- ASCENSOR : tiene
