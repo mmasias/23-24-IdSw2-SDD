@@ -1,4 +1,4 @@
-# Proyecto Aspiradora
+# Proyecto Aspiradora - Versión Final
 
 Juego implementado tomado de este [repositorio](https://github.com/puntoReflex/pyAspiradora/blob/main/enunciado.md) con la implementación de principios **SOLID** con una esctrutura **MVC** para tener un mejor patrón de diseño en la implementación y lógica de este proyecto.
 
