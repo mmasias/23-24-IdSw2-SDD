@@ -19,8 +19,8 @@ public class Simulation {
         Creation creation = new Creation(initialValues);
         this.building = creation.createBuilding();
         this.buildingController = creation.createBuildingController(this.building);
-        
-        simulation(isTesting);
+
+        this.simulation(isTesting);
     }
 
     private void simulation(boolean isTesting) {

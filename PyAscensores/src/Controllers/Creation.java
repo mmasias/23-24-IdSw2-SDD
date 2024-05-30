@@ -17,34 +17,34 @@ public class Creation {
 
     private void setInitialValues(Building building) {
         initialValues.setElevatorCapacity(6);
-        addInitialElevators(building);
-        addInitialFloors(building);
-        addInitialPeople(building);
+        this.addInitialElevators(building);
+        this.addInitialFloors(building);
+        this.addInitialPeople(building);
     }
 
     private void addInitialElevators(Building building) {
-        int amountElevators = initialValues.getAmountElevators();
+        int amountElevators = this.initialValues.getAmountElevators();
         for (int i = 0; i < amountElevators; i++) {
-            int currentFloor = initialValues.getElevatorFloor();
-            int capacity = initialValues.getElevatorCapacity();
+            int currentFloor = this.initialValues.getElevatorFloor();
+            int capacity = this.initialValues.getElevatorCapacity();
             building.addElevator(capacity, currentFloor);
         }
     }
 
     private void addInitialFloors(Building building) {
-        int amountFloors = initialValues.getAmountFloors();
-        String label = initialValues.getLabel();
+        int amountFloors = this.initialValues.getAmountFloors();
+        String label = this.initialValues.getLabel();
         for (int i = 0; i < amountFloors; i++) {
             building.addFloor(label + i);
         }
     }
 
     private void addInitialPeople(Building building) {
-        int amountPeople = initialValues.getAmountPeople(2, 10);
+        int amountPeople = this.initialValues.getAmountPeople(2, 10);
         for (int i = 0; i <= amountPeople; i++) {
-            int timeOnFloor = initialValues.getRandomTimeOnFloor(0, 5);
-            int currentFloor = initialValues.getRandomFloor();
-            int destination = initialValues.getRandomFloor(currentFloor);
+            int timeOnFloor = this.initialValues.getRandomTimeOnFloor(0, 10);
+            int currentFloor = this.initialValues.getRandomFloor();
+            int destination = this.initialValues.getRandomFloor(currentFloor);
             building.addPersonOnFloor(timeOnFloor, currentFloor, destination);
         }
     }

@@ -18,8 +18,8 @@ public class PersonList {
         return this.people.get(index);
     }
 
-    public void create(int id, int timeOnFloor, int currentFloor, int destination) {
-        this.people.add(new Person(id, timeOnFloor, currentFloor, destination));
+    public void create(int id, int timeOnFloor, int destination) {
+        this.people.add(new Person(id, timeOnFloor, destination));
     }
 
     public void update(int id, Person updatedPerson) {

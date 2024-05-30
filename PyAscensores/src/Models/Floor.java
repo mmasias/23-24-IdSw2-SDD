@@ -9,12 +9,10 @@ public class Floor implements IModel {
     private String label;
     private PersonList peopleOnFloor;
     private PersonList waitingPeople;
-    private boolean access;
 
     public Floor(int id, String label) {
         this.id = id;
         this.label = label;
-        this.access = true;
         peopleOnFloor = new PersonList();
         waitingPeople = new PersonList();
     }
@@ -49,14 +47,6 @@ public class Floor implements IModel {
 
     public void removeWaitingPerson(Person person) {
         this.waitingPeople.delete(person.getId());
-    }
-
-    public boolean getAccess() {
-        return this.access;
-    }
-
-    public void setAccess(boolean access) {
-        this.access = access;
     }
 
     public String getLabel() {

@@ -131,7 +131,7 @@ public class ControlPanelController {
         for (int i = 0; i < elevators.size(); i++) {
             Elevator elevator = elevators.get(i);
             int distance = Math.abs(elevator.getCurrentFloor() - destination);
-            if (distance < minDistance && elevator.getFloorsToGoList().isEmpty() && elevator.getAccess()) {
+            if (distance < minDistance && elevator.getFloorsToGoList().isEmpty()) {
                 elevatorId = elevator.getId();
             }
         }
