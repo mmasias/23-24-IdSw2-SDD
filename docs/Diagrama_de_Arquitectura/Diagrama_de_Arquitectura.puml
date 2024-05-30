@@ -1,0 +1,398 @@
+@startuml Diagrama_de_Arquitectura
+
+title Diagrama de Arquitectura
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+class App {
+    + main()
+}
+
+package Controllers {
+    class BuildingController {
+        - building: Building
+        - elevatorController: ElevatorController
+        - floorController: FloorController
+        - controlPanelController: ControlPanelController
+        + index(): Building
+        + update(): Building
+        + updateFloors(): Building
+        + updateElevators(): Building
+        + updateControlPanels(): Building
+        + BuildingController(Building building)
+    }
+
+    class ElevatorController {
+        + update(Building building): Building
+        + checkElevatorRequests(): void
+        + updatePeople(): void
+        + updateElevatorPeople(Elevator elevator): void
+        + processWaitingPeople(Elevator elevator, Floor floor): void
+        + requestElevator(Floor floor, Person person): void
+        + askPeopleInside(Elevator elevator, Floor floor, Person person): void
+        + getElevatorRequest(ElevatorRequest elevatorRequest): ElevatorRequest
+        + processPeopleInside(Elevator elevator, Floor floor): void
+        + movePersonToElevator(Elevator elevator, Floor floor, Person person): void
+        + removeElevatorRequest(Person person, Floor floor): void
+        + removePersonFromElevator(Elevator elevator, Floor floor, Person person): void
+        + updatePosition(): void
+    }
+
+    class Values {
+        - amountFloors: int
+        - amountElevators: int
+        + getAmountFloors(): int
+        + getAmountElevators(): int
+        + getElevatorCapacity(): int
+        + setElevatorCapacity(int capacity): void
+        + getElevatorFloor(): int
+        + setElevatorFloor(int floor): void
+        + getLabel(): String
+        + setLabel(String label): void
+        + getAmountPeople(int min, int max): int
+        + setAmountPeople(int amountPeople): void
+        + randomInt(int minimum, int maximum): int
+        + getRandomTimeOnFloor(int minimum, int maximum): int
+        + getRandomFloor(): int
+        + getRandomFloor(int excludedFloor): int
+        + getDirection(int currentFloor, int destination): Direction
+        + createElevatorRequest(Floor floor, Person person): ElevatorRequest
+        + Values(int amountFloors, int amountElevators)
+    }
+
+    class Simulation {
+        - buildingController: BuildingController
+        - initialValues: Values
+        - time: Time
+        - building: Building
+        + start(boolean isTesting): void
+        + simulation(boolean isTesting): void
+        + Simulation(Values values)
+    }
+
+    class Time {
+        + tick(BuildingController controller): Building
+        + tickFloors(BuildingController controller): Building
+        + tickElevators(BuildingController controller): Building
+        + tickControlPanels(BuildingController controller): Building
+    }
+
+    class FloorController {
+        - building: Building
+        + update(Building building): Building
+        + updateFloors(): void
+        + updatePeople(Floor floor): void
+        + updatePerson(Floor floor, Person person): void
+        + moveToWaitingList(Floor floor, Person person): void
+        + requestElevator(Floor floor, Person person): void
+    }
+
+    class ControlPanelController {
+        + update(Building building): Building
+        + updateElevatorDirections(): void
+        + setDirection(Elevator elevator): void
+        + updateFloorRequests(): void
+        + processFloorRequest(FloorRequest floorRequest): void
+        + getDirection(int destination, int elevatorId): Direction
+        + updateElevatorRequests(): void
+        + processElevatorRequest(ElevatorRequest elevatorRequest): boolean
+        + findClosestElevator(Direction direction, int origin): int
+        + isSomeoneAvailable(ArrayList<Elevator> elevators, int destination): int
+    }
+
+    class Creation {
+        - initialValues: Values
+        + createBuilding(): Building
+        + setInitialValues(Building building): void
+        + addInitialElevators(Building building): void
+        + addInitialFloors(Building building): void
+        + addInitialPeople(Building building): void
+        + createBuildingController(Building building): BuildingController
+        + Creation(Values initialValues)
+    }
+}
+package Lists {
+    class BuildingList {
+        - buildings: ModelList<Building>
+        + get(int id): Building
+        + index(): ArrayList<Building>
+        + create(int id): void
+        + update(int id, Building updatedBuilding): void
+        + delete(int id): void
+        + add(Building building): void
+    }
+
+    class ControlPanelList {
+        - controlPanels: ModelList<ControlPanel>
+        + index(): ArrayList<ControlPanel>
+        + get(int id): ControlPanel
+        + create(int id): void
+        + update(int id, ControlPanel updatedControlPanel): void
+        + delete(int id): void
+        + add(ControlPanel controlPanel): void
+    }
+
+    class Counters {
+        - floorCounter: int
+        - elevatorCounter: int
+        - personCounter: int
+        - controlPanelCounter: int
+        + getFloorCounter(): int
+        + getElevatorCounter(): int
+        + getPersonCounter(): int
+        + getControlPanelCounter(): int
+        + incrementFloorCounter(): void
+        + incrementElevatorCounter(): void
+        + incrementPersonCounter(): void
+    }
+
+    class ElevatorList {
+        - elevators: ModelList<Elevator>
+        + index(): ArrayList<Elevator>
+        + get(int id): Elevator
+        + create(int id, int capacity, int currentFloor): void
+        + update(int id, Elevator updatedElevator): void
+        + delete(int id): void
+        + add(Elevator elevator): void
+    }
+
+    class ElevatorRequestList {
+        - elevatorRequests: ArrayList<ElevatorRequest>
+        + index(): ArrayList<ElevatorRequest>
+        + add(ElevatorRequest elevatorRequest): void
+        + remove(ElevatorRequest elevatorRequest): void
+        + get(ElevatorRequest elevatorRequest): ElevatorRequest
+        + isEmpty(): boolean
+    }
+
+    class FloorList {
+        - floors: ModelList<Floor>
+        + index(): ArrayList<Floor>
+        + get(int id): Floor
+        + create(int id, String label): void
+        + update(int id, Floor updatedFloor): void
+        + delete(int id): void
+        + add(Floor floor): void
+    }
+
+    class FloorRequestList {
+        - floorRequests: ArrayList<FloorRequest>
+        + index(): ArrayList<FloorRequest>
+        + add(FloorRequest floorRequest): void
+        + remove(FloorRequest floorRequest): void
+        + isEmpty(): boolean
+    }
+
+    class FloorsToGoList {
+        - floorsToGo: ArrayList<Integer>
+        + add(int floor, Direction direction, int currentFloor): void
+        + delete(int floor): void
+        + get(int index): int
+        + size(): int
+        + isEmpty(): boolean
+        + clear(): void
+        + sortRequests(int floor, Direction direction, int currentFloor): void
+    }
+
+    class ModelList<T> {
+        - modelList: ArrayList<T>
+        + index(): ArrayList<T>
+        + get(int index): T
+        + add(T model): void
+        + update(int id, T updatedModel): void
+        + delete(int id): void
+        + getListPosition(int id): int
+    }
+
+    class PersonList {
+        - people: ModelList<Person>
+        + index(): ArrayList<Person>
+        + get(int index): Person
+        + create(int id, int timeOnFloor, int destination): void
+        + update(int id, Person updatedPerson): void
+        + delete(int id): void
+        + add(Person person): void
+    }
+}
+
+package Models {
+    class Building {
+        - id: int
+        - floors: FloorList
+        - elevators: ElevatorList
+        - controlPanel: ControlPanel
+        - counters: Counters
+        + getId(): int
+        + getFloors(): ArrayList<Floor>
+        + addFloor(String label): void
+        + updateFloor(Floor floor): void
+        + removeFloor(int id): void
+        + getElevators(): ArrayList<Elevator>
+        + addElevator(int capacity, int currentFloor): void
+        + updateElevator(Elevator elevator): void
+        + removeElevator(int id): void
+        + getControlPanel(): ControlPanel
+        + updateControlPanel(ControlPanel controlPanel): void
+        + addPersonInElevator(int elevatorId, Person person): void
+        + addPersonOnFloor(int timeOnFloor, int currentFloor, int destination): void
+        + Building(int id)
+    }
+
+    class ControlPanel {
+        - id: int
+        - elevatorRequests: ElevatorRequestList
+        - floorRequests: FloorRequestList
+        + getId(): int
+        + getElevatorRequests(): List<ElevatorRequest>
+        + addElevatorRequest(ElevatorRequest elevatorRequest): void
+        + removeElevatorRequest(ElevatorRequest elevatorRequest): void
+        + getFloorRequests(): List<FloorRequest>
+        + addFloorRequest(FloorRequest floorRequest): void
+        + removeFloorRequest(FloorRequest floorRequest): void
+        + hasElevatorRequests(): boolean
+        + hasFloorRequests(): boolean
+        + ControlPanel(int id)
+    }
+
+    class Elevator {
+        - id: int
+        - capacity: int
+        - peopleInside: PersonList
+        - currentFloor: int
+        - currentDirection: Direction
+        - floorsToGoList: FloorsToGoList
+        + getId(): int
+        + getCapacity(): int
+        + setCapacity(int capacity): void
+        + isFull(): boolean
+        + getCurrentFloor(): int
+        + setCurrentFloor(int currentFloor): void
+        + getDirection(): Direction
+        + setDirection(Direction direction): void
+        + getFloorsToGoList(): FloorsToGoList
+        + addFloorToGo(int floor, Direction direction, int currentFloor): void
+        + removeFloorToGo(int floor): void
+        + getPeopleInside(): ArrayList<Person>
+        + addPeopleInside(Person newPerson): void
+        + removePeopleInside(int id): void
+        + updatePeopleInside(int id, Person updatedPerson): void
+        + Elevator(int id, int capacity, int currentFloor)
+    }
+
+    class ElevatorRequest {
+        - direction: Direction
+        - origin: int
+        + getDirection(): Direction
+        + getOrigin(): int
+        + isLinkedToElevator(): boolean
+        + setLinkedToElevator(boolean isLinkedToElevator): void
+        + ElevatorRequest(int Origin, Direction Direction)
+    }
+
+    class Floor {
+        - id: int
+        - label: String
+        - peopleOnFloor: PersonList
+        - waitingPeople: PersonList
+        + getId(): int
+        + getPeopleOnFloor(): ArrayList<Person>
+        + addPersonOnFloor(Person person): void
+        + updatePersonOnFloor(Person updatedPerson): void
+        + removePersonOnFloor(Person person): void
+        + getWaitingPeople(): ArrayList<Person>
+        + addWaitingPerson(Person person): void
+        + removeWaitingPerson(Person person): void
+        + getLabel(): String
+        + setLabel(String label): void
+        + Floor(int id, String label)
+    }
+
+    class FloorRequest {
+        - destination: int
+        - elevatorId: int
+        + getDestination(): int
+        + getElevatorId(): int
+        + FloorRequest(int destination, int elevatorId)
+    }
+
+    class Person {
+        - id: int
+        - timeOnFloor: int
+        - currentFloor: int
+        - destination: int
+        + getId(): int
+        + getTimeOnFloor(): int
+        + setTimeOnFloor(int timeOnFloor): void
+        + getCurrentFloor(): int
+        + setCurrentFloor(int floorId): void
+        + getDestination(): int
+        + setDestination(int destination): void
+        + Person(int id, int timeOnFloor, int destination)
+    }
+}
+
+package Views {
+    class BuildingView {
+        - building: Building
+        - isTesting: boolean
+        + render(): void
+        + getViews(Building building): ArrayList<String[]>
+        + mergeViews(ArrayList<String[]> views, Building building): String
+        + spacesBeforeAndAfter(int SpacesBefore, int SpacesAfter, String text): String
+        + BuildingView(Building building, boolean isTesting)
+    }
+
+    class DebuggerView {
+        - building: Building
+        - debuggerMode: boolean
+        + render(): void
+        + printSeparator(): void
+        + printElevatorsStatus(): void
+        + printPeopleInside(List<Person> peopleInside): void
+        + printFloorsToGoList(Elevator elevator): void
+        + printFloorsStatus(): void
+        + printPeopleIDs(List<Person> people): void
+        + printElevatorRequestsPerPerson(): void
+        + printFloorRequestsPerPerson(): void
+        + printFloorRequestsStatus(): void
+        + printElevatorsRequestsStatus(): void
+        + determineDirection(int currentFloor, int destination): Direction
+        + DebuggerView(Building building, boolean debuggerMode)
+    }
+
+    class ElevatorView {
+        - elevators: List<Elevator>
+        - totalFloors: int
+        + render(): String[]
+        + getElevatorView(Elevator elevator): String
+        + mergeElevatorsViews(ArrayList<String[]> views): String[]
+        + ElevatorView(List<Elevator> elevators, int totalFloors)
+    }
+
+    class WaitingPeopleView {
+        - floors: List<Floor>
+        + render(): String[]
+        + getWaitingPeopleViewView(): String
+        + WaitingPeopleView(List<Floor> floors)
+    }
+
+    class FloorView {
+        - Floors: List<Floor>
+        + render(): String[]
+        + getFloorView(): String
+        + FloorView(List<Floor> floors)
+    }
+
+    class PeopleOnFloorView {
+        - Floors: List<Floor>
+        + render(): String[]
+        + getPeopleOnFloorView(): String
+        + PeopleOnFloorView(List<Floor> floors)
+    }
+}
+
+@enduml
