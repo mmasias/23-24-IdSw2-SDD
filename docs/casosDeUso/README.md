@@ -57,7 +57,7 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 
 ---
 
-### Advance time
+### Advance precise time
 ![Diagrama de Casos de Uso](../images/detalleCasosDeUso/AdvancePreciseTime.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/advancePreciseTime.puml)
 
@@ -81,7 +81,7 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 
 ---
 
-### Move transport
+### Update transport
 ![Diagrama de Casos de Uso](../images/detalleCasosDeUso/UpdateTransport.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/updateTransport.puml)
 
