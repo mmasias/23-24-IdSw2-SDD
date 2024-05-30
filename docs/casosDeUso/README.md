@@ -26,7 +26,7 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 - Move transport
 
 #### Diagrama General de Casos de Uso
-![Diagrama de Casos de Uso](../images/DiagramaDeCasosDeUso.svg)  
+![Diagrama de Casos de Uso](../images/DiagramaCasosDeUso.svg)  
 [Código PUML](../modelosUML/diagramaCasosDeUso.puml)
 
 ---
