@@ -32,6 +32,12 @@ El Diagrama de Estados ilustra los cambios de estado de los objetos más signifi
 
 ![Diagrama de Estados de PyMundo](./docs/images/PyMundoStates.svg)
 
+### Diagrama de Casos de Uso
+
+El Diagrama de Casos de Uso muestra las interacciones entre los actores externos y el sistema, describiendo los distintos casos de uso que representan los objetivos que los actores quieren lograr con el sistema.
+
+![Diagrama de Casos de Uso de PyMundo](./docs/images/DiagramaCasosDeUso.svg)
+
 ## Clases Prácticas
 
 Este diagrama visualiza las interacciones típicas y los flujos de trabajo durante las sesiones prácticas del proyecto, destacando la dinámica de las clases y su aplicabilidad en contextos de aprendizaje real.
