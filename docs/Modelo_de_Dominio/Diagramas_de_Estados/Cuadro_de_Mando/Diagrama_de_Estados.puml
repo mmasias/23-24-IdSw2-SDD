@@ -10,9 +10,7 @@ hide empty members
 
     [*] --> GestionandoSolicitudes : nueva solicitud
     GestionandoSolicitudes --> GestionandoAscensores : solicitud aceptada
-    GestionandoAscensores --> GestionandoSolicitudes : solicitud rechazada
-
-
-
+    GestionandoAscensores --> EnEspera : ascensores gestionados
+    EnEspera --> GestionandoSolicitudes : nueva solicitud
 @enduml
 ```

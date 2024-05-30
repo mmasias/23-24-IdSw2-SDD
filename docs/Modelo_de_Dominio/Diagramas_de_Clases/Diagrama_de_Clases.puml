@@ -25,7 +25,7 @@ class PERSONA
     Destino
 }
 
-class "CUADRO DE MANDO"
+class "PANEL DE CONTROL"
 {
     Solicitudes de Parada
     Solicitudes de Destino
@@ -71,9 +71,9 @@ PERSONA ..> ASCENSOR : utiliza
 
 PERSONA ..> "SOLICITUD DE ASCENSOR" : solicita
 PERSONA ..> "SOLICITUD DESTINO" : solicita
-"CUADRO DE MANDO" --> ASCENSOR : gobierna
-"SOLICITUD DE ASCENSOR" --o "CUADRO DE MANDO" : se envía
-"SOLICITUD DESTINO" --o "CUADRO DE MANDO" : se envía
+"PANEL DE CONTROL" --> ASCENSOR : gobierna
+"SOLICITUD DE ASCENSOR" --o "PANEL DE CONTROL" : se envía
+"SOLICITUD DESTINO" --o "PANEL DE CONTROL" : se envía
 
 TIEMPO .down.> PERSONA : afecta
 TIEMPO ..> EDIFICIO : afecta
