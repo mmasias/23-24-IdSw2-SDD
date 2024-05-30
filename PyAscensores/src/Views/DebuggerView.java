@@ -1,9 +1,6 @@
 package Views;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
-
 import Enums.Direction;
 import Models.Building;
 import Models.Elevator;

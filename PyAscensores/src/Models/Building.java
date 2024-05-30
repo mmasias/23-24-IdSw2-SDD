@@ -3,23 +3,17 @@ package Models;
 import java.util.ArrayList;
 import Lists.*;
 
-public class Building implements IModel {
-    private int id;
+public class Building {
     private FloorList floors;
     private ElevatorList elevators;
     private ControlPanel controlPanel;
     private Counters counters;
 
-    public Building(int id) {
-        this.id = id;
+    public Building() {
         this.floors = new FloorList();
         this.elevators = new ElevatorList();
-        this.controlPanel = new ControlPanel(0);
+        this.controlPanel = new ControlPanel();
         this.counters = new Counters();
-    }
-
-    public int getId() {
-        return this.id;
     }
 
     public ArrayList<Floor> getFloors() {

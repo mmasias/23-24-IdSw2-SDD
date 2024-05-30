@@ -5,19 +5,13 @@ import java.util.List;
 import Lists.ElevatorRequestList;
 import Lists.FloorRequestList;
 
-public class ControlPanel implements IModel {
-    private int id;
+public class ControlPanel {
     private ElevatorRequestList elevatorRequests;
     private FloorRequestList floorRequests;
 
-    public ControlPanel(int id) {
-        this.id = id;
+    public ControlPanel() {
         elevatorRequests = new ElevatorRequestList();
         floorRequests = new FloorRequestList();
-    }
-
-    public int getId() {
-        return this.id;
     }
 
     public List<ElevatorRequest> getElevatorRequests() {

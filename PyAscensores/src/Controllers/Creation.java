@@ -10,7 +10,7 @@ public class Creation {
     }
 
     public Building createBuilding() {
-        Building building = new Building(0);
+        Building building = new Building();
         setInitialValues(building);
         return building;
     }

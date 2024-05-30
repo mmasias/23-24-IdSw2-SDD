@@ -15,11 +15,12 @@ class ASCENSOR
     Personas en el Ascensor
     Capacidad
     Dirección
+    Plantas a las que se dirige
 }
 
 class PERSONA 
 {
-    ID Planta
+    ID
     Tiempo en Planta
     Destino
 }
@@ -42,6 +43,7 @@ class EDIFICIO
 {
     Plantas
     Ascensores
+    Panel de Control
 }
 
 class TIEMPO 
@@ -49,7 +51,7 @@ class TIEMPO
 
 }
 
-class "SOLICITUD PARADA"
+class "SOLICITUD DE ASCENSOR"
 {
     Origen
     Direccion
@@ -57,6 +59,7 @@ class "SOLICITUD PARADA"
 
 class "SOLICITUD DESTINO"
 {
+    Id de Ascensor
     Destino
 }
 
@@ -66,13 +69,13 @@ PLANTA o-- PERSONA : tiene
 PLANTA -left-> ASCENSOR : tiene acceso
 PERSONA ..> ASCENSOR : utiliza
 
-PERSONA ..> "SOLICITUD PARADA" : solicita
+PERSONA ..> "SOLICITUD DE ASCENSOR" : solicita
 PERSONA ..> "SOLICITUD DESTINO" : solicita
 "CUADRO DE MANDO" --> ASCENSOR : gobierna
-"SOLICITUD PARADA" --o "CUADRO DE MANDO" : se envía
+"SOLICITUD DE ASCENSOR" --o "CUADRO DE MANDO" : se envía
 "SOLICITUD DESTINO" --o "CUADRO DE MANDO" : se envía
 
-TIEMPO .left.> PERSONA : afecta
+TIEMPO .down.> PERSONA : afecta
 TIEMPO ..> EDIFICIO : afecta
 
 @enduml
