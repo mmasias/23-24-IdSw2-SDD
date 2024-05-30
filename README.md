@@ -6,7 +6,6 @@ Se desarrolla, en un caso controlado, la disciplina de diseño, con el objetivo 
 
 ## Proyecto PyMundo
 
-=======
 
 ### Contenido del Repositorio:
 
