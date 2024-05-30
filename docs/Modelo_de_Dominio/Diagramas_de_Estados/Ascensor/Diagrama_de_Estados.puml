@@ -8,13 +8,9 @@ skinparam {
 
 hide empty members
 
-[*] --> Ascensor : Iniciar
-Ascensor --> [*] : Detener
 
-state Ascensor {
-
-    [*] --> Movimiento
-    [*] --> Capacidad
+    [*] --> Movimiento : mover
+    [*] --> Capacidad : llenar
     Movimiento --> [*] : Detener
     Capacidad --> [*] : Vaciar
 
@@ -35,7 +31,6 @@ state Ascensor {
         Lleno --> ParcialmenteLleno : Vaciar
         ParcialmenteLleno --> Libre : Vaciar
     }
-}
 
 @enduml
 ```

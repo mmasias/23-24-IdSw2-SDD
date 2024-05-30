@@ -8,15 +8,11 @@ skinparam {
 
 hide empty members
 
-[*] --> CuadroDeMando : Iniciar
-CuadroDeMando --> [*] : Detener
+    [*] --> GestionandoSolicitudes : nueva solicitud
+    GestionandoSolicitudes --> GestionandoAscensores : solicitud aceptada
+    GestionandoAscensores --> GestionandoSolicitudes : solicitud rechazada
 
-state CuadroDeMando {
 
-    [*] --> GestionandoSolicitudes
-    [*] --> GestionandoAscensores
-
-}
 
 @enduml
 ```

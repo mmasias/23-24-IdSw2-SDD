@@ -8,14 +8,11 @@ skinparam {
 
 hide empty members
 
-[*] --> Usuario
 
-state Usuario {
-    [*] --> EnPlanta
-    EnPlanta --> SolicitandoAscensor : solicitar ascensor
-    SolicitandoAscensor --> EnAscensor : ascensor disponible
-    SolicitandoAscensor --> EnPlanta : ascensor no disponible
-    EnAscensor --> EnPlanta : llegada a planta
-}
+[*] --> EnPlanta
+EnPlanta --> SolicitandoAscensor : solicitar ascensor
+SolicitandoAscensor --> EnAscensor : ascensor disponible
+EnAscensor --> EnPlanta : llegada a planta
+
 
 @enduml
