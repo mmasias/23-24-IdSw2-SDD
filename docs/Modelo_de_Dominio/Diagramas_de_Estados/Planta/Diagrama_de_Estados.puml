@@ -8,9 +8,4 @@ skinparam {
 
 hide empty members
 
-[*] --> Disponible : Acceso Habilitado
-[*] --> NoDisponible : Acceso Denegado
-Disponible --> NoDisponible : Acceso Denegado
-NoDisponible --> Disponible : Acceso Habilitado
-
 @enduml
