@@ -2,13 +2,15 @@
 skin rose
 title Caso de Uso: Initialize Map
 
-state SIMULATION_RUNNING as "Simulation Running"
-state InitializeMap as "Initialize Map"
-state LoadMapData as "Load Map Data"
+state SIMULATION_SETUP as "Simulation Setup"
+state ReadFile as "Read Map File"
+state PopulateMap as "Populate Map"
+state MapInitialized as "Map Initialized"
 
-[*] --> SIMULATION_RUNNING
-SIMULATION_RUNNING -[#blue]-> InitializeMap : System initializes map
-InitializeMap -[#blue]-> LoadMapData : System loads map data
-LoadMapData -[#blue]-> SIMULATION_RUNNING : Map initialized
+[*] --> SIMULATION_SETUP
+SIMULATION_SETUP -[#blue]-> ReadFile : System reads map file
+ReadFile -[#blue]-> PopulateMap : System parses file
+PopulateMap -[#blue]-> MapInitialized : Map populated
+MapInitialized -[#blue]-> SIMULATION_SETUP : Map initialization complete
 
 @enduml

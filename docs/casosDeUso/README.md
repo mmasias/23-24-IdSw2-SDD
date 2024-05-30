@@ -26,7 +26,7 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 - Change transport
 
 #### Diagrama General de Casos de Uso
-![Diagrama de Casos de Uso](../images/DiagramaDeCasosDeUso.svg)  
+![Diagrama de Casos de Uso](../images/DiagramaCasosDeUso.svg)  
 [Código PUML](../modelosUML/diagramaCasosDeUso.puml)
 
 ---
@@ -53,13 +53,13 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 ## Casos de Uso para System
 ### Execute simulation cycle
 ![Diagrama de Casos de Uso](../images/detalleCasosDeUso/ExecuteSimulationCycle.svg)  
-[Código PUML](../casosDeUso/detalleDeCasosDeUso/executeSimulationCircle.puml)
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/executeSimulationCycle.puml)
 
 ---
 
-### Advance time
-![Diagrama de Casos de Uso](../images/detalleCasosDeUso/AdvanceTime.svg)  
-[Código PUML](../casosDeUso/detalleDeCasosDeUso/advanceTime.puml)
+### Advance precise time
+![Diagrama de Casos de Uso](../images/detalleCasosDeUso/AdvancePreciseTime.svg)  
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/advancePreciseTime.puml)
 
 ---
 
@@ -81,7 +81,7 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 
 ---
 
-### Change transport
-![Diagrama de Casos de Uso](../images/detalleCasosDeUso/MoveTransport.svg)  
-[Código PUML](../casosDeUso/detalleDeCasosDeUso/moveTransport.puml)
+### Update transport
+![Diagrama de Casos de Uso](../images/detalleCasosDeUso/UpdateTransport.svg)  
+[Código PUML](../casosDeUso/detalleDeCasosDeUso/updateTransport.puml)
 

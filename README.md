@@ -7,6 +7,7 @@ Se desarrolla, en un caso controlado, la disciplina de diseño, con el objetivo 
 ## Proyecto PyMundo
 
 =======
+
 ### Contenido del Repositorio:
 
 - [Requisitos del proyecto](https://github.com/puntoReflex/pyMundo/blob/main/enunciado.md)
