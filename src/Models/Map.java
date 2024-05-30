@@ -32,7 +32,7 @@ public class Map {
         if (x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length) {
             return tiles[x][y];
         }
-        return null; 
+        return null;
     }
 
     public Point getRandomTilePositionOfType(TileTypes type) {
@@ -48,7 +48,7 @@ public class Map {
             Random random = new Random();
             return validLocations.get(random.nextInt(validLocations.size()));
         }
-        return null; 
+        return null;
     }
 
     public int getHeight() {
