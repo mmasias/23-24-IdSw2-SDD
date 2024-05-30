@@ -32,6 +32,10 @@ El Diagrama de Estados ilustra los cambios de estado de los objetos más signifi
 
 ![Diagrama de Estados de PyMundo](./docs/images/PyMundoStates.svg)
 
+## Casos de Uso
+
+![Diagrama de Casos de Uso de PyMundo](./docs/images/DiagramaDeCasosDeUso.svg)
+
 ## Clases Prácticas
 
 Este diagrama visualiza las interacciones típicas y los flujos de trabajo durante las sesiones prácticas del proyecto, destacando la dinámica de las clases y su aplicabilidad en contextos de aprendizaje real.

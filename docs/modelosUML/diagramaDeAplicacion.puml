@@ -71,7 +71,7 @@ package "Models" {
         - CharacterType type
         - Transport[] availableTransports
 
-        + Character(Point startingPosition, Transport startingTransport, CharacterType type, Transport[]: availableTransports)
+        + Character(Point startingPosition, Transport startingTransport, CharacterType type, Transport[] availableTransports)
         + getAvailableTransports() : Transport[]
         + getCharacterType() : CharacterType
     }
@@ -149,14 +149,37 @@ package "Models" {
 
 package "Views" {
     class WorldView {
-        - int visionRadius
-
         + displayWorld(World world)
-        + displayTime(Time time)
-        + displayIntoConsole(Map map, List<Entity> entities)
-        - displayMap(Map map, List<Entity> entities) : String[][]
-        - setVisionRadius(int radius)
-        - adjustVisionRadius(Time time)
+        - displayStats(World world)
+        - displayViewport(Map map, List<Entity> entities, Time time)
+        - calculateViewDistance(ImpreciseTime time) : int
+        - createDisplayMatrix(Map map, List<Entity> entities, Viewport viewport, int[] playerCoords) : String[][]
+        - initializeDisplayMatrix() : String[][]
+        - getPlayer(List<Entity> entities) : Character
+        - calculateViewportBounds(Map map, int[] playerCoords) : int[]
+        - fillDisplayMatrix(Map map, String[][] displayMatrix, Viewport viewport, int[] playerCoords)
+        - addEntitiesToDisplayMatrix(String[][] displayMatrix, List<Entity> entities, Viewport viewport, int[] playerCoords)
+        - adjustColorForTime(String baseColor, ImpreciseTime time) : String
+        - printMatrixWithBorder(String[][] matrix)
+        - displayPrompt()
+        - clearConsole()
+    }
+
+    class Viewport {
+        - int viewportStartX
+        - int viewportStartY
+        - int viewportEndX
+        - int viewportEndY
+        - int viewDistance
+        - ImpreciseTime time
+
+        + Viewport(int viewportStartX, int viewportStartY, int viewportEndX, int viewportEndY, int viewDistance, ImpreciseTime time)
+        + getViewportStartX() : int
+        + getViewportStartY() : int
+        + getViewportEndX() : int
+        + getViewportEndY() : int
+        + getViewDistance() : int
+        + getTime() : ImpreciseTime
     }
 }
 
@@ -199,5 +222,6 @@ Character --> CharacterType
 WorldController --> World
 WorldController --> WorldView
 App --> WorldController
+WorldView --> Viewport
 
 @enduml

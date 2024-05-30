@@ -33,7 +33,18 @@ public class WorldView {
 
     private void displayViewport(Map map, List<Entity> entities, Time time) {
         int viewDistance = calculateViewDistance(time.getImpreciseTime());
-        String[][] matrixMap = createDisplayMatrix(map, entities, viewDistance, time.getImpreciseTime());
+        Character player = getPlayer(entities);
+        if (player == null) {
+            return;
+        }
+
+        Point playerPosition = player.getPosition();
+        int[] playerCoords = {playerPosition.getX(), playerPosition.getY()};
+
+        int[] viewportBounds = calculateViewportBounds(map, playerCoords);
+        Viewport viewport = new Viewport(viewportBounds[0], viewportBounds[1], viewportBounds[2], viewportBounds[3], viewDistance, time.getImpreciseTime());
+
+        String[][] matrixMap = createDisplayMatrix(map, entities, viewport, playerCoords);
         printMatrixWithBorder(matrixMap);
         displayPrompt();
     }
@@ -53,26 +64,10 @@ public class WorldView {
         }
     }
 
-    private String[][] createDisplayMatrix(Map map, List<Entity> entities, int viewDistance, ImpreciseTime time) {
+    private String[][] createDisplayMatrix(Map map, List<Entity> entities, Viewport viewport, int[] playerCoords) {
         String[][] displayMatrix = initializeDisplayMatrix();
-        Character player = getPlayer(entities);
-        if (player == null) {
-            return displayMatrix;
-        }
-
-        Point playerPosition = player.getPosition();
-        int playerX = playerPosition.getX();
-        int playerY = playerPosition.getY();
-
-        int[] viewportBounds = calculateViewportBounds(map, playerX, playerY);
-        int viewportStartX = viewportBounds[0];
-        int viewportStartY = viewportBounds[1];
-        int viewportEndX = viewportBounds[2];
-        int viewportEndY = viewportBounds[3];
-
-        fillDisplayMatrix(map, displayMatrix, viewportStartX, viewportStartY, viewportEndX, viewportEndY, playerX, playerY, viewDistance, time);
-        addEntitiesToDisplayMatrix(displayMatrix, entities, viewportStartX, viewportStartY, viewportEndX, viewportEndY, playerX, playerY, viewDistance, time);
-
+        fillDisplayMatrix(map, displayMatrix, viewport, playerCoords);
+        addEntitiesToDisplayMatrix(displayMatrix, entities, viewport, playerCoords);
         return displayMatrix;
     }
 
@@ -84,7 +79,9 @@ public class WorldView {
         return (Character) entities.stream().filter(e -> e instanceof Character && ((Character) e).getCharacterType() == CharacterType.Playable).findFirst().orElse(null);
     }
 
-    private int[] calculateViewportBounds(Map map, int playerX, int playerY) {
+    private int[] calculateViewportBounds(Map map, int[] playerCoords) {
+        int playerX = playerCoords[0];
+        int playerY = playerCoords[1];
         int mapWidth = map.getWidth();
         int mapHeight = map.getHeight();
         int viewportStartX = Math.max(0, playerX - VIEWPORT_SIZE / 2);
@@ -111,7 +108,9 @@ public class WorldView {
         return new int[]{viewportStartX, viewportStartY, viewportEndX, viewportEndY};
     }
 
-    private void fillDisplayMatrix(Map map, String[][] displayMatrix, int viewportStartX, int viewportStartY, int viewportEndX, int viewportEndY, int playerX, int playerY, int viewDistance, ImpreciseTime time) {
+    private void fillDisplayMatrix(Map map, String[][] displayMatrix, Viewport viewport, int[] playerCoords) {
+        int playerX = playerCoords[0];
+        int playerY = playerCoords[1];
         int mapWidth = map.getWidth();
         int mapHeight = map.getHeight();
         int centerX = playerX;
@@ -119,13 +118,13 @@ public class WorldView {
 
         for (int i = 0; i < VIEWPORT_SIZE; i++) {
             for (int j = 0; j < VIEWPORT_SIZE; j++) {
-                int mapX = viewportStartX + j;
-                int mapY = viewportStartY + i;
+                int mapX = viewport.getViewportStartX() + j;
+                int mapY = viewport.getViewportStartY() + i;
                 if (mapX < mapWidth && mapY < mapHeight) {
                     int distance = (int) Math.sqrt(Math.pow(mapX - centerX, 2) + Math.pow(mapY - centerY, 2));
-                    if (distance <= viewDistance) {
+                    if (distance <= viewport.getViewDistance()) {
                         Tile readTile = map.getTile(new Point(mapX, mapY));
-                        displayMatrix[i][j] = adjustColorForTime(readTile.getAsciiColor(), time) + readTile.getAsciiSymbol() + RESET_COLOR;
+                        displayMatrix[i][j] = adjustColorForTime(readTile.getAsciiColor(), viewport.getTime()) + readTile.getAsciiSymbol() + RESET_COLOR;
                     } else {
                         displayMatrix[i][j] = "   ";
                     }
@@ -136,7 +135,9 @@ public class WorldView {
         }
     }
 
-    private void addEntitiesToDisplayMatrix(String[][] displayMatrix, List<Entity> entities, int viewportStartX, int viewportStartY, int viewportEndX, int viewportEndY, int playerX, int playerY, int viewDistance, ImpreciseTime time) {
+    private void addEntitiesToDisplayMatrix(String[][] displayMatrix, List<Entity> entities, Viewport viewport, int[] playerCoords) {
+        int playerX = playerCoords[0];
+        int playerY = playerCoords[1];
         int centerX = playerX;
         int centerY = playerY;
 
@@ -145,15 +146,15 @@ public class WorldView {
                 Point position = entity.getPosition();
                 int x = position.getX();
                 int y = position.getY();
-                if (x >= viewportStartX && x < viewportEndX && y >= viewportStartY && y < viewportEndY) {
+                if (x >= viewport.getViewportStartX() && x < viewport.getViewportEndX() && y >= viewport.getViewportStartY() && y < viewport.getViewportEndY()) {
                     int distance = (int) Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
-                    if (distance <= viewDistance) {
-                        int displayX = x - viewportStartX;
-                        int displayY = y - viewportStartY;
+                    if (distance <= viewport.getViewDistance()) {
+                        int displayX = x - viewport.getViewportStartX();
+                        int displayY = y - viewport.getViewportStartY();
                         Transport entityTransport = entity.getTransportInUse();
                         Character entityCharacter = (Character) entity;
                         CharacterType characterType = entityCharacter.getCharacterType();
-                        displayMatrix[displayY][displayX] = adjustColorForTime(characterType.getAsciiColor(), time) + entityTransport.getAsciiSymbol() + RESET_COLOR;
+                        displayMatrix[displayY][displayX] = adjustColorForTime(characterType.getAsciiColor(), viewport.getTime()) + entityTransport.getAsciiSymbol() + RESET_COLOR;
                     }
                 }
             }
