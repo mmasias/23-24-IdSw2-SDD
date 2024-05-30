@@ -1,0 +1,29 @@
+@startuml
+
+title Diagrama de Objetos de la Aspiradora
+
+object "habitacion: salon" as habitacion{
+
+}
+object "azulejo1 : azulejo" as azulejo1{
+   posicion: 1,1
+}
+
+object "azulejo2 : azulejo" as azulejo2{
+   posicion: 1,2
+}
+
+object "azulejo3 : azulejo" as azulejo3{
+   posicion: 2,1
+}
+
+object "azulejo4 : azulejo" as azulejo4{
+   posicion: 2,2
+}
+
+habitacion-- azulejo1: > contiene
+habitacion-- azulejo2: > contiene
+habitacion-- azulejo3: > contiene
+habitacion-- azulejo4: > contiene
+
+@enduml

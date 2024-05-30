@@ -1,0 +1,187 @@
+@startuml
+
+title Modelo de clases Aspiradora
+package "Controlador"  {	
+   class ControladorAspiradora{
+    -Aspiradora aspiradora
+    +ControladorAspiradora(Aspiradora aspiradora)
+    #void realizarAccion(Habitacion habitacion,int nuevaX, int nuevaY)
+    #void Posicion getPosicion()
+    -void limpiarCasilla(Habitacion habitacion,Posicion posicion)
+    -void setNivelSuciedadPosicion(Habitacion habitacion,Posicion posicion,int nivelSuciedad)
+   }
+   class ControladorGato{
+    -Gato gato
+    +controladorGato(Gato gato)
+    #void realizarAccion(Habitacion habitacion,int nuevaX, int nuevaY)
+    #void Posicion getPosicion()
+    -void ensuciarCasilla(Habitacion habitacion)
+    -void setNivelSuciedadPosicion(Habitacion habitacion,Posicion posicion,int nivelSuciedad)
+   }
+   class ControladorHabitacion{
+    -Habitacion habitacion
+    -Gato gato
+    -Aspiradora aspiradora
+    -Bateria bateria
+    -int ITERACION 
+    +controladorHabitacion(int largo,int ancho,int capacidadBasura)
+    +void start()
+   }
+   abstract class Movible{
+    +void mover(Habitacion habitacion)
+    -boolean esMovimientoValido(Habitacion habitacion,int nuevaX, int nuevaY)
+    #void realizarAccion(Habitacion habitacion,int nuevaX, int nuevaY)
+    #void Posicion getPosicion()
+   }
+}
+package "Modelo"  {	
+    class Aspiradora {
+    -int pasosRealizados
+    -int limpiezaRealizada
+    -CapacidadBasura capacidadBasura
+    -Bateria bateria
+    -Posicion posicion
+    +Aspiradora()
+    +getPosicion()
+    +getPasosRealizados()
+    +getLimpiezaRealizada()
+    +getCapacidadBasura()
+    +getBateria()
+    +void setPosicion(Posicion posicion)
+    +void setPasosRealizados(int pasosRealizados)
+    +void setLimpiezaRealizada(int limpiezaRealizada)
+    +void setCapacidadBasura(CapacidadBasura capacidadBasura)
+    +void setBateria(Bateria bateria)
+    }
+    class Azulejo {
+    -int nivelSuciedad
+    +Azulejo(int nivelSuciedad)
+    +int getNivelSuciedad()
+    +void setNivelSuciedad(int nivelSuciedad)
+    }
+    class Bateria {
+    -int nivelBateria
+    -int CAPACIDAD_MAXIMA
+    +Bateria()
+    +void descargar()
+    +void recargar()
+    +int getNivelBateria()
+    +boolean estaDescargada()
+    }
+    class CapacidadBasura {
+    -int nivelBasura
+    -int maximoNivelBasura
+    +CapacidadBasura(int maximoNivelBasura)
+    +void incrementar()
+    +void vaciar()
+    +boolean estaLlena()
+    +int getNivelBasura()
+    +int getMaximoNivelBasura()
+    }
+    class Dimension {
+    -int largo 
+    -int ancho
+    +Dimension(int largo, int ancho)
+    +int getLargo()
+    +int getAncho()
+    }
+    class FabricarElementos {
+    +Habitacion crearHabitacion(Dimension dimension)
+    -boolean [][] generarMuebles(int ancho, int largo)
+    -Azulejo[][] generarSuperficie(int ancho, int largo, int porcentajeSuciedad)
+    -int totalAzulejos
+    -int azulejosSucios
+    }
+    class Gato {
+    -Posicion posicion
+    +Gato(int x, int y)
+    +Posicion getPosicion()
+    }
+    class Habitacion {
+    +Azulejo[][] superficie
+    +boolean[][] muebles
+    +Dimension dimension
+    +Habitacion(Dimension dimension,Azulejo[][] superficie, boolean[][] muebles)
+    +Azulejo[][] getSuperficie()
+    +boolean[][] getMuebles()
+    +Dimension getDimension()
+    }
+    class Posicion {
+    -int x
+    -int y
+    +Posicion(int x, int y)
+    +int getX()
+    +int getY()
+    +void setPosicion(int x, int y)
+    +void setX(int x)
+    +void setY(int y)
+    }
+
+}
+package "Vista"  {	
+   class Consola{
+    -Scanner scanner
+    +Consola()
+    +int obtenerLargo()
+    +int obtenerAncho()
+    +int obtenerCapacidadBasura()
+    +void cerrarScanner()
+   }
+   class Utils{
+    +int obtenerEnteroValido(Scanner scanner)
+    +enum Elementos
+    -String simbolo 
+    -int valor 
+    -Map<Integer,Elementos>
+    +Elementos (String simbolo, int valor)
+    +String obtenerSimbolo()
+    +int obtenerValor()
+    +String obtenerSimboloPorValor(int valor)
+}
+    class VistaAspiradora{
+    +void bolsaDeBasuraLlena()
+    +void bolsaaDeBasuraVaciada()
+    +void nivelDeBateria(int nivel)
+    +void bateriaAgotada()
+    +void limpiarCasilla()
+    }
+    class VistaGato{
+    +void ensuciarCasilla(int x, int y,int nivelSuciedad)
+    }
+    class VistaHabitacion{
+    -Habitacion habitacion
+    +VistaHabitacion(Habitacion habitacion)
+    +void imprimir(Posicion posicionAspiradora, Posicion posicionGato)
+    +void imprimirBorderHorizontal()
+    }
+
+}
+class Main {
+    +void main(String[] args)
+}
+Main --> ControladorHabitacion
+Habitacion *-- Azulejo
+Habitacion o-- Aspiradora
+Habitacion o-- Gato
+Habitacion o-- Dimension
+Gato--Posicion
+Azulejo -- Gato
+Azulejo --> Posicion
+Aspiradora -- Posicion
+Aspiradora o-- Bateria
+Aspiradora --> CapacidadBasura
+FabricarElementos -u-> Habitacion
+FabricarElementos --> Azulejo
+ControladorAspiradora --> Aspiradora
+ControladorGato --> Gato
+ControladorHabitacion --> Habitacion
+Movible <|-- ControladorAspiradora
+Movible <|-- ControladorGato
+ControladorHabitacion --> VistaHabitacion
+ControladorAspiradora --> VistaAspiradora
+ControladorGato --> VistaGato
+Consola --> Utils
+VistaHabitacion --> Utils
+
+
+@enduml
