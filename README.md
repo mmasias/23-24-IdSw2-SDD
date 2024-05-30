@@ -1,8 +1,8 @@
 # pyAscensores
 
-## Enunciado
+## Sobre el proyecto 🎓
 
-Modelar el funcionamiento de los ascensores de la universidad.
+Este proyecto es una simulación de un sistema de ascensores en una universidad. El objetivo es simular el comportamiento de los ascensores y las personas que los utilizan.
 
 ```
            Personas                                    Personas
@@ -19,18 +19,39 @@ Planta -3    ___1_      | |     | |     | |     | |     __1__
    
 ```
 
-## Sobre las personas
+## Comportamiento de las personas 👨
 
-- Las personas que llegan a la universidad hacen uso de los ascensores.
-- Cada persona que llega sabe a que planta va a ir, cuánto tiempo estará en esa planta, luego de lo cual tendrán que irse.
-- Para irse, una persona debe bajar a la planta baja.
+En esta simulación, las personas se comportan de la siguiente manera:
 
-## Sobre los ascensores
+- Las personas se crean con tres atributos:
+  - Tiempo que va a estar en una planta
+  - Planta de destino
 
-- Los ascensores tienen una capacidad máxima de 6 personas.
-- Si el ascensor está lleno, solo pueden salir las personas que están dentro
-  - Salvo que en la planta en la que bajan suba un número igual o menor de personas.
+Al crease, las personas se colocan en una planta aleatoria. Cuando el tiempo que va a estar en una planta llega a 0, la persona reliza una solicitud de ascensor y se coloca en la cola de espera.
 
-En un momento determinado del tiempo, un ascensor está subiendo, bajando o parado.
+Cuando un ascensor llega a una planta, las personas se comportan de la siguiente manera:
 
-Cuando una persona llama a un ascensor, va el que está más cerca y al que le pilla de paso.
+- Si el ascensor está lleno, la persona se queda en la cola de espera y vuelve a realizar una solicitud de ascensor.
+- Si el ascensor esta vacío, la persona entra en el ascensot y realiza una solicitud de destino.
+- Si en el ascensor hay alguien, le pregunta a que dirección va y si va a la misma dirección, entra en el ascensor.
+
+Cuando la persona llega a su destino, sale del ascensor y se regeneran de forma aleatoria los atributos de la persona.
+
+## Comportamiento de los ascensores 🛗
+
+Los ascensores se comportan de la siguiente manera:
+
+- los ascensores se crean con los siguientes atributos:
+  - Planta en la que se encuentra
+  - Dirección en la que se mueve
+  - Lista de personas que están dentro del ascensor
+  - Lista de plantas a las que se tiene que dirigir
+  - Capacidad maxima del ascensor (6 personas)
+
+Cuando una persona realiza una solicitud de ascensor, el panel de control procesa la solicitud y añade la planta a la que se tiene que dirigir a la lista de plantas a las que se tiene que dirigir.
+
+Cuando una persona entra en el ascensor, se añade a la lista de personas que están dentro del ascensor, y realiza una solicitud de destino, la cual se le asigna directamente al ascensor en el que se encuentra.
+
+## Modelo de Dominio 📚
+
+Para 
