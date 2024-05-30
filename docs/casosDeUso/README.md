@@ -23,7 +23,7 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 - Move NPC
 - Initialize map
 - Initialize entities
-- Move transport
+- Change transport
 
 #### Diagrama General de Casos de Uso
 ![Diagrama de Casos de Uso](../images/DiagramaCasosDeUso.svg)  

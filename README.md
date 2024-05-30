@@ -38,6 +38,7 @@ El Diagrama de Casos de Uso muestra las interacciones entre los actores externos
 
 ![Diagrama de Casos de Uso de PyMundo](./docs/images/DiagramaCasosDeUso.svg)
 
+
 ## Clases Prácticas
 
 Este diagrama visualiza las interacciones típicas y los flujos de trabajo durante las sesiones prácticas del proyecto, destacando la dinámica de las clases y su aplicabilidad en contextos de aprendizaje real.

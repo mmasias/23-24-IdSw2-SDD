@@ -33,11 +33,15 @@ public class WorldController {
         Scanner scanner = new Scanner(System.in);
         try {
             while (isRunning) {
-                System.out.println("Cycle begins.");
-                moveCharacters(scanner);
+                String input = scanner.nextLine().toUpperCase();
+                if (input.equals("Q")) {
+                    isRunning = false;
+                    continue;
+                }
+
+                moveCharacters(input);
                 world.simulateCycle();
                 worldView.displayWorld(world);
-                System.out.println("Cycle ends.");
             }
         } finally {
             scanner.close();
@@ -51,8 +55,7 @@ public class WorldController {
         try {
             List<String[]> mapData = readFileContent(path, 1);
             if (mapData.isEmpty()) {
-                System.out.println(
-                        "Map data is empty or file is incorrectly formatted.");
+                System.out.println("Map data is empty or file is incorrectly formatted.");
                 return;
             }
             populateMap(mapData, world.getMap());
@@ -84,8 +87,7 @@ public class WorldController {
     }
 
     private void createNPC() {
-        List<TransportTypes> randomTypes = new ArrayList<>(
-                Arrays.asList(TransportTypes.values()));
+        List<TransportTypes> randomTypes = new ArrayList<>(Arrays.asList(TransportTypes.values()));
         Collections.shuffle(randomTypes);
         Transport[] npcTransports = new Transport[2];
         for (int i = 0; i < npcTransports.length; i++) {
@@ -95,25 +97,12 @@ public class WorldController {
     }
 
     private void createCharacter(Transport[] transports, CharacterType type) {
-        System.out.println("Creating a character of type: " + type);
         for (Transport transport : transports) {
-            for (TileTypes tileType : transport
-                    .getType()
-                    .getTilesItCanMoveThrough()) {
+            for (TileTypes tileType : transport.getType().getTilesItCanMoveThrough()) {
                 Point position = world.getMap().getRandomTilePositionOfType(tileType);
                 if (position != null) {
-                    Character character = new Character(
-                            position,
-                            transport,
-                            type,
-                            transports);
+                    Character character = new Character(position, transport, type, transports);
                     world.addEntity(character);
-                    System.out.println(
-                            "Character successfully created at (" +
-                                    position.getX() +
-                                    ", " +
-                                    position.getY() +
-                                    ")");
                     return;
                 }
             }
@@ -125,7 +114,7 @@ public class WorldController {
         if (!Files.exists(path)) {
             if (count < 4) {
                 System.out.println("File not found, retrying to read the file...");
-                readFileContent(path, count + 1);
+                return readFileContent(path, count + 1);
             }
             throw new IOException("File does not exist: " + path.toString());
         }
@@ -142,24 +131,15 @@ public class WorldController {
 
     private void populateMap(List<String[]> mapData, Map worldMap) {
         System.out.println("Populating map...");
-        for (int i = 0; i < mapData.size(); i++) {
-            for (int j = 0; j < mapData.get(i).length; j++) {
-                String tileNumberStr = mapData.get(i)[j];
+        for (int y = 0; y < mapData.size(); y++) {
+            for (int x = 0; x < mapData.get(y).length; x++) {
+                String tileNumberStr = mapData.get(y)[x];
                 Tile tile = createTileByNumber(tileNumberStr);
                 if (tile == null) {
-                    System.out.println(
-                            "Invalid or unrecognized tile number at position (" +
-                                    i +
-                                    ", " +
-                                    j +
-                                    "): '" +
-                                    tileNumberStr +
-                                    "'");
+                    System.out.println("Invalid or unrecognized tile number at position (" + y + ", " + x + "): '" + tileNumberStr + "'");
                     continue;
                 }
-                worldMap.updateTile(new Point(i, j), tile);
-                System.out.println(
-                        "Tile of type " + tile.getType() + " placed at (" + i + ", " + j + ")");
+                worldMap.updateTile(new Point(x, y), tile);
             }
         }
     }
@@ -170,18 +150,31 @@ public class WorldController {
             int number = Integer.parseInt(tileNumber);
             for (TileTypes tileType : TileTypes.values()) {
                 if (tileType.getTileNumber() == number) {
-                    System.out.println(
-                            "Creating tile of type " + tileType + " for tile number " + number);
                     return new Tile(tileType);
                 }
             }
         } catch (NumberFormatException e) {
-            System.out.println(
-                    "Error parsing tile number: '" + tileNumber + "' - " + e.getMessage());
+            System.out.println("Error parsing tile number: '" + tileNumber + "' - " + e.getMessage());
         }
-        System.out.println(
-                "No valid tile type found for tile number: " + tileNumber);
+        System.out.println("No valid tile type found for tile number: " + tileNumber);
         return null;
+    }
+
+    private void moveCharacters(String input) {
+        for (Entity entity : world.getEntities()) {
+            if (entity instanceof Character) {
+                Character character = (Character) entity;
+                Point currentPosition = character.getPosition();
+                char direction = character.getCharacterType() == CharacterType.Playable
+                        ? (input.length() > 0 ? input.charAt(0) : ' ')
+                        : getRandomCharacterMovement();
+                Point newPosition = validateRoundWorld(getNewPosition(currentPosition, direction));
+                if (isValidPosition(newPosition)) {
+                    updateTransportInUse(character, world.getMap().getTile(newPosition).getType());
+                    character.moveTo(newPosition);
+                }
+            }
+        }
     }
 
     private char getRandomCharacterMovement() {
@@ -190,33 +183,24 @@ public class WorldController {
         return movements[random.nextInt(movements.length)];
     }
 
-    private char getUserInput(Scanner scanner) {
-        System.out.print("Enter movement (WASD): ");
-        String input = scanner.nextLine().toUpperCase();
-        if (input.length() > 0 && "WASD".contains(input.substring(0, 1))) {
-            return input.charAt(0);
-        }
-        return ' ';
-    }
+    private Point validateRoundWorld(Point position) {
+        int x = position.getX();
+        int y = position.getY();
 
-    private void moveCharacters(Scanner scanner) {
-        for (Entity entity : world.getEntities()) {
-            if (entity instanceof Character) {
-                Character character = (Character) entity;
-                Point currentPosition = character.getPosition();
-                char direction = character.getCharacterType() == CharacterType.Playable
-                        ? getUserInput(scanner)
-                        : getRandomCharacterMovement();
-                Point newPosition = getNewPosition(currentPosition, direction);
-
-                if (isValidPosition(newPosition)) {
-                    updateTransportInUse(
-                            character,
-                            world.getMap().getTile(newPosition).getType());
-                    character.moveTo(newPosition);
-                }
-            }
+        if (x < 0) {
+            x = world.getMap().getWidth() - 1;
         }
+        if (x >= world.getMap().getWidth()) {
+            x = 0;
+        }
+        if (y < 0) {
+            y = world.getMap().getHeight() - 1;
+        }
+        if (y >= world.getMap().getHeight()) {
+            y = 0;
+        }
+
+        return new Point(x, y);
     }
 
     private Point getNewPosition(Point currentPosition, char direction) {
@@ -243,10 +227,7 @@ public class WorldController {
     private boolean isValidPosition(Point position) {
         int x = position.getX();
         int y = position.getY();
-        if (x < 0 ||
-                x >= world.getMap().getWidth() ||
-                y < 0 ||
-                y >= world.getMap().getHeight()) {
+        if (x < 0 || x >= world.getMap().getWidth() || y < 0 || y >= world.getMap().getHeight()) {
             return false;
         }
         TileTypes tileType = world.getMap().getTile(position).getType();
@@ -256,9 +237,7 @@ public class WorldController {
     private void updateTransportInUse(Character character, TileTypes newTileType) {
         Transport[] availableTransports = character.getAvailableTransports();
         for (Transport transport : availableTransports) {
-            List<TileTypes> availableTiles = transport
-                    .getType()
-                    .getTilesItCanMoveThrough();
+            List<TileTypes> availableTiles = transport.getType().getTilesItCanMoveThrough();
             if (availableTiles.contains(newTileType)) {
                 character.setTransportInUse(transport);
                 break;
