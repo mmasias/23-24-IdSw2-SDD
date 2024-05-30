@@ -1,0 +1,12 @@
+@startuml
+skin rose
+title Caso de Uso: Advance Precise Time
+
+state SIMULATION_ACTIVE as "Simulation Active"
+state AdvanceTime as "Advance Precise Time"
+
+[*] --> SIMULATION_ACTIVE
+SIMULATION_ACTIVE -[#blue]-> AdvanceTime : System checks current time
+AdvanceTime -[#blue]-> SIMULATION_ACTIVE : Time advanced by specified amount
+
+@enduml
