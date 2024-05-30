@@ -1,0 +1,12 @@
+@startuml
+title Diagrama de Estados del Azulejo
+
+[*] --> Limpio
+
+Limpio --> Sucia : S>0
+Sucia --> Limpio: S=0
+Limpio -r-> [*] 
+Sucia --> Sucia : [-- || ++ ]
+
+
+@enduml
