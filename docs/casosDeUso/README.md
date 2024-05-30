@@ -85,6 +85,3 @@ Este documento presenta los casos de uso identificados para nuestro proyecto, cl
 ![Diagrama de Casos de Uso](../images/detalleCasosDeUso/MoveTransport.svg)  
 [Código PUML](../casosDeUso/detalleDeCasosDeUso/moveTransport.puml)
 
----
-
-## Diagramas de Contexto
