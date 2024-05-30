@@ -1,14 +1,14 @@
 @startuml
 skin rose
-title Caso de Uso: Move Transport
+title Caso de Uso: Update Transport
 
-state SIMULATION_RUNNING as "Simulation Running"
-state MoveTransport as "Move Transport"
-state UpdateTransportPosition as "Update Transport Position"
+state SIMULATION_ACTIVE as "Simulation Active"
+state CheckTile as "Check Player's Tile"
+state AssignTransport as "Assign Transport"
 
-[*] --> SIMULATION_RUNNING
-SIMULATION_RUNNING -[#blue]-> MoveTransport : System moves transport
-MoveTransport -[#blue]-> UpdateTransportPosition : System updates transport positions
-UpdateTransportPosition -[#blue]-> SIMULATION_RUNNING : Transport positions updated
+[*] --> SIMULATION_ACTIVE
+SIMULATION_ACTIVE -[#blue]-> CheckTile : System checks player's tile
+CheckTile -[#blue]-> AssignTransport : Transport determined
+AssignTransport -[#blue]-> SIMULATION_ACTIVE : Transport assigned to player
 
 @enduml
