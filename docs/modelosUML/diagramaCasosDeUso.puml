@@ -10,11 +10,11 @@ Player --> (Start simulation)
 Player --> (Move player)
 
 system --> (Execute simulation cycle)
-system --> (Advance time)
+system --> (Advance precise time)
 system --> (Move NPC)
 system --> (Initialize map)
 system --> (Initialize entities)
-system --> (Move transport)
+system --> (Update transport)
 
 Player --> (End simulation)
 
