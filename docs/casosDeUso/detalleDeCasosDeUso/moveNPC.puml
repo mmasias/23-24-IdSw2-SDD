@@ -1,0 +1,16 @@
+@startuml
+skin rose
+title Caso de Uso: Move NPC
+
+state SIMULATION_ACTIVE as "Simulation Active"
+state SelectTile as "Select Adjacent Tile"
+state MoveNPC as "Move NPC"
+state UpdateState as "Update NPC State"
+
+[*] --> SIMULATION_ACTIVE
+SIMULATION_ACTIVE -[#blue]-> SelectTile : System selects adjacent tile
+SelectTile -[#blue]-> MoveNPC : System chooses tile
+MoveNPC -[#blue]-> UpdateState : NPC moved to new tile
+UpdateState -[#blue]-> SIMULATION_ACTIVE : NPC state updated
+
+@enduml

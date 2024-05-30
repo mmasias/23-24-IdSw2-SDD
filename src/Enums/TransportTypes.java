@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum TransportTypes {
-    Foot(1, "F", Arrays.asList(TileTypes.Floor, TileTypes.Sand, TileTypes.ShortGrass, TileTypes.MediumGrass)),
-    Horse(2, "H", Arrays.asList(TileTypes.ShortGrass, TileTypes.MediumGrass, TileTypes.TallGrass)),
-    Boat(1, "B", Arrays.asList(TileTypes.Water, TileTypes.DeepWater)),
-    MagicCarpet(2, "M", Arrays.asList(TileTypes.Mountain));
+    Foot(1, "_Θ_", Arrays.asList(TileTypes.Floor, TileTypes.Sand, TileTypes.ShortGrass, TileTypes.MediumGrass)),
+    Horse(2, "┌▄»", Arrays.asList(TileTypes.ShortGrass, TileTypes.MediumGrass, TileTypes.TallGrass)),
+    Boat(1, "<≡>", Arrays.asList(TileTypes.Water, TileTypes.DeepWater)),
+    MagicCarpet(2, "~Θ~", Arrays.asList(TileTypes.Mountain));
 
     private final int speed;
     private final String asciiSymbol;

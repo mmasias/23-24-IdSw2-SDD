@@ -1,0 +1,14 @@
+@startuml
+skin rose
+title Caso de Uso: Initialize Entities
+
+state SIMULATION_SETUP as "Simulation Setup"
+state InitializePlayer as "Initialize Player"
+state InitializeNPCs as "Initialize NPCs"
+
+[*] --> SIMULATION_SETUP
+SIMULATION_SETUP -[#blue]-> InitializePlayer : System initializes player entity
+InitializePlayer -[#blue]-> InitializeNPCs : Player initialized
+InitializeNPCs -[#blue]-> SIMULATION_SETUP : NPCs initialized
+
+@enduml

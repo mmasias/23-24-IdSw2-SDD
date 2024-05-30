@@ -1,0 +1,21 @@
+@startuml Diagrama de CDU
+
+skin rose
+left to right direction
+title Use Cases
+
+actor System as system
+
+Player --> (Start simulation)
+Player --> (Move player)
+
+system --> (Execute simulation cycle)
+system --> (Advance precise time)
+system --> (Move NPC)
+system --> (Initialize map)
+system --> (Initialize entities)
+system --> (Update transport)
+
+Player --> (End simulation)
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+skin rose
+title Caso de Uso: Execute Simulation Cycle
+
+state SIMULATION_ACTIVE as "Simulation Active"
+state InitializeMap as "Initialize Map"
+state InitializeEntities as "Initialize Entities"
+state AdvanceTime as "Advance Precise Time"
+state MoveNPC as "Move NPC"
+state UpdateTransport as "Update Transport"
+
+[*] --> SIMULATION_ACTIVE
+SIMULATION_ACTIVE -[#blue]-> InitializeMap : System starts map initialization
+InitializeMap -[#blue]-> InitializeEntities : Map initialized
+InitializeEntities -[#blue]-> AdvanceTime : Entities initialized
+AdvanceTime -[#blue]-> MoveNPC : Time advanced
+MoveNPC -[#blue]-> UpdateTransport : NPCs moved
+UpdateTransport -[#blue]-> SIMULATION_ACTIVE : Transport updated
+
+@enduml
