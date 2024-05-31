@@ -8,43 +8,29 @@ skinparam {
 
 hide empty members
 
-[*] --> Ascensor : Iniciar
-Ascensor --> [*] : Detener
 
-state Ascensor {
+    [*] --> Movimiento : mover
+    [*] --> Capacidad : llenar
+    Movimiento --> [*] : Detener
+    Capacidad --> [*] : Vaciar
 
-    [*] --> Disponible : Acceso Habilitado
-    [*] --> NoDisponible : Acceso Denegado
-    Disponible --> NoDisponible : Acceso Denegado
-    NoDisponible --> Disponible : Acceso Habilitado
-
-    state Disponible {
-        [*] --> Movimiento
-        [*] --> Capacidad
-        Movimiento --> [*] : Detener
-        Capacidad --> [*] : Vaciar
-
-        state Movimiento {
-            [*] --> Detenido
-            Detenido --> Subiendo : Subir
-            Detenido --> Bajando : Bajar
-            Subiendo --> Detenido : Detener
-            Bajando --> Detenido : Detener
-        }
-
-        state Capacidad {
-            [*] --> Libre
-            Libre --> ParcialmenteLleno : Llenar
-            Libre --> Lleno : Llenar
-            ParcialmenteLleno --> Lleno : Llenar
-            Lleno --> Libre : Vaciar
-            Lleno --> ParcialmenteLleno : Vaciar
-            ParcialmenteLleno --> Libre : Vaciar
-        }
+    state Movimiento {
+        [*] --> Detenido
+        Detenido --> Subiendo : Subir
+        Detenido --> Bajando : Bajar
+        Subiendo --> Detenido : Detener
+        Bajando --> Detenido : Detener
     }
-}
 
-
+    state Capacidad {
+        [*] --> Libre
+        Libre --> ParcialmenteLleno : Llenar
+        Libre --> Lleno : Llenar
+        ParcialmenteLleno --> Lleno : Llenar
+        Lleno --> Libre : Vaciar
+        Lleno --> ParcialmenteLleno : Vaciar
+        ParcialmenteLleno --> Libre : Vaciar
+    }
 
 @enduml
 ```

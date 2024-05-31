@@ -15,26 +15,21 @@ class ASCENSOR
     Personas en el Ascensor
     Capacidad
     Dirección
-    Acceso
+    Plantas a las que se dirige
 }
 
 class PERSONA 
 {
-    ID Planta
+    ID
     Tiempo en Planta
     Destino
 }
 
-class "CUADRO DE MANDO"
+class "PANEL DE CONTROL"
 {
     Solicitudes de Parada
     Solicitudes de Destino
 }
-
-' Type	Symbol	Drawing
-' Extension	<|--	
-' Composition	*--	
-' Aggregation	o--	
 
 class PLANTA 
 {
@@ -42,14 +37,13 @@ class PLANTA
     Nombre Planta
     Personas en Planta
     Personas Cambiando de Planta
-    Acceso
 }
 
 class EDIFICIO 
 {
     Plantas
     Ascensores
-    Acceso
+    Panel de Control
 }
 
 class TIEMPO 
@@ -57,31 +51,31 @@ class TIEMPO
 
 }
 
-class "SOLICITUD PARADA"
+class "SOLICITUD DE ASCENSOR"
 {
     Origen
-    Movimiento
+    Direccion
 }
 
 class "SOLICITUD DESTINO"
 {
+    Id de Ascensor
     Destino
 }
 
-
-EDIFICIO *-- PLANTA : tiene
-EDIFICIO *-- ASCENSOR : tiene
+EDIFICIO o-- PLANTA : tiene
+EDIFICIO o-- ASCENSOR : tiene
 PLANTA o-- PERSONA : tiene
 PLANTA -left-> ASCENSOR : tiene acceso
 PERSONA ..> ASCENSOR : utiliza
 
-PERSONA ..> "SOLICITUD PARADA" : solicita
-PERSONA ..> "SOLICITUD DESTINO" : solicita
-"CUADRO DE MANDO" --> ASCENSOR : gobierna
-"SOLICITUD PARADA" --o "CUADRO DE MANDO" : se envía
-"SOLICITUD DESTINO" --o "CUADRO DE MANDO" : se envía
+PERSONA --> "SOLICITUD DE ASCENSOR" : solicita
+PERSONA --> "SOLICITUD DESTINO" : solicita
+"PANEL DE CONTROL" --> ASCENSOR : gobierna
+"SOLICITUD DE ASCENSOR" --o "PANEL DE CONTROL" : se envía
+"SOLICITUD DESTINO" --o "PANEL DE CONTROL" : se envía
 
-TIEMPO .left.> PERSONA : afecta
-TIEMPO ..> EDIFICIO : afecta
+TIEMPO -down-> PERSONA : afecta
+TIEMPO --> EDIFICIO : afecta
 
 @enduml

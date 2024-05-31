@@ -1,0 +1,71 @@
+@startuml Diagrama_de_Arquitectura
+
+title Diagrama de Arquitectura(Vistas Clases)
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+package Views {
+    class BuildingView {
+        - building: Building
+        - isTesting: boolean
+        + render(): void
+        + getViews(Building building): ArrayList<String[]>
+        + mergeViews(ArrayList<String[]> views, Building building): String
+        + spacesBeforeAndAfter(int SpacesBefore, int SpacesAfter, String text): String
+        + BuildingView(Building building, boolean isTesting)
+    }
+
+    class DebuggerView {
+        - building: Building
+        - debuggerMode: boolean
+        + render(): void
+        + printSeparator(): void
+        + printElevatorsStatus(): void
+        + printPeopleInside(List<Person> peopleInside): void
+        + printFloorsToGoList(Elevator elevator): void
+        + printFloorsStatus(): void
+        + printPeopleIDs(List<Person> people): void
+        + printElevatorRequestsPerPerson(): void
+        + printFloorRequestsPerPerson(): void
+        + printFloorRequestsStatus(): void
+        + printElevatorsRequestsStatus(): void
+        + determineDirection(int currentFloor, int destination): Direction
+        + DebuggerView(Building building, boolean debuggerMode)
+    }
+
+    class ElevatorView {
+        - elevators: List<Elevator>
+        - totalFloors: int
+        + render(): String[]
+        + getElevatorView(Elevator elevator): String
+        + mergeElevatorsViews(ArrayList<String[]> views): String[]
+        + ElevatorView(List<Elevator> elevators, int totalFloors)
+    }
+
+    class WaitingPeopleView {
+        - floors: List<Floor>
+        + render(): String[]
+        + getWaitingPeopleViewView(): String
+        + WaitingPeopleView(List<Floor> floors)
+    }
+
+    class FloorView {
+        - Floors: List<Floor>
+        + render(): String[]
+        + getFloorView(): String
+        + FloorView(List<Floor> floors)
+    }
+
+    class PeopleOnFloorView {
+        - Floors: List<Floor>
+        + render(): String[]
+        + getPeopleOnFloorView(): String
+        + PeopleOnFloorView(List<Floor> floors)
+    }
+}
+
+@enduml

@@ -1,0 +1,181 @@
+@startuml Diagrama_de_Arquitectura
+
+title Diagrama de Arquitectura
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+class App {
+}
+
+package Controllers {
+    class BuildingController {
+    }
+
+    class ElevatorController {
+    }
+
+    class Values {
+    }
+
+    class Simulation {
+    }
+
+    class Time {
+    }
+
+    class FloorController {
+    }
+
+    class ControlPanelController {
+    }
+
+    class Creation {
+    }
+}
+package Lists {
+    class Counters {
+    }
+
+    class ElevatorList {
+    }
+
+    class ElevatorRequestList {
+    }
+
+    class FloorList {
+    }
+
+    class FloorRequestList {
+    }
+
+    class FloorsToGoList {
+    }
+
+    class ModelList<T> {
+    }
+
+    class PersonList {
+    }
+}
+
+package Models {
+    class Building {
+    }
+
+    class ControlPanel {
+    }
+
+    class Elevator {
+    }
+
+    class ElevatorRequest {
+    }
+
+    class Floor {
+    }
+
+    class FloorRequest {
+    }
+
+    class Person {
+    }
+
+    Interface IModel {
+
+    }
+}
+
+package Views {
+    class BuildingView {
+    }
+
+    class DebuggerView {
+    }
+
+    class ElevatorView {
+    }
+
+    class WaitingPeopleView {
+    }
+
+    class FloorView {
+    }
+
+    class PeopleOnFloorView {
+    }
+}
+
+package Enums {
+    enum Direction {
+        UP
+        STOP
+        DOWN
+    }
+
+}
+
+App --> Simulation
+
+Simulation *-- Values
+Simulation -- Creation
+Simulation -- Time
+Simulation -- BuildingView
+
+Creation -- Building
+
+Time -- BuildingController
+
+BuildingController *-- Building
+BuildingController *-- FloorController
+BuildingController *-- ElevatorController
+BuildingController *-- ControlPanelController
+
+ElevatorController --> Building
+ElevatorController -- Direction
+
+FloorController --> Building
+FloorController -- Direction
+
+ControlPanelController --> Building
+ControlPanelController -- Models
+ControlPanelController -- Direction
+
+Building *-- FloorList
+Building *-- ElevatorList
+Building *-- ControlPanel
+Building *-- Counters
+
+Floor *-- PersonList
+Floor <|-- IModel
+
+Elevator *-- PersonList
+Elevator *-- FloorsToGoList
+Elevator *-- Direction
+Elevator <|-- IModel
+
+ControlPanel *-- FloorRequestList
+ControlPanel *-- ElevatorRequestList
+
+Person <|-- IModel
+
+FloorList o-- Floor
+FloorList *-- ModelList
+ElevatorList o-- Elevator
+FloorList *-- ModelList
+FloorRequestList *-- FloorRequest
+ElevatorRequestList *-- ElevatorRequest
+PersonList o-- Person
+PersonList *-- ModelList
+
+BuildingView *-- Building
+BuildingView -- FloorView
+BuildingView -- ElevatorView
+BuildingView -- WaitingPeopleView
+BuildingView -- PeopleOnFloorView
+BuildingView -- DebuggerView
+
+@enduml
