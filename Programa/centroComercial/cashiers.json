@@ -1,0 +1,14 @@
+[
+    {"id": 1, "name": "Juan Pérez", "workShift": "09:00-15:00", "workBreak": "11:00"},
+    {"id": 2, "name": "Martina Gómez", "workShift": "09:00-15:00", "workBreak": "12:00"},
+    {"id": 3, "name": "Carlos Jiménez", "workShift": "09:00-15:00", "workBreak": "13:00"},
+    {"id": 4, "name": "Luisa Fernanda", "workShift": "09:00-15:00", "workBreak": "14:00"},
+    {"id": 5, "name": "Elena Nito", "workShift": "09:00-15:00", "workBreak": "10:00"},
+    {"id": 6, "name": "Hugo Fresh", "workShift": "09:00-15:00", "workBreak": "11:00"},
+    {"id": 7, "name": "Isabel Castro", "workShift": "15:00-21:00", "workBreak": "17:00"},
+    {"id": 8, "name": "Pedro Martínez", "workShift": "15:00-21:00", "workBreak": "18:00"},
+    {"id": 9, "name": "Sofía Navarro", "workShift": "15:00-21:00", "workBreak": "19:00"},
+    {"id": 10, "name": "David Solís", "workShift": "15:00-21:00", "workBreak": "20:00"},
+    {"id": 11, "name": "Ana López", "workShift": "15:00-21:00", "workBreak": "16:00"},
+    {"id": 12, "name": "Moro Mem", "workShift": "15:00-21:00", "workBreak": "17:00"}
+]

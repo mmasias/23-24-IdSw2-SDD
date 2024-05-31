@@ -1,0 +1,28 @@
+@startuml
+
+object "Carrefour: ShoppingCenter" as sc
+
+object "queue1: Queue" as queue {
+    customer4: Customer 
+    customer3: Customer 
+    customer2: Customer 
+    customer1: Customer 
+}
+
+sc -- queue:> receives
+
+object "cashRegister1: CashRegister" as cr1
+object "cashRegister2: CashRegister" as cr2
+object "cashRegister3: CashRegister" as cr3
+object "cashRegister4: CashRegister" as cr4
+object "cashRegister4: CashRegister" as cr5
+object "cashRegister4: CashRegister" as cr6
+
+queue -- cr1:> delivers a customer
+queue -- cr2:> delivers a customer
+queue -- cr3:> delivers a customer
+queue -- cr4:> delivers a customer
+queue -- cr5:> delivers a customer
+queue -- cr6:> delivers a customer
+
+@enduml

@@ -1,28 +1,48 @@
 @startuml
 
+title Object Diagram - CCCF
+
 object "Carrefour: ShoppingCenter" as sc
 
-object "queue1: Queue" as queue {
-    customer4: Customer 
-    customer3: Customer 
-    customer2: Customer 
-    customer1: Customer 
-}
+object "customer1: Customer" as cus1
+object "customer2: Customer" as cus2
+object "customer3: Customer" as cus3
+object "customer4: Customer" as cus4
+    
+sc -- cus1:> receives
+sc -- cus2:> receives
+sc -- cus3:> receives
+sc -- cus4:> receives
 
-sc -- queue:> receives
+object "queue1: Queue" as que
+
+cus1 -- que:> form
+cus2 -- que:> form
+cus3 -- que:> form
+cus4 -- que:> form
+
+object "attentionCenter1: AttentionCenter" as ac
+
+que -- ac:> organized by
 
 object "cashRegister1: CashRegister" as cr1
 object "cashRegister2: CashRegister" as cr2
 object "cashRegister3: CashRegister" as cr3
 object "cashRegister4: CashRegister" as cr4
-object "cashRegister4: CashRegister" as cr5
-object "cashRegister4: CashRegister" as cr6
 
-queue -- cr1:> delivers a customer
-queue -- cr2:> delivers a customer
-queue -- cr3:> delivers a customer
-queue -- cr4:> delivers a customer
-queue -- cr5:> delivers a customer
-queue -- cr6:> delivers a customer
+ac -- cr1:> delivers a customer
+ac -- cr2:> delivers a customer
+ac -- cr3:> delivers a customer
+ac -- cr4:> delivers a customer
+
+object "cashier1: Cashier" as c1
+object "cashier2: Cashier" as c2
+object "cashier3: Cashier" as c3
+object "cashier4: Cashier" as c4
+
+cr1-- c1:> attended by
+cr2-- c2:> attended by
+cr3-- c3:> attended by
+cr4-- c4:> attended by
 
 @enduml
