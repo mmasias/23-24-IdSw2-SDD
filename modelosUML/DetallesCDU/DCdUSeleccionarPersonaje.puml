@@ -1,0 +1,25 @@
+@startuml
+
+skinparam state {
+  BackgroundColor #faf4b4
+  BorderColor #c90000
+}
+
+skinparam note {
+  BackgroundColor #f5f5f5
+}
+
+skinparam linetype polyline
+
+title Detalle Caso de Uso Seleccionar Personaje
+
+INICIO -[#green]-> :asignarPersonaje
+note on link
+  **Usuario solicita:**
+  - Seleccionar Personaje
+end note
+
+
+:asignarPersonaje -[#green]-> CONTROLANDO
+
+@enduml

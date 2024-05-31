@@ -1,0 +1,42 @@
+@startuml
+skinparam noteBackgroundColor #f5f5f5
+skinparam noteBorderColor #c90000
+skinparam arrowColor #218c00
+skinparam stateBackgroundColor #faf4b4
+skinparam stateBorderColor #c90000
+skinparam linetype polyline
+skinparam arrowThickness 1
+
+[*] --> INICIO
+
+INICIO-d-> CONTROLANDO 
+note on link
+  Seleccionar Personaje
+end note
+
+TURNO_HEROE-r-> CONTROLANDO
+note on link
+  Seleccionar Movida  
+end note 
+
+CONTROLANDO-l->TURNO_HEROE
+note on link
+  Entregar Turno
+end note 
+
+CONTROLANDO-r->TURNO_VILLANO
+note on link
+  Entregar Turno
+end note 
+
+TURNO_VILLANO-l-> CONTROLANDO
+note on link
+  Seleccionar Movida
+end note 
+ 
+CONTROLANDO --> [*]
+note on link
+  Entregar Turno
+end note 
+
+@enduml
