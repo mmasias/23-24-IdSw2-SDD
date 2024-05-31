@@ -209,6 +209,7 @@ package "Controllers" {
     }
 }
 
+WorldController --> Models
 World --> Map
 World --> Entity
 World --> Time
@@ -219,7 +220,6 @@ Entity --> Transport
 Transport --> TransportTypes
 Time --> ImpreciseTime
 Character --> CharacterType
-WorldController --> World
 WorldController --> WorldView
 App --> WorldController
 WorldView --> Viewport
