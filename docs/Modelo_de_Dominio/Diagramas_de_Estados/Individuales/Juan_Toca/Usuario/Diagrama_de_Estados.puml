@@ -1,0 +1,21 @@
+@startuml Diagrama_de_Estados
+
+title Diagrama de Estados del Usuario
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+[*] --> Usuario
+
+state Usuario {
+    [*] --> EnPlanta
+    EnPlanta --> SolicitandoAscensor : solicitar ascensor
+    SolicitandoAscensor --> EnAscensor : ascensor disponible
+    SolicitandoAscensor --> EnPlanta : ascensor no disponible
+    EnAscensor --> EnPlanta : llegada a planta
+}
+
+@enduml

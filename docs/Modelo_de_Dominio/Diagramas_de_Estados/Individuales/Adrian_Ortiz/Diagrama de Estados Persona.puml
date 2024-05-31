@@ -1,0 +1,7 @@
+[*] --> PlantaBaja
+PlantaBaja --> [*]
+PlantaBaja --> EsperandoAscensor
+EsperandoAscensor --> Ascensor
+Ascensor --> PlantaDestino
+PlantaDestino --> EsperandoAscensor
+Ascensor --> PlantaBaja

@@ -1,0 +1,31 @@
+@startuml Diagrama_De_Objetos
+title Diagrama de Objetos 
+
+class Ascensor
+{
+    Numero Ascensor
+    Capacidad Personas
+    Capacidad Peso
+    Ocupacion
+    Piso Actual
+    Piso Maximo
+    Piso Minimo
+    Estado Movimiento
+}
+
+class TrayectoControlador
+{
+Destino
+Proxima parada
+}
+
+class Persona
+{
+Ubicación
+Destino
+}
+
+Persona --> TrayectoControlador: Llama  
+TrayectoControlador --> Ascensor: Maneja
+
+@enduml

@@ -1,0 +1,10 @@
+[*] --> movimientoAscensor
+[*] --> ocupaciónAscensor
+state movimientoAscensor{
+AscensorParadado --> AscensorMoviendose
+AscensorMoviendose --> AscensorParadado
+}
+state ocupaciónAscensor{
+    AscensorOcupado --> AscensorLibre
+    AscensorLibre --> AscensorOcupado
+}

@@ -1,0 +1,34 @@
+@startuml
+Class Ascensores
+Class Ascensor
+{
+    Posición
+    Dirección
+    Huecos disponibles
+}
+Class Persona
+{
+    Posición
+}
+Class Planta
+{
+    Personas en planta
+    Personas esperando
+}
+Class "Lista de Tareas"
+{
+    Planta a la que ir
+    Tiempo a pasar
+    Completado
+}
+Class "Control del Ascensor"
+{
+    Ascensor al que enviar
+}
+Ascensores --> Ascensor
+Ascensores --> Planta
+Ascensor --> Persona : tiene
+Planta --> Persona : tiene
+Persona --> "Lista de Tareas" : tiene
+Ascensores --> "Control del Ascensor"
+"Control del Ascensor" --> Ascensor : controla

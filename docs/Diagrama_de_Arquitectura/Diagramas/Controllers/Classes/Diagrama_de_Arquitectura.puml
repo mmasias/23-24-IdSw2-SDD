@@ -1,0 +1,115 @@
+@startuml Diagrama_de_Arquitectura
+
+title Diagrama de Arquitectura(Controladores Clases)
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+package Controllers {
+    class BuildingController {
+        - building: Building
+        - elevatorController: ElevatorController
+        - floorController: FloorController
+        - controlPanelController: ControlPanelController
+        + index(): Building
+        + update(): Building
+        + updateFloors(): Building
+        + updateElevators(): Building
+        + updateControlPanels(): Building
+        + BuildingController(Building building)
+    }
+
+    class ElevatorController {
+        + update(Building building): Building
+        + checkElevatorRequests(): void
+        + updatePeople(): void
+        + updateElevatorPeople(Elevator elevator): void
+        + processWaitingPeople(Elevator elevator, Floor floor): void
+        + requestElevator(Floor floor, Person person): void
+        + askPeopleInside(Elevator elevator, Floor floor, Person person): void
+        + getElevatorRequest(ElevatorRequest elevatorRequest): ElevatorRequest
+        + processPeopleInside(Elevator elevator, Floor floor): void
+        + movePersonToElevator(Elevator elevator, Floor floor, Person person): void
+        + removeElevatorRequest(Person person, Floor floor): void
+        + removePersonFromElevator(Elevator elevator, Floor floor, Person person): void
+        + updatePosition(): void
+    }
+
+    class Values {
+        - amountFloors: int
+        - amountElevators: int
+        + getAmountFloors(): int
+        + getAmountElevators(): int
+        + getElevatorCapacity(): int
+        + setElevatorCapacity(int capacity): void
+        + getElevatorFloor(): int
+        + setElevatorFloor(int floor): void
+        + getLabel(): String
+        + setLabel(String label): void
+        + getAmountPeople(int min, int max): int
+        + setAmountPeople(int amountPeople): void
+        + randomInt(int minimum, int maximum): int
+        + getRandomTimeOnFloor(int minimum, int maximum): int
+        + getRandomFloor(): int
+        + getRandomFloor(int excludedFloor): int
+        + getDirection(int currentFloor, int destination): Direction
+        + createElevatorRequest(Floor floor, Person person): ElevatorRequest
+        + Values(int amountFloors, int amountElevators)
+    }
+
+    class Simulation {
+        - buildingController: BuildingController
+        - initialValues: Values
+        - time: Time
+        - building: Building
+        + start(boolean isTesting): void
+        + simulation(boolean isTesting): void
+        + Simulation(Values values)
+    }
+
+    class Time {
+        + tick(BuildingController controller): Building
+        + tickFloors(BuildingController controller): Building
+        + tickElevators(BuildingController controller): Building
+        + tickControlPanels(BuildingController controller): Building
+    }
+
+    class FloorController {
+        - building: Building
+        + update(Building building): Building
+        + updateFloors(): void
+        + updatePeople(Floor floor): void
+        + updatePerson(Floor floor, Person person): void
+        + moveToWaitingList(Floor floor, Person person): void
+        + requestElevator(Floor floor, Person person): void
+    }
+
+    class ControlPanelController {
+        + update(Building building): Building
+        + updateElevatorDirections(): void
+        + setDirection(Elevator elevator): void
+        + updateFloorRequests(): void
+        + processFloorRequest(FloorRequest floorRequest): void
+        + getDirection(int destination, int elevatorId): Direction
+        + updateElevatorRequests(): void
+        + processElevatorRequest(ElevatorRequest elevatorRequest): boolean
+        + findClosestElevator(Direction direction, int origin): int
+        + isSomeoneAvailable(ArrayList<Elevator> elevators, int destination): int
+    }
+
+    class Creation {
+        - initialValues: Values
+        + createBuilding(): Building
+        + setInitialValues(Building building): void
+        + addInitialElevators(Building building): void
+        + addInitialFloors(Building building): void
+        + addInitialPeople(Building building): void
+        + createBuildingController(Building building): BuildingController
+        + Creation(Values initialValues)
+    }
+}
+
+@enduml

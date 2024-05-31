@@ -1,0 +1,16 @@
+@startuml Diagrama_de_Estados
+
+title Diagrama de Estados del Cuadro de Mando
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+    [*] --> GestionandoSolicitudes : nueva solicitud
+    GestionandoSolicitudes --> GestionandoAscensores : solicitud aceptada
+    GestionandoAscensores --> EnEspera : ascensores gestionados
+    EnEspera --> GestionandoSolicitudes : nueva solicitud
+@enduml
+```

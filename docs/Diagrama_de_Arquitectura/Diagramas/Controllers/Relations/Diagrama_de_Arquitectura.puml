@@ -1,0 +1,86 @@
+@startuml Diagrama_de_Arquitectura
+
+title Diagrama de Arquitectura (Relacioens Controladores)
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+class App {
+}
+
+package Controllers {
+    class BuildingController {
+    }
+
+    class ElevatorController {
+    }
+
+    class Values {
+    }
+
+    class Simulation {
+    }
+
+    class Time {
+    }
+
+    class FloorController {
+    }
+
+    class ControlPanelController {
+    }
+
+    class Creation {
+    }
+}
+
+package Views {
+    class BuildingView {
+    }
+}
+
+package Enums {
+    enum Direction {
+        UP
+        STOP
+        DOWN
+    }
+
+}
+
+package Models {
+    class Building {
+    }
+}
+
+
+
+App --> Simulation
+
+Simulation *-- Values
+Simulation -- Creation
+Simulation -- Time
+Simulation -- BuildingView
+
+Time -- BuildingController
+
+BuildingController *-right- Building
+BuildingController *-- FloorController
+BuildingController *-- ElevatorController
+BuildingController *-- ControlPanelController
+
+ElevatorController -right-> Building
+ElevatorController -- Direction
+
+FloorController -right-> Building
+FloorController -- Direction
+
+ControlPanelController -right-> Building
+ControlPanelController -- Direction
+
+
+
+@enduml

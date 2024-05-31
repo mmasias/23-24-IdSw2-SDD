@@ -1,0 +1,81 @@
+@startuml Diagrama_de_Clases
+
+title Diagrama de Clases
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+class ASCENSOR 
+{
+    ID
+    ID Planta
+    Personas en el Ascensor
+    Capacidad
+    Dirección
+    Plantas a las que se dirige
+}
+
+class PERSONA 
+{
+    ID
+    Tiempo en Planta
+    Destino
+}
+
+class "PANEL DE CONTROL"
+{
+    Solicitudes de Parada
+    Solicitudes de Destino
+}
+
+class PLANTA 
+{
+    ID
+    Nombre Planta
+    Personas en Planta
+    Personas Cambiando de Planta
+}
+
+class EDIFICIO 
+{
+    Plantas
+    Ascensores
+    Panel de Control
+}
+
+class TIEMPO 
+{
+
+}
+
+class "SOLICITUD DE ASCENSOR"
+{
+    Origen
+    Direccion
+}
+
+class "SOLICITUD DESTINO"
+{
+    Id de Ascensor
+    Destino
+}
+
+EDIFICIO o-- PLANTA : tiene
+EDIFICIO o-- ASCENSOR : tiene
+PLANTA o-- PERSONA : tiene
+PLANTA -left-> ASCENSOR : tiene acceso
+PERSONA ..> ASCENSOR : utiliza
+
+PERSONA --> "SOLICITUD DE ASCENSOR" : solicita
+PERSONA --> "SOLICITUD DESTINO" : solicita
+"PANEL DE CONTROL" --> ASCENSOR : gobierna
+"SOLICITUD DE ASCENSOR" --o "PANEL DE CONTROL" : se envía
+"SOLICITUD DESTINO" --o "PANEL DE CONTROL" : se envía
+
+TIEMPO -down-> PERSONA : afecta
+TIEMPO --> EDIFICIO : afecta
+
+@enduml

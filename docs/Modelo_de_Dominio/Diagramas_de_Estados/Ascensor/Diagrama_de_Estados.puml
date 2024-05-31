@@ -1,0 +1,36 @@
+@startuml Diagrama_de_Estados
+
+title Diagrama de Estados del Ascensor
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+
+    [*] --> Movimiento : mover
+    [*] --> Capacidad : llenar
+    Movimiento --> [*] : Detener
+    Capacidad --> [*] : Vaciar
+
+    state Movimiento {
+        [*] --> Detenido
+        Detenido --> Subiendo : Subir
+        Detenido --> Bajando : Bajar
+        Subiendo --> Detenido : Detener
+        Bajando --> Detenido : Detener
+    }
+
+    state Capacidad {
+        [*] --> Libre
+        Libre --> ParcialmenteLleno : Llenar
+        Libre --> Lleno : Llenar
+        ParcialmenteLleno --> Lleno : Llenar
+        Lleno --> Libre : Vaciar
+        Lleno --> ParcialmenteLleno : Vaciar
+        ParcialmenteLleno --> Libre : Vaciar
+    }
+
+@enduml
+```

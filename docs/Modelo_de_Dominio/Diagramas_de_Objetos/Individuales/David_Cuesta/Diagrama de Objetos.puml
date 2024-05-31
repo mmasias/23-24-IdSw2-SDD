@@ -1,0 +1,47 @@
+@startuml
+Class "Uneat : Universidad"
+Class "AscensorA : Ascensor"
+{
+    3: Posición
+    3: Destino
+    0 : Ocupantes
+}
+Class "AscensorB : Ascensor"
+{
+    1 : Posición
+    0 : Destino
+    1 : Ocupantes
+}
+Class "Antonio : Usuario"
+{
+    AscensorB : Posición
+    0 : Destino
+    No : Esperando
+    0 : TiempoAula
+}
+Class "Gonzalo : Usuario"
+{
+    0 : Posición
+     1 : Destino
+    Si : Esperando
+    25 : TiempoAula
+}
+Class "María : Usuario"
+{
+    -2 : Posición
+    0 : Destino
+    No : Esperando
+    12 : TiempoAula
+}
+Class "Controlador : Controlador"
+{
+    Lista : ListaAscensores
+        Contiene: AscensorA, AscensorB
+    Gonzalo : UsuarioEsperando
+}
+Ascensores --> "Antonio : Usuario"
+Ascensores --> "Gonzalo : Usuario"
+Ascensores --> "María : Usuario"
+Ascensores --> "Controlador : Controlador" 
+"Controlador : Controlador" --> "AscensorA : Ascensor"
+"Controlador : Controlador" --> "AscensorB : Ascensor"

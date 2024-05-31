@@ -1,0 +1,71 @@
+@startuml
+Class Ascensores
+Class "Control del Ascensor"
+{
+    Ascensor2 : Ascensor al que enviar
+}
+Class Ascensor1
+{
+    Planta -1 : Posición
+    Parado : Dirección
+    6 : Disponibilidad
+}
+Class Ascensor2
+{
+    Planta 3 : Posición
+    Bajando : Dirección
+    5 : Disponibilidad
+}
+Class Paco
+{
+    Planta B :Posición
+}
+Class Pepe
+{
+    Planta 1 : Posición
+}
+Class Juan
+{
+    Ascensor 2 : Posición
+}
+Class "Planta B"
+{
+   0 : Personas en planta
+   1 : Personas esperando
+}
+Class "Planta 1"
+{
+   1 : Personas en planta
+   0 : Personas esperando
+}
+Class "Lista de Tareas de Paco"
+{
+    Planta -1 : Planta a la que ir
+    15 m : Tiempo a pasar
+    No : Completado
+}
+Class "Lista de Tareas de Pepe"
+{
+    Planta 1 : Planta a la que ir
+    30 m : Tiempo a pasar
+    No : Completado
+}
+Class "Lista de Tareas de Juan"
+{
+    Planta 3 : Planta a la que ir
+    45 m :Tiempo a pasar
+    Si : Completado
+}
+Ascensores --> Ascensor1
+Ascensores --> Ascensor2
+Ascensores --> "Planta 1"
+Ascensores --> "Planta B"
+Ascensores --> "Control del Ascensor"
+"Control del Ascensor" --> Ascensor1 : controla
+"Control del Ascensor" --> Ascensor2 : controla
+"Planta B" --> Paco
+"Planta 1" --> Pepe
+"Ascensor2" --> Juan
+Paco --> "Lista de Tareas de Paco"
+Pepe --> "Lista de Tareas de Pepe"
+Juan --> "Lista de Tareas de Juan"
