@@ -34,9 +34,11 @@ note on link
   Seleccionar Movida
 end note 
  
-CONTROLANDO --> [*]
+CONTROLANDO --> FIN_DEL_JUEGO
 note on link
   Entregar Turno
 end note 
+
+FIN_DEL_JUEGO --> [*]
 
 @enduml
