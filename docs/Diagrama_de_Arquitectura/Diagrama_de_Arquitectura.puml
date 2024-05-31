@@ -395,4 +395,35 @@ package Views {
     }
 }
 
+BuildingController --> Building
+ControlPanelController --> Models
+Creation --> Building
+ElevatorController --> Models
+ElevatorController --> FloorsToGoList
+FloorController --> Models
+Simulation --> Models
+Simulation --> BuildingView
+Time --> Building
+Values --> Models
+ElevatorList --> Elevator
+ElevatorRequestList --> ElevatorRequest
+FloorList --> Floor
+FloorRequestList --> FloorRequest
+PersonList --> Person
+Building --> Lists
+ControlPanel --> ElevatorRequestList
+ControlPanel --> FloorRequestList
+Elevator --> FloorsToGoList
+Elevator --> PersonList
+Floor --> PersonList
+
+BuildingView --> Models
+DebuggerView --> Models
+ElevatorView --> Elevator
+FloorView --> Floor
+PeopleOnFloorView --> Floor
+WaitingPeopleView --> Floor
+App --> Simulation
+App --> Values
+
 @enduml
