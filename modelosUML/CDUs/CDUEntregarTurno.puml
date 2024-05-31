@@ -1,0 +1,17 @@
+@startuml
+
+title Caso de Uso Castlevania - Entregar Turno
+
+left to right direction
+
+actor Juego as user
+
+usecase "Escojer Heroe" as h
+usecase "Escojer Villano" as v    
+usecase "Terminar Juego" as f
+
+user -- h : ""
+user -- v : ""
+user -- f : ""
+
+@enduml
