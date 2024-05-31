@@ -1,0 +1,72 @@
+@startuml Diagrama_de_Arquitectura
+
+title Diagrama de Arquitectura(Listas Relaciones)
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+package Lists {
+    class Counters {
+    }
+
+    class ElevatorList {
+    }
+
+    class ElevatorRequestList {
+    }
+
+    class FloorList {
+    }
+
+    class FloorRequestList {
+    }
+
+    class FloorsToGoList {
+    }
+
+    class ModelList<T> {
+    }
+
+    class PersonList {
+    }
+}
+
+package Models {
+    class Building {
+    }
+
+    class ControlPanel {
+    }
+
+    class Elevator {
+    }
+
+    class ElevatorRequest {
+    }
+
+    class Person {
+    }
+
+    class Floor {
+    }
+
+    class FloorRequest {
+    }
+
+}
+
+FloorList o-down- Floor
+FloorList *-up- ModelList
+ElevatorList o-down- Elevator
+ElevatorList *-up- ModelList
+Elevator *-- FloorsToGoList
+FloorRequestList *-- FloorRequest
+ElevatorRequestList *-- ElevatorRequest
+PersonList o-- Person
+PersonList *-up- ModelList
+Building *-up- Counters
+
+@enduml

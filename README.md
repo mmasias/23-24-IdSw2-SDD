@@ -1,9 +1,5 @@
 # pyAscensores
 
-## Sobre el proyecto 🎓
-
-Este proyecto es una simulación de un sistema de ascensores en una universidad. El objetivo es simular el comportamiento de los ascensores y las personas que los utilizan.
-
 ```
            Personas                                    Personas
           esperando                                    en la planta
@@ -18,7 +14,10 @@ Planta  0    ___1_      | |     | |     | |     | |     __1__
                        /--------- Ascensores ------/
    
 ```
-[Enunciado](/docs/Enunciado)
+
+## Sobre el proyecto 🎓
+
+Este proyecto es una simulación de un sistema de ascensores en una universidad. El objetivo es simular el comportamiento de los ascensores y las personas que los utilizan.
 
 ## Comportamiento de las personas 👨
 
@@ -52,6 +51,8 @@ Los ascensores se comportan de la siguiente manera:
 Cuando una persona realiza una solicitud de ascensor, el panel de control procesa la solicitud y añade la planta en la lista del ascensor de las plantas a las que se tiene que dirigir.
 
 Cuando una persona entra en el ascensor, se añade a la lista de personas que están dentro del ascensor, y realiza una solicitud de destino, la cual se le asigna directamente al ascensor en el que se encuentra.
+
+## [Requisitos](/docs/Enunciado)
 
 ## Modelo de Dominio 📚
 

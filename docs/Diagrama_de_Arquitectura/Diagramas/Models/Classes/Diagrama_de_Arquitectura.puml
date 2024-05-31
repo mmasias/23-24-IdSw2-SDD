@@ -1,0 +1,120 @@
+@startuml Diagrama_de_Arquitectura
+
+title Diagrama de Arquitectura(Modelos Clases)
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+package Models {
+    class Building {
+        - floors: FloorList
+        - elevators: ElevatorList
+        - controlPanel: ControlPanel
+        - counters: Counters
+        + getFloors(): ArrayList<Floor>
+        + addFloor(String label): void
+        + updateFloor(Floor floor): void
+        + removeFloor(int id): void
+        + getElevators(): ArrayList<Elevator>
+        + addElevator(int capacity, int currentFloor): void
+        + updateElevator(Elevator elevator): void
+        + removeElevator(int id): void
+        + getControlPanel(): ControlPanel
+        + updateControlPanel(ControlPanel controlPanel): void
+        + addPersonInElevator(int elevatorId, Person person): void
+        + addPersonOnFloor(int timeOnFloor, int currentFloor, int destination): void
+        + Building()
+    }
+
+    class ControlPanel {
+        - elevatorRequests: ElevatorRequestList
+        - floorRequests: FloorRequestList
+        + getElevatorRequests(): List<ElevatorRequest>
+        + addElevatorRequest(ElevatorRequest elevatorRequest): void
+        + removeElevatorRequest(ElevatorRequest elevatorRequest): void
+        + getFloorRequests(): List<FloorRequest>
+        + addFloorRequest(FloorRequest floorRequest): void
+        + removeFloorRequest(FloorRequest floorRequest): void
+        + hasElevatorRequests(): boolean
+        + hasFloorRequests(): boolean
+        + ControlPanel()
+    }
+
+    class Elevator {
+        - id: int
+        - capacity: int
+        - peopleInside: PersonList
+        - currentFloor: int
+        - currentDirection: Direction
+        - floorsToGoList: FloorsToGoList
+        + getId(): int
+        + getCapacity(): int
+        + setCapacity(int capacity): void
+        + isFull(): boolean
+        + getCurrentFloor(): int
+        + setCurrentFloor(int currentFloor): void
+        + getDirection(): Direction
+        + setDirection(Direction direction): void
+        + getFloorsToGoList(): FloorsToGoList
+        + addFloorToGo(int floor, Direction direction, int currentFloor): void
+        + removeFloorToGo(int floor): void
+        + getPeopleInside(): ArrayList<Person>
+        + addPeopleInside(Person newPerson): void
+        + removePeopleInside(int id): void
+        + updatePeopleInside(int id, Person updatedPerson): void
+        + Elevator(int id, int capacity, int currentFloor)
+    }
+
+    class ElevatorRequest {
+        - direction: Direction
+        - origin: int
+        + getDirection(): Direction
+        + getOrigin(): int
+        + isLinkedToElevator(): boolean
+        + setLinkedToElevator(boolean isLinkedToElevator): void
+        + ElevatorRequest(int Origin, Direction Direction)
+    }
+
+    class Floor {
+        - id: int
+        - label: String
+        - peopleOnFloor: PersonList
+        - waitingPeople: PersonList
+        + getId(): int
+        + getPeopleOnFloor(): ArrayList<Person>
+        + addPersonOnFloor(Person person): void
+        + updatePersonOnFloor(Person updatedPerson): void
+        + removePersonOnFloor(Person person): void
+        + getWaitingPeople(): ArrayList<Person>
+        + addWaitingPerson(Person person): void
+        + removeWaitingPerson(Person person): void
+        + getLabel(): String
+        + setLabel(String label): void
+        + Floor(int id, String label)
+    }
+
+    class FloorRequest {
+        - destination: int
+        - elevatorId: int
+        + getDestination(): int
+        + getElevatorId(): int
+        + FloorRequest(int destination, int elevatorId)
+    }
+
+    class Person {
+        - id: int
+        - timeOnFloor: int
+        - destination: int
+        + getId(): int
+        + getTimeOnFloor(): int
+        + setTimeOnFloor(int timeOnFloor): void
+        + getDestination(): int
+        + setDestination(int destination): void
+        + Person(int id, int timeOnFloor, int destination)
+    }
+}
+
+@enduml

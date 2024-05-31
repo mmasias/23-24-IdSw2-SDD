@@ -1,0 +1,70 @@
+@startuml Diagrama_de_Arquitectura
+
+title Diagrama de Arquitectura(Vistas Relaciones)
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+package Controllers {
+
+    class Simulation {
+    }
+}
+
+package Models {
+    class Building {
+    }
+
+    class Elevator {
+    }
+
+    class Floor {
+    }
+
+    class FloorRequest {
+    }
+
+    class Person {
+    }
+
+}
+
+package Views {
+    class BuildingView {
+    }
+
+    class DebuggerView {
+    }
+
+    class ElevatorView {
+    }
+
+    class WaitingPeopleView {
+    }
+
+    class FloorView {
+    }
+
+    class PeopleOnFloorView {
+    }
+}
+
+
+Simulation -- BuildingView
+
+BuildingView *-- Building
+BuildingView -- FloorView
+BuildingView -- ElevatorView
+BuildingView -- WaitingPeopleView
+BuildingView -- PeopleOnFloorView
+BuildingView -- DebuggerView
+
+FloorView o-- Floor
+ElevatorView o-- Elevator
+WaitingPeopleView o-- Person
+PeopleOnFloorView o-- Person
+
+@enduml

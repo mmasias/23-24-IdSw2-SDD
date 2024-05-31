@@ -12,10 +12,10 @@ public class Simulation {
 
     public Simulation(Values values) {
         this.initialValues = values;
-        this.time = new Time();
     }
 
     public void start(boolean isTesting) {
+        this.time = new Time();
         Creation creation = new Creation(initialValues);
         this.building = creation.createBuilding();
         this.buildingController = creation.createBuildingController(this.building);
@@ -27,7 +27,7 @@ public class Simulation {
         Scanner scanner = new Scanner(System.in);
         String input = "";
 
-        new BuildingView(building, isTesting).render();
+        new BuildingView(this.building, isTesting).render();
         input = scanner.nextLine();
 
         while (!input.equals("q")) {

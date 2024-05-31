@@ -3,7 +3,6 @@ package src.Models;
 public class Person implements IModel {
     private int id;
     private int timeOnFloor;
-    private int currentFloor;
     private int destination;
 
     public Person(int id, int timeOnFloor, int destination) {
@@ -22,14 +21,6 @@ public class Person implements IModel {
 
     public void setTimeOnFloor(int timeOnFloor) {
         this.timeOnFloor = timeOnFloor;
-    }
-
-    public int getCurrentFloor() {
-        return this.currentFloor;
-    }
-
-    public void setCurrentFloor(int floorId) {
-        this.currentFloor = floorId;
     }
 
     public int getDestination() {

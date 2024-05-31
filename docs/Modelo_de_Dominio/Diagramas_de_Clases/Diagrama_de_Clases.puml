@@ -63,19 +63,19 @@ class "SOLICITUD DESTINO"
     Destino
 }
 
-EDIFICIO *-- PLANTA : tiene
-EDIFICIO *-- ASCENSOR : tiene
+EDIFICIO o-- PLANTA : tiene
+EDIFICIO o-- ASCENSOR : tiene
 PLANTA o-- PERSONA : tiene
 PLANTA -left-> ASCENSOR : tiene acceso
 PERSONA ..> ASCENSOR : utiliza
 
-PERSONA ..> "SOLICITUD DE ASCENSOR" : solicita
-PERSONA ..> "SOLICITUD DESTINO" : solicita
+PERSONA --> "SOLICITUD DE ASCENSOR" : solicita
+PERSONA --> "SOLICITUD DESTINO" : solicita
 "PANEL DE CONTROL" --> ASCENSOR : gobierna
 "SOLICITUD DE ASCENSOR" --o "PANEL DE CONTROL" : se envía
 "SOLICITUD DESTINO" --o "PANEL DE CONTROL" : se envía
 
-TIEMPO .down.> PERSONA : afecta
-TIEMPO ..> EDIFICIO : afecta
+TIEMPO -down-> PERSONA : afecta
+TIEMPO --> EDIFICIO : afecta
 
 @enduml
