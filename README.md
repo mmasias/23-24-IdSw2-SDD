@@ -24,4 +24,4 @@ Este repositorio contiene modelos, propuestas, registros de reuniones y otros re
 
 - **[Detalles de Casos de Uso](https://github.com/federicobolanos/23-24-IdSw2-SDD/tree/main/images/DetallesCDU):** Detalles de los ejemplos prácticos y gráficos que demuestran la aplicación del juego.
 
-- **[Información Adicional](https://github.com/federicobolanos/23-24-IdSw2-SDD/tree/main/Logo):** Información complementaria al proyecto.
+- **[Información Adicional](/tree/main/Logo):** Información complementaria al proyecto.
