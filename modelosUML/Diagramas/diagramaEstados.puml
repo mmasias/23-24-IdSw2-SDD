@@ -1,15 +1,33 @@
 @startuml
 
-title Diagrama de Estados - Heroe vs. Vampiro
-state c <<choice>>
+[*] --> Inicio: Inicia la batalla
+Inicio --> SeleccionArma: Héroe elige arma
+Inicio --> AtaqueVampiro: Vampiro ataca
 
-[*] -d-> c : Iniciar Juego
+SeleccionArma --> AtaqueHeroe: Héroe ataca
+AtaqueVampiro --> [*]: Héroe HP <= 0
+AtaqueVampiro --> DefensaHeroe: Héroe decide defenderse
 
-TurnoHeroe -r--> c : Acción
-TurnoVillano -l--> c : Acción
+DefensaHeroe --> AtaqueDefendido: Defensa exitosa
+DefensaHeroe --> RecibeAtaque: Defensa fallida
+RecibeAtaque --> AtaqueVampiro: Vampiro contraataca
+RecibeAtaque --> [*]: Héroe HP <= 0
 
-c -l--> TurnoHeroe : Desición
-c -r--> TurnoVillano : Desición
-c -d-> [*] : Muere Heroe\nMuere Villano
+AtaqueHeroe --> RecibeAtaqueVampiro: Vampiro recibe ataque
+RecibeAtaqueVampiro --> SeleccionArma: Héroe elige arma nuevamente
+RecibeAtaqueVampiro --> [*]: Vampiro HP <= 0
+
+AtaqueHeroe --> HeroeDesmayado: Energía Héroe < 30
+AtaqueVampiro --> VampiroDesmayado: Energía Vampiro < 20
+
+HeroeDesmayado --> FinVampiroGana: Héroe HP <= 0
+VampiroDesmayado --> FinHeroeGana: Vampiro HP <= 0
+
+SeleccionArma --> EsperaPocion: Héroe usa poción
+EsperaPocion --> RecibeAtaque: Héroe recibe ataques durante espera
+EsperaPocion --> RecuperacionTotalHeroe: Finaliza espera
+
+FinHeroeGana --> [*]
+FinVampiroGana --> [*]
 
 @enduml
