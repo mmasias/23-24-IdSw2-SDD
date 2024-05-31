@@ -20,6 +20,6 @@ Este repositorio contiene modelos, propuestas, registros de reuniones y otros re
 
 - **[Modelo de Dominio]():** Puedes consultar el modelo de dominio del juego aqui.
 
-- **[Casos de Uso]():** Ejemplos prácticos y gráficos que demuestran la aplicación del juego.
+- **[Casos de Uso](https://github.com/federicobolanos/23-24-IdSw2-SDD/tree/main/images/CDUs):** Ejemplos prácticos y gráficos que demuestran la aplicación del juego.
 
 - **[Información Adicional](/documentosMD/informacionAdicional.md):** Información complementaria al proyecto.
