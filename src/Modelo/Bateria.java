@@ -2,9 +2,10 @@ package Modelo;
 public class Bateria {
 
     private int nivelBateria;
+    private static final int CAPACIDAD_MAXIMA = 100;
 
     public Bateria(){
-        this.nivelBateria = 100;
+        this.nivelBateria = CAPACIDAD_MAXIMA;
     }
 
     public void descargar(){
@@ -14,7 +15,7 @@ public class Bateria {
     }
 
     public void recargar(){
-        while(nivelBateria < 100 ){
+        while(nivelBateria < CAPACIDAD_MAXIMA ){
             nivelBateria++;
         }
     }

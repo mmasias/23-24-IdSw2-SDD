@@ -7,7 +7,12 @@ public class Utils {
     public static int obtenerEnteroValido(Scanner scanner) {
         while (true) {
             if (scanner.hasNextInt()) {
-                return scanner.nextInt();
+                int valor = scanner.nextInt();
+                if (valor > 5) {
+                    return valor;
+                } else {
+                    System.out.println("Cantidad no permitida, ingrese otra cantidad arriba de 5");
+                }
             } else {
                 System.out.println("No has introducido un número entero válido.");
                 scanner.next();
