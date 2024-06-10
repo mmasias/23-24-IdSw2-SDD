@@ -1,13 +1,11 @@
+package Vista;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Utils {
-    public static int obtenerEnteroValido(Scanner scanner, String mensaje) {
+    public static int obtenerEnteroValido(Scanner scanner) {
         while (true) {
-            if (mensaje != null && !mensaje.isEmpty()) {
-                System.out.println(mensaje);
-            }
             if (scanner.hasNextInt()) {
                 return scanner.nextInt();
             } else {
@@ -57,5 +55,4 @@ public class Utils {
             return null;
         }
     }
-
 }

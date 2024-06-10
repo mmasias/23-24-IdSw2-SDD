@@ -1,3 +1,5 @@
+package Modelo;
+
 public class Posicion {
     private int x;
     private int y;
@@ -5,7 +7,7 @@ public class Posicion {
     public Posicion(int x, int y) {
         setPosicion(x, y);
     }
-    
+
     public int getX() {
         return x;
     }

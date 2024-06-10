@@ -1,30 +1,18 @@
-import java.util.Scanner;
+
+
+import Controlador.ControladorHabitacion;
+import Vista.Consola;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Especifica el largo y ancho de la habitación.");
-        int largo = Utils.obtenerEnteroValido(scanner, "Largo:");
-        int ancho = Utils.obtenerEnteroValido(scanner, "Ancho:");
+        Consola consola = new Consola();
+        int largo = consola.obtenerLargo();
+        int ancho = consola.obtenerAncho();
+        int capacidadBasura = consola.obtenerCapacidadBasura();
 
-        Gato gato = new Gato(0, 0);
-        Habitacion habitacion = new Habitacion(ancho, largo);
-        Aspiradora aspiradora = new Aspiradora();
-
-        for (int i = 0; i < 20; i++) {
-            try {
-                aspiradora.mover(habitacion);
-                gato.mover(habitacion);
-                habitacion.imprimir(aspiradora, gato); 
-            } catch (InterruptedException e) {
-                System.out.println("Error al pausar la ejecución: " + e.getMessage());
-            }
-        }
-        
-
-        scanner.close();
+        ControladorHabitacion controlador = new ControladorHabitacion(largo, ancho, capacidadBasura);
+        controlador.start();
+        consola.cerrarScanner();
     }
-
 }
-

@@ -1,19 +1,20 @@
+package Modelo;
 public class Bateria {
 
     private int nivelBateria;
 
-    public Bateria(int nivelBateria){
+    public Bateria(){
         this.nivelBateria = 100;
     }
 
-    public void descarga(){
+    public void descargar(){
         if(nivelBateria > 0){
             nivelBateria--;
         }
     }
 
-    public void carga(){
-        if(nivelBateria < 100 ){
+    public void recargar(){
+        while(nivelBateria < 100 ){
             nivelBateria++;
         }
     }
@@ -22,8 +23,10 @@ public class Bateria {
         return nivelBateria;
     }
 
-    public int setNivelBateria(){
-        return nivelBateria;
+    public boolean estaDescargada() {
+        return nivelBateria <= 0;
     }
+
+
 
 }
