@@ -1,0 +1,52 @@
+@startuml
+
+@startuml
+class Spreadsheet {
+    - sheet
+    - Navigator
+    - input
+    - rows
+    - columns
+}
+
+class Cell {
+    - x
+    - y
+    - cellValue
+}
+
+class MathOperations
+
+class Menu
+
+class Navigator
+
+class Settings{
+    +ViewportHeight
+    +ViewportWidth
+    +MaxRows
+    +MaxColumnsNumber 
+    +MaxColumnsChar
+}
+
+class Sheet {
+    - sheetData
+    - currentCell
+    - spacing
+}
+
+class Viewport
+
+Spreadsheet *-d-> Sheet
+Spreadsheet *--> Navigator
+Spreadsheet --down-|> Settings
+Spreadsheet --|> Viewport
+Spreadsheet --|> MathOperations
+Spreadsheet --|> Menu
+Navigator --|> Settings
+Viewport ..> Sheet
+Viewport -|> Settings
+MathOperations ..> Sheet
+Sheet -d-> Cell
+
+@enduml

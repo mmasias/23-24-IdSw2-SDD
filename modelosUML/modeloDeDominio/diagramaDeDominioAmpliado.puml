@@ -1,0 +1,92 @@
+@startuml
+
+class Spreadsheet {
+    - sheet : Sheet
+    - movement : Movement
+    - input : Scanner
+    - rows : int
+    - columns : int
+    + Spreadsheet()
+    + run() : void
+}
+
+class Cell {
+    - x : int
+    - y : int
+    - cellValue : String
+    + Cell(x: int, y: int)
+    + Cell(x: int, y: int, cellValue: String)
+    + getX() : int
+    + setX(x: int) : void
+    + getY() : int
+    + setY(y: int) : void
+    + getCellValue() : String
+    + setCellValue(cellValue: String) : void
+    + toString() : String
+}
+
+class MathOperations {
+    + evaluateFormula(formula: String, sheet: Sheet) : String
+    - evaluateExpression(expression: String, sheet: Sheet) : double
+    - getCellValue(cellReference: String, sheet: Sheet) : double
+    - isOperator(c: char) : boolean
+    - precedence(operator: char) : int
+    - applyOperation(numbers: Deque<Double>, operator: char) : void
+}
+
+class Menu {
+    + showMovementMenu(currentCell: String) : void
+}
+
+class Movement {
+    + getFormattedRow(currentCell: String) : int
+    + getFormattedColumn(currentCell: String) : int
+    + handleCommand(command: String, currentCell: String) : String
+}
+
+class Settings {
+    + VIEWPORT_HEIGHT : int
+    + VIEWPORT_WIDTH : int
+    + MAX_ROWS : int
+    + MAX_COLUMNS_NUMBER : int
+    + MAX_COLUMNS_CHAR : char
+    - getMaxColumns(maxColumns: int) : char
+}
+
+class Sheet {
+    - sheetData : Cell[][]
+    - currentCell : String
+    - spacing : int
+    + Sheet(rows: int, columns: int)
+    + fillSheetData(rows: int, columns: int) : void
+    + getCellContent(i: int, j: int) : String
+    + getSpacing() : int
+    + getCurrentCell() : String
+    + setCurrentCell(currentCell: String) : void
+    + setCellValue(row: int, col: int, value: String) : void
+    + getSheetData() : Cell[][]
+    + getRows() : int
+    + getColumns() : int
+    + setCellSize(size: int) : void
+}
+
+class Viewport {
+    + showSheet(sheet: Sheet, cursorRow: int, cursorCol: int, spacing: int) : void
+    - printHeaders(spacing: int, startRow: int, startCol: int) : void
+    - printIndex(spacing: int, index: int) : void
+    - printBottom(spacing: int) : void
+}
+
+Spreadsheet *-d-> Sheet
+Spreadsheet *--d-> Movement
+Spreadsheet -r-|> Settings
+Spreadsheet --d-|> Viewport
+Spreadsheet --d-|> MathOperations
+Spreadsheet -l-|> Menu
+Movement -u-|> Settings
+Viewport .l.> Sheet
+Viewport -u-|> Settings
+MathOperations ..r.> Sheet
+Sheet -d-> Cell
+
+@enduml

@@ -17,6 +17,7 @@ class Sheet {
     + setCurrentCell
     + setCellSize
     + getSpacing()
+    + getSheetData()
 }
 
 class Movement {
@@ -29,8 +30,18 @@ class Scanner {
     
 }
 
+class OperacionesMatematicas {
+    + evaluarFormula()
+    - evaluarExpresion()
+    - obtenerValorCelda()
+    - esOperador()
+    - precedencia()
+    - aplicarOperacion()
+}
+
 HojaDeCalculo *-- Sheet 
 HojaDeCalculo *-- Movement 
 HojaDeCalculo *-- Scanner 
+HojaDeCalculo *-- OperacionesMatematicas
 
 @enduml

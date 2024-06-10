@@ -9,7 +9,7 @@ object Cell {
     Manolo
 }
 
-object Movimiento {
+object Navigator {
     Derecha
 }
 
@@ -23,8 +23,8 @@ object Cell2{
 }
 
 Sheet -right-> Cell
-Sheet --> Movimiento
-Movimiento --> Sheet2
+Sheet --> Navigator
+Navigator --> Sheet2
 Sheet2 -right-> Cell2
 
 

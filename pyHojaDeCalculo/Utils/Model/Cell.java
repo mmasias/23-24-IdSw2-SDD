@@ -1,4 +1,4 @@
-package Utils;
+package Utils.Model;
 
 public class Cell {
     private int x;

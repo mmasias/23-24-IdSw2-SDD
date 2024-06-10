@@ -1,0 +1,13 @@
+@startuml
+start
+:Presionar tecla "r";
+if (size >= 1) then (yes)
+  :Llamar a setCellSize(size);
+  :Cambiar el tamaño de la celda;
+  :Continuar edición de la hoja de cálculo;
+elseif (size < 1) then (no)
+  :Mantener tamaño actual de la celda;
+  :Continuar edición de la hoja de cálculo;
+endif
+stop
+@enduml

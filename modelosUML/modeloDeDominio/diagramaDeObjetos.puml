@@ -1,0 +1,49 @@
+@startuml
+object "spreadsheet: Spreadsheet" as spreadsheet {
+    - sheet: Sheet
+    - navigator: Navigator
+    - input
+    - rows: 12
+    - columns: 12
+}
+
+object "cell: Cell" as cell {
+    - x
+    - y
+    - cellValue
+}
+
+object "mathOperations: MathOperations" as mathOperations
+
+object "menu: Menu" as menu
+
+object "navigator: Navigator" as navigator
+
+object "settings: Settings" as settings {
+    + viewportHeight: 5
+    + viewportWidth: 5
+    + maxRows: 12
+    + maxColumnsNumber: 12
+    + maxColumnsChar: 12
+}
+
+object "sheet: Sheet" as sheet {
+    - sheetData: Cell[][]
+    - currentCell: Cell
+    - spacing: 5
+}
+
+object "viewport: Viewport" as viewport
+
+spreadsheet *-d-> sheet
+spreadsheet *--> navigator
+spreadsheet -d-|> settings
+spreadsheet --|> viewport
+spreadsheet --|> mathOperations
+spreadsheet --|> menu
+navigator --|> settings
+viewport ..> sheet
+viewport -|> settings
+mathOperations ..> sheet
+sheet -d-> cell
+@enduml

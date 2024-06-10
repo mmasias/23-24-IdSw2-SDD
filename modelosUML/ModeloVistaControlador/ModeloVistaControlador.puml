@@ -1,0 +1,26 @@
+@startuml
+
+
+package "Vista" {
+    class Viewport
+    class MenuInterface
+}
+
+package "Controlador" {
+    class Movement
+    class Settings
+    class MathOperations
+}
+
+package "Modelo" {
+    class Spreadsheet
+    class Cell
+    class Sheet
+}
+
+
+Modelo --> Vista
+Vista --> Controlador
+Controlador -> Modelo
+
+@enduml

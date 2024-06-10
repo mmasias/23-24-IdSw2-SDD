@@ -15,8 +15,13 @@ package IntroducirDatos{
     usecase "Introducir Operación" as UC3
 }
 
+package CambiarTamañoCelda{
+    usecase "Cambiar tamaño de celda" as UC5
+}
+
 Usuario -up-> Movimiento
 Usuario -down-> Salida
 Usuario -right-> IntroducirDatos
+Usuario -left-> CambiarTamañoCelda
 
 @enduml

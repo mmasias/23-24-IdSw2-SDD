@@ -1,4 +1,4 @@
-package Utils;
+package Utils.Model;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -72,9 +72,9 @@ public class MathOperations {
     }
 
     private static double getCellValue(String cellReference, Sheet sheet) {
-        int column = cellReference.charAt(0) - 'A' + 1;
-        int row = Integer.parseInt(cellReference.substring(1)) - 1;
-        String cellValue = sheet.getSheetData()[row + 2][column].getCellValue().trim();
+        int column = cellReference.charAt(0) - 'A';
+        int row = Integer.parseInt(cellReference.substring(1));
+        String cellValue = sheet.getSheetData()[row][column].getCellValue().trim();
         try {
             return Double.parseDouble(cellValue);
         } catch (NumberFormatException e) {

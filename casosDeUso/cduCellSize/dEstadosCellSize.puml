@@ -1,0 +1,7 @@
+@startuml
+[*] --> sizeValidation : Llamar a setCellSize(size)
+sizeValidation --> setCellSize : size >= 1
+sizeValidation --> sameSize: size < 1
+setCellSize --> [*]
+sameSize --> [*]
+@enduml

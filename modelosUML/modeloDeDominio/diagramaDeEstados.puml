@@ -1,0 +1,19 @@
+@startuml
+
+[*] -d-> Inactive
+
+Inactive -d-> ViewingSpreadsheet : run()
+ViewingSpreadsheet --> Inactive : stop()
+
+ViewingSpreadsheet --> Moving : move cell()
+Moving --> ViewingSpreadsheet 
+
+ViewingSpreadsheet --> Editing : edit cell()
+Editing --> ViewingSpreadsheet 
+
+ViewingSpreadsheet --> ChangingSize : change cell size()
+ChangingSize --> ViewingSpreadsheet
+
+Inactive -r-> [*] : destroy()
+
+@enduml

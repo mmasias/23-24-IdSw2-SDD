@@ -1,0 +1,12 @@
+@startuml
+left to right direction
+
+actor Usuario as User
+rectangle "OperacionesMatematicas" {
+    User --> (Evaluar Fórmula Matemática)
+    (Evaluar Fórmula Matemática) --> (Verificar si la fórmula comienza con "=")
+    (Verificar si la fórmula comienza con "=") --> (Evaluar Expresión Matemática)
+    (Evaluar Expresión Matemática) --> (Devolver resultado de la evaluación)
+    (Verificar si la fórmula comienza con "=") --> (Devolver resultado o mensaje de error)
+}
+@enduml

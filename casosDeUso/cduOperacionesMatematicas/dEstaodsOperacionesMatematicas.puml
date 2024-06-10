@@ -1,0 +1,11 @@
+@startuml
+[*] --> SinEvaluarFormula
+SinEvaluarFormula --> FormulaIngresada : Proporcionar fórmula
+FormulaIngresada --> FormulaValidada : Fórmula comienza con "="
+FormulaValidada --> ExpresionMatematica : Sí
+FormulaValidada --> SinEvaluarFormula : No
+ExpresionMatematica --> Evaluada : Expresión válida
+Evaluada --> SinEvaluarFormula : Devolver resultado
+Evaluada --> Error : Expresión inválida
+Error --> SinEvaluarFormula : Devolver mensaje de error
+@enduml

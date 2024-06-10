@@ -1,0 +1,16 @@
+@startuml
+start
+:Proporcionar fórmula matemática;
+if (Fórmula comienza con "="?) then (Sí)
+  :Llamar a evaluarFormula(formula);
+  if (Expresión válida?) then (Sí)
+    :Evaluar expresión matemática;
+    :Devolver resultado de la evaluación;
+  else (No)
+    :Devolver mensaje de error;
+  endif
+else (No)
+  :Devolver fórmula original;
+endif
+stop
+@enduml
