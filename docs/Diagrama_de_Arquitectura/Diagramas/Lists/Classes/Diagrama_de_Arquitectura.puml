@@ -1,0 +1,95 @@
+@startuml Diagrama_de_Arquitectura
+
+title Diagrama de Arquitectura(Listas Clases)
+
+skinparam {
+    NoteBackgroundColor #whiteSmoke
+}
+
+hide empty members
+
+package Lists {
+    class Counters {
+        - floorCounter: int
+        - elevatorCounter: int
+        - personCounter: int
+        - controlPanelCounter: int
+        + getFloorCounter(): int
+        + getElevatorCounter(): int
+        + getPersonCounter(): int
+        + getControlPanelCounter(): int
+        + incrementFloorCounter(): void
+        + incrementElevatorCounter(): void
+        + incrementPersonCounter(): void
+    }
+
+    class ElevatorList {
+        - elevators: ModelList<Elevator>
+        + index(): ArrayList<Elevator>
+        + get(int id): Elevator
+        + create(int id, int capacity, int currentFloor): void
+        + update(int id, Elevator updatedElevator): void
+        + delete(int id): void
+        + add(Elevator elevator): void
+    }
+
+    class ElevatorRequestList {
+        - elevatorRequests: ArrayList<ElevatorRequest>
+        + index(): ArrayList<ElevatorRequest>
+        + add(ElevatorRequest elevatorRequest): void
+        + remove(ElevatorRequest elevatorRequest): void
+        + get(ElevatorRequest elevatorRequest): ElevatorRequest
+        + isEmpty(): boolean
+    }
+
+    class FloorList {
+        - floors: ModelList<Floor>
+        + index(): ArrayList<Floor>
+        + get(int id): Floor
+        + create(int id, String label): void
+        + update(int id, Floor updatedFloor): void
+        + delete(int id): void
+        + add(Floor floor): void
+    }
+
+    class FloorRequestList {
+        - floorRequests: ArrayList<FloorRequest>
+        + index(): ArrayList<FloorRequest>
+        + add(FloorRequest floorRequest): void
+        + remove(FloorRequest floorRequest): void
+        + isEmpty(): boolean
+    }
+
+    class FloorsToGoList {
+        - floorsToGo: ArrayList<Integer>
+        + add(int floor, Direction direction, int currentFloor): void
+        + delete(int floor): void
+        + get(int index): int
+        + size(): int
+        + isEmpty(): boolean
+        + clear(): void
+        + sortRequests(int floor, Direction direction, int currentFloor): void
+    }
+
+    class ModelList<T> {
+        - modelList: ArrayList<T>
+        + index(): ArrayList<T>
+        + get(int index): T
+        + add(T model): void
+        + update(int id, T updatedModel): void
+        + delete(int id): void
+        + getListPosition(int id): int
+    }
+
+    class PersonList {
+        - people: ModelList<Person>
+        + index(): ArrayList<Person>
+        + get(int index): Person
+        + create(int id, int timeOnFloor, int destination): void
+        + update(int id, Person updatedPerson): void
+        + delete(int id): void
+        + add(Person person): void
+    }
+}
+
+@enduml
