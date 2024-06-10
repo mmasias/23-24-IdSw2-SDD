@@ -1,9 +1,9 @@
 package Models;
 
 public abstract class Entity {
-    private Point position;
+    protected Point position;
 
-    private Transport transportInUse;
+    protected Transport transportInUse;
 
     public Entity(Point startingPosition, Transport startingTransport) {
         this.position = startingPosition;
@@ -24,10 +24,6 @@ public abstract class Entity {
 
     public void moveTo(Point newPosPoint) {
         this.position = newPosPoint;
-    }
-
-    public void changeTransport(Transport newTransport) {
-        this.transportInUse = newTransport;
     }
 
 }

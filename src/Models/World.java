@@ -15,15 +15,11 @@ public class World {
     }
 
     public void simulateCycle() {
-        updateTime();
+        this.time.advanceTime();
     }
 
     public void addEntity(Entity newEntity) {
         this.entities.add(newEntity);
-    }
-
-    private void updateTime() {
-        this.time.advanceTime();
     }
 
     public Map getMap() {
@@ -36,14 +32,6 @@ public class World {
 
     public Time getTime() {
         return this.time;
-    }
-
-    public void setMap(Map map) {
-        this.map = map;
-    }
-
-    public void setEntities(List<Entity> entities) {
-        this.entities = entities;
     }
 
     public void setTime(Time time) {

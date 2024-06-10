@@ -1,0 +1,16 @@
+@startuml
+skin rose
+title Caso de Uso: Initialize Map
+
+state SIMULATION_SETUP as "Simulation Setup"
+state ReadFile as "Read Map File"
+state PopulateMap as "Populate Map"
+state MapInitialized as "Map Initialized"
+
+[*] --> SIMULATION_SETUP
+SIMULATION_SETUP -[#blue]-> ReadFile : System reads map file
+ReadFile -[#blue]-> PopulateMap : System parses file
+PopulateMap -[#blue]-> MapInitialized : Map populated
+MapInitialized -[#blue]-> SIMULATION_SETUP : Map initialization complete
+
+@enduml

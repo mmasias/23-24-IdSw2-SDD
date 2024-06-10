@@ -1,15 +1,19 @@
 package Models;
 
 public class Point {
-  int x, y;
+  private int x, y;
 
   public Point(int x, int y) {
     this.x = x;
     this.y = y;
   }
 
-  public int[] getLocation() {
-    return new int[] { this.x, this.y };
+  public int getX() {
+    return this.x;
+  }
+
+  public int getY() {
+    return this.y;
   }
 
   public void setLocation(int x, int y) {

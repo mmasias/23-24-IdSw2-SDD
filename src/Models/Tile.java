@@ -10,10 +10,6 @@ public class Tile {
         this.type = type;
     }
 
-    public void changeType(TileTypes newType) {
-        this.type = newType;
-    }
-
     public TileTypes getType() {
         return type;
     }
@@ -21,7 +17,7 @@ public class Tile {
     public String getAsciiSymbol() {
         return type.getAsciiSymbol();
     }
-
+    
     public String getAsciiColor() {
         return type.getAsciiColor();
     }

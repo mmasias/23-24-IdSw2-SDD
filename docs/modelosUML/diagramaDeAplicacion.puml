@@ -2,139 +2,214 @@
 
 class App {
     - WorldController worldController
-    - World gameWorld
-    - WorldView gameWorldView
 
-    + main()
+    + App()
     - initializeGame()
     - runGameCycle()
+    + main(String[] args)
 }
 
-package "Model" {
+package "Models" {
     class World {
         - Map map
-        - Entity[] entities
+        - List<Entity> entities
         - Time time
 
+        + World()
         + simulateCycle()
         + addEntity(Entity newEntity)
-        - updateTime()
+        + getMap() : Map
+        + getEntities() : List<Entity>
+        + getTime() : Time
+        + setTime(Time time)
     }
 
     class Time {
-        - TimesOfDay timeOfDay
-        - int currentTime
+        - ImpreciseTime impreciseTime
+        - int preciseTime
 
+        + Time()
+        - initializeTime()
         + advanceTime()
-        + setTimeOfDay(int currentTime)
-        - resetDay()
+        - updateImpreciseTime(int currentTime)
+        + getImpreciseTime() : ImpreciseTime
+        + getPreciseTimeFormatted() : String
     }
 
     class Map {
         - Tile[][] tiles
 
+        + Map()
         + updateTile(Point point, Tile newTile)
-        + getTile(Point point)
+        + getTile(Point point) : Tile
+        + getHeight() : int
+        + getWidth() : int
+        + getRandomTilePositionOfType(TileTypes type) : Point
     }
 
     class Tile {
         - TileTypes type
 
-        + changeType(TileTypes newType)
-        + getType() 
+        + Tile(TileTypes type)
+        + getType() : TileTypes
+        + getAsciiSymbol() : String
+        + getAsciiColor() : String
     }
 
     abstract class Entity {
         - Point position
         - Transport transportInUse
 
-        + moveTo(Point newPosition)
-        + changeTransport(Transport newTransport)
-        + getCurrentTransport()
+        + Entity(Point startingPosition, Transport startingTransport)
+        + moveTo(Point newPosPoint)
+        + getPosition() : Point
+        + getTransportInUse() : Transport
+        + setTransportInUse(Transport transportInUse)
     }
 
     class Character extends Entity {
-        - CharacterType characterType
+        - CharacterType type
         - Transport[] availableTransports
 
-        + getAvailableTransports()
-
+        + Character(Point startingPosition, Transport startingTransport, CharacterType type, Transport[] availableTransports)
+        + getAvailableTransports() : Transport[]
+        + getCharacterType() : CharacterType
     }
 
     class Transport {
         - TransportTypes type
-        - Tile[] allowedTiles
 
-        + getAllowedTiles()
+        + Transport(TransportTypes type)
+        + getType() : TransportTypes
+        + getAsciiSymbol() : String
     }
 
     class Point {
         - int x
         - int y
 
-        + getLocation()
+        + Point(int x, int y)
+        + getX() : int
+        + getY() : int
         + setLocation(int x, int y)
     }
 
     enum TileTypes {
-        Floor
-        Sand
-        Wall
-        ShortGrass
-        MediumGrass
-        TallGrass
-        Water
-        DeepWater
+        Floor,    
+        Sand,     
+        Wall,     
+        ShortGrass, 
+        MediumGrass, 
+        TallGrass,  
+        Water,     
+        DeepWater,  
         Mountain
+
+        - int tileNumber
+        - String asciiColor
+        - String asciiSymbol
+
+        + TileTypes(int tileNumber, String asciiColor, String asciiSymbol)
+        + getTileNumber() : int
+        + getAsciiColor() : String
+        + getAsciiSymbol() : String
     }
 
-    enum TimesOfDay {
-        Morning
-        Afternoon
-        Evening
+    enum ImpreciseTime {
+        Morning,
+        Afternoon,
+        Evening,
         Night
     }
 
     enum TransportTypes {
-        Foot
-        Horse
-        Boat
+        Foot,
+        Horse,
+        Boat,
         MagicCarpet
+
+        - int speed
+        - String asciiSymbol
+        - List<TileTypes> tilesItCanMoveThrough
+
+        + TransportTypes(int speed, String asciiSymbol, List<TileTypes> tilesItCanMoveThrough)
+        + getAsciiSymbol() : String
+        + getTilesItCanMoveThrough() : List<TileTypes>
     }
 
     enum CharacterType {
-        Playable
+        Playable,
         NonPlayable
+
+        - String asciiColor
+        + CharacterType(String asciiColor)
+        + getAsciiColor() : String
     }
 }
 
-package "View" {
+package "Views" {
     class WorldView {
-        - String[][] View
-        + showWorld(World world)
-        - showWorldTime(Time time)
-        - showWorldMap(Map map)
-        - showWorldEntities(Entity[] entities)
+        + displayWorld(World world)
+        - displayStats(World world)
+        - displayViewport(Map map, List<Entity> entities, Time time)
+        - calculateViewDistance(ImpreciseTime time) : int
+        - createDisplayMatrix(Map map, List<Entity> entities, Viewport viewport, int[] playerCoords) : String[][]
+        - initializeDisplayMatrix() : String[][]
+        - getPlayer(List<Entity> entities) : Character
+        - calculateViewportBounds(Map map, int[] playerCoords) : int[]
+        - fillDisplayMatrix(Map map, String[][] displayMatrix, Viewport viewport, int[] playerCoords)
+        - addEntitiesToDisplayMatrix(String[][] displayMatrix, List<Entity> entities, Viewport viewport, int[] playerCoords)
+        - adjustColorForTime(String baseColor, ImpreciseTime time) : String
+        - printMatrixWithBorder(String[][] matrix)
+        - displayPrompt()
+        - clearConsole()
+    }
+
+    class Viewport {
+        - int viewportStartX
+        - int viewportStartY
+        - int viewportEndX
+        - int viewportEndY
+        - int viewDistance
+        - ImpreciseTime time
+
+        + Viewport(int viewportStartX, int viewportStartY, int viewportEndX, int viewportEndY, int viewDistance, ImpreciseTime time)
+        + getViewportStartX() : int
+        + getViewportStartY() : int
+        + getViewportEndX() : int
+        + getViewportEndY() : int
+        + getViewDistance() : int
+        + getTime() : ImpreciseTime
     }
 }
 
-package "Controller" {
+package "Controllers" {
     class WorldController {
         - World world
         - WorldView worldView
 
+        + WorldController(World world, WorldView worldView)
         + initializeGame()
+        + runGameCycle()
         - initializeWorldMap()
         - initializeWorldEntities()
-        - runGameCycle()
-        - moveCharacter(Character character)
-        - getCharacterMovement(Character character)
-        - getRandomCharacterMovement()
-        - getUserInput()
-        - processUserInput(char input)
+        - createPlayer()
+        - createNPC()
+        - createCharacter(Transport[] transports, CharacterType type)
+        - readFileContent(Path path, int count) : List<String[]>
+        - populateMap(List<String[]> mapData, Map worldMap)
+        - createTileByNumber(String tileNumber) : Tile
+        - getRandomCharacterMovement() : char
+        - getUserInput(Scanner scanner) : char
+        - moveCharacters(Scanner scanner)
+        - getNewPosition(Point currentPosition, char direction) : Point
+        - isValidPosition(Point position) : boolean
+        - updateTransportInUse(Character character, TileTypes newTileType)
+        - validateRoundWorld(Point position) : Point
     }
 }
 
+WorldController --> Models
 World --> Map
 World --> Entity
 World --> Time
@@ -143,9 +218,10 @@ Tile --> TileTypes
 Entity --> Point
 Entity --> Transport
 Transport --> TransportTypes
-Time --> TimesOfDay
+Time --> ImpreciseTime
 Character --> CharacterType
-WorldController --> World
 WorldController --> WorldView
 App --> WorldController
+WorldView --> Viewport
+
 @enduml
