@@ -1,0 +1,14 @@
+@startuml
+
+title Caso de Uso Castlevania - Seleccionar Movida
+
+left to right direction
+
+actor Jugador1 as user
+
+usecase "Seleccionar Personaje" as sp
+
+user -- sp : ""
+
+
+@enduml

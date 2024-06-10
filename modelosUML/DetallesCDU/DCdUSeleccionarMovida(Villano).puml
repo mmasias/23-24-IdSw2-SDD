@@ -1,0 +1,40 @@
+@startuml
+
+skinparam state {
+  BackgroundColor #faf4b4
+  BorderColor #c90000
+}
+
+skinparam note {
+  BackgroundColor #f5f5f5
+}
+
+skinparam linetype polyline
+
+title Detalle Caso de Uso Seleccionar Movida (Villano)
+
+TURNO_VILLANO -d[#green]-> :seleccionarMovida
+note on link
+  **Villano solicita:**
+  - Seleccionar Movida
+end note
+
+:seleccionarMovida -d[#green]-> CONTROLADOR
+note on link
+  **Usuario selecciona:**
+  - Atacar
+end note
+
+:seleccionarMovida -d[#green]-> CONTROLADOR
+note on link
+  **Usuario selecciona:**
+  - Defender
+end note
+
+:seleccionarMovida -d[#green]-> CONTROLADOR
+note on link
+  **Usuario selecciona:**
+  - Bloquear
+end note
+
+@enduml

@@ -1,4 +1,4 @@
-# - CASTELVANIA
+# - CASTLEVANIA
 
 ---
 
@@ -18,8 +18,10 @@ Este repositorio contiene modelos, propuestas, registros de reuniones y otros re
 
 - **[Proyecto Base](https://github.com/federicobolanos/23-24-IdSw2-SDD/tree/main/ProyectoJava/GuerreroVsVampiro):** Aqui se almacena el código base del juego sobre el que trabajamos.
 
-- **[Modelo de Dominio]():** Puedes consultar el modelo de dominio del juego aqui.
+- **[Modelo de Dominio](https://github.com/federicobolanos/23-24-IdSw2-SDD/tree/main/images/modelosUML/modelosUML):** Puedes consultar el modelo de dominio del juego aqui.
 
-- **[Casos de Uso]():** Ejemplos prácticos y gráficos que demuestran la aplicación del juego.
+- **[Casos de Uso](https://github.com/federicobolanos/23-24-IdSw2-SDD/tree/main/images/CDUs):** Ejemplos prácticos y gráficos que demuestran la aplicación del juego.
 
-- **[Información Adicional](/documentosMD/informacionAdicional.md):** Información complementaria al proyecto.
+- **[Detalles de Casos de Uso](https://github.com/federicobolanos/23-24-IdSw2-SDD/tree/main/images/DetallesCDU):** Detalles de los ejemplos prácticos y gráficos que demuestran la aplicación del juego.
+
+- **[Información Adicional](https://github.com/federicobolanos/23-24-IdSw2-SDD/tree/main/Logo):** Información complementaria al proyecto.

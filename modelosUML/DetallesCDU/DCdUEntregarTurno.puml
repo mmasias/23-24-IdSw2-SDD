@@ -1,0 +1,35 @@
+@startuml
+
+skinparam state {
+  BackgroundColor #faf4b4
+  BorderColor #c90000
+}
+
+skinparam note {
+  BackgroundColor #f5f5f5
+}
+
+skinparam linetype polyline
+
+title Detalle Caso de Uso Entregar Turno
+
+CONTROLANDO -d[#green]-> :entregarTurno
+note on link
+  **Juego solicita:**
+  - Entregar turno
+end note
+
+:entregarTurno -l[#green]-> TURNO_HEROE
+
+:entregarTurno -r[#green]-> TURNO_VILLANO
+
+
+CONTROLANDO-r[#green]-> :declararGanador
+note on link
+  **Juego solicita:**
+  - Declarar ganador
+end note
+
+:declararGanador -[#green]-> FIN_DEL_JUEGO
+
+@enduml
