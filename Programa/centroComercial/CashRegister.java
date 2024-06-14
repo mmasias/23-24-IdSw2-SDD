@@ -133,7 +133,7 @@ public class CashRegister {
     private void beginBreak() {
         this.isOpen = false;
         System.out.println("Cash register " + this.id + " is closed for a break.");
-        this.breakCounter = 15; // Asumiendo que el tiempo está en minutos.
+        this.breakCounter = 15; 
     }
 
     public void endBreak() {

@@ -14,7 +14,7 @@ public class ShoppingCenter {
         this.customersInside = new ArrayList<>();
     }
 
-    // Getters y Setters
+    
     public String getOpeningHour() {
         return openingHour;
     }
@@ -61,7 +61,7 @@ public class ShoppingCenter {
         System.out.println("EL SUPERMERCADO HA CERRADO");
     }
 
-    // Método para verificar si el centro debe cerrarse basado en la hora
+    
     public void updateStatus(String currentTime) {
         if (currentTime.equals(this.openingHour) && !this.isOpen) {
             openCenter();

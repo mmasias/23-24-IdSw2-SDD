@@ -60,7 +60,7 @@ public class AttentionCenter {
                     cashRegisters[i].getServedCustomers() >= 5 &&
                     queue.getSize() < requiredQueueLength) {
                 cashRegisters[i].closeRegister();
-                dataLog.registerCashRegisterClosure(); // Registrar el cierre de la caja
+                dataLog.registerCashRegisterClosure(); 
                 closedOne = true;
             }
             requiredQueueLength += 5;
