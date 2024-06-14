@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         
         ShoppingCenter shoppingCenter = new ShoppingCenter("09:00", "20:40");
-        CustomerQueue queue = new CustomerQueue();
+        CustomerQueue customerQueue = new CustomerQueue();
         List<Cashier> cashiers = loadCashiers("./cashiers.json");
         int maxCashRegisters = 6; 
         CashRegister[] cashRegisters = new CashRegister[maxCashRegisters];
@@ -105,12 +105,12 @@ public class Main {
         }
     }
 
-    public static void printCurrentState(ShoppingCenter shoppingCenter, CustomerQueue queue,
+    public static void printCurrentState(ShoppingCenter shoppingCenter, CustomerQueue customerQueue,
             AttentionCenter attentionCenter, String currentTime) {
         System.out.println("=====================================================================");
         System.out.println(currentTime + " - Estado actual del Supermercado");
         System.out.println("Clientes totales: " + shoppingCenter.getCustomersInside().size() + " - En Cola: "
-                + queue.getSize() + " - En Caja: " + getTotalCustomersInCashRegisters(attentionCenter));
+                + customerQueue.getSize() + " - En Caja: " + getTotalCustomersInCashRegisters(attentionCenter));
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
 
         System.out.println("Clientes dentro de Supermercado:");
@@ -128,7 +128,7 @@ public class Main {
         if (queue.getSize() == 0) {
             System.out.print("[-]");
         } else {
-            for (Customer customer : queue.getCustomers()) {
+            for (Customer customer : customerQueue.getCustomers()) {
                 System.out.print("[Cliente" + customer.getId() + ": " + customer.getNumberOfItemPacks() + "]");
             }
         }
