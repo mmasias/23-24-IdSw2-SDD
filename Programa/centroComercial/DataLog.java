@@ -44,14 +44,14 @@ public class DataLog {
         openMinutesPerCashRegister.put(cashRegisterId, openMinutesPerCashRegister.getOrDefault(cashRegisterId, 0) + 1);
     }
 
-    public void printStatistics(CustomerQueue queue) {
+    public void printStatistics(CustomerQueue customerQueue) {
         System.out.println("======================================================================");
         System.out.println("RESUMEN");
         System.out.println("======================================================================");
         System.out.println("Minutos con cola en cero\t: " + minutesWithZeroQueue);
         System.out.println("Personas atendidas en el dia\t: " + totalCustomersServed);
         System.out.println("Artículos vendidos en el dia\t: " + totalItemsSold);
-        System.out.println("Máximo número de clientes en cola: " + queue.getMaxQueueLength());
+        System.out.println("Máximo número de clientes en cola: " + customerQueue.getMaxQueueLength());
         System.out.println("Número de cierres de caja al día: " + totalCashRegisterClosures);
         openMinutesPerCashRegister.forEach((id, minutes) -> {
             System.out.println("Minutos abiertos para la caja " + id + ": " + minutes);

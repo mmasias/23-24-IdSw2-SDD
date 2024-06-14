@@ -8,7 +8,7 @@ public class AttentionCenter {
 
     public AttentionCenter(CustomerQueue customerQueue, CashRegister[] cashRegisters, List<Cashier> allCashiers,
             DataLog dataLog) {
-        this.customerQueue = queue;
+        this.customerQueue = customerQueue;
         this.cashRegisters = cashRegisters;
         this.allCashiers = allCashiers;
         this.dataLog = dataLog;
