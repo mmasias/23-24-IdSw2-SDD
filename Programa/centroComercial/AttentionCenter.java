@@ -19,6 +19,10 @@ public class AttentionCenter {
             cashRegisters[0].getCurrentCashier().startShift();
             cashRegisters[0].openRegister();
         }
+        if (!cashRegisters[1].isOpen() && cashRegisters[1].getBreakCounter() <= 0) {
+            cashRegisters[1].getCurrentCashier().startShift();
+            cashRegisters[1].openRegister();
+        }
 
         int requiredQueueLength = 10;
         for (int i = 1; i < cashRegisters.length; i++) {
@@ -60,6 +64,14 @@ public class AttentionCenter {
                 closedOne = true;
             }
             requiredQueueLength += 5;
+        }
+    }
+
+    public void updateOpenMinutes() {
+        for (CashRegister cashRegister : cashRegisters) {
+            if (cashRegister.isOpen()) {
+                dataLog.incrementOpenMinutes(cashRegister.getId());
+            }
         }
     }
 
