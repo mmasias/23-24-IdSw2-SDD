@@ -7,55 +7,48 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // Inicialización del centro comercial, colas y cajas registradoras
         ShoppingCenter shoppingCenter = new ShoppingCenter("09:00", "20:40");
-        CustomerQueue queue = new CustomerQueue();
+        CustomerQueue customerQueue = new CustomerQueue();
         List<Cashier> cashiers = loadCashiers("./cashiers.json");
-        int maxCashRegisters = 6; // Límite de 5 cajas registradoras
+        int maxCashRegisters = 6;
         CashRegister[] cashRegisters = new CashRegister[maxCashRegisters];
         DataLog dataLog = new DataLog();
-        AttentionCenter attentionCenter = new AttentionCenter(queue, cashRegisters, cashiers, dataLog);
+        AttentionCenter attentionCenter = new AttentionCenter(customerQueue, cashRegisters, cashiers, dataLog);
 
-        // Asignar cajeros a sus respectivas cajas
         for (int i = 0; i < maxCashRegisters; i++) {
             cashRegisters[i] = new CashRegister(i + 1, attentionCenter);
             cashRegisters[i].setCurrentCashier(cashiers.get(i));
         }
 
-        Time time = new Time(8, 55); // Configurar hora inicial antes de la apertura
+        Time time = new Time(8, 55);
         boolean spawnCustomers = true;
 
-        // Bucle principal de la simulación
         while (true) {
             String currentTime = time.getCurrentTime();
-            shoppingCenter.updateStatus(currentTime); // Actualizar el estado de apertura/cierre
+            shoppingCenter.updateStatus(currentTime);
 
             if (shoppingCenter.isOpen()) {
-                // Generar nuevos clientes de manera aleatoria
                 if (Math.random() <= 0.45 && spawnCustomers) {
                     Customer newCustomer = new Customer((int) (Math.random() * 1000), (int) (Math.random() * 10) + 5);
                     shoppingCenter.addCustomer(newCustomer);
-                    queue.addCustomer(newCustomer);
-                    dataLog.incrementCustomersServed(); // Registrar nuevo cliente
-                    dataLog.addItemsSold(newCustomer.getNumberOfItemPacks()); // Registrar ventas
+                    customerQueue.addCustomer(newCustomer);
+                    dataLog.incrementCustomersServed();
+                    dataLog.addItemsSold(newCustomer.getNumberOfItemPacks());
                     attentionCenter.updateOpenMinutes();
                 }
-                if (queue.getSize() == 0) {
+                if (customerQueue.getSize() == 0) {
                     dataLog.incrementMinutesWithZeroQueue();
                 }
 
-                // Manejo de descansos, cambios de turno y asignación de clientes
                 attentionCenter.checkAndInitiateBreaks(currentTime);
                 attentionCenter.handleShiftChanges(currentTime);
                 attentionCenter.assignCustomersToCashRegisters();
                 attentionCenter.processCustomersInCashRegisters(shoppingCenter);
 
-                // Cerrar cajas no necesarias
                 if (spawnCustomers) {
                     attentionCenter.closeCashRegisters();
                 }
 
-                // Manejar los descansos y posibles reaperturas de cajas
                 for (CashRegister cashRegister : attentionCenter.getCashRegisters()) {
                     if (!cashRegister.isOpen() && cashRegister.getBreakCounter() > 0) {
                         cashRegister.setBreakCounter(cashRegister.getBreakCounter() - 1);
@@ -66,20 +59,18 @@ public class Main {
                 }
             }
 
-            // Registro de estado cada minuto
             if (time.getMinute() % 1 == 0) {
-                printCurrentState(shoppingCenter, queue, attentionCenter, currentTime);
+                printCurrentState(shoppingCenter, customerQueue, attentionCenter, currentTime);
             }
 
-            time.incrementTime(); // Avanzar el tiempo
+            time.incrementTime();
 
             try {
-                Thread.sleep(5); // Simular tiempo real
+                Thread.sleep(5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            // Condiciones de cierre
             if (currentTime.equals("21:00")) {
                 System.out.println("PUERTAS CERRADAS");
                 spawnCustomers = false;
@@ -87,7 +78,7 @@ public class Main {
 
             if (!spawnCustomers && shoppingCenter.getCustomersInside().size() <= 0) {
                 shoppingCenter.closeCenter();
-                dataLog.printStatistics(queue); // Imprimir estadísticas al cerrar
+                dataLog.printStatistics(customerQueue);
                 break;
             }
         }
@@ -96,8 +87,7 @@ public class Main {
     private static List<Cashier> loadCashiers(String filePath) {
         try (FileReader reader = new FileReader(filePath)) {
             Gson gson = new Gson();
-            Type cashierListType = new TypeToken<List<Cashier>>() {
-            }.getType();
+            Type cashierListType = new TypeToken<List<Cashier>>() {}.getType();
             return gson.fromJson(reader, cashierListType);
         } catch (IOException e) {
             e.printStackTrace();
@@ -105,12 +95,12 @@ public class Main {
         }
     }
 
-    public static void printCurrentState(ShoppingCenter shoppingCenter, CustomerQueue queue,
-            AttentionCenter attentionCenter, String currentTime) {
+    public static void printCurrentState(ShoppingCenter shoppingCenter, CustomerQueue customerQueue,
+                                         AttentionCenter attentionCenter, String currentTime) {
         System.out.println("=====================================================================");
         System.out.println(currentTime + " - Estado actual del Supermercado");
         System.out.println("Clientes totales: " + shoppingCenter.getCustomersInside().size() + " - En Cola: "
-                + queue.getSize() + " - En Caja: " + getTotalCustomersInCashRegisters(attentionCenter));
+                + customerQueue.getSize() + " - En Caja: " + getTotalCustomersInCashRegisters(attentionCenter));
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
 
         System.out.println("Clientes dentro de Supermercado:");
@@ -125,10 +115,10 @@ public class Main {
         System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
 
         System.out.println("Clientes en cola:");
-        if (queue.getSize() == 0) {
+        if (customerQueue.getSize() == 0) {
             System.out.print("[-]");
         } else {
-            for (Customer customer : queue.getCustomers()) {
+            for (Customer customer : customerQueue.getCustomers()) {
                 System.out.print("[Cliente" + customer.getId() + ": " + customer.getNumberOfItemPacks() + "]");
             }
         }
