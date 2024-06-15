@@ -4,6 +4,10 @@ skinparam linetype polyline
 
 title Class Diagram - CCCF
 
+class Time{
+
+}
+
 class ShoppingCenter {
     - openingHour
     - closingHour
@@ -46,31 +50,27 @@ class DataLog{
 
 }
 
-class Time{
 
-}
-
-
-ShoppingCenter "1" *-- "1" Queue
+ShoppingCenter -- Queue
 ShoppingCenter "1" o-- "*" Customer
 ShoppingCenter "1" *-- "*" Cashier
 ShoppingCenter "1" *-- "*" CashRegister
 
 Queue -- AttentionCenter
 Queue --  Customer
-Queue .right. DataLog
-
 
 AttentionCenter -left- Customer
 AttentionCenter -- CashRegister
 AttentionCenter .. Time
 
-CashRegister -- Cashier
+CashRegister -right- Cashier
+
 CashRegister -- Customer
-CashRegister .. Time
+CashRegister . Time
 
 ShoppingCenter ..R Time
 ShoppingCenter .. DataLog
-CashRegister .right. DataLog
+Queue .. DataLog
+CashRegister .. DataLog
 
 @enduml
