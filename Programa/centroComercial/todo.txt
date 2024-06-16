@@ -14,62 +14,36 @@ public class Main {
         CashRegister[] cashRegisters = new CashRegister[maxCashRegisters];
         DataLog dataLog = new DataLog();
         AttentionCenter attentionCenter = new AttentionCenter(customerQueue, cashRegisters, cashiers, dataLog);
+        initializeCashRegisters(maxCashRegisters, cashRegisters, cashiers, attentionCenter);
 
+        simulateDay(shoppingCenter, customerQueue, cashRegisters, attentionCenter, dataLog);
+    }
+
+    private static void initializeCashRegisters(int maxCashRegisters, CashRegister[] cashRegisters,
+            List<Cashier> cashiers, AttentionCenter attentionCenter) {
         for (int i = 0; i < maxCashRegisters; i++) {
             cashRegisters[i] = new CashRegister(i + 1, attentionCenter);
             cashRegisters[i].setCurrentCashier(cashiers.get(i));
         }
+    }
 
+    private static void simulateDay(ShoppingCenter shoppingCenter, CustomerQueue customerQueue,
+            CashRegister[] cashRegisters, AttentionCenter attentionCenter, DataLog dataLog) {
         Time time = new Time(8, 55);
         boolean spawnCustomers = true;
 
         while (true) {
             String currentTime = time.getCurrentTime();
             shoppingCenter.updateStatus(currentTime);
-
-            if (shoppingCenter.isOpen()) {
-                if (Math.random() <= 0.45 && spawnCustomers) {
-                    Customer newCustomer = new Customer((int) (Math.random() * 1000), (int) (Math.random() * 10) + 5);
-                    shoppingCenter.addCustomer(newCustomer);
-                    customerQueue.addCustomer(newCustomer);
-                    dataLog.incrementCustomersServed();
-                    dataLog.addItemsSold(newCustomer.getNumberOfItemPacks());
-                    attentionCenter.updateOpenMinutes();
-                }
-                if (customerQueue.getSize() == 0) {
-                    dataLog.incrementMinutesWithZeroQueue();
-                }
-
-                attentionCenter.checkAndInitiateBreaks(currentTime);
-                attentionCenter.handleShiftChanges(currentTime);
-                attentionCenter.assignCustomersToCashRegisters();
-                attentionCenter.processCustomersInCashRegisters(shoppingCenter);
-
-                if (spawnCustomers) {
-                    attentionCenter.closeCashRegisters();
-                }
-
-                for (CashRegister cashRegister : attentionCenter.getCashRegisters()) {
-                    if (!cashRegister.isOpen() && cashRegister.getBreakCounter() > 0) {
-                        cashRegister.setBreakCounter(cashRegister.getBreakCounter() - 1);
-                        if (cashRegister.getBreakCounter() == 0) {
-                            cashRegister.endBreak();
-                        }
-                    }
-                }
-            }
+            processShoppingCenterOperations(shoppingCenter, customerQueue, attentionCenter, dataLog, currentTime,
+                    spawnCustomers);
 
             if (time.getMinute() % 1 == 0) {
                 printCurrentState(shoppingCenter, customerQueue, attentionCenter, currentTime);
             }
 
             time.incrementTime();
-
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            pauseSimulation();
 
             if (currentTime.equals("21:00")) {
                 System.out.println("PUERTAS CERRADAS");
@@ -84,10 +58,61 @@ public class Main {
         }
     }
 
+    private static void processShoppingCenterOperations(ShoppingCenter shoppingCenter, CustomerQueue customerQueue,
+            AttentionCenter attentionCenter, DataLog dataLog, String currentTime, boolean spawnCustomers) {
+        if (shoppingCenter.isOpen()) {
+            maybeSpawnCustomers(shoppingCenter, customerQueue, dataLog, spawnCustomers);
+            attentionCenter.checkAndInitiateBreaks(currentTime);
+            attentionCenter.handleShiftChanges(currentTime);
+            attentionCenter.assignCustomersToCashRegisters();
+            attentionCenter.processCustomersInCashRegisters(shoppingCenter);
+
+            if (spawnCustomers) {
+                attentionCenter.closeCashRegisters();
+            }
+
+            updateCashRegisterBreaks(attentionCenter);
+        }
+    }
+
+    private static void maybeSpawnCustomers(ShoppingCenter shoppingCenter, CustomerQueue customerQueue, DataLog dataLog,
+            boolean spawnCustomers) {
+        if (Math.random() <= 0.45 && spawnCustomers) {
+            Customer newCustomer = new Customer((int) (Math.random() * 1000), (int) (Math.random() * 10) + 5);
+            shoppingCenter.addCustomer(newCustomer);
+            customerQueue.addCustomer(newCustomer);
+            dataLog.incrementCustomersServed();
+            dataLog.addItemsSold(newCustomer.getNumberOfItemPacks());
+        }
+        if (customerQueue.getSize() == 0) {
+            dataLog.incrementMinutesWithZeroQueue();
+        }
+    }
+
+    private static void updateCashRegisterBreaks(AttentionCenter attentionCenter) {
+        for (CashRegister cashRegister : attentionCenter.getCashRegisters()) {
+            if (!cashRegister.isOpen() && cashRegister.getBreakCounter() > 0) {
+                cashRegister.setBreakCounter(cashRegister.getBreakCounter() - 1);
+                if (cashRegister.getBreakCounter() == 0) {
+                    cashRegister.endBreak();
+                }
+            }
+        }
+    }
+
+    private static void pauseSimulation() {
+        try {
+            Thread.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static List<Cashier> loadCashiers(String filePath) {
         try (FileReader reader = new FileReader(filePath)) {
             Gson gson = new Gson();
-            Type cashierListType = new TypeToken<List<Cashier>>() {}.getType();
+            Type cashierListType = new TypeToken<List<Cashier>>() {
+            }.getType();
             return gson.fromJson(reader, cashierListType);
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,7 +121,7 @@ public class Main {
     }
 
     public static void printCurrentState(ShoppingCenter shoppingCenter, CustomerQueue customerQueue,
-                                         AttentionCenter attentionCenter, String currentTime) {
+            AttentionCenter attentionCenter, String currentTime) {
         System.out.println("=====================================================================");
         System.out.println(currentTime + " - Estado actual del Supermercado");
         System.out.println("Clientes totales: " + shoppingCenter.getCustomersInside().size() + " - En Cola: "
