@@ -515,35 +515,241 @@ Para abordar el problema de "Incomplete Library Class", proponemos implementar e
 ##### Conclusión
 Aunque en la versión actual del proyecto no hemos enfrentado limitaciones específicas con la biblioteca Gson, hemos identificado la posibilidad de futuros problemas relacionados con "Incomplete Library Class". Implementar el patrón Adapter nos permitirá manejar eficazmente estas limitaciones, proporcionando una capa de abstracción que puede ser fácilmente modificada para ajustarse a las necesidades del proyecto sin depender de cambios en la biblioteca externa. Esta propuesta de mejora se planificará para futuras versiones del proyecto, garantizando un código más mantenible y extensible.
 
-El diseño modular fue clave en la refactorización del sistema:
+### 3 Granularidad
 
-- **Refactorización de Métodos**: Por ejemplo; se descompuso el método `main` en funciones más pequeñas como `initializeCashRegisters` y `simulateDay`, cada una con responsabilidades bien definidas.
-- **Cohesión y Acoplamiento**: Mejoramos la cohesión funcional y reducimos el acoplamiento entre componentes, permitiendo que cada módulo funcione de manera más independiente.
+#### 3.1 Long Parameter List - Listas de parámetros larga-
 
-```java
-//Antes
+##### Descripción del Problema
 
-// Manejo de descansos, cambios de turno y asignación de clientes
-attentionCenter.checkAndInitiateBreaks(currentTime);
-attentionCenter.handleShiftChanges(currentTime);
-attentionCenter.assignCustomersToCashRegisters();
-attentionCenter.processCustomersInCashRegisters(shoppingCenter);
+Actualmente, en nuestro sistema, algunas de las clases y métodos manejan listas largas de parámetros, lo que complica su uso y mantenimiento. Un ejemplo típico de este problema podría ser un método que configure diversos aspectos de una entidad en el sistema, requiriendo múltiples parámetros individuales para cada configuración.
+
+Por ejemplo, la configuración de una caja registradora podría involucrar múltiples parámetros relacionados con el cajero, el centro de atención, la cola de clientes, etc.
+
+Este método `setupRegister` tiene demasiados parámetros, lo que hace que su uso sea complicado y propenso a errores.
+
+##### Solución Propuesta
+Para abordar el problema de "Long Parameter List", proponemos agrupar los parámetros relacionados en objetos de configuración específicos. Esta estrategia mejora la organización del código, reduce la complejidad de las firmas de los métodos y facilita el mantenimiento.
+
+##### Implementación de Objetos de Configuración
+
+1. Crear clases de configuración para agrupar parámetros relacionados:
+
+    - Definir clases de configuración como `CashRegisterConfig`,` CashierConfig`,` CustomerQueueConfi`, etc.
+
+2. Modificar los métodos para utilizar los objetos de configuración:
+    - Actualizar los métodos para recibir instancias de las clases de configuración en lugar de listas largas de parámetros.
+
+##### Beneficios de la Solución Propuesta:
+
+- Mejor organización del código: Agrupar parámetros relacionados en clases de configuración específicas mejora la organización del código y facilita su comprensión.
+
+- Reducción de la complejidad: Al reducir el número de parámetros en las firmas de los métodos, se simplifica la interfaz de los métodos y se reduce la probabilidad de errores.
+
+- Reutilización y mantenibilidad mejoradas: Los objetos de configuración pueden ser reutilizados en diferentes partes de la aplicación, lo que mejora la mantenibilidad del código.
+
+- Validación centralizada: Las clases de configuración pueden incluir métodos de validación, asegurando que los datos de configuración sean completos y correctos antes de ser utilizados.
+
+##### Ejemplo de Mejora
+En lugar de tener métodos con listas largas de parámetros, podríamos tener algo como:
+
+##### Clases de Configuración:
+
+- CashRegisterConfig: Agrupa todos los parámetros relacionados con la configuración de una caja registradora.
+
+- CashierConfig: Agrupa todos los parámetros relacionados con la configuración de un cajero.
+- CustomerQueueConfig: Agrupa todos los parámetros relacionados con la configuración de la cola de clientes.
+
+##### Beneficios Adicionales:
+- Extensibilidad: Si se necesitan agregar más parámetros en el futuro, solo se modifican las clases de configuración, no las firmas de los métodos.ç
+
+- Claridad: Los métodos son más fáciles de leer y comprender cuando reciben un objeto cohesivo en lugar de una lista larga de parámetros.
+
+##### Conclusión
+Hemos identificado que nuestro sistema podría beneficiarse de la refactorización de métodos con listas largas de parámetros. Agrupar parámetros relacionados en objetos de configuración específicos mejora la claridad, mantenibilidad y extensibilidad del código. Esta propuesta de mejora se planificará para futuras versiones del proyecto, garantizando un código más limpio y fácil de mantener.
 
 
-//Después
-processShoppingCenterOperations(...);
-```
+
+####  3.2 Long Method - Métodos largos
+
+##### Introducción
+En la revisión de nuestro sistema de gestión de cajas registradoras en un centro comercial, hemos identificado posibles problemas relacionados con "Long Method". Este problema se presenta cuando los métodos son demasiado largos y contienen demasiadas líneas de código. Los métodos largos son difíciles de entender, reutilizar y mantener. A continuación, se describen los métodos largos identificados en el código actual y se propone una solución para mejorar la claridad y mantenibilidad del código.
+
+##### Descripción del Problema
+
+En nuestro sistema, algunos métodos realizan múltiples tareas y son demasiado largos, lo que complica su comprensión y mantenimiento. Un ejemplo de esto se encuentra en la clase Main, donde el método main y otros métodos gestionan múltiples responsabilidades.
+El método main en la clase Main es largo y maneja múltiples responsabilidades, lo que lo hace difícil de entender y mantener.
+
+##### Solución Propuesta
+Para abordar el problema de "Long Method", proponemos dividir el método main en varios métodos más pequeños y específicos. Cada uno de estos métodos se encargará de una tarea única y bien definida, siguiendo el Principio de Responsabilidad Única.
+
+##### Implementación de Métodos Más Pequeños y Específicos
+
+1. Inicializar componentes del sistema: Crear métodos separados para inicializar los diferentes componentes del sistema (centro comercial, colas, cajeros, etc.).
+
+2. Actualizar el estado del sistema: Crear métodos separados para actualizar el estado del centro comercial, manejar la generación de clientes, asignar clientes a cajas, y procesar los clientes en las cajas.
+
+3. Dividir el método main en métodos más pequeños: Llamar a estos métodos desde el método main, manteniéndolo más limpio y fácil de entender.
+
+##### Beneficios de la Solución Propuesta:
+
+- Claridad mejorada: Al dividir el método original en partes más pequeñas y específicas, se clarifica enormemente la estructura del código. Cada método ahora maneja una responsabilidad única, lo cual facilita la comprensión.
+
+- Facilidad de mantenimiento y extensión: Modificar o extender una parte específica del proceso es ahora más fácil y seguro, dado que los cambios en una parte no afectan directamente a las otras.
+
+- Mejor reusabilidad: Los métodos más pequeños y enfocados son más fáciles de reutilizar en otras partes de la aplicación, o incluso en diferentes proyectos.
+
+##### Conclusión
+
+Hemos identificado que nuestro sistema se beneficiaría de la refactorización de métodos largos en métodos más pequeños y específicos. Esta estrategia mejora la claridad, mantenibilidad y extensibilidad del código. La implementación de estos cambios se planificará para futuras versiones del proyecto, garantizando un código más limpio y fácil de mantener.
+
+
+#### 3.3 Large Class - Clase grande
+
+##### Descripción del Problema
+
+En nuestro sistema, algunas clases manejan múltiples responsabilidades, lo que las convierte en clases grandes y complicadas. Un ejemplo claro es la clase AttentionCenter, que gestiona múltiples aspectos de la operación de las cajas registradoras, los cajeros, y la cola de clientes.
+
+La clase AttentionCenter es responsable de manejar demasiadas tareas, lo que la convierte en una clase grande y difícil de mantener.
+
+##### Solución Propuesta
+
+Para abordar el problema de "Large Class", proponemos dividir la clase `AttentionCenter` en varias clases más pequeñas, cada una con una responsabilidad única y bien definida. Esto mejorará la claridad del código, facilitará el mantenimiento y permitirá una mejor reutilización de las clases.
+
+##### Implementación de Clases Más Pequeñas y Específicas
+
+1. Crear clases específicas para cada responsabilidad:
+    - CustomerAssignmentManager: Para gestionar la asignación de clientes a cajas registradoras.
+
+    - CashRegisterProcessor: Para gestionar el procesamiento de clientes en las cajas registradoras.
+
+    - CashRegisterClosureManager: Para gestionar el cierre de las cajas registradoras.
+
+    - ShiftManager: Para gestionar los cambios de turno y descansos de los cajeros.
+
+2. Actualizar AttentionCenter para delegar responsabilidades a las nuevas clases:
+    - La clase AttentionCenter se encargará de coordinar las nuevas clases específicas.
+
+##### Beneficios de la Solución Propuesta:
+
+- Claridad mejorada: Al dividir la clase original en partes más pequeñas, cada nueva clase tiene una responsabilidad clara y bien definida, lo que mejora significativamente la claridad del código.
+
+- Facilidad de mantenimiento y extensión: Modificar o extender una parte específica del sistema es ahora más fácil y seguro, dado que los cambios en una parte no afectan directamente a las otras.
+
+- Mejor reusabilidad: Las clases más pequeñas y enfocadas son más fáciles de reutilizar en otras partes de la aplicación o incluso en diferentes proyectos.
+
+##### Ejemplo de Mejora
+
+##### Clases Divididas:
+- CustomerAssignmentManager: Responsable de asignar clientes a cajas registradoras.
+
+- CashRegisterProcessor: Responsable de procesar clientes en las cajas registradoras.
+
+- CashRegisterClosureManager: Responsable de cerrar las cajas registradoras.
+
+- ShiftManager: Responsable de manejar los cambios de turno y descansos de los cajeros.
+
+##### Uso en AttentionCenter:
+
+- AttentionCenter coordina las operaciones llamando a los métodos de las nuevas clases específicas.
+
+##### Conclusión
+
+Hemos identificado que la clase AttentionCenter en nuestro sistema es una clase grande que maneja múltiples responsabilidades. Dividir esta clase en varias clases más pequeñas y específicas mejorará la claridad, mantenibilidad y extensibilidad del código. Esta propuesta de mejora se planificará para futuras versiones del proyecto, garantizando un código más limpio y fácil de mantener.
+
+#### 3.4 Temporary Fields - Campos temporales
+
+##### Descripción del Problema
+
+Revisando el código del proyecto, he identificado algunos posibles campos temporales en la clase CashRegister. Los campos pendingShiftChange, pendingBreak y breakCounter parecen ser utilizados solo en condiciones específicas y no constantemente a lo largo del ciclo de vida del objeto.
+##### Solución Propuesta
+
+Para abordar el problema de "Temporary Fields", proponemos eliminar estos campos de la clase CashRegister y mover su manejo a métodos locales o a clases dedicadas, según corresponda. Esta solución mejorará la claridad del código y reducirá la probabilidad de errores relacionados con el estado inconsistente del objeto.
+
+##### Propuesta de Refactorización
+
+- Eliminar los campos temporales: Mover pendingShiftChange, pendingBreak y breakCounter fuera de la clase CashRegister.
+
+- Crear métodos específicos para manejar estos estados temporales: Introducir métodos que gestionen estos estados de manera local dentro del contexto de su uso.
+
+- Utilizar clases auxiliares si es necesario: Si el manejo de estos estados requiere más complejidad, considerar la creación de clases auxiliares dedicadas.
+
+##### Beneficios de la Solución Propuesta
+
+- Claridad mejorada: Al eliminar los campos temporales y usar variables locales, se clarifica cuándo y cómo se usan estos valores, reduciendo la confusión sobre el estado del objeto.
+
+- Reducción de errores: Al confinar los datos temporales a un ámbito localizado, se reduce la probabilidad de errores que pueden surgir de un manejo inadecuado de estados inconsistentes o irrelevantes para ciertas operaciones.
+
+- Facilidad de mantenimiento: Simplificar el manejo de estado facilita el mantenimiento y la extensión del código, ya que cada método maneja claramente definidos y sus dependencias de datos son transparentes.
+
+##### Conclusión
+
+Hemos identificado que la clase `CashRegister` en nuestro sistema tiene campos temporales que solo se utilizan bajo ciertas condiciones específicas. Refactorizar estos campos temporales para que se manejen de manera local dentro de los métodos relevantes mejorará la claridad, mantenibilidad y robustez del código. Esta propuesta de mejora se planificará para futuras versiones del proyecto, garantizando un código más limpio y fácil de mantener.
 
 ## Diseño Orientado a Objetos
 
-### Implementación de Principios SOLID
+El diseño de nuestro sistema de gestión de centro comercial incorpora principios de diseño orientado a objetos para asegurar que el código sea robusto, mantenible y extensible. Aquí se detallan los principios **SOLID** aplicados:
 
-En nuestro diseño, incorporamos los principios SOLID para garantizar un código robusto y mantenible:
+### Principio de Responsabilidad Única (SRP)
 
-- **Principio de Responsabilidad Única**: Cada clase y método se diseñó para tener una sola razón de cambio.
-- **Principio de Abierto/Cerrado**: El sistema se diseñó para ser extensible sin necesidad de modificar los componentes existentes.
-- **Refactorización para Reducir el Acoplamiento**: Introducimos interfaces y abstracciones donde fue necesario para desacoplar las clases y facilitar la extensibilidad.
+#### Implementación:
 
-## Conclusión
+- CustomerQueue: Se encarga exclusivamente de la gestión de la cola de clientes, asegurando que cada clase se concentre en una sola tarea.
 
-Las mejoras aplicadas al Sistema de Gestión de Centro Comercial han transformado el código y la arquitectura del sistema, haciendo que sea más fácil de entender, modificar y extender. Estas mejoras no solo benefician el mantenimiento actual sino que también preparan el sistema para futuras expansiones y funcionalidades.
+- DataLog: Maneja toda la lógica relacionada con el registro de eventos y estadísticas, evitando que otras clases asuman responsabilidades de logging.
+
+Actualmente, la clase Main gestiona la inicialización y el ciclo diario del centro comercial, lo que podría dividirse para mejorar la cohesión.
+
+### Principio de Abierto/Cerrado (OCP)
+
+#### Implementación:
+
+- Las clases como CashRegister y ShoppingCenter están diseñadas para ser extendidas (por ejemplo, para diferentes tipos de registros o comportamientos de centros comerciales) sin necesidad de modificar su código existente.
+
+No hay una clara extensibilidad en la forma en que se manejan las operaciones diarias, que podrían modularizarse mejor mediante estrategias como patrones de diseño o interfaces.
+
+### Principio de Sustitución de Liskov (LSP)
+
+#### Revisión:
+
+- Este principio no es claramente visible en el código actual dado que no hay una jerarquía de herencia compleja donde se aplique.
+
+### Principio de Segregación de Interfaces (ISP)
+
+Aunque el sistema no muestra una violación directa de este principio, la implementación de interfaces específicas para cada funcionalidad principal podría reducir el acoplamiento y aumentar la flexibilidad del sistema.
+
+### Principio de Inversión de Dependencias (DIP)
+
+#### Implementación:
+
+- AttentionCenter depende de abstracciones (CustomerQueue, CashRegister) más que de detalles concretos, lo cual es una buena práctica bajo este principio.
+
+#### Propuesta de mejora:
+
+- Introducir interfaces para las dependencias podría fortalecer aún más este principio, permitiendo que el sistema sea aún más adaptable y fácil de testear.
+
+### Ejemplos y Propuestas de Mejora
+
+- Principio de Responsabilidad Única: Podríamos extraer la lógica de inicialización y simulación del día del main a clases dedicadas como SimulationInitializer y DaySimulator.
+
+- Principio de Abierto/Cerrado: Se podría implementar un sistema de plugins o hooks para las operaciones que varían según el tipo de día o eventos especiales, evitando modificaciones en el código base.
+
+- Principio de Inversión de Dependencias: Introducir interfaces para componentes como DataLog y CashRegister mejoraría el desacoplamiento y facilitaría las pruebas unitarias.
+
+## Conclusión Final
+
+A lo largo del desarrollo del Sistema de Gestión para un Centro Comercial simulado, hemos aplicado varias técnicas de programación para asegurarnos de que el software es fácil de entender, modificar y expandir. Esto incluye separar el código en módulos claros, escribir de manera limpia y seguir los principios de la programación orientada a objetos.
+
+#### Aspectos Clave del Diseño
+
+- Diseño Modular: Hemos organizado el código en partes independientes que tratan temas específicos, como manejar las cajas registradoras o gestionar las colas de clientes. Esto hace que sea más fácil hacer cambios en una parte sin afectar las demás.
+
+- Código Limpio: Mejoramos nombres y estructuramos el código para que sea fácil de leer. Por ejemplo, cambiar variables de simples letras a nombres que describen su función ayuda mucho a cualquier persona que vea el código por primera vez.
+
+- Diseño Orientado a Objetos: Nos hemos asegurado de que cada parte del código tenga una sola tarea clara, lo que ayuda a evitar problemas cuando el código necesita cambiar. También, diseñamos el sistema para que sea fácil agregar nuevas funciones sin tener que reescribir las existentes.
+
+#### Reflexiones y Mejoras Continuas
+
+Aunque el sistema está funcionando bien, siempre hay maneras de mejorarlo. Por ejemplo, podríamos hacer que el sistema sea capaz de manejar ventas reales añadiendo productos y precios. Esto necesitaría nuevas partes como un `TransactionManager` para manejar compras y pagos de manera eficiente. 
+
+---
+Este proyecto ha sido una gran oportunidad para aplicar lo que hemos aprendido sobre programación y diseño de software. Nos ha mostrado la importancia de escribir código que no sólo funcione, sino que también sea fácil de mantener y expandir. A medida que continuemos mejorando el sistema, estas prácticas nos ayudarian a hacer cambios de manera más eficiente y con menos errores.
