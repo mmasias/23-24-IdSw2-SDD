@@ -9,7 +9,8 @@
 
 
 - [Modelo de dominio](/archivosMd/modelosUml.md)
-- [Code](/Programa/centroComercial/)
+- [Casos de Uso](/archivosMd/casosDeUso.md)
+- [Memoria](/archivosMd/memoria.md)
 
 
 ---
