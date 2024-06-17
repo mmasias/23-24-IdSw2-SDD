@@ -4,9 +4,36 @@
 
 - [Introducción](#introducción)
 - [Diseño](#diseño)
+  - [Estrategias de Clasificación](#estrategias-de-clasificación)
+  - [Relaciones entre clases](#relaciones-entre-clase)
+    - [Colaboración](#colaboración)
+    - [Transmisión](#transmisión)
+  - [Código Limpio](#código-limpio)
 - [Diseño Modular](#diseño-modular)
+  - [Cohesión](#1-cohesión)
+    - [Alternative classes with different interfaces - Clases alternativas con distintas interfaces](#11-alternative-classes-with-different-interfaces)
+    - [Features envy - Envidia de características](#12-features-envy---envidia-de-características)
+    - [Data class - Clase de datos](#13-data-class---clase-de-datos)
+    - [Divergent Change - Cambios divergentes](#14-divergent-change---cambios-divergentes)
+    - [Shotgun Surgery - Cirugía a escopetazos](#15-shotgun-surgery---cirugía-a-escopetazos)
+    - [Data Clumps - Grupo de datos](#16-data-clumps---grupo-de-datos)
+    - [Primitive Obsession - Obsesión por tipos primitivos](#17-primitive-obsession---obsesión-por-tipos-primitivos)
+    - [Lazy Classes - Clases perezosas](#18-lazy-classes---clases-perezosas)
+  - [Acoplamiento](#2-acoplamiento)
+    - [Inappropriate Intimacy - Inapropiada intimidad](#21-inappropriate-intimacy---inapropiada-intimidad)
+    - [Incomplete Library Class - Clase de biblioteca incompleta](#22-incomplete-library-class---clase-de-biblioteca-incompleta)
+  - [Granulado](#granulado)
+    - [Long Parameter List - Listas de parámetros larga](#long-parameter-list---listas-de-parámetros-larga)
+    - [Long Method - Métodos largos](#long-method---métodos-largos)
+    - [Large Class - Clase grande](#large-class---clase-grande)
+    - [Temporary Fields - Campos temporales](#temporary-fields---campos-temporales)
 - [Diseño Orientado a Objetos](#diseño-orientado-a-objetos)
-- [Conclusión](#conclusión)
+  - [Principio de responsabilidad única (SRP)](#principio-de-responsabilidad-única-srp)
+  - [Principio de abierto/cerrado (OCP)](#principio-de-abiertocerrado-ocp)
+  - [Principio de Sustitución de Liskov (LSP)](#principio-de-sustitución-de-liskov-lsp)
+  - [Principio de segregación de interfaces (ISP)](#principio-de-segregación-de-interfaces-isp)
+  - [Principio de Inversión de Dependencias (DIP)](#principio-de-inversión-de-dependencias-dip)
+- [Conclusión Final](#conclusión-final)
 
 A continuación se presenta el diagrama que ilustra la estructura del proceso de diseño seguido en el desarrollo del sistema. Este diagrama proporciona una visión general y secuencial de las etapas principales del diseño:
 
@@ -31,24 +58,25 @@ El **Centro Comercial** CF, ubicado en El Alisal, opera diariamente desde las 9 
 ##### Análisis de comportamiento
 
 - **ShoppingCenter**: Representa el centro comercial. Sus responsabilidades incluyen:
-    - **Conocer** las horas de apertura y cierre.
-    - **Gestionar** el estado de apertura o cierre.
-    - **Administrar** la lista de clientes dentro del centro.
+  - **Conocer** las horas de apertura y cierre.
+  - **Gestionar** el estado de apertura o cierre.
+  - **Administrar** la lista de clientes dentro del centro.
 - **CustomerQueue**: Gestiona la cola de clientes esperando para pagar. Sus responsabilidades son:
-    - **Conocer y actualizar** la longitud máxima de la cola.
-    - **Agregar y remover** clientes de la cola.
+  - **Conocer y actualizar** la longitud máxima de la cola.
+  - **Agregar y remover** clientes de la cola.
 - **CashRegister**: Cada caja registradora tiene responsabilidades clave como:
-    - **Procesar** a los clientes asignados.
-    - **Gestionar** el estado (abierta, cerrada, en descanso).
-    - **Coordinar** con el centro de atención para cambios de turno o descansos.
+  - **Procesar** a los clientes asignados.
+  - **Gestionar** el estado (abierta, cerrada, en descanso).
+  - **Coordinar** con el centro de atención para cambios de turno o descansos.
 - **AttentionCenter**: Coordina entre las cajas registradoras y la cola de clientes. Es responsable de:
-    - **Asignar** clientes a las cajas disponibles.
-    - **Manejar** los cambios de turno y descansos de los cajeros.
-    - **Cerrar** cajas registradoras según la demanda y el flujo de clientes.
+  - **Asignar** clientes a las cajas disponibles.
+  - **Manejar** los cambios de turno y descansos de los cajeros.
+  - **Cerrar** cajas registradoras según la demanda y el flujo de clientes.
 - **DataLog**: Recopila y almacena datos estadísticos del día. Sus tareas incluyen:
-    - **Registrar** eventos y transacciones.
-    - **Contabilizar** el total de clientes atendidos y productos vendidos.
-    - **Presentar** resúmenes estadísticos al final del día.
+  - **Registrar** eventos y transacciones.
+  - **Contabilizar** el total de clientes atendidos y productos vendidos.
+  - **Presentar** resúmenes estadísticos al final del día.
+
 ##### Interacciones y Flujo de Trabajo
 
 - **Inicialización**: El sistema inicia definiendo las cajas registradoras y preparando la configuración inicial de atención al cliente.
@@ -56,22 +84,22 @@ El **Centro Comercial** CF, ubicado en El Alisal, opera diariamente desde las 9 
 - **Manejo de Eventos Específicos**: Las cajas registradoras y sus cajeros manejan eventos como descansos y cambios de turno basados en el tiempo actual y las políticas del centro comercial.
 - **Cierre**: Al final del día, el sistema deja de aceptar nuevos clientes y procesa a todos los clientes restantes antes de cerrar y presentar el resumen del día.
 
-
 ### Relaciones entre clase
 
-
 #### **Colaboración**
+
 Una de las clases que contiene los 3 elementos de colaboracion es CashRegister.
 
 - **Composición**: La `CashRegister` contiene varios atributos primitivos (`id`, `isOpen`, `isOccupied`, `servedCustomers`, `pendingShiftChange`, `pendingBreak`, `breakCounter`) que representan el estado de la caja registradora. Estos atributos forman parte integral de la `CashRegister`.
 - **Agregación**: La `CashRegister` tiene una relación de agregación con `Customer` y `Cashier`. Un `Customer` es asignado temporalmente a una `CashRegister` para ser atendido, y un `Cashier` es asignado para operar la caja registradora. Ambas relaciones son flexibles y los objetos pueden existir independientemente de la `CashRegister`.
 - **Asociación**: La `CashRegister` está asociada con `AttentionCenter`, `ShoppingCenter`, `Cashier` y `Customer`. Esta asociación permite que la `CashRegister`: Cambie de cajero a través de `AttentionCenter`.
-Remueva a un cliente del `ShoppingCenter` después de ser atendido.
-Sirva a un `Customer` y sea operada por un `Cashier`
+  Remueva a un cliente del `ShoppingCenter` después de ser atendido.
+  Sirva a un `Customer` y sea operada por un `Cashier`
 
-#### **Transmisión** 
+#### **Transmisión**
 
 ##### Propuesta de Extensión mediante Herencia
+
 Aunque la herencia no está presente en la versión actual del sistema, se puede mejorar y extender utilizando herencia por extensión. A continuación, se presentan ejemplos de cómo se podría aplicar la herencia para crear diferentes tipos de cajas registradoras.
 
 Podemos extender la clase `CashRegister` para crear tipos específicos de cajas registradoras como `ExpressCashRegister` (para clientes con pocos artículos) y `SelfServiceCashRegister` (para autoservicio).
@@ -82,7 +110,6 @@ Podemos extender la clase `CashRegister` para crear tipos específicos de cajas 
 - **Especialización**: Permite crear clases especializadas (`ExpressCashRegister` y `SelfServiceCashRegister`) que extienden la funcionalidad de la clase base con comportamientos específicos.
 - **Flexibilidad y Escalabilidad**: Facilita la incorporación de nuevas funcionalidades y tipos de cajas registradoras en el futuro sin alterar la estructura existente.
 
- 
 ### Código Limpio
 
 Implementamos mejoras significativas en la base de código para aumentar la legibilidad y mantenibilidad, siguiendo principios de código limpio:
@@ -100,7 +127,6 @@ int maxCashRegisters = 6;
 ```
 
 ## Diseño Modular
-
 
 ### 1. Cohesión
 
@@ -343,7 +369,7 @@ La funcionalidad de la clase `Time` puede ser incorporada directamente en la cla
 ##### Mejor Gestión de Estado
 
 **Mejor encapsulación:**
- Cada clase debería gestionar sus propios datos internamente. Las interacciones entre las clases, como `CashRegister` y `Customer`, así como `AttentionCenter` y `CustomerQueue`, deben realizarse a través de métodos que controlen el acceso y la mutabilidad de sus estados. Por ejemplo, en lugar de que `CashRegister` acceda directamente a los datos del Customer, debería hacerlo mediante métodos públicos que encapsulen la lógica necesaria.
+Cada clase debería gestionar sus propios datos internamente. Las interacciones entre las clases, como `CashRegister` y `Customer`, así como `AttentionCenter` y `CustomerQueue`, deben realizarse a través de métodos que controlen el acceso y la mutabilidad de sus estados. Por ejemplo, en lugar de que `CashRegister` acceda directamente a los datos del Customer, debería hacerlo mediante métodos públicos que encapsulen la lógica necesaria.
 
 **Reducción del acoplamiento:** Limitando el acceso directo a los campos internos y utilizando métodos para la comunicación entre objetos, el acoplamiento entre las clases se reduce. Esto hace que el sistema sea más modular y fácil de modificar. Por ejemplo, `AttentionCenter` podría utilizar interfaces o patrones de diseño que promuevan la separación de responsabilidades, como el Patrón Observador para manejar eventos entre `CustomerQueue` y `CashRegister`.
 
@@ -411,7 +437,6 @@ public void manageQueue() {
 
 
 ```
-
 
 ##### Metodos modificados:
 
@@ -483,25 +508,28 @@ public void addCustomer(Customer customer) {
 
 ```
 
- #### 2.2 Incomplete Library Class - Clase de biblioteca incompleta
+#### 2.2 Incomplete Library Class - Clase de biblioteca incompleta
+
 Durante el desarrollo de nuestro sistema de gestión de cajas registradoras en un centro comercial, hemos evaluado el uso de bibliotecas externas y nos hemos encontrado con el problema de "Incomplete Library Class". Este problema ocurre cuando una clase de una biblioteca externa no proporciona la funcionalidad necesaria y no puede ser modificada directamente debido a la falta de control sobre su código fuente. Este documento describe el problema identificado y propone una solución para mejorar la funcionalidad y mantenibilidad del sistema.
 
 ##### Descripción del Problema
+
 En nuestro sistema, utilizamos la biblioteca Gson para manejar la serialización y deserialización de JSON. Sin embargo, si en el futuro requerimos soporte adicional para algún formato de datos o procesamiento específico que Gson no proporcione directamente, podríamos enfrentar limitaciones. Este es un caso típico de "Incomplete Library Class".
 
 Por ejemplo, al cargar datos de cajeros desde un archivo JSON, podríamos necesitar agregar validaciones adicionales o manejar formatos de datos específicos que Gson no soporta de manera directa. La limitación de no poder modificar directamente la clase de la biblioteca externa nos lleva a buscar una solución alternativa para extender su funcionalidad de manera eficiente.
 
 ##### Solución Propuesta
+
 Para abordar el problema de "Incomplete Library Class", proponemos implementar el patrón de diseño Adapter. Este patrón nos permitirá envolver la clase de la biblioteca externa (en este caso, Gson) y agregar la funcionalidad adicional requerida sin modificar el código fuente de la biblioteca.
 
 ##### Implementación del Adapter Pattern
 
 1. Definir una interfaz que declare los métodos necesarios:
-    - Una interfaz que defina las operaciones necesarias para cargar y procesar datos.
+   - Una interfaz que defina las operaciones necesarias para cargar y procesar datos.
 2. Crear una clase adaptadora que implemente la interfaz:
-    - La clase adaptadora utilizará la biblioteca externa (Gson) para manejar la serialización y deserialización de JSON, añadiendo cualquier funcionalidad adicional necesaria, como validaciones específicas o soporte para formatos adicionales.
+   - La clase adaptadora utilizará la biblioteca externa (Gson) para manejar la serialización y deserialización de JSON, añadiendo cualquier funcionalidad adicional necesaria, como validaciones específicas o soporte para formatos adicionales.
 3. Utilizar la clase adaptadora en el sistema:
-    - Reemplazar el uso directo de la biblioteca externa con la clase adaptadora en las partes del sistema que manejan la carga y procesamiento de datos.
+   - Reemplazar el uso directo de la biblioteca externa con la clase adaptadora en las partes del sistema que manejan la carga y procesamiento de datos.
 
 ##### Beneficios de la Solución Propuesta
 
@@ -522,16 +550,17 @@ Por ejemplo, la configuración de una caja registradora podría involucrar múlt
 Este método `setupRegister` tiene demasiados parámetros, lo que hace que su uso sea complicado y propenso a errores.
 
 ##### Solución Propuesta
+
 Para abordar el problema de "Long Parameter List", proponemos agrupar los parámetros relacionados en objetos de configuración específicos. Esta estrategia mejora la organización del código, reduce la complejidad de las firmas de los métodos y facilita el mantenimiento.
 
 ##### Implementación de Objetos de Configuración
 
 1. Crear clases de configuración para agrupar parámetros relacionados:
 
-    - Definir clases de configuración como `CashRegisterConfig`, `CashierConfig`, `CustomerQueueConfi`, etc.
+   - Definir clases de configuración como `CashRegisterConfig`, `CashierConfig`, `CustomerQueueConfi`, etc.
 
 2. Modificar los métodos para utilizar los objetos de configuración:
-    - Actualizar los métodos para recibir instancias de las clases de configuración en lugar de listas largas de parámetros.
+   - Actualizar los métodos para recibir instancias de las clases de configuración en lugar de listas largas de parámetros.
 
 ##### Beneficios de la Solución Propuesta:
 
@@ -544,6 +573,7 @@ Para abordar el problema de "Long Parameter List", proponemos agrupar los parám
 - **Validación centralizada:** Las clases de configuración pueden incluir métodos de validación, asegurando que los datos de configuración sean completos y correctos antes de ser utilizados.
 
 ##### Ejemplo de Mejora
+
 En lugar de tener métodos con listas largas de parámetros, podríamos tener algo como:
 
 ##### Clases de Configuración:
@@ -556,11 +586,11 @@ En lugar de tener métodos con listas largas de parámetros, podríamos tener al
 
 ##### Beneficios Adicionales:
 
-- **Extensibilidad:** Si se necesitan agregar más parámetros en el futuro, solo se modifican las clases de configuración, no las firmas de los métodos.ç
+- **Extensibilidad:** Si se necesitan agregar más parámetros en el futuro, solo se modifican las clases de configuración, no las firmas de los métodos.
 
 - **Claridad:** Los métodos son más fáciles de leer y comprender cuando reciben un objeto cohesivo en lugar de una lista larga de parámetros.
 
-####  3.2 Long Method - Métodos largos
+#### 3.2 Long Method - Métodos largos
 
 ##### Introducción
 
@@ -572,6 +602,7 @@ En nuestro sistema, algunos métodos realizan múltiples tareas y son demasiado 
 El método main en la clase Main es largo y maneja múltiples responsabilidades, lo que lo hace difícil de entender y mantener.
 
 ##### Solución Propuesta
+
 Para abordar el problema de "Long Method", proponemos dividir el método main en varios métodos más pequeños y específicos. Cada uno de estos métodos se encargará de una tarea única y bien definida, siguiendo el Principio de Responsabilidad Única.
 
 ##### Implementación de Métodos Más Pequeños y Específicos
@@ -605,16 +636,17 @@ Para abordar el problema de "Large Class", proponemos dividir la clase `Attentio
 ##### Implementación de Clases Más Pequeñas y Específicas
 
 1. Crear clases específicas para cada responsabilidad:
-    - `CustomerAssignmentManager`: Para gestionar la asignación de clientes a cajas registradoras.
 
-    - `CashRegisterProcessor`: Para gestionar el procesamiento de clientes en las cajas registradoras.
+   - `CustomerAssignmentManager`: Para gestionar la asignación de clientes a cajas registradoras.
 
-    - `CashRegisterClosureManager`: Para gestionar el cierre de las cajas registradoras.
+   - `CashRegisterProcessor`: Para gestionar el procesamiento de clientes en las cajas registradoras.
 
-    - `ShiftManager`: Para gestionar los cambios de turno y descansos de los cajeros.
+   - `CashRegisterClosureManager`: Para gestionar el cierre de las cajas registradoras.
+
+   - `ShiftManager`: Para gestionar los cambios de turno y descansos de los cajeros.
 
 2. Actualizar AttentionCenter para delegar responsabilidades a las nuevas clases:
-    - La clase AttentionCenter se encargará de coordinar las nuevas clases específicas.
+   - La clase AttentionCenter se encargará de coordinar las nuevas clases específicas.
 
 ##### Beneficios de la Solución Propuesta:
 
@@ -730,7 +762,8 @@ A lo largo del desarrollo del Sistema de Gestión para un Centro Comercial simul
 
 #### Reflexiones y Mejoras Continuas
 
-Aunque el sistema está funcionando bien, siempre hay maneras de mejorarlo. Por ejemplo, podríamos hacer que el sistema sea capaz de manejar ventas reales añadiendo productos y precios. Esto necesitaría nuevas partes como un TransactionManager para manejar compras y pagos de manera eficiente. 
+Aunque el sistema está funcionando bien, siempre hay maneras de mejorarlo. Por ejemplo, podríamos hacer que el sistema sea capaz de manejar ventas reales añadiendo productos y precios. Esto necesitaría nuevas partes como un TransactionManager para manejar compras y pagos de manera eficiente.
 
 ---
+
 Este proyecto ha sido una gran oportunidad para aplicar lo que hemos aprendido sobre programación y diseño de software. Nos ha mostrado la importancia de escribir código que no sólo funcione, sino que también sea fácil de mantener y expandir. A medida que continuemos mejorando el sistema, estas prácticas nos ayudarian a hacer cambios de manera más eficiente y con menos errores.
