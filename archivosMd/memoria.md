@@ -36,9 +36,8 @@ int maxCashRegisters = 6;
 
 ## Diseño Modular
 
-### Smell Codes
 
-#### Cohesión
+### 1.Cohesión
 
 #### 1.1 Alternative classes with different interfaces
 
@@ -207,7 +206,252 @@ Para mitigar el problema de Shotgun Surgery y mejorar la mantenibilidad del cód
 
 Aunque no disponemos del tiempo necesario para implementar estos cambios en la versión actual del proyecto, hemos identificado claramente la necesidad de refactorizar nuestro sistema para evitar el problema de Shotgun Surgery. La implementación de estas mejoras se planificará para futuras versiones, garantizando un código más mantenible, escalable y robusto.
 
-#### Conclusión
+
+#### 1.6 Data Clumps - Grupo de datos
+
+En nuestro proyecto, hemos estructurado las clases para minimizar los "Data Clumps", asegurando que cada clase maneja su propia información sin redundancias. Por ejemplo, la clase `CashRegister` encapsula todas las operaciones y estados relevantes de las cajas registradoras, desde manejar a un cliente hasta controlar los estados de apertura y ocupación.
+
+**Ejemplo del Código Existente:**
+
+```java
+public class CashRegister {
+    private int id;
+    private Cashier currentCashier;
+    private Customer currentCustomer;
+    private boolean isOpen;
+    private boolean isOccupied;
+
+    public CashRegister(int id, AttentionCenter attentionCenter) {
+        this.id = id;
+        this.isOpen = false;
+        this.isOccupied = false;
+    }
+
+    public void serveCustomer(Customer customer) {
+        this.currentCustomer = customer;
+        this.isOccupied = true;
+    }
+}
+```
+
+**Sugerencia de Mejora Posible**
+
+Aunque no se detectaron clumps significativos, una sugerencia podría ser encapsular configuraciones repetitivas o agrupaciones de propiedades que se usan a través de múltiples clases, similar al `NetworkConfig` en el ejemplo teórico. Por ejemplo, si las cajas registradoras o el sistema en general tuvieran configuraciones de red o parámetros de conexión que se repiten, estos deberían encapsularse en una clase aparte.
+
+#### 1.7 Primitive Obsession - Obsesión por tipos primitivos
+
+##### Descripción del Problema
+
+En el código actual, se observa una dependencia excesiva en tipos primitivos para representar información que podría beneficiarse de una mayor abstracción. Esta práctica, conocida como "Primitive Obsession", puede llevar a problemas de mantenibilidad y claridad en el sistema.
+
+##### Ejemplos Identificados
+
+Uno de los ejemplos más claros de este problema se encuentra en el manejo de las propiedades de la clase Customer, que actualmente utiliza tipos primitivos para representar la cantidad de paquetes de artículos (`numberOfItemPacks`). Esto simplifica la representación, pero limita las posibilidades de manejo más avanzado de la información, como validaciones específicas o métodos adicionales relacionados con los paquetes.
+
+##### Solución Propuesta: Introducción de la Clase ItemPack
+
+Para solucionar la obsesión por los tipos primitivos y mejorar la estructura del código, proponemos la creación de una nueva clase llamada `ItemPack`. Esta clase encapsulará las operaciones y características de los paquetes de artículos, proporcionando una abstracción más robusta y flexible.
+
+##### Beneficios de la Solución Propuesta:
+
+- **Mejor organización del código:** La introducción de la clase `ItemPack` agrupa todas las operaciones y datos relacionados con los paquetes de artículos en una única entidad, mejorando la cohesión del código.
+
+- **Facilidad de mantenimiento y extensión:** Cualquier cambio o mejora en la lógica relacionada con los paquetes de artículos se puede manejar dentro de la clase `ItemPack`, sin afectar otras partes del código.
+
+- **Reducción de errores:** Al centralizar la lógica de manejo de paquetes de artículos, se reducen las posibilidades de errores y se facilita la implementación de validaciones complejas.
+
+##### Conclusión:
+La implementación de la clase `ItemPack` y la refactorización de la clase `Customer` para usar esta nueva abstracción, alinea el proyecto con las mejores prácticas de programación orientada a objetos. Esto no solo mejora la calidad del código y su mantenibilidad, sino que también prepara la base para futuras extensiones y mejoras en el sistema de gestión del centro comercial.
+
+
+#### 1.8 Lazy Classes - Clases perezosas
+
+##### Descripción del Problema
+
+Revisando el código, identificamos la clase `Time` como una posible Lazy Class. Esta clase solo tiene dos atributos (hour y minute) y unos pocos métodos (`incrementTime`, `getCurrentTime`, `getMinute`). Estas funcionalidades podrían ser manejadas fácilmente por otra clase existente, eliminando la necesidad de mantener una clase adicional.
+
+##### Solución Propuesta
+
+La funcionalidad de la clase `Time` puede ser incorporada directamente en la clase `Main`, donde se utiliza. Esto reduce la cantidad de clases en el sistema, simplifica la estructura del código y reduce la complejidad del mantenimiento.
+
+##### Beneficios de la Solución Propuesta
+
+- Simplificación del código: Se reduce la cantidad de clases en el sistema, lo que simplifica la estructura general del código.
+- Reducción de la complejidad: Menos clases significan una menor complejidad para navegar y mantener el sistema.
+- Optimización de recursos: Al eliminar clases que no contribuyen significativamente a la funcionalidad del sistema, se optimizan los recursos utilizados para el mantenimiento del código.
+
+##### Conclusión
+
+Hemos identificado la clase `Time` como una Lazy Class en nuestro sistema actual. La funcionalidad mínima que proporciona puede ser integrada directamente en la clase Main, eliminando la necesidad de mantener una clase adicional y simplificando la estructura del código. Esta propuesta de mejora se implementará en futuras versiones del proyecto para garantizar un código más mantenible y eficiente.
+
+### 2. Acoplamiento
+#### 2.1 Inappropriate Intimacy - Inapropiada intimidad
+##### Mejor Gestión de Estado
+**Mejor encapsulación:**
+ Cada clase debería gestionar sus propios datos internamente. Las interacciones entre las clases, como CashRegister y Customer, así como AttentionCenter y CustomerQueue, deben realizarse a través de métodos que controlen el acceso y la mutabilidad de sus estados. Por ejemplo, en lugar de que CashRegister acceda directamente a los datos del Customer, debería hacerlo mediante métodos públicos que encapsulen la lógica necesaria.
+
+**Reducción del acoplamiento:** Limitando el acceso directo a los campos internos y utilizando métodos para la comunicación entre objetos, el acoplamiento entre las clases se reduce. Esto hace que el sistema sea más modular y fácil de modificar. Por ejemplo, AttentionCenter podría utilizar interfaces o patrones de diseño que promuevan la separación de responsabilidades, como el Patrón Observador para manejar eventos entre CustomerQueue y CashRegister.
+
+**Facilidad de mantenimiento:** Con un diseño más claro y mejor encapsulado, el mantenimiento se vuelve más sencillo y se minimizan los riesgos de errores inadvertidos en el manejo de las relaciones entre objetos. Esto es crucial para un sistema que maneja múltiples operaciones en tiempo real, como la gestión de una cola de clientes en un centro comercial.
+
+##### Metodos agregados:
+
+```java
+
+Public class Customer:
+
+ public void purchaseItemPack() {
+        if (this.numberOfItemPacks > 0) {
+            this.numberOfItemPacks--;
+        }
+    }
+
+    public void returnItemPack() {
+        this.numberOfItemPacks++;
+    }
+
+public class CashRegister:
+
+public void finishService() {
+        this.currentCustomer = null;
+        this.isOccupied = false;
+    }
+
+
+Public class CustomerQueue:
+
+
+ public Customer serveNextCustomer() {
+        return customers.poll();
+    }
+    public int getQueueSize() {
+        return customers.size();
+    }
+
+    public boolean isEmpty() {
+        return customers.isEmpty();
+    }
+
+Public class AttentionCenter:
+
+public void processNextCustomer() {
+        if (!customerQueue.isEmpty()) {
+            Customer customer = customerQueue.serveNextCustomer();
+            if (customer != null) {
+                System.out.println("Processing customer: " + customer.getId());
+            }
+        }
+    }
+    public void manageQueue() {
+        while (!customerQueue.isEmpty()) {
+            processNextCustomer();
+        }
+    }
+
+public void manageQueue() {
+        while (!customerQueue.isEmpty()) {
+            processNextCustomer();
+        }
+    }
+
+
+```
+
+
+##### Metodos modificados:
+
+```java
+//Antes
+
+Public class CashRegister:
+
+    public void openRegister() {
+        this.isOpen = true;
+        this.servedCustomers = 0;
+        this.breakCounter = 0;
+        System.out.println("Cash register " + this.id + " is now open.");
+    }
+
+    public void closeRegister() {
+        if (!this.isOccupied) {
+            this.isOpen = false;
+            System.out.println("Cash register " + this.id + " is now closed.");
+            this.servedCustomers = 0;
+        }
+    }
+public void serveCustomer(Customer customer) {
+        if (!this.isOccupied && this.currentCashier != null && this.currentCashier.isServing()) {
+            this.isOccupied = true;
+            this.currentCustomer = customer;
+            this.servedCustomers++;
+            System.out.println("Serving customer " + customer.getId() + " at cash register " + this.id);
+        }
+    }
+
+Public class CustomerQueue:
+
+public void addCustomer(Customer customer) {
+        customers.add(customer);
+        maxQueueLength = Math.max(maxQueueLength, customers.size());
+        System.out.println("Customer with ID " + customer.getId() + " added to the queue.");
+    }
+
+
+//Después
+
+Public class CashRegister:
+
+public void openRegister() {
+        isOpen = true;
+    }
+
+    public void closeRegister() {
+        isOpen = false;
+    }
+
+ public void serveCustomer(Customer customer) {
+        if (isOpen && !isOccupied && customer != null) {
+            this.currentCustomer = customer;
+            this.isOccupied = true;
+            customer.purchaseItemPack();
+        }
+    }
+
+Public class CustomerQueue;
+
+public void addCustomer(Customer customer) {
+        if (customer != null) {
+            customers.add(customer);
+            System.out.println("Customer added to queue: " + customer.getId());
+        }
+    }
+
+```
+
+ #### 2.2 Incomplete Library Class - Clase de biblioteca incompleta
+Durante el desarrollo de nuestro sistema de gestión de cajas registradoras en un centro comercial, hemos evaluado el uso de bibliotecas externas y nos hemos encontrado con el problema de "Incomplete Library Class". Este problema ocurre cuando una clase de una biblioteca externa no proporciona la funcionalidad necesaria y no puede ser modificada directamente debido a la falta de control sobre su código fuente. Este documento describe el problema identificado y propone una solución para mejorar la funcionalidad y mantenibilidad del sistema.
+
+##### Descripción del Problema
+En nuestro sistema, utilizamos la biblioteca Gson para manejar la serialización y deserialización de JSON. Sin embargo, si en el futuro requerimos soporte adicional para algún formato de datos o procesamiento específico que Gson no proporcione directamente, podríamos enfrentar limitaciones. Este es un caso típico de "Incomplete Library Class".
+
+Por ejemplo, al cargar datos de cajeros desde un archivo JSON, podríamos necesitar agregar validaciones adicionales o manejar formatos de datos específicos que Gson no soporta de manera directa. La limitación de no poder modificar directamente la clase de la biblioteca externa nos lleva a buscar una solución alternativa para extender su funcionalidad de manera eficiente.
+
+##### Solución Propuesta
+Para abordar el problema de "Incomplete Library Class", proponemos implementar el patrón de diseño Adapter. Este patrón nos permitirá envolver la clase de la biblioteca externa (en este caso, Gson) y agregar la funcionalidad adicional requerida sin modificar el código fuente de la biblioteca.
+
+##### Implementación del Adapter Pattern
+1. Definir una interfaz que declare los métodos necesarios:
+    - Una interfaz que defina las operaciones necesarias para cargar y procesar datos.
+2. Crear una clase adaptadora que implemente la interfaz:
+    - La clase adaptadora utilizará la biblioteca externa (Gson) para manejar la serialización y deserialización de JSON, añadiendo cualquier funcionalidad adicional necesaria, como validaciones específicas o soporte para formatos adicionales.
+3. Utilizar la clase adaptadora en el sistema:
+    - Reemplazar el uso directo de la biblioteca externa con la clase adaptadora en las partes del sistema que manejan la carga y procesamiento de datos.
+##### Beneficios de la Solución Propuesta
+- Extensibilidad mejorada: Al envolver la clase de la biblioteca externa en una clase adaptadora, podemos añadir la funcionalidad adicional requerida sin modificar el código de la biblioteca. Esto permite extender las capacidades de la biblioteca de manera controlada y modular.
+- Mantenimiento simplificado: La clase adaptadora actúa como un punto de control único para las extensiones de funcionalidad, lo que simplifica el mantenimiento y las actualizaciones futuras. Cualquier cambio en los requisitos de procesamiento de datos se puede manejar dentro de la clase adaptadora sin afectar otras partes del sistema.
+- Separación de preocupaciones: Al separar la lógica de serialización y deserialización de cualquier procesamiento adicional, mejoramos la claridad del diseño del sistema. Esto facilita la realización de pruebas más específicas y dirigidas, y mejora la capacidad de comprender y mantener el código.
+##### Conclusión
+Aunque en la versión actual del proyecto no hemos enfrentado limitaciones específicas con la biblioteca Gson, hemos identificado la posibilidad de futuros problemas relacionados con "Incomplete Library Class". Implementar el patrón Adapter nos permitirá manejar eficazmente estas limitaciones, proporcionando una capa de abstracción que puede ser fácilmente modificada para ajustarse a las necesidades del proyecto sin depender de cambios en la biblioteca externa. Esta propuesta de mejora se planificará para futuras versiones del proyecto, garantizando un código más mantenible y extensible.
 
 El diseño modular fue clave en la refactorización del sistema:
 
