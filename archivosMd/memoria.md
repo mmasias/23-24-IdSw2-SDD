@@ -232,7 +232,7 @@ Actualmente, nuestro sistema incluye las siguientes clases principales:
 4. AttentionCenter.
 5. ShoppingCenter.
 
-En la implementación actual, la clase `CashRegister` tiene interacciones directas y múltiples dependencias con las clases `Customer`,` Cashier`,` AttentionCenter` y `ShoppingCenter`. Esto significa que cualquier cambio en la lógica de `CashRegister` requiere modificaciones en todas estas clases, generando el problema de Shotgun Surgery.
+En la implementación actual, la clase `CashRegister` tiene interacciones directas y múltiples dependencias con las clases `Customer`, `Cashier`, `AttentionCenter` y `ShoppingCenter`. Esto significa que cualquier cambio en la lógica de `CashRegister` requiere modificaciones en todas estas clases, generando el problema de Shotgun Surgery.
 
 ##### Ejemplo del Problema
 
@@ -528,7 +528,7 @@ Para abordar el problema de "Long Parameter List", proponemos agrupar los parám
 
 1. Crear clases de configuración para agrupar parámetros relacionados:
 
-    - Definir clases de configuración como `CashRegisterConfig`,` CashierConfig`,` CustomerQueueConfi`, etc.
+    - Definir clases de configuración como `CashRegisterConfig`, `CashierConfig`, `CustomerQueueConfi`, etc.
 
 2. Modificar los métodos para utilizar los objetos de configuración:
     - Actualizar los métodos para recibir instancias de las clases de configuración en lugar de listas largas de parámetros.
@@ -627,17 +627,18 @@ Para abordar el problema de "Large Class", proponemos dividir la clase `Attentio
 ##### Ejemplo de Mejora
 
 ##### Clases Divididas:
-- **CustomerAssignmentManager:** Responsable de asignar clientes a cajas registradoras.
 
-- **CashRegisterProcessor:** Responsable de procesar clientes en las cajas registradoras.
+- `CustomerAssignmentManager`: Responsable de asignar clientes a cajas registradoras.
 
-- **CashRegisterClosureManager:** Responsable de cerrar las cajas registradoras.
+- `CashRegisterProcessor`: Responsable de procesar clientes en las cajas registradoras.
 
-- **ShiftManager:** Responsable de manejar los cambios de turno y descansos de los cajeros.
+- `CashRegisterClosureManager`: Responsable de cerrar las cajas registradoras.
+
+- `ShiftManager`: Responsable de manejar los cambios de turno y descansos de los cajeros.
 
 ##### Uso en AttentionCenter:
 
-- AttentionCenter coordina las operaciones llamando a los métodos de las nuevas clases específicas.
+- `AttentionCenter` coordina las operaciones llamando a los métodos de las nuevas clases específicas.
 
 #### 3.4 Temporary Fields - Campos temporales
 
@@ -677,7 +678,7 @@ El diseño de nuestro sistema de gestión de centro comercial incorpora principi
 
 - `DataLog`: Maneja toda la lógica relacionada con el registro de eventos y estadísticas, evitando que otras clases asuman responsabilidades de logging.
 
-Actualmente, la clase Main gestiona la inicialización y el ciclo diario del centro comercial, lo que podría dividirse para mejorar la cohesión.
+Actualmente, la clase `Main` gestiona la inicialización y el ciclo diario del centro comercial, lo que podría dividirse para mejorar la cohesión.
 
 ### Principio de Abierto/Cerrado (OCP)
 
@@ -701,7 +702,7 @@ Aunque el sistema no muestra una violación directa de este principio, la implem
 
 #### Implementación:
 
-- AttentionCenter depende de abstracciones (`CustomerQueue`, `CashRegister`) más que de detalles concretos, lo cual es una buena práctica bajo este principio.
+- `AttentionCenter` depende de abstracciones (`CustomerQueue`, `CashRegister`) más que de detalles concretos, lo cual es una buena práctica bajo este principio.
 
 #### Propuesta de mejora:
 
@@ -713,7 +714,7 @@ Aunque el sistema no muestra una violación directa de este principio, la implem
 
 - **Principio de Abierto/Cerrado:** Se podría implementar un sistema de plugins o hooks para las operaciones que varían según el tipo de día o eventos especiales, evitando modificaciones en el código base.
 
-- **Principio de Inversión de Dependencias:** Introducir interfaces para componentes como DataLog y `CashRegister` mejoraría el desacoplamiento y facilitaría las pruebas unitarias.
+- **Principio de Inversión de Dependencias:** Introducir interfaces para componentes como `DataLog` y `CashRegister` mejoraría el desacoplamiento y facilitaría las pruebas unitarias.
 
 ## Conclusión Final
 
@@ -729,7 +730,7 @@ A lo largo del desarrollo del Sistema de Gestión para un Centro Comercial simul
 
 #### Reflexiones y Mejoras Continuas
 
-Aunque el sistema está funcionando bien, siempre hay maneras de mejorarlo. Por ejemplo, podríamos hacer que el sistema sea capaz de manejar ventas reales añadiendo productos y precios. Esto necesitaría nuevas partes como un `TransactionManager` para manejar compras y pagos de manera eficiente. 
+Aunque el sistema está funcionando bien, siempre hay maneras de mejorarlo. Por ejemplo, podríamos hacer que el sistema sea capaz de manejar ventas reales añadiendo productos y precios. Esto necesitaría nuevas partes como un TransactionManager para manejar compras y pagos de manera eficiente. 
 
 ---
 Este proyecto ha sido una gran oportunidad para aplicar lo que hemos aprendido sobre programación y diseño de software. Nos ha mostrado la importancia de escribir código que no sólo funcione, sino que también sea fácil de mantener y expandir. A medida que continuemos mejorando el sistema, estas prácticas nos ayudarian a hacer cambios de manera más eficiente y con menos errores.
