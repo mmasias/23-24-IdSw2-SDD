@@ -43,18 +43,22 @@ int maxCashRegisters = 6;
 ##### 1.1 Alternative classes with different interfaces
 
 Tras realizar una revisión detallada del código implementado, creemos que no es necesario introducir interfaces. El diseño actual del sistema muestra una clara separación de responsabilidades y una interacción efectiva entre las clases, lo que facilita la extensibilidad y el mantenimiento del código.
-Clases y Responsabilidades:
-CashRegister y `AttentionCenter`: Estas clases gestionan las operaciones en las cajas registradoras y la asignación de clientes a las cajas, respectivamente. Aunque interactúan estrechamente, cada una tiene responsabilidades bien definidas que no se solapan.
-Customer y CustomerQueue: Customer es una entidad de datos que representa al cliente, mientras que CustomerQueue administra operaciones de cola para grupos de clientes. Las responsabilidades de manejo de datos versus operaciones de cola están bien separadas.
-DataLog: Se encarga de la recopilación de estadísticas y el registro de eventos operativos, funcionando como un sistema de logging sin interferir o duplicar funcionalidades de otras clases.
-Main y Time: Main controla la simulación diaria usando la clase Time para el seguimiento del tiempo. Time sirve exclusivamente para controlar el avance temporal dentro de la simulación.
+
+##### Clases y Responsabilidades:
+
+- **CashRegister y AttentionCenter**: Estas clases gestionan las operaciones en las cajas registradoras y la asignación de clientes a las cajas, respectivamente. Aunque interactúan estrechamente, cada una tiene responsabilidades bien definidas que no se solapan.
+- **Customer y CustomerQueue**: Customer es una entidad de datos que representa al cliente, mientras que CustomerQueue administra operaciones de cola para grupos de clientes. Las responsabilidades de manejo de datos versus operaciones de cola están bien separadas.
+- **DataLog**: Se encarga de la recopilación de estadísticas y el registro de eventos operativos, funcionando como un sistema de logging sin interferir o duplicar funcionalidades de otras clases.
+- **Main y Time**: Main controla la simulación diaria usando la clase Time para el seguimiento del tiempo. Time sirve exclusivamente para controlar el avance temporal dentro de la simulación.
 
 ##### 1.2 Features envy - Envidia de características
 
 El código gestiona principalmente operaciones del centro comercial mediante clases que representan distintos aspectos de un sistema de gestión (ejemplo: clientes, cajeros, registros de cajas). Las clases tienen bien definidas sus responsabilidades, como:
-`CustomerQueue` gestiona la cola de clientes.
-`CashRegister` maneja las operaciones de las cajas registradoras.
-`AttentionCenter` coordina las acciones entre cajas registradoras y la cola de clientes.
+
+- `CustomerQueue` gestiona la cola de clientes.
+- `CashRegister` maneja las operaciones de las cajas registradoras.
+- `AttentionCenter` coordina las acciones entre cajas registradoras y la cola de clientes.
+
 No se evidencia un "Features Envy", ya que cada clase maneja sus propios datos y comportamientos adecuadamente.
 
 Ejemplo:
@@ -78,7 +82,7 @@ En este fragmento del codigo, `AttentionCenter` no modifica directamente los dat
 
 Hemos realizado cambios para mejorar la encapsulación y la cohesión del diseño. Es la clase `Customer` la que controla sus propios datos asegurando de que los cambios en sus atributos se hacen internamente, asegurando la modularidad.
 
-Metodo antes de los cambios:
+**Metodo antes de los cambios:**
 
 ```java
    public void processCustomer(ShoppingCenter shoppingCenter) {
@@ -94,7 +98,7 @@ Metodo antes de los cambios:
 
 ```
 
-Metodo despues de los cambios:
+**Metodo despues de los cambios:**
 
 ```java
 public void processCustomer(ShoppingCenter shoppingCenter) {
@@ -108,7 +112,7 @@ public void processCustomer(ShoppingCenter shoppingCenter) {
     }
 ```
 
-Método nuevo para asegurar la encapsulación:
+**Método nuevo para asegurar la encapsulación:**
 
 ```java
    public int reduceNumberOfItemPacks(int numberOfItemPacks) {
@@ -119,6 +123,7 @@ Método nuevo para asegurar la encapsulación:
 #### 1.4 Divergent Change - Cambios divergentes
 
 El código actual parece respetar bastante bien el Principio de Responsabilidad Única, con clases enfocadas en tareas específicas y relacionadas. Sin embargo, sí que es conveniente cambiar la clase `AttentionCenter`, que, por la naturaleza de sus responsabilidades, podrían expandirse en formas que lleven a cambios divergentes.
+
 Las responsabilidades incluyen manejar la apertura y cierre de la caja, procesar clientes, manejar pausas y cambios de turno, y mantener el estado de ocupación.
 
 Para mejorar la adherencia al Principio de Responsabilidad Única (SRP), podríamos introducir las siguientes modificaciones en el código:
@@ -136,14 +141,14 @@ Para mejorar la adherencia al Principio de Responsabilidad Única (SRP), podría
 
 - El procesamiento de clientes podría ser manejado por otra clase que se enfoque exclusivamente en la interacción entre el cliente y la caja registradora, como `TransactionManager`.
 
-      - Nueva Clase `TransactionManager`
-          - Responsabilidades:
-              - Procesar las compras de los clientes.
-              - Gestionar la asignación de clientes a cajas.
-              - Finalizar las transacciones y actualizar el estado del cliente.
-          - Modificación en `CashRegister`:
-              - Delegar todas las operaciones de procesamiento de clientes a `TransactionManager`.
-              - Mantener una interfaz simple para iniciar y terminar la ocupación de la caja.
+  - Nueva Clase `TransactionManager`
+    - Responsabilidades:
+      - Procesar las compras de los clientes.
+      - Gestionar la asignación de clientes a cajas.
+      - Finalizar las transacciones y actualizar el estado del cliente.
+    - Modificación en `CashRegister`:
+      - Delegar todas las operaciones de procesamiento de clientes a `TransactionManager`.
+      - Mantener una interfaz simple para iniciar y terminar la ocupación de la caja.
 
   Estas refactorizaciones ayudarán a que `CashRegister` se enfoque en su responsabilidad principal de mantener el estado de la caja y delegue otras funciones a clases especializadas.
 
