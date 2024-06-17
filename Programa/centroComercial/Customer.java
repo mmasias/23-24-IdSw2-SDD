@@ -29,6 +29,10 @@ public class Customer {
         }
     }
 
+    public int reduceNumberOfItemPacks(int numberOfItemPacks) {
+        return this.numberOfItemPacks--;
+    }
+
     public void returnItemPack() {
         this.numberOfItemPacks++;
     }

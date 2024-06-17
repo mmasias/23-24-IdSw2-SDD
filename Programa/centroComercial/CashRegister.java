@@ -80,9 +80,8 @@ public class CashRegister {
 
     public void processCustomer(ShoppingCenter shoppingCenter) {
         if (this.isOccupied && this.currentCustomer != null) {
-            int remainingItems = this.currentCustomer.getNumberOfItemPacks() - 1;
-            this.currentCustomer.setNumberOfItemPacks(remainingItems);
-            if (remainingItems <= 0) {
+            this.currentCustomer.reduceNumberOfItemPacks(this.currentCustomer.getNumberOfItemPacks());
+            if (this.currentCustomer.getNumberOfItemPacks()<=0) {
                 shoppingCenter.removeCustomer(this.currentCustomer);
                 finishServingCustomer();
             }

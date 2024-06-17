@@ -14,6 +14,22 @@ public class AttentionCenter {
         this.dataLog = dataLog;
     }
 
+    public void processNextCustomer() {
+        if (!customerQueue.isEmpty()) {
+            Customer customer = customerQueue.serveNextCustomer();
+            if (customer != null) {
+                System.out.println("Processing customer: " + customer.getId());
+            }
+        }
+    }
+    public void manageQueue() {
+        while (!customerQueue.isEmpty()) {
+            processNextCustomer();
+        }
+    }
+
+
+
     public void assignCustomersToCashRegisters() {
         if (!cashRegisters[0].isOpen() && cashRegisters[0].getBreakCounter() <= 0) {
             cashRegisters[0].getCurrentCashier().startShift();
