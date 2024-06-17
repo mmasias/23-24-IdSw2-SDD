@@ -40,7 +40,7 @@ int maxCashRegisters = 6;
 
 #### Cohesión
 
-##### 1.1 Alternative classes with different interfaces
+#### 1.1 Alternative classes with different interfaces
 
 Tras realizar una revisión detallada del código implementado, creemos que no es necesario introducir interfaces. El diseño actual del sistema muestra una clara separación de responsabilidades y una interacción efectiva entre las clases, lo que facilita la extensibilidad y el mantenimiento del código.
 
@@ -51,7 +51,7 @@ Tras realizar una revisión detallada del código implementado, creemos que no e
 - **DataLog**: Se encarga de la recopilación de estadísticas y el registro de eventos operativos, funcionando como un sistema de logging sin interferir o duplicar funcionalidades de otras clases.
 - **Main y Time**: Main controla la simulación diaria usando la clase Time para el seguimiento del tiempo. Time sirve exclusivamente para controlar el avance temporal dentro de la simulación.
 
-##### 1.2 Features envy - Envidia de características
+#### 1.2 Features envy - Envidia de características
 
 El código gestiona principalmente operaciones del centro comercial mediante clases que representan distintos aspectos de un sistema de gestión (ejemplo: clientes, cajeros, registros de cajas). Las clases tienen bien definidas sus responsabilidades, como:
 
@@ -78,7 +78,7 @@ public void assignCustomersToCashRegisters() {
 
 En este fragmento del codigo, `AttentionCenter` no modifica directamente los datos de `CustomerQueue` o `CashRegister`, sino que invoca sus métodos públicos, lo cual es un indicativo de un diseño limpio y modular. Si se observara que métodos de una clase manipulan excesivamente detalles internos de otra, sería necesario reconsiderar la distribución de responsabilidades, posiblemente moviendo métodos o datos para alinear mejor con el principio de responsabilidad única.
 
-##### 1.3 Data class - Clase de datos
+#### 1.3 Data class - Clase de datos
 
 Hemos realizado cambios para mejorar la encapsulación y la cohesión del diseño. Es la clase `Customer` la que controla sus propios datos asegurando de que los cambios en sus atributos se hacen internamente, asegurando la modularidad.
 
