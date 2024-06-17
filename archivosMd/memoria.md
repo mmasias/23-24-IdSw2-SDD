@@ -18,6 +18,68 @@ Este documento detalla las mejoras implementadas en el Sistema de Gestión de Ce
 
 ## Diseño
 
+
+#### Estrategias de Clasificación
+##### Descripción Informal del Problema
+
+El **Centro Comercial** CF, ubicado en El Alisal, opera diariamente desde las 9 de la mañana hasta las 9 de la noche, ofreciendo una variedad de artículos a sus **clientes**. Durante su horario de apertura, el **centro comercial** estima una probabilidad del 40% por minuto de que un **cliente** nuevo entre al supermercado. Los **clientes** pasan entre 5 y 10 minutos seleccionando sus **productos** antes de dirigirse a las **cajas** para pagar. El supermercado comienza con dos **cajas** operativas, pero puede **abrir** hasta un total de seis **cajas** dependiendo del número de **clientes** en **cola**. En cuanto a las **cajas**, estas se abren o cierran según la demanda, si hay más de cinco veces el número de **cajas** abiertas en **cola**, se abre una **caja** adicional, si hay menos, se cierra una. Cada una de estas procesa un **pack** por minuto. A las 8:40 PM, el supermercado deja de admitir **clientes** nuevos y se concentra en **atender** a aquellos en **cola**. Al final del día, se presenta un resumen de la actividad, que incluye datos como el número total de **clientes**, **packs** de ítems procesados, y el número máximo de personas en **cola**.
+##### Análisis clásico y modelo de dominio
+[Modelo de Dominio](/archivosMd/modelosUml.md)
+##### Análisis de comportamiento
+- **ShoppingCenter**: Representa el centro comercial. Sus responsabilidades incluyen:
+    - **Conocer** las horas de apertura y cierre.
+    - **Gestionar** el estado de apertura o cierre.
+    - **Administrar** la lista de clientes dentro del centro.
+- **CustomerQueue**: Gestiona la cola de clientes esperando para pagar. Sus responsabilidades son:
+    - **Conocer y actualizar** la longitud máxima de la cola.
+    - **Agregar y remover** clientes de la cola.
+- **CashRegister**: Cada caja registradora tiene responsabilidades clave como:
+    - **Procesar** a los clientes asignados.
+    - **Gestionar** el estado (abierta, cerrada, en descanso).
+    - **Coordinar** con el centro de atención para cambios de turno o descansos.
+- **AttentionCenter**: Coordina entre las cajas registradoras y la cola de clientes. Es responsable de:
+    - **Asignar** clientes a las cajas disponibles.
+    - **Manejar** los cambios de turno y descansos de los cajeros.
+    - **Cerrar** cajas registradoras según la demanda y el flujo de clientes.
+- **DataLog**: Recopila y almacena datos estadísticos del día. Sus tareas incluyen:
+    - **Registrar** eventos y transacciones.
+    - **Contabilizar** el total de clientes atendidos y productos vendidos.
+    - **Presentar** resúmenes estadísticos al final del día.
+##### Interacciones y Flujo de Trabajo
+
+- **Inicialización**: El sistema inicia definiendo las cajas registradoras y preparando la configuración inicial de atención al cliente.
+- **Simulación Diaria**: A lo largo del día, el sistema actualiza periódicamente el estado del centro comercial y procesa a los clientes que llegan, se mueven a la cola y finalmente son atendidos en las cajas registradoras.
+- **Manejo de Eventos Específicos**: Las cajas registradoras y sus cajeros manejan eventos como descansos y cambios de turno basados en el tiempo actual y las políticas del centro comercial.
+- **Cierre**: Al final del día, el sistema deja de aceptar nuevos clientes y procesa a todos los clientes restantes antes de cerrar y presentar el resumen del día.
+
+
+### Relaciones entre clase
+
+
+#### **Colaboración**
+Una de las clases que contiene los 3 elementos de colaboracion es CashRegister.
+
+- **Composición**: La `CashRegister` contiene varios atributos primitivos (`id`, `isOpen`, `isOccupied`, `servedCustomers`, `pendingShiftChange`, `pendingBreak`, `breakCounter`) que representan el estado de la caja registradora. Estos atributos forman parte integral de la `CashRegister`.
+- **Agregación**: La `CashRegister` tiene una relación de agregación con `Customer` y `Cashier`. Un `Customer` es asignado temporalmente a una `CashRegister` para ser atendido, y un `Cashier` es asignado para operar la caja registradora. Ambas relaciones son flexibles y los objetos pueden existir independientemente de la `CashRegister`.
+- **Asociación**: La `CashRegister` está asociada con `AttentionCenter`, `ShoppingCenter`, `Cashier` y `Customer`. Esta asociación permite que la `CashRegister`: Cambie de cajero a través de `AttentionCenter`.
+Remueva a un cliente del `ShoppingCenter` después de ser atendido.
+Sirva a un `Customer` y sea operada por un `Cashier`
+
+#### **Transmisión** 
+
+##### Propuesta de Extensión mediante Herencia
+Aunque la herencia no está presente en la versión actual del sistema, se puede mejorar y extender utilizando herencia por extensión. A continuación, se presentan ejemplos de cómo se podría aplicar la herencia para crear diferentes tipos de cajas registradoras.
+
+Podemos extender la clase `CashRegister` para crear tipos específicos de cajas registradoras como `ExpressCashRegister` (para clientes con pocos artículos) y `SelfServiceCashRegister` (para autoservicio).
+
+###### Beneficios de la Herencia por Extensión
+
+- **Reutilización de Código**: La herencia permite reutilizar el código de la clase base `CashRegister`, reduciendo la duplicación de código y facilitando el mantenimiento.
+- **Especialización**: Permite crear clases especializadas (`ExpressCashRegister` y `SelfServiceCashRegister`) que extienden la funcionalidad de la clase base con comportamientos específicos.
+- **Flexibilidad y Escalabilidad**: Facilita la incorporación de nuevas funcionalidades y tipos de cajas registradoras en el futuro sin alterar la estructura existente.
+##### Conclusión
+Aunque la implementación actual de nuestro sistema no utiliza herencia, la extensión mediante herencia es una opción viable y beneficiosa para mejorar y escalar el sistema. La creación de tipos específicos de cajas registradoras mediante herencia por extensión es un ejemplo claro de cómo se puede aplicar este concepto para agregar valor y funcionalidad a nuestro proyecto.
+ 
 ### Código Limpio
 
 Implementamos mejoras significativas en la base de código para aumentar la legibilidad y mantenibilidad, siguiendo principios de código limpio:
