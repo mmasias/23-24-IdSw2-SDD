@@ -57,29 +57,28 @@ public class CashRegister {
         this.breakCounter = breakCounter;
     }
 
+
     public void openRegister() {
-        this.isOpen = true;
-        this.servedCustomers = 0;
-        this.breakCounter = 0;
-        System.out.println("Cash register " + this.id + " is now open.");
+        isOpen = true;
     }
 
     public void closeRegister() {
-        if (!this.isOccupied) {
-            this.isOpen = false;
-            System.out.println("Cash register " + this.id + " is now closed.");
-            this.servedCustomers = 0;
-        }
+        isOpen = false;
     }
 
+
     public void serveCustomer(Customer customer) {
-        if (!this.isOccupied && this.currentCashier != null && this.currentCashier.isServing()) {
-            this.isOccupied = true;
+        if (isOpen && !isOccupied && customer != null) {
             this.currentCustomer = customer;
-            this.servedCustomers++;
-            System.out.println("Serving customer " + customer.getId() + " at cash register " + this.id);
+            this.isOccupied = true;
+            customer.purchaseItemPack();
         }
     }
+    public void finishService() {
+        this.currentCustomer = null;
+        this.isOccupied = false;
+    }
+
 
     public void processCustomer(ShoppingCenter shoppingCenter) {
         if (this.isOccupied && this.currentCustomer != null) {

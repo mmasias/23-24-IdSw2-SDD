@@ -22,4 +22,14 @@ public class Customer {
     public void setNumberOfItemPacks(int numberOfItemPacks) {
         this.numberOfItemPacks = numberOfItemPacks;
     }
+
+    public void purchaseItemPack() {
+        if (this.numberOfItemPacks > 0) {
+            this.numberOfItemPacks--;
+        }
+    }
+
+    public void returnItemPack() {
+        this.numberOfItemPacks++;
+    }
 }
