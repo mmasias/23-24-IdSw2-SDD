@@ -14,9 +14,21 @@ public class CustomerQueue {
     }
 
     public void addCustomer(Customer customer) {
-        customers.add(customer);
-        maxQueueLength = Math.max(maxQueueLength, customers.size());
-        System.out.println("Customer with ID " + customer.getId() + " added to the queue.");
+        if (customer != null) {
+            customers.add(customer);
+            System.out.println("Customer added to queue: " + customer.getId());
+        }
+    }
+
+    public Customer serveNextCustomer() {
+        return customers.poll();
+    }
+    public int getQueueSize() {
+        return customers.size();
+    }
+
+    public boolean isEmpty() {
+        return customers.isEmpty();
     }
 
     public void removeCustomer() {
