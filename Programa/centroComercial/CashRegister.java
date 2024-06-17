@@ -57,7 +57,6 @@ public class CashRegister {
         this.breakCounter = breakCounter;
     }
 
-
     public void openRegister() {
         isOpen = true;
     }
@@ -66,7 +65,6 @@ public class CashRegister {
         isOpen = false;
     }
 
-
     public void serveCustomer(Customer customer) {
         if (isOpen && !isOccupied && customer != null) {
             this.currentCustomer = customer;
@@ -74,11 +72,11 @@ public class CashRegister {
             customer.purchaseItemPack();
         }
     }
+
     public void finishService() {
         this.currentCustomer = null;
         this.isOccupied = false;
     }
-
 
     public void processCustomer(ShoppingCenter shoppingCenter) {
         if (this.isOccupied && this.currentCustomer != null) {
@@ -132,7 +130,7 @@ public class CashRegister {
     private void beginBreak() {
         this.isOpen = false;
         System.out.println("Cash register " + this.id + " is closed for a break.");
-        this.breakCounter = 15; 
+        this.breakCounter = 15;
     }
 
     public void endBreak() {
