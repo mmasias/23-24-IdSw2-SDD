@@ -1,20 +1,19 @@
 # Memoria del proyecto El Mundo
 
 ## Historial
-(commits)
+(link de commits)
 
-## Version inicial
-
+## Version inicial (modelo vista controlador)
 - diagrama de aplicacion inicial
 - decisiones de diseño
 - commit final
 
-## Version modular
+## Version modular (diseño modular y principios SOLID)
 - diagrama de aplicacion mejorado
 - cambios y desiciones
 - commit final
 
-## Version limpia
+## Version limpia (aplicación de clean code)
 - diagrama de aplicacion mejorado
 - cambios y desiciones
 - commit final
