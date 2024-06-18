@@ -63,8 +63,8 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
         }
     }
     ```
-    y otro de `ElevatorView`, una clase que se encarga de generar el string a imprimir los ascensores.
-    
+    y otro de `ElevatorView`, una clase que se encarga de generar el string a imprimir de los ascensores.
+
     ```java
     public class ElevatorView {
 
