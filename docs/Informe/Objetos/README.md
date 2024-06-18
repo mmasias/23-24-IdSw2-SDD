@@ -12,10 +12,13 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
 
     ### Ejemplo 🚀
 
-    En PyAscenosres, hemos aplicado este principio con las clases de impresión de la simulación por consola. A continuación, se muestra un fragmeto de la clase `BuildingView`, que se encarga de imprimir la simulación, y otro de `ElevatorView`, una clase que se encarga de generar el string a imprimir los ascensores.(Código extraido del siguiente [commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/05f681140a3dd07236a70253ebaba8cd54ddef18))
+    En PyAscenosres, hemos aplicado este principio con las clases de impresión de la simulación por consola.
+
+    Ejemplo de uso de la implementación: (Extracto del siguiente [commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/05f681140a3dd07236a70253ebaba8cd54ddef18))
+
+    A continuación, se muestra un fragmeto de la clase `BuildingView`, que se encarga de imprimir la simulación
 
     ```java
-
     public class BuildingView {
         // ...
 
@@ -59,9 +62,9 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
         // ...
         }
     }
-
     ```
-
+    y otro de `ElevatorView`, una clase que se encarga de generar el string a imprimir los ascensores.
+    
     ```java
     public class ElevatorView {
 
@@ -114,8 +117,11 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
 
     ### Ejemplo 🚀
 
-    En nuestro caso, en el desarrollo de las listas que utilizamos para almacenar las instancias de los modelos de la simulación, hemos aplicado este principio. Hemos creado una clase tipo T `modelList` en la que se definen e implementan funciones básicas que estas listas deben de tener. Para no modificar esta clase base y poder añadir funcionalidades, hemos creado una clase lista para cada modelo, que instancian la clase `modelList`. A continuación, se muestra un fragmento de la clase `PeopleList`, que instancia `modelList`, y otro fragmento de la clase `modelList`. (Código extraido del siguiente [commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/96ab09382a5a25e2f9d7b1bc3735d2f3c7184926))
+    En nuestro caso, en el desarrollo de las listas que utilizamos para almacenar las instancias de los modelos de la simulación, hemos aplicado este principio. Hemos creado una clase tipo T `modelList` en la que se definen e implementan funciones básicas que estas listas deben de tener. Para no modificar esta clase base y poder añadir funcionalidades, hemos creado una clase lista para cada modelo, que instancian la clase `modelList`.
 
+    Ejemplo de uso de la implementación: (Extracto del siguiente [commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/96ab09382a5a25e2f9d7b1bc3735d2f3c7184926))
+
+    A continuación, se muestra un fragmento de la clase `PeopleList`, que instancia `modelList`.
 
     ```java
     public class PersonList {
@@ -150,6 +156,9 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
         }
     }
     ```
+
+    y otro fragmento de la clase `modelList`.
+
 
     ```java
     public class ModelList<T extends IModel> {
@@ -195,6 +204,7 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
             return -1;
         }
     }
+    ```
 
 - ## Principio de Sustitución de Liskov (LSP) 🧩
 
@@ -206,21 +216,19 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
 
     En nuestro caso, al tener una herencia reducida, no hemos tenido la necesidad de aplicar este principio.
 
-
-
-
 - ## Principio de Segregación de Interfaces (ISP) 📦
 
 	### Definición 📝
+
 	El Principio de Segregación de Interfaces establece que ninguna clase debería depender de métodos que no usa. Por tanto, cuando creemos interfaces que definan comportamientos, es importante asegurarse de que todas las clases que implementen esas interfaces necesiten y sean capaces de proporcionar implementaciones para todos los métodos definidos en ellas. En caso contrario, es mejor dividir la interfaz en varias interfaces más pequeñas y específicas.
 
 	### Ejemplo 🚀
+
 	En nuestro caso, utilizamos la misma interfaz para todas las clases del proyecto que requieren un identificador. La interfaz es `IModel`, que define el método a implementar `getId()`, utilizada por las clases `ModelList`, `Elevator`, `Floor` y `Person`. Todas estas clases necesitan tener un ID (en este caso, un entero) para poder ser identificadas al ser eliminadas, actualizadas o añadidas a una lista.
 	Ejemplo de uso de la implementación: (Extracto del siguiente [commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/96ab09382a5a25e2f9d7b1bc3735d2f3c7184926))
 
 	El siguiente código pertenece a la clase `ModelList`, que implementa el método `get(int index)`. Este método recorre toda la lista de modelos para recuperar el modelo cuyo ID coincide con el índice pasado como parámetro.
 	
-
     ```java
 	    public T get(int index) {  
 		    for (T model : this.modelList) {
@@ -231,15 +239,19 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
 		    return null;
 	    }
 	```
+
     y la interfaz en cuestión.
+
     ```java
 	    public  interface  IModel {
 		    public  int  getId();
 	    }
 	```
+
 - ## Principio de Inversión de dependencias (DIP) 🔄
 
 	### Definición 📝
 	El principio de inversión de dependencias indica que las clases de un sistema deben depender de las abstracciones/interfaces y no de las implementaciones concretas. Esto significa que las clases no deben depender directamente de clases especificas, sino de interfaces o clases abstractas. Esto lo haremos inyectando dependencias en el constructor de la clase, pero estas dependencias serán interfaces o clases abstractas no clases finales.
+
 	### Ejemplo 🚀
 	En nuestro proyecto, debido a la limitada utilización de la herencia, no ha sido necesario implementar este principio de forma extensiva. Sin embargo, hemos seguido buenas prácticas al diseñar nuestras dependencias para minimizar el acoplamiento entre clases.
