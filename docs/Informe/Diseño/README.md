@@ -1,1 +1,115 @@
 # Diseño 📏
+El diseño de software es el proceso de definir la arquitectura, componentes, interfaces y otros atributos de un sistema o componente. Este documento abarca estrategias de clasificación, relaciones entre clases y prácticas de "clean code" para asegurar la calidad y mantenibilidad del software.
+
+## Estrategias de Clasificación
+#### **Técnica/s Utilizada/s**:
+Las estrategias de clasificación en diseño de software incluyen varias técnicas que ayudan a organizar y estructurar el código de manera efectiva. Algunas de las principales técnicas son:
+
+- ***Descripción informal***: Método simple para identificar objetos y operaciones a partir de la descripción del problema. Consiste en escribir una descripción del problema y subrayar sustantivos y verbos. Los sustantivos representan objetos candidatos y los verbos representan operaciones candidatas.
+    - **Ejemplo de Aplicación en el Proyecto** 🚀: \
+    Este proyecto simula un sistema de **ascensores** en una universidad, con el objetivo de emular el comportamiento tanto de los ascensores como de las **personas** que los utilizan. Los ascensores están operativos todo el rato, subiendo, bajando, o quedándose en la misma **planta**.\
+    Las **personas** se sitúan en distintas plantas y tienen en mente cuánto tiempo van a estar en cada planta y, una vez ese tiempo llegue a 0, a qué planta quieren ir, poniéndolas en la lista de espera (de la planta en la que se encuentren) para subir al ascensor. \
+    El **ascensor** tiene una capacidad máxima, y si está lleno no deja entrar a más personas. Si el ascensor está vacío, la persona que se encuentre en la misma **planta** que el ascensor, entra en este último y va a la planta donde quiera ir la única persona que hay en ese momento en el ascensor, y si en el ascensor tiene gente dentro, le pregunta a qué dirección va y si va a la misma dirección, la persona entra en el ascensor.\
+    (Actor externo: Persona)
+
+- ***Análisis clásico y del dominio***: 
+    - **Clasico**: Identifica objetos físicos, conceptos, personas, organizaciones, lugares, dispositivos, otros sistemas, y eventos que son relevantes para el dominio del problema.
+    - **Dominio**: Involucra a expertos del dominio para identificar objetos, operaciones y relaciones importantes.
+    - **Ejemplo de Aplicación en el Proyecto** 🚀: [Modelo de dominio](/docs/Modelo_de_Dominio/)
+
+- ***Análisis del comportamiento***: Se centra en el comportamiento dinámico como fuente primaria de clases y objetos.
+    - **Ejemplo de Aplicación en el Proyecto** 🚀: 
+        - **Tiempo**: Clase que se encarga de actualizar todo el contenido del Edificio entre una iteración y otra.
+        - **Edificio**: Clase que agrupa Planta, Ascensor, Persona, Solicitud Ascensor, Solicitud Destino y Panel de Control.
+        - **Planta**: Clase que contiene a las Personas que esperan a un Ascensor como a las que no. Cuenta con un ID de la Planta.
+        - **Ascensor**: Se compone de los siguientes elementos:
+        ID de Ascensor
+        Planta en la que se encuentra
+        Dirección en la que se mueve (UP, DOWN & STOP)
+        Lista de personas que están dentro del ascensor
+        Lista de plantas a las que se tiene que dirigir
+        Capacidad máxima del ascensor (6 personas)
+        - **Persona**: Se compone de tres atributos:
+        ID
+        Tiempo que va a estar en una planta
+        Planta de destino
+        - **Solicitud Ascensor**: Clase que controla desde donde se llama un Ascensor y con qué intención.
+        - **Solicitud Destino**: Clase que controla hacia qué planta va un Ascensor seleccionado (por su ID).
+        - **Panel de Control**: Clase que controla las Solicitudes de Parada y de Destino (Con los datos enviados desde Solicitud Ascensor y Solicitud Destino).
+
+
+## Relaciones entre Clases
+### Colaboración
+#### **Técnica/s Utilizada/s**:
+Las relaciones por colaboración se definen por la forma en que los objetos interactúan entre sí para cumplir con sus responsabilidades. Las principales técnicas son:
+
+- **Composición / Agregación** : En la composición los componentes constituyen obligatoriamente una parte del objeto compuesto, al destruir el objeto compuesto ambos desaparecen a diferencia de la agregación que la constitución es opcional y pueden existir sin él.
+    - *Un ejemplo* de agregación son las listas empleadas en este proyecto, como la lista de personas de un ascensor, sin el ascensor las personas siguen existiendo.
+    - *Un ejemplo* de composición es la relación entre el edificio y las plantas, sin edificio no pueden existir las plantas.
+- **Asociación**: Relación donde las clases pueden interactuar sin que una contenga a la otra.
+    - *Por ejemplo*: la relación entre persona y solicitud de ascensor y solicitud de destino
+- **Dependencia (Uso)**: Es la relación que se establece momentáneamente entre una clase A y una clase B.
+    - *Ejemplo*: En este proyecto la relación entre una persona y un ascensor es de uso
+
+En el [Diagrama de Clases](/docs/Modelo_de_Dominio/Diagramas_de_Clases/) se puede ver los tipos de relaciones entre las diferentes clases
+
+### Transmisión
+#### **Técnica/s Utilizada/s**:
+Las relaciones por transmisión se refieren a la forma en que las clases heredan atributos y métodos de otras clases. Las principales técnicas son:
+ - **Herencia por extensión**: Técnica donde una clase derivada extiende la funcionalidad de una clase base.
+    - *ejemplo*: ``ModelList`` es un claro ejemplo de transmisión por extensión, ya que a traves de la restriccion `<T extends IModel>` permite cualquier clase que implemente `IModel` pueda ser utilizada como tipo genérico ``T``, asegurando que estas clases transmitan las propiedades y métodos de IModel a ModelList.
+    ```java
+    public class ModelList<T extends IModel> {
+        // ...
+    }
+    ```
+    ```java
+    public interface IModel {
+
+    public int getId();
+
+    }
+    ```
+- **Herencia por implementación**:Técnica donde una clase derivada transforma el concepto de la clase base
+    - *ejemplo*: Las clases ``Elevator``, ``Floor`` y ``Person`` implementan la interfaz ``IModel``, las clases deben implementar todos los métodos definidos en la interfaz, en este caso ``getID()``
+
+    ```java
+    public class Person implements IModel {
+    private int id;
+    // ...
+
+    public Person(int id, int timeOnFloor, int destination) {
+        this id = id;
+        // ...
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    // ...
+    
+    }
+    ```
+
+
+## Clean Code: Legibilidad
+#### **Técnica/s Utilizada/s**:
+Para asegurar la legibilidad y mantenibilidad del código, se utilizan diversas técnicas de "clean code" como:
+
+
+
+ 1. **Nombres significativos**: Utilizar nombres descriptivos para variables, funciones y clases.
+    - **Ejemplo de aplicación en el proyecto**🚀:
+Cambio del nombre de someoneStopped a a isSomeoneAvaliable para comprobar si un ascensor está disponible para ser llamado. [Commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/5aad8933969adaab39d1574bce21dc13e0063a04) 
+
+ 2. **Funciones pequeñas**: Dividir funciones grandes en funciones más pequeñas y específicas.
+    - **Ejemplo de aplicación en el proyecto**🚀: Refactorización del método ``render()`` en varios métodos que se encargan de renderizar cada una de las partes: [Commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/1248239af394faaa8c709dad52fbeab1666a0e4a) 
+
+ 3. **Eliminación de comentarios innecesarios**:Reducir comentarios y dejar que el código claro hable por sí mismo.
+    - **Ejemplo de aplicación en el proyecto🚀**: No hemos podido aplicarlo ya que todas las explicaciones sobre el funcionamiento del código se encuentran en documentos aparte. 
+ 4. **Consistencia en el estilo de código**: Mantener una uniformidad de código en todo el proyecto que facilita su lectura pero, sobre todo, su modificación.
+    - **Ejemplo de aplicación en el proyecto🚀**: Se ha logrado cambiando un valor fijo a uno dinamico [Commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/1ca59af256ab6fdf7fbe3b512ee9bf0293fca2e4). También hemos cambiado ``DebuggerView`` para que sea más fácil de leer y esté mejor estructurado. [Commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/ca1303e1481e95052e5d1f41634e30b4e5f4dccd?diff=unified&w=0) 
+
+5. **Código Muerto**:Fragmentos de código injustificables, inexplicables u obsoletos en el sistema: interfaces, clases, funciones o segmentos de código complejo con aspecto importante pero que no están relacionados con el sistema.
+    - **Ejemplo de aplicación en el proyecto🚀**: Eliminación de método en desuso innecesario (En ``ElevatorRequestList``). [Commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/f25ab037c1f816f2440dcb4c4e39852fde4f8654) 
