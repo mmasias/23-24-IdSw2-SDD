@@ -20,3 +20,5 @@ Se desarrolla, en un caso controlado, la disciplina de diseño, con el objetivo 
 - [Resultados finales](./docs/resultadosFinales/README.md)
   - Clases prácticas
   - Resultados de las sesiones de diseño
+
+- [Memoria del proyecto](./docs/resultadosFinales/Memoria.md)
