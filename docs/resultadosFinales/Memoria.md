@@ -1,7 +1,7 @@
 # Memoria del proyecto El Mundo
 
 ## Historial
-(link de commits)
+[link de commits](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commits/develop/)
 
 ## Version inicial (modelo vista controlador)
 - diagrama de aplicacion inicial
