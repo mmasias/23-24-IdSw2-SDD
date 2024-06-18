@@ -219,7 +219,9 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
 	Ejemplo de uso de la implementación: (Extracto del siguiente [commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/96ab09382a5a25e2f9d7b1bc3735d2f3c7184926))
 
 	El siguiente código pertenece a la clase `ModelList`, que implementa el método `get(int index)`. Este método recorre toda la lista de modelos para recuperar el modelo cuyo ID coincide con el índice pasado como parámetro.
+	
 
+    ```java
 	    public T get(int index) 
 	    {  
 		    for (T model : this.modelList) 
@@ -231,7 +233,8 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
 		    }
 		    return null;
 	    }
-	
+	```
+    ```java
 	y la interfaz en cuestión.
 	
 	    package  Models;
@@ -239,7 +242,7 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
 	    public  interface  IModel {
 		    public  int  getId();
 	    }
-
+	```
 - ## Principio de Inversión de dependencias 🔄
 
 	### Definición
