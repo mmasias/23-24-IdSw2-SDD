@@ -26,6 +26,7 @@ Se desarrolla, en un caso controlado, la disciplina de diseño, con el objetivo 
 
 ## Desarrollo del Proyecto
 
+### Primera Fase (Estructura y decisiones iniciales)
 Para abordar la solución del proyecto, se optó por utilizar una arquitectura **MVC** (Modelo-Vista-Controlador) con la idea de desarrollar un código reusable y adaptable a futuras implementaciones. Inicialmente, se creó un controlador para las clases más importantes de la solución, permitiendo tener un conjunto de clases con responsabilidades bien definidas. El diagrama de clases inicialmente propuesto puede encontrarse en [este commit](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/99a071a70c0c760b78c1e3a2f5536427a5419e9f).
 
 Durante esta etapa, se desarrolló también la estructura base de las clases necesarias para llegar a una solución adecuada, así como los métodos más importantes de cada uno de estos elementos. Por ejemplo, la clase controladora del mapa puede ser consultada [aquí](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/cc9a169d12120d72328096d0e9d0b1abecea10ee).
