@@ -1,4 +1,4 @@
-<h1 align="center">Informe de Técnicas de Diseños Aplicadas </h1>
+<h1 align="center">Informe de Técnicas de Diseño Aplicadas </h1>
 
 ## Introducción 📚
 
@@ -15,4 +15,3 @@ El diseño modular examina aspectos como la cohesión, el acoplamiento y la gran
 ## [Diseño Orientado a Objetos](/docs/Informe/Objetos/) 🎨
 
 Finalmente, el diseño orientado a objetos se centra en los principios SOLID y otros patrones clave, proporcionando definiciones y ejemplos prácticos que mejoran la flexibilidad y robustez del sistema. Se incluyen también conceptos avanzados como la Ley de Demeter, la inversión de control y la inyección de dependencias.
-
