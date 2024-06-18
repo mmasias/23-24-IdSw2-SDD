@@ -211,10 +211,10 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
 
 - ## Principio de Segregación de Interfaces (ISP) 📦
 
-	### Definición
+	### Definición 📝
 	El Principio de Segregación de Interfaces establece que ninguna clase debería depender de métodos que no usa. Por tanto, cuando creemos interfaces que definan comportamientos, es importante asegurarse de que todas las clases que implementen esas interfaces necesiten y sean capaces de proporcionar implementaciones para todos los métodos definidos en ellas. En caso contrario, es mejor dividir la interfaz en varias interfaces más pequeñas y específicas.
 
-	### Ejemplo
+	### Ejemplo 🚀
 	En nuestro caso, utilizamos la misma interfaz para todas las clases del proyecto que requieren un identificador. La interfaz es `IModel`, que define el método a implementar `getId()`, utilizada por las clases `ModelList`, `Building`, `ControlPanel`, `Elevator`, `Floor` y `Person`. Todas estas clases necesitan tener un ID (en este caso, un entero) para poder ser identificadas al ser eliminadas, actualizadas o añadidas a una lista.
 	Ejemplo de uso de la implementación: (Extracto del siguiente [commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/96ab09382a5a25e2f9d7b1bc3735d2f3c7184926))
 
@@ -234,9 +234,8 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
 		    return null;
 	    }
 	```
+    y la interfaz en cuestión.
     ```java
-	y la interfaz en cuestión.
-	
 	    package  Models;
 	    
 	    public  interface  IModel {
@@ -245,7 +244,7 @@ En el desarrollo de software, el diseño modular orientado a objetos se ha conve
 	```
 - ## Principio de Inversión de dependencias 🔄
 
-	### Definición
+	### Definición 📝
 	El principio de inversión de dependencias indica que las clases de un sistema deben depender de las abstracciones/interfaces y no de las implementaciones concretas. Esto significa que las clases no deben depender directamente de clases especificas, sino de interfaces o clases abstractas. Esto lo haremos inyectando dependencias en el constructor de la clase, pero estas dependencias serán interfaces o clases abstractas no clases finales.
-	### Ejemplo
+	### Ejemplo 🚀
 	En nuestro proyecto, debido a la limitada utilización de la herencia, no ha sido necesario implementar este principio de forma extensiva. Sin embargo, hemos seguido buenas prácticas al diseñar nuestras dependencias para minimizar el acoplamiento entre clases.
