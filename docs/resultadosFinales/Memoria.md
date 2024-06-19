@@ -6,9 +6,6 @@
 [Link de commits](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commits/develop/)
 
 ### Issues
-
-# Algunos Issues y Commits de Resolución
-
 **[Only print the field of vision instead of hiding the map in the terminal](https://github.com/mmasias/23-24-IdSw2-SDD/issues/48)**
 - [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/a74e6e822b16f5d91bfc9ed050b161b8fa8caf49)
 
