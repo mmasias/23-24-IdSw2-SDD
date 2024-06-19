@@ -12,9 +12,7 @@ public class WaitingPeopleView {
     }
 
     public String[] render() {
-        String view[] = getWaitingPeopleViewView().split("\n");
-
-        return view;
+        return getWaitingPeopleViewView().split("\n");
     }
 
     private String getWaitingPeopleViewView() {

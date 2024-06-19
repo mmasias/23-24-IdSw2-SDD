@@ -33,11 +33,9 @@ public class Simulation {
         while (!input.equals("q")) {
             Building building = time.tickFloors(buildingController);
             new BuildingView(building, isTesting).render();
-            input = scanner.nextLine();
 
             building = time.tickElevators(buildingController);
             new BuildingView(building, isTesting).render();
-            input = scanner.nextLine();
 
             building = time.tickControlPanels(buildingController);
             new BuildingView(building, isTesting).render();

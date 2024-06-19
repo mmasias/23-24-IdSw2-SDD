@@ -12,9 +12,7 @@ public class PeopleOnFloorView {
     }
 
     public String[] render() {
-        String view[] = getPeopleOnFloorView().split("\n");
-
-        return view;
+        return getPeopleOnFloorView().split("\n");
     }
 
     private String getPeopleOnFloorView() {
