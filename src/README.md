@@ -1,5 +1,5 @@
 # Implementación de principios SOLID - Versión 4
-Nuestra simulación del funcionamiento de una aspiradora aplica principios SOLID, asegurando que el diseño del software sea modular, flexible y fácil de mantener. A continuación, se explica cómo cada uno de los principios SOLID se aplica a esta simulación:
+Nuestro juego se compone del funcionamiento de una aspiradora donde se aplican principios SOLID, asegurando que el diseño del software sea modular, flexible y fácil de mantener. A continuación, se explica cómo cada uno de los principios SOLID se aplica a esta simulación:
 
 ## Principio de Responsabilidad Única (SRP)
 Se ha implementado este principio para mantener claro el funcionamiento de cada parte de la simulación, a continuacion se detallara donde se ha aplicado:
