@@ -1,7 +1,46 @@
 # Memoria del proyecto El Mundo
 
 ## Historial
+
+### Commits
 [Link de commits](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commits/develop/)
+
+### Issues
+
+# Algunos Issues y Commits de Resolución
+
+**[Only print the field of vision instead of hiding the map in the terminal](https://github.com/mmasias/23-24-IdSw2-SDD/issues/48)**
+- [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/a74e6e822b16f5d91bfc9ed050b161b8fa8caf49)
+
+**[Remove unused methods](https://github.com/mmasias/23-24-IdSw2-SDD/issues/38)**
+- [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/5d910ebd05e64df3744189139716aeefdb835fc6)
+
+**[Update Domain Model Diagrams to reflect the latest project structure and relationships between classes](https://github.com/mmasias/23-24-IdSw2-SDD/issues/39)**
+- [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/ffbae44e8baeda12d3352b64c6e29180f53b1719)
+
+**[Change method name from setTimeOfDay to updateImpreciseTime to more accurately describe its functionality](https://github.com/mmasias/23-24-IdSw2-SDD/issues/36)**
+- [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/b6a9578109199159168b30568c7eab820230f8a4)
+
+**[Rename getCurrentTime to getPreciseTime to better differentiate it from the imprecise time representation](https://github.com/mmasias/23-24-IdSw2-SDD/issues/37)**
+- [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/b6a9578109199159168b30568c7eab820230f8a4)
+
+**[Implement initialization logic to set both preciseTime and impreciseTime correctly when a new Time object is instantiated](https://github.com/mmasias/23-24-IdSw2-SDD/issues/35)**
+- [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/b6a9578109199159168b30568c7eab820230f8a4)
+
+**[Refactor the class to improve method naming conventions and better differentiate between precise and imprecise time representations](https://github.com/mmasias/23-24-IdSw2-SDD/issues/34)**
+- [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/b6a9578109199159168b30568c7eab820230f8a4)
+
+**[Crear método para devolver un tile random del mapa](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/issues/27)**
+- [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/b096f84dca37cdf40690406453d1973627801abf)
+
+**[Implement a better way of reading the map file](https://github.com/mmasias/23-24-IdSw2-SDD/issues/41)**
+- [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/690a5d7a091768b9dd17e42bef9f9223d5bd2f58)
+
+**[Design correct Use Cases Diagrams to ensure that all user interactions and system functionalities are accurately represented. (JuanJo)](https://github.com/mmasias/23-24-IdSw2-SDD/issues/40)**
+- [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/2afba2d50c9a376d5b7f7c65d191f2f1f35cc387) (primero de numerosos commits que resolvieron el issue el dia 30 de mayo de 2024)
+
+**[Print only the field of vision so that the map doesnt take up space](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/issues/44)**
+- [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/26d8731f9f00e7a9f7874455a01134d0e3d95bac)
 
 ## Version inicial (modelo vista controlador)
 Para abordar la solución del proyecto, se optó por utilizar una arquitectura **MVC** (Modelo-Vista-Controlador) con la idea de **desarrollar un código reusable y adaptable a futuras implementaciones**. 
