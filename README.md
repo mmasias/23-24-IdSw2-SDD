@@ -67,3 +67,7 @@ Cuando una persona entra en el ascensor, se añade a la lista de personas que es
 ## Arquitectura
 Diagramas que describen la estructura del proyecto y como las clases se realacionan entre si
   - [Diagrama_de_Arquitectura](/docs/Diagrama_de_Arquitectura/)
+
+## Diseño
+Para entender las técnicas de diseño aplicadas en este proyecto, se han redactado un informe que abarca desde estrategias de clasificación y relaciones entre clases hasta principios avanzados de diseño orientado a objetos.
+  - [Informe](/docs/Informe/)
