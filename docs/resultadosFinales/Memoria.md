@@ -1,7 +1,7 @@
 # Memoria del proyecto El Mundo
 
 ## Historial
-[link de commits](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commits/develop/)
+[Link de commits](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commits/develop/)
 
 ## Version inicial (modelo vista controlador)
 Para abordar la solución del proyecto, se optó por utilizar una arquitectura **MVC** (Modelo-Vista-Controlador) con la idea de **desarrollar un código reusable y adaptable a futuras implementaciones**. 
