@@ -4,9 +4,9 @@ Nuestro juego se compone del funcionamiento de una aspiradora donde se aplican p
 ## Principio de Responsabilidad Única (SRP)
 Se ha implementado este principio para mantener claro el funcionamiento de cada parte de la simulación, a continuacion se detallara donde se ha aplicado:
 
--La clase "ControladorAspiradora" se encarga unicamente del funcionamiento de la aspiradora.
--La clase "ControladorGato" se encarga unicamente del comportamiento del gato.
--La clase "ControladorHabitación" se encarga unicamente de la compocisión de la habitación.
+- La clase "ControladorAspiradora" se encarga unicamente del funcionamiento de la aspiradora.
+- La clase "ControladorGato" se encarga unicamente del comportamiento del gato.
+- La clase "ControladorHabitación" se encarga unicamente de la compocisión de la habitación.
 
 ## Principio de Inversión de Dependencias (DIP)
 
