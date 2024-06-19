@@ -1,6 +1,6 @@
 # Diseño Modular 🧩
 
-En el diseño modular orientado a objetos, la creación de sistemas se basa en dividir la funcionalidad en módulos manejables y cohesivos. Cada módulo debe cumplir con ciertas propiedades como cohesión, acoplamiento, y granularidad, para asegurar la mantenibilidad y escalabilidad del software. Además, identificar y evitar \"smell codes\" ayuda a mantener un código limpio y eficiente.
+En el diseño modular orientado a objetos, la creación de sistemas se basa en dividir la funcionalidad en módulos manejables y cohesivos. Cada módulo debe cumplir con ciertas propiedades como cohesión, acoplamiento, y granularidad, para asegurar la mantenibilidad y escalabilidad del software. Además, identificar y evitar "smell codes" ayuda a mantener un código limpio y eficiente.
 
 ## Cohesión 📦
 
@@ -82,23 +82,24 @@ public class BuildingView {
 ```
 [Commit de Ejemplo](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/ccc7f4fd11fcef8822c3229737a376a9f209c519)
 
-## Smell Codes 🚨 #TODO
+## Smell Codes 🚨
 
 ### Definición 📝
 Los "smell codes" son indicativos de posibles problemas en el código que pueden afectar su mantenibilidad y escalabilidad. Identificar y eliminar estos "olores" ayuda a mantener un código limpio.
 
 ### Ejemplos 🚀
 
-#### Relacionados con la Cohesión
+Solucionamos algunos "smell codes" que nos sugirió sonarlint respecto a condiciones redundantes en ifs, el uso de ArrayList como los tipos que devuelven algunas funciones en vez de la interfaz List y código comentado, 
 
-- **Alternative Classes with Different Interfaces**: Clases que realizan tareas similares pero tienen interfaces diferentes. 
-    - *Ejemplo*: En nuestro proyecto, todas las clases que requieren un ID implementan la interfaz `IModel`, asegurando consistencia.
+[Commit de Ejemplo](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/feaaed622d57e38c2f70de4c9544ae5eafaf4fe8)
 
-    ```java
-    public interface IModel {
-        int getId();
-    }
-    ```
+Eliminamos reasignaciones de variables innecesarias, movimos la definición de arrays al tipo en vez de la variable y eliminamos la creación de variables que solo se creaban para ser devueltas de inmediato.
+
+[Commit de Ejemplo](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/a43b36e278a9616aec2e2d3e2519534b7f36044c)
+
+Además hemos instalado Qodana utilizando Github Actions para que por cada commit se analice la calidad del código y nos pueda generar reportes con cualquier "code smell" que encuentre.
+
+[Commit de instalación de Qodana](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/ebeea394295b4c38520658d49aa25bd532f088a5)
 
 ### Patrón Modelo-Vista-Controlador (MVC) 🖼️
 
