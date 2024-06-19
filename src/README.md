@@ -3,10 +3,10 @@ Nuestro juego se compone del funcionamiento de una aspiradora donde se aplican p
 
 ## Principio de Responsabilidad Única (SRP)
 
-*Antes de su implementación:* 
+**Antes de su implementación:**
 Las clases se encargaban de realizar distintas acciones que podian llegar a confundir. La clase aspiradora realizaba más de su propia función, al igual que las demás.
 
-*Después de su implementación:*
+**Después de su implementación:**
 Al aplicarle el principio de responsabilidad, cada clase que se mencionará tiene un comportamiento único:
 - La clase "ControladorAspiradora" se encarga unicamente del funcionamiento de la aspiradora.
 - La clase "ControladorGato" se encarga unicamente del comportamiento del gato.
@@ -14,10 +14,10 @@ Al aplicarle el principio de responsabilidad, cada clase que se mencionará tien
 
 ## Principio de Inversión de Dependencias (DIP)
 
-*Antes de su implementación:*
+**Antes de su implementación:**
 Las clases "ControladorGato" y "ControladorHabitacion" eran más extendidas, donde su metodo "mover" era más complejo y contenia la lógica de movimiento.
 
-*Después de su implementación:*
+**Después de su implementación:**
 
 - Se agregó una clase abstracta llamada "Movible" en los controladores que tendría los metodos respectivos de movimientos.
 - Se pone el metodo "Mover(Habitacion habitacion)" en la clase abstracta "Movible".
@@ -25,10 +25,10 @@ Las clases "ControladorGato" y "ControladorHabitacion" eran más extendidas, don
 
 ## Principio Abierto/Cerrado (OCP)
 
-*Antes de su implementación:*
+**Antes de su implementación:**
 La generación de la superficie y los muebles estaba embebida dentro de la clase "Habitacion", lo que requeriría modificar la clase si se cambiaba la manera de generar estos elementos.
 
-*Después de su implementación:*
+**Después de su implementación:**
 
 Ahora la clase habitación depende de la clase "FabricarElementos" que contiene los metodos "GenerarSuperficie" y "GenerarMuebles" permitiendo extender la funcionalidad de generación sin modificar la clase Habitacion.
 
