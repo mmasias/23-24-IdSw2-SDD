@@ -35,10 +35,45 @@ Para la segunda version, se revisó el código y se volvió a revisar las clases
 
 Este principio lo podemos revisar en las siguientes clases:
 - FileReaderController, esta clase se encarga exclusivamente de leer archivos CSV desde una ruta de archivo especificada. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/FileReaderController.java).
-- TimeController, se encarga de gestionar el tiempo, avanzarlo, reiniciarlo y actualizar el período del día (TimesOfDay) en función del tiempo actual. Lo podemos revisar en el siguiente [enlace](legacy/Controllers/TimeController.java).
+- TimeController, se encarga de gestionar el tiempo, avanzarlo, reiniciarlo y actualizar el período del día (TimesOfDay) en función del tiempo actual. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/TimeController.java).
+- TileFactory tambien tiene una única responsabilidadm que es crear objetos de tipo Tile. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Factories/TileFactory.java).
+
+
+### Open/Closed Principle
+Este principio lo podemos revisar en las siguientes clases:
+
+
+### Liskov Substitution Principle
+Este principio lo podemos revisar en las siguientes clases:
+
+
+### Interface Segregation Principle
+Este principio lo podemos revisar en las siguientes clases:
+
+
+### Dependency Inversion Principle
+Este principio lo podemos revisar en las siguientes clases:
 
 
 
+Y se dividió en los siguientes modulos:
+- Controladores
+    - 
+- Modelos
+    - Baldosa
+    - Punto
+    - Transporte
+- Vista
+    - Vista del Mundo
+- Enums
+    - Tipos de transportes
+
+
+Teniendo en cuenta toda la arquitectura planteada anteriormente y las presentaciones realizadas en clase, nos pudimos dar cuenta que intentar cumplir al completo todo el principio SOLID y modularizar demasiado la aplicación resultó ser un poco tedioso y no necesario para el alcance actual de la aplicación, por ello se realizaron los siguientes cambios:
+
+- x
+- x
+- x
 
 ## Version limpia (aplicación de clean code)
 En la revisión del diseño de nuestro software, identificamos varios problemas relacionados con prácticas de 'code smells' que requerían atención. Por ejemplo, analizando el historial del diagrama de la aplicación, se puede apreciar que hubo momentos en que notamos una duplicación considerable de funcionalidades entre varias clases, lo que nos llevó a implementar una jerarquía de herencia más eficiente y a la introducción de interfaces para promover la reutilización del código. 
