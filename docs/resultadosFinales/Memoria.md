@@ -26,6 +26,20 @@ Esta fase finaliza con la presentación adecuada de los diagramas de la aplicaci
     - En esta segunda entreha se decidió remver los controladores más específicos para mantener un solo controlador general, el cual nos permitiría tener una visión más general de la aplicación. Se consolidaron clases y se eliminar códigos repetidos, llevando asi una mayor acoplación pero manteniendo la flexibilidad de la extensión del sistema. Se hizo mejor uso de la clase de apoyo Point y se detectaron códigos inservibles, o muy complejos. No hubieron cambios en el modelo, ya que las bases estaban bien establecidas, lo cual demustra la flexibilidad del patrpon MVC.
 - commit final
 
+
+---------------
+
+Para la segunda version, se revisó el código y se volvió a revisar las clases creadas y 
+
+### Single Responsibility Principle
+
+Este principio lo podemos revisar en las siguientes clases:
+- FileReaderController, esta clase se encarga exclusivamente de leer archivos CSV desde una ruta de archivo especificada. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/FileReaderController.java).
+- TimeController, se encarga de gestionar el tiempo, avanzarlo, reiniciarlo y actualizar el período del día (TimesOfDay) en función del tiempo actual. Lo podemos revisar en el siguiente [enlace](legacy/Controllers/TimeController.java).
+
+
+
+
 ## Version limpia (aplicación de clean code)
 En la revisión del diseño de nuestro software, identificamos varios problemas relacionados con prácticas de 'code smells' que requerían atención. Por ejemplo, analizando el historial del diagrama de la aplicación, se puede apreciar que hubo momentos en que notamos una duplicación considerable de funcionalidades entre varias clases, lo que nos llevó a implementar una jerarquía de herencia más eficiente y a la introducción de interfaces para promover la reutilización del código. 
 
