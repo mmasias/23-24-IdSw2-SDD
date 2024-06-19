@@ -1,4 +1,16 @@
 # Implementación de principios SOLID - Versión 4
+Nuestra simulación del funcionamiento de una aspiradora aplica principios SOLID, asegurando que el diseño del software sea modular, flexible y fácil de mantener. A continuación, se explica cómo cada uno de los principios SOLID se aplica a esta simulación:
+
+## Principio de Responsabilidad Única (SRP)
+Se ha implementado este principio para mantener claro el funcionamiento de cada parte de la simulación, a continuacion se detallara donde se ha aplicado:
+
+-La clase "ControladorAspiradora" se encarga unicamente del funcionamiento de la aspiradora.
+-La clase "ControladorGato" se encarga unicamente del comportamiento del gato.
+-La clase "ControladorHabitación" se encarga unicamente de la compocisión de la habitación.
+
+## Principio de Inversión de Dependencias (DIP)
+
+Las clases "ControladorGato" y "ControlAspiradora" dependen de la abstracción "Movible" que puede ser modificada sin afectar dichas clases.
 
 ## Documentación
 
@@ -29,7 +41,7 @@
 
 ## Explicación del código
 
-El proeycto se mueve por 3 diferentes carpetas las cuales tenemos **Modelo**, **Vista**, **Controlador** lo cual esto nos sirve tener como mayor manejo de funcionalidades al momento de repartir responsabilidades y atributos para cada clase
+El proyecto se mueve por 3 diferentes carpetas las cuales tenemos **Modelo**, **Vista**, **Controlador** lo cual esto nos sirve tener como mayor manejo de funcionalidades al momento de repartir responsabilidades y atributos para cada clase
 
 ### Carpeta Controlador 📂
 
