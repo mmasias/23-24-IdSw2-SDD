@@ -7,9 +7,9 @@ Las estrategias de clasificación en diseño de software incluyen varias técnic
 
 - ***Descripción informal***: Método simple para identificar objetos y operaciones a partir de la descripción del problema. Consiste en escribir una descripción del problema y subrayar sustantivos y verbos. Los sustantivos representan objetos candidatos y los verbos representan operaciones candidatas.
     - **Ejemplo de Aplicación en el Proyecto** 🚀: \
-    Este proyecto simula un sistema de **ascensores** en una universidad, con el objetivo de emular el comportamiento tanto de los ascensores como de las **personas** que los utilizan. Los ascensores están operativos todo el rato, subiendo, bajando, o quedándose en la misma **planta**.\
-    Las **personas** se sitúan en distintas plantas y tienen en mente cuánto tiempo van a estar en cada planta y, una vez ese tiempo llegue a 0, a qué planta quieren ir, poniéndolas en la lista de espera (de la planta en la que se encuentren) para subir al ascensor. \
-    El **ascensor** tiene una capacidad máxima, y si está lleno no deja entrar a más personas. Si el ascensor está vacío, la persona que se encuentre en la misma **planta** que el ascensor, entra en este último y va a la planta donde quiera ir la única persona que hay en ese momento en el ascensor, y si en el ascensor tiene gente dentro, le pregunta a qué dirección va y si va a la misma dirección, la persona entra en el ascensor.\
+    Este proyecto simula un sistema de **ascensores** en una universidad ([``BuildingController``](/src/Controllers/BuildingController.java)), con el objetivo de emular el comportamiento tanto de los ascensores como de las **personas** que los utilizan . Los ascensores están operativos todo el rato, subiendo, bajando, o quedándose en la misma **planta**. ([``ElevatorController``](/src/Controllers/ElevatorController.java))\
+    Las **personas** ([``Person``](/src/Models/Person.java)) se sitúan en distintas plantas y tienen en mente cuánto tiempo van a estar en cada planta y, una vez ese tiempo llegue a 0 ([``Time``](/src/Controllers/Time.java)), a qué planta quieren ir, poniéndolas en la lista de espera (de la planta en la que se encuentren) para subir al ascensor. ([``FloorController``](/src/Controllers/FloorController.java)) \
+    El **ascensor** tiene una capacidad máxima, y si está lleno no deja entrar a más personas. Si el ascensor está vacío, la persona que se encuentre en la misma **planta** que el ascensor, entra en este último y va a la planta donde quiera ir la única persona que hay en ese momento en el ascensor, y si en el ascensor tiene gente dentro, le pregunta a qué dirección va y si va a la misma dirección, la persona entra en el ascensor. ([``ElevatorController``](/src/Controllers/ElevatorController.java))\
     (Actor externo: Persona)
 
 - ***Análisis clásico y del dominio***: 
@@ -19,24 +19,25 @@ Las estrategias de clasificación en diseño de software incluyen varias técnic
 
 - ***Análisis del comportamiento***: Se centra en el comportamiento dinámico como fuente primaria de clases y objetos.
     - **Ejemplo de Aplicación en el Proyecto** 🚀: 
-        - **Tiempo**: Clase que se encarga de actualizar todo el contenido del Edificio entre una iteración y otra.
-        - **Edificio**: Clase que agrupa Planta, Ascensor, Persona, Solicitud Ascensor, Solicitud Destino y Panel de Control.
-        - **Planta**: Clase que contiene a las Personas que esperan a un Ascensor como a las que no. Cuenta con un ID de la Planta.
-        - **Ascensor**: Se compone de los siguientes elementos:
-        ID de Ascensor
-        Planta en la que se encuentra
-        Dirección en la que se mueve (UP, DOWN & STOP)
-        Lista de personas que están dentro del ascensor
-        Lista de plantas a las que se tiene que dirigir
-        Capacidad máxima del ascensor (6 personas)
-        - **Persona**: Se compone de tres atributos:
-        ID
-        Tiempo que va a estar en una planta
-        Planta de destino
-        - **Solicitud Ascensor**: Clase que controla desde donde se llama un Ascensor y con qué intención.
-        - **Solicitud Destino**: Clase que controla hacia qué planta va un Ascensor seleccionado (por su ID).
-        - **Panel de Control**: Clase que controla las Solicitudes de Parada y de Destino (Con los datos enviados desde Solicitud Ascensor y Solicitud Destino).
-
+        - **Time**: Clase que se encarga de actualizar todo el contenido del [``Building``](/src/Models/Building.java) entre una iteración y otra.
+        - **Building**: Clase que agrupa [``Floor``](/src/Models/Floor.java), [``Elevator``](/src/Models/Elevator.java), [``Person``](/src/Models/Person.java), [``ElevatorRequest``](/src/Models/ElevatorRequest.java), [``FloorRequest``](/src/Models/FloorRequest.java) y [``ControlPanel``](/src/Models/ControlPanel.java).
+        - **Floor**: Clase que contiene a las [``Person``](/src/Models/Person.java) que esperan a un [``Elevator``](/src/Models/Elevator.java) como a las que no. Cuenta con un ID de la Floor.
+        - **Elevator**: Se compone de los siguientes elementos:
+            - ID de [``Elevator``](/src/Models/Elevator.java)
+            - [``Floor``](/src/Models/Floor.java) en la que se encuentra
+            - Dirección en la que se mueve (UP, DOWN & STOP)
+            - Lista de [``Person``](/src/Models/Person.java) que están dentro del [``Elevator``](/src/Models/Elevator.java)
+            - Lista de [``Floor``](/src/Models/Floor.java) a las que se tiene que dirigir
+            - Capacidad máxima del [``Elevator``](/src/Models/Elevator.java) (6 [``Person``](/src/Models/Person.java))
+        - **Person**: Se compone de tres atributos:
+            - ID
+            - Tiempo que va a estar en una Floor
+            - Floor de destino
+        - **ElevatorRequest**: Clase que controla desde donde se llama un [``Elevator``](/src/Models/Elevator.java) y con qué intención.
+        - **FloorRequest**: Clase que controla hacia qué Floor va un [``Elevator``](/src/Models/Elevator.java) seleccionado (por su ID).
+        - **ControlPanel**: Clase que controla las Solicitudes de Parada y de Destino (Con los datos enviados desde [``ElevatorRequest``](/src/Models/ElevatorRequest.java) y [``FloorRequest``](/src/Models/FloorRequest.java)).
+        
+        **Commit de creación de los modelos:** [Commit](https://github.com/jramsgz/23-24-IdSw2-SDD/commit/4de21e124a7b60523a4efe4f8ea67d02d0659c10)
 
 ## Relaciones entre Clases
 ### Colaboración
