@@ -73,7 +73,7 @@ La aplicación se repartió en los siguientes archivos para un flujo más claro 
         - Mantener una lista de transportes disponibles para el personaje (availableTransports).
     - **Map**: La clase Map es el modelo que representa un mapa en el mundo. Contiene una matriz bidimensional de Tiles (casillas) y tambien contiene los métodos necesarios para poder interactuar con esta matriz.
     - **Point**: En esta clase se representa un punto en el espacio dentro de la matriz del mundo, con coordenadas X e Y. Contiene métodos para obtener y establecer la ubicación.
-    - **Tile**: Esta clase representa una baldosa en el mapa del mundo. Cada una tiene un tipo (TileTypes) y también proporciona métodos para obtener y cambiar este tipo, así como para obtener símbolos ASCII asociados con el tipo de baldosa.
+    - **Tile**: Esta clase representa una casilla en el mapa del mundo. Cada una tiene un tipo (TileTypes) y también proporciona métodos para obtener y cambiar este tipo, así como para obtener símbolos ASCII asociados con el tipo de casilla.
     - **Time**: Es la clase que representa el tiempo en el mundo, con métodos para avanzar el tiempo, establecer el momento del día según la hora actual y reiniciar el día. Además, proporciona métodos para obtener el momento del día actual y la hora actual en formato de 24 horas.
     - **Transport**: Representa el transporte en el mundo. Determina la velocidad y el símbolo ASCII asociado.
     - **World**: Representa el mundo, contiene un mapa, entidades y gestiona el tiempo. Permite simular ciclos de juego avanzando el tiempo y añadir nuevas entidades al mundo.
@@ -107,9 +107,9 @@ Este principio lo podemos observar en las siguientes clases:
 Este principio lo podemos observar en las siguientes clases:
 - **Model/Entity**: Esta clase desde el inicio fué diseñada para ser extendida a cualquier tipo de entidad que pueda tener la aplicación. Todas aquellas clases que extiendan de Entity pueden agregar nuevas funcionalidades sin modificar la clase principal. Esto permite que la clase esté abierta para la extensión y cerrada para la modificación.
 
-- **Model/Point**: Esta clase tambien está diseñada para ser extendida. Se pueden agregar nuevas funcionalidades en subclases sin modificar la clase Point, hasta este momento no se encuentra ninguna extension, pero existe si se necesitara en un futuro, sería fácil de implementar.
+- **Model/Point**: Se pueden agregar nuevas funcionalidades en subclases sin modificar la clase Point, hasta este momento no se encuentra ninguna extensión, pero existe si se necesitara en un futuro, sería fácil de implementar.
 
-- **Model/Tile**: La clase Tile permite cambiar el tipo de baldosa (changeType) y obtener información sobre el tipo y su representación ASCII (getType, getAsciiSymbol, getAsciiColor). Está diseñada para ser extendida mediante la modificación o adición de nuevos tipos de casillas (TileTypes).
+- **Model/Tile**: La clase Tile permite cambiar el tipo de casilla (changeType) y obtener información sobre el tipo y su representación ASCII (getType, getAsciiSymbol, getAsciiColor). Está diseñada para ser extendida mediante la modificación o adición de nuevos tipos de casillas (TileTypes).
 - **Model/Point**: La clase Point está diseñada para ser extendida. Se pueden agregar nuevas funcionalidades en subclases sin modificar la clase Point.
 - **Model/Transport** Esta clase permite obtener información sobre el tipo de transporte (getType()), su velocidad (getSpeed()), y su representación ASCII (getAsciiSymbol()). Además, puede extenderse para agregar funcionalidades relacionadas con el transporte sin modificar su comportamiento actual.
 
