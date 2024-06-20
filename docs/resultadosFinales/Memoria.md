@@ -42,16 +42,16 @@
 [Historial de Diagramas de Aplicación](./DiagramaDeAplicacion(redaccion).md)
 
 ## Versión inicial (modelo vista controlador)
-Para abordar la solución del proyecto, se optó por utilizar una arquitectura **MVC** (Modelo-Vista-Controlador) con la idea de **desarrollar un código reusable y adaptable a futuras implementaciones**. 
+Para abordar la solución del proyecto, se optó por utilizar una arquitectura **MVC** (Modelo-Vista-Controlador) con la idea de **desarrollar un código reusable y adaptable en futuras implementaciones**. 
 
 Inicialmente, se creó un controlador para las clases más importantes de la solución, permitiendo tener un conjunto de clases con responsabilidades bien definidas. El diagrama de clases inicialmente propuesto puede encontrarse en [este commit](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/99a071a70c0c760b78c1e3a2f5536427a5419e9f).
 
-- Se desarrolló la **estructura base** de las clases incluyendo atributos, métodos y finalmente se estableció una idea inicial de la responsabilidad que tendrá cada clase
+- Se desarrolló la **estructura base** de las clases incluyendo atributos y métodos. Finalmente se estableció una idea inicial de la responsabilidad que tendrá cada clase.
 - Un ejemplo de este proceso es la clase controladora del mapa encontrada [aquí](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/cc9a169d12120d72328096d0e9d0b1abecea10ee).
 
-Finalmente, nos dimos cuenta de que utilizar esta estructura de carpetas implicaba:
+Posteriormente, nos dimos cuenta que utilizar esta estructura de carpetas implicaba:
 - Demasiados **problemas de acoplamiento** entre clases. 
-- **Extensión innecesaria** del código ya que muchas de estas podían ser agrupadas y crear una estructura más simple.
+- **Extensión innecesaria** del código ya que muchas de estas podían ser aglutinadas, creando una estructura más simple.
 - Ciertos parámetros y datos necesarios para ejecutar las funciones de algunos controladores debían **recorrer demasiadas clases** que no los utilizaban, lo que **dificultaba la implementación y el mantenimiento** de ellas.
 
 Este fue un momento crucial en la vida del proyecto, ya que de no habernos dado cuenta de ello, el desarrollo se habría complicado exponencialmente a medida que este evolucionaba.
@@ -62,28 +62,27 @@ Esta fase finaliza con la presentación adecuada de los diagramas de la aplicaci
 Para la segunda versión del proyecto, se revisó a profundidad el código, tomando en cuenta las recomendaciones proporcionadas en clase. A continuación, podemos examinar la arquitectura de la aplicación y observar algunas clases que cumplen con el patrón SOLID.
 
 ### Modulos
-La aplicación se repartió en un los siguientes archivos para un flujo más limpio de la aplicación:
+La aplicación se repartió en los siguientes archivos para un flujo más claro de la aplicación:
 
 - Controllers
-    - **World Controller**: Esta clase maneja la lógica y la interacción entre el modelo (World, Map, Tile) y la vista (WorldView) en el contexto del mundo.
+    - **World Controller**: Esta clase maneja la lógica y la interacción entre el modelo World y la vista WorldView.
 - Models
-    - **Character**: Esta clase es una extiención de la clase Entity y representa un personaje en el modelo del mundo. Sus responsabilidades incluyen:
+    - **Entity**: Es la clase abstracta que representa una entidad en el modelo del mundo. Conoce de la posición de la entidad y el transporte que se está usando.
+    - **Character**: Esta clase es una extención de la clase Entity y representa un personaje en el modelo del mundo. Sus responsabilidades incluyen:
         - Definir el tipo de personaje (CharacterType).
         - Mantener una lista de transportes disponibles para el personaje (availableTransports).
-        - Proveer métodos para obtener el tipo de personaje y los transportes disponibles.
-    - **Entity**: Es la clase abstracta que representa una entidad en el modelo del mundo. Conoce de la posición de la entidad, el transporte que se está usando y lo mueve en el mundo.
-    - **Map**: La clase Map es el modelo que representa un mapa en el mundo. Contiene una matriz bidimensional de Tile (baldosas) y tambien contiene los métodos necesarios para poder interactuar con esta matriz.
-    - **Point**: En esta clase se representa un punto en el espacio dentro de la matriz del mundo, con coordenadas x e y. Contiene métodos para obtener y establecer la ubicación.
+    - **Map**: La clase Map es el modelo que representa un mapa en el mundo. Contiene una matriz bidimensional de Tiles (casillas) y tambien contiene los métodos necesarios para poder interactuar con esta matriz.
+    - **Point**: En esta clase se representa un punto en el espacio dentro de la matriz del mundo, con coordenadas X e Y. Contiene métodos para obtener y establecer la ubicación.
     - **Tile**: Esta clase representa una baldosa en el mapa del mundo. Cada una tiene un tipo (TileTypes) y también proporciona métodos para obtener y cambiar este tipo, así como para obtener símbolos ASCII asociados con el tipo de baldosa.
     - **Time**: Es la clase que representa el tiempo en el mundo, con métodos para avanzar el tiempo, establecer el momento del día según la hora actual y reiniciar el día. Además, proporciona métodos para obtener el momento del día actual y la hora actual en formato de 24 horas.
-    - **Transport**: Representa un tipo de transporte en el mundo, asociado con un tipo específico definido en el enumerado TransportTypes. Permite acceder al tipo de transporte, la velocidad y el símbolo ASCII asociado.
+    - **Transport**: Representa el transporte en el mundo. Determina la velocidad y el símbolo ASCII asociado.
     - **World**: Representa el mundo, contiene un mapa, entidades y gestiona el tiempo. Permite simular ciclos de juego avanzando el tiempo y añadir nuevas entidades al mundo.
 - Views
     - **World View**: Es la clase responsable de la presentación del mundo. Esto incluye la visualizacion del mapa, la limpieza de la pantalla, mostrar la hora actual, el momento del día y las entidades.
 
 - Enums
     - **CharacterType**: Define tipos de personajes, en estos momentos solo tenemos dos tipos de personajes, que son los jugables y los no jugables (NPCs).
-    - **TileTypes**: Define los diferentes tipos de tiles (baldosas) para el mundo. Cada tipo de tile tiene tres propiedades asociadas:
+    - **TileTypes**: Define los diferentes tipos de tiles (casillas) para el mundo. Cada tipo de tile tiene tres propiedades asociadas:
         - Un número de tile (tileNumber).
         - Un color ASCII (asciiColor).
         - Un símbolo ASCII (asciiSymbol).
@@ -91,32 +90,32 @@ La aplicación se repartió en un los siguientes archivos para un flujo más lim
     - **Transport Types**: Define los diferentes tipos de transportes que puede tener un personaje. Cada tipo de transporte tiene tres propiedades asociadas:
         - Velocidad (speed).
         - Símbolo ASCII (asciiSymbol).
-        - Lista de tipos de tiles (baldosas) por los que puede moverse (tilesItCanMoveThrough)
+        - Lista de tipos de tiles (casillas) por los que puede moverse (tilesItCanMoveThrough)
 
 
 #### Single Responsibility Principle
 
-Este principio lo podemos revisar en las siguientes clases:
-- **FileReaderController**, esta clase se encarga exclusivamente de leer archivos CSV desde una ruta de archivo especificada. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/FileReaderController.java).
-- **TimeController**, se encarga de gestionar el tiempo, avanzarlo, reiniciarlo y actualizar el período del día (TimesOfDay) en función del tiempo actual. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/TimeController.java).
-- **TileFactory** tambien tiene una única responsabilidadm que es crear objetos de tipo Tile. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Factories/TileFactory.java).
-- **Model/Point** tiene una responsabilidad clara: representar y gestionar un punto en un espacio bidimensional. No se mezcla con otras responsabilidades.
+Este principio lo podemos observar en las siguientes clases:
+- **FileReaderController**: esta clase se encarga exclusivamente de leer archivos CSV desde una ruta de archivo especificada. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/FileReaderController.java).
+- **TimeController**: se encarga de gestionar el tiempo, avanzarlo, reiniciarlo y actualizar el período del día (TimesOfDay) en función del tiempo actual. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/TimeController.java).
+- **TileFactory**: Esta clase tambien tiene una única responsabilidadm que es crear objetos de tipo Tile. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Factories/TileFactory.java).
+- **Model/Point**: tiene una responsabilidad clara: representar y gestionar un punto en un espacio bidimensional. No se mezcla con otras responsabilidades.
 - **Model/Word**: La clase World se encarga únicamente de representar el estado del mundo y proporcionar métodos para manipular el mapa, las entidades y el tiempo. No realiza funcionalidades adicionales que no correspondan a la gestión del mundo.
 
 
 #### Open/Closed Principle
-Este principio lo podemos revisar en las siguientes clases:
+Este principio lo podemos observar en las siguientes clases:
 - **Model/Entity**: Esta clase desde el inicio fué diseñada para ser extendida a cualquier tipo de entidad que pueda tener la aplicación. Todas aquellas clases que extiendan de Entity pueden agregar nuevas funcionalidades sin modificar la clase principal. Esto permite que la clase esté abierta para la extensión y cerrada para la modificación.
 
 - **Model/Point**: Esta clase tambien está diseñada para ser extendida. Se pueden agregar nuevas funcionalidades en subclases sin modificar la clase Point, hasta este momento no se encuentra ninguna extension, pero existe si se necesitara en un futuro, sería fácil de implementar.
 
-- **Model/Tile**: La clase Tile permite cambiar el tipo de baldosa (changeType) y obtener información sobre el tipo y su representación ASCII (getType, getAsciiSymbol, getAsciiColor). Está diseñada para ser extendida mediante la modificación o adición de nuevos tipos de baldosas (TileTypes).
+- **Model/Tile**: La clase Tile permite cambiar el tipo de baldosa (changeType) y obtener información sobre el tipo y su representación ASCII (getType, getAsciiSymbol, getAsciiColor). Está diseñada para ser extendida mediante la modificación o adición de nuevos tipos de casillas (TileTypes).
 - **Model/Point**: La clase Point está diseñada para ser extendida. Se pueden agregar nuevas funcionalidades en subclases sin modificar la clase Point.
 - **Model/Transport** Esta clase permite obtener información sobre el tipo de transporte (getType()), su velocidad (getSpeed()), y su representación ASCII (getAsciiSymbol()). Además, puede extenderse para agregar funcionalidades relacionadas con el transporte sin modificar su comportamiento actual.
 
 
 #### Liskov Substitution Principle
-Este principio lo podemos revisar en las siguientes clases:
+Este principio lo podemos observar en las siguientes clases:
 - **Model/Character**: Esta clase extiende Entity y no corrompe el comportamiento esperado de Entity. Cualquier instancia de Character puede ser utilizada donde se espera una Entity.
 
 
@@ -125,11 +124,11 @@ Este principio no lo utilizamos de manera directa en el código, dado que decidi
 
 
 #### Dependency Inversion Principle
-Este principio lo podemos revisar en las siguientes clases:
+Este principio lo podemos observar en las siguientes clases:
 
-- **Model/Tiles**: La clase Tile depende de TileTypes, que es una abstracción para los tipos de baldosas definidos. Esto permite que Tile utilice las propiedades definidas en TileTypes sin acoplarse directamente a implementaciones concretas.
-- **Model/Transport** depende de TransportTypes, que es una abstracción para los tipos de transporte definidos. Esto permite que Transport utilice las propiedades definidas en TransportTypes sin acoplarse directamente a implementaciones concretas.
-- **Model/Word** depende de abstracciones como Map, Entity, y Time a través de sus interfaces públicas (métodos get y set). Esto permite que World use estas abstracciones sin depender directamente de implementaciones concretas, lo que facilita la flexibilidad y extensibilidad del diseño.
+- **Model/Tiles**: La clase Tile depende de TileTypes, que es una abstracción para los tipos de casillas definidos. Esto permite que Tile utilice las propiedades definidas en TileTypes sin acoplarse directamente a implementaciones concretas.
+- **Model/Transport**: Depende de TransportTypes, que es una abstracción para los tipos de transporte definidos. Esto permite que Transport utilice las propiedades definidas en TransportTypes sin acoplarse directamente a implementaciones concretas.
+- **Model/Word**: Depende de abstracciones como Map, Entity, y Time a través de sus interfaces públicas (métodos get y set). Esto permite que World use estas abstracciones sin depender directamente de implementaciones concretas, lo que facilita la flexibilidad y extensibilidad del diseño.
 
 ---
 
