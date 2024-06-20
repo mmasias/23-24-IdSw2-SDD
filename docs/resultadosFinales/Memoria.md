@@ -63,9 +63,9 @@ Para la segunda versión del proyecto, se revisó a profundidad el código, toma
 La aplicación se repartió en un los siguientes archivos para un flujo más limpio de la aplicación:
 
 - Controllers
-    - **World Controller**:
+    - **World Controller**: Esta clase maneja la lógica y la interacción entre el modelo (World, Map, Tile) y la vista (WorldView) en el contexto del mundo.
 - Models
-    - **Character**: Esta clase es una extiención de la clase Entity y representa un personaje en el modelo del juego. Sus responsabilidades incluyen:
+    - **Character**: Esta clase es una extiención de la clase Entity y representa un personaje en el modelo del mundo. Sus responsabilidades incluyen:
         - Definir el tipo de personaje (CharacterType).
         - Mantener una lista de transportes disponibles para el personaje (availableTransports).
         - Proveer métodos para obtener el tipo de personaje y los transportes disponibles.
@@ -74,8 +74,8 @@ La aplicación se repartió en un los siguientes archivos para un flujo más lim
     - **Point**: En esta clase se representa un punto en el espacio dentro de la matriz del mundo, con coordenadas x e y. Contiene métodos para obtener y establecer la ubicación.
     - **Tile**: Esta clase representa una baldosa en el mapa del mundo. Cada una tiene un tipo (TileTypes) y también proporciona métodos para obtener y cambiar este tipo, así como para obtener símbolos ASCII asociados con el tipo de baldosa.
     - **Time**: Es la clase que representa el tiempo en el mundo, con métodos para avanzar el tiempo, establecer el momento del día según la hora actual y reiniciar el día. Además, proporciona métodos para obtener el momento del día actual y la hora actual en formato de 24 horas.
-    - **Transport**:
-    - **World**:
+    - **Transport**: Representa un tipo de transporte en el mundo, asociado con un tipo específico definido en el enumerado TransportTypes. Permite acceder al tipo de transporte, la velocidad y el símbolo ASCII asociado.
+    - **World**: Representa el mundo, contiene un mapa, entidades y gestiona el tiempo. Permite simular ciclos de juego avanzando el tiempo y añadir nuevas entidades al mundo.
 - Views
     - **World View**: Es la clase responsable de la presentación del mundo. Esto incluye la visualizacion del mapa, la limpieza de la pantalla, mostrar la hora actual, el momento del día y las entidades.
 
@@ -95,9 +95,11 @@ La aplicación se repartió en un los siguientes archivos para un flujo más lim
 #### Single Responsibility Principle
 
 Este principio lo podemos revisar en las siguientes clases:
-- FileReaderController, esta clase se encarga exclusivamente de leer archivos CSV desde una ruta de archivo especificada. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/FileReaderController.java).
-- TimeController, se encarga de gestionar el tiempo, avanzarlo, reiniciarlo y actualizar el período del día (TimesOfDay) en función del tiempo actual. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/TimeController.java).
-- TileFactory tambien tiene una única responsabilidadm que es crear objetos de tipo Tile. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Factories/TileFactory.java).
+- **FileReaderController**, esta clase se encarga exclusivamente de leer archivos CSV desde una ruta de archivo especificada. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/FileReaderController.java).
+- **TimeController**, se encarga de gestionar el tiempo, avanzarlo, reiniciarlo y actualizar el período del día (TimesOfDay) en función del tiempo actual. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/TimeController.java).
+- **TileFactory** tambien tiene una única responsabilidadm que es crear objetos de tipo Tile. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Factories/TileFactory.java).
+- **Model/Point** tiene una responsabilidad clara: representar y gestionar un punto en un espacio bidimensional. No se mezcla con otras responsabilidades.
+- **Model/Word**: La clase World se encarga únicamente de representar el estado del mundo y proporcionar métodos para manipular el mapa, las entidades y el tiempo. No realiza funcionalidades adicionales que no correspondan a la gestión del mundo.
 
 
 #### Open/Closed Principle
@@ -106,29 +108,33 @@ Este principio lo podemos revisar en las siguientes clases:
 
 - **Model/Point**: Esta clase tambien está diseñada para ser extendida. Se pueden agregar nuevas funcionalidades en subclases sin modificar la clase Point, hasta este momento no se encuentra ninguna extension, pero existe si se necesitara en un futuro, sería fácil de implementar.
 
+- **Model/Tile**: La clase Tile permite cambiar el tipo de baldosa (changeType) y obtener información sobre el tipo y su representación ASCII (getType, getAsciiSymbol, getAsciiColor). Está diseñada para ser extendida mediante la modificación o adición de nuevos tipos de baldosas (TileTypes).
+- **Model/Point**: La clase Point está diseñada para ser extendida. Se pueden agregar nuevas funcionalidades en subclases sin modificar la clase Point.
+- **Model/Transport** Esta clase permite obtener información sobre el tipo de transporte (getType()), su velocidad (getSpeed()), y su representación ASCII (getAsciiSymbol()). Además, puede extenderse para agregar funcionalidades relacionadas con el transporte sin modificar su comportamiento actual.
+
 
 #### Liskov Substitution Principle
 Este principio lo podemos revisar en las siguientes clases:
 - **Model/Character**: Esta clase extiende Entity y no corrompe el comportamiento esperado de Entity. Cualquier instancia de Character puede ser utilizada donde se espera una Entity. (https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/4c39d60408e209750f7ceb51134306caf2c6baaf/src/Models/Character.java)
 
 
-
-
 #### Interface Segregation Principle
-Este principio lo podemos revisar en las siguientes clases:
+Este principio no lo utilizamos de manera directa en el código, dado que decidimos que sería añadir mayor complejidad a lo necesario en el momento.
 
 
 #### Dependency Inversion Principle
 Este principio lo podemos revisar en las siguientes clases:
 
 - **Model/Tiles**: La clase Tile depende de TileTypes, que es una abstracción para los tipos de baldosas definidos. Esto permite que Tile utilice las propiedades definidas en TileTypes sin acoplarse directamente a implementaciones concretas.
+- **Model/Transport** depende de TransportTypes, que es una abstracción para los tipos de transporte definidos. Esto permite que Transport utilice las propiedades definidas en TransportTypes sin acoplarse directamente a implementaciones concretas.
+- **Model/Word** depende de abstracciones como Map, Entity, y Time a través de sus interfaces públicas (métodos get y set). Esto permite que World use estas abstracciones sin depender directamente de implementaciones concretas, lo que facilita la flexibilidad y extensibilidad del diseño.
 
-
+---
 
 Teniendo en cuenta toda la arquitectura planteada anteriormente y las presentaciones realizadas en clase, nos pudimos dar cuenta que intentar cumplir al completo todo el principio SOLID y modularizar demasiado la aplicación resultó ser un poco tedioso y no necesario para el alcance actual de la aplicación, por ello se realizaron los siguientes cambios:
 
 - Los modelos que se definieron dede etapa temprana del prouyecto se han mantenido muy similares a lo largo del tiempo, suponiendo que se realizó un buen analisis del proyecto.
-- x
+- Se eliminaron las siguientes clasees: TileFactory
 - x
 
 ## Version limpia (aplicación de clean code)
