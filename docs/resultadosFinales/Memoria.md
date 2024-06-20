@@ -57,17 +57,42 @@ Este fue un momento crucial en la vida del proyecto, ya que de no habernos dado 
 Esta fase finaliza con la presentación adecuada de los diagramas de la aplicación, encontrados [aquí](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/223607cb4002db26bcf9eafd7ae84e5f22b92be6).
 
 ## Version modular (diseño modular y principios SOLID)
-- diagrama de aplicacion mejorado
-- cambios y desiciones
-    - En esta segunda entreha se decidió remver los controladores más específicos para mantener un solo controlador general, el cual nos permitiría tener una visión más general de la aplicación. Se consolidaron clases y se eliminar códigos repetidos, llevando asi una mayor acoplación pero manteniendo la flexibilidad de la extensión del sistema. Se hizo mejor uso de la clase de apoyo Point y se detectaron códigos inservibles, o muy complejos. No hubieron cambios en el modelo, ya que las bases estaban bien establecidas, lo cual demustra la flexibilidad del patrpon MVC.
-- commit final
+Para la segunda versión del proyecto, se revisó a profundidad el código, tomando en cuenta las recomendaciones proporcionadas en clase. A continuación, podemos examinar la arquitectura de la aplicación y observar algunas clases que cumplen con el patrón SOLID.
+
+### Modulos
+La aplicación se repartió en un los siguientes archivos para un flujo más limpio de la aplicación:
+
+- Controllers
+    - **World Controller**:
+- Models
+    - **Character**: Esta clase es una extiención de la clase Entity y representa un personaje en el modelo del juego. Sus responsabilidades incluyen:
+        - Definir el tipo de personaje (CharacterType).
+        - Mantener una lista de transportes disponibles para el personaje (availableTransports).
+        - Proveer métodos para obtener el tipo de personaje y los transportes disponibles.
+    - **Entity**: Es la clase abstracta que representa una entidad en el modelo del mundo. Conoce de la posición de la entidad, el transporte que se está usando y lo mueve en el mundo.
+    - **Map**: La clase Map es el modelo que representa un mapa en el mundo. Contiene una matriz bidimensional de Tile (baldosas) y tambien contiene los métodos necesarios para poder interactuar con esta matriz.
+    - **Point**: En esta clase se representa un punto en el espacio dentro de la matriz del mundo, con coordenadas x e y. Contiene métodos para obtener y establecer la ubicación.
+    - **Tile**: Esta clase representa una baldosa en el mapa del mundo. Cada una tiene un tipo (TileTypes) y también proporciona métodos para obtener y cambiar este tipo, así como para obtener símbolos ASCII asociados con el tipo de baldosa.
+    - **Time**: Es la clase que representa el tiempo en el mundo, con métodos para avanzar el tiempo, establecer el momento del día según la hora actual y reiniciar el día. Además, proporciona métodos para obtener el momento del día actual y la hora actual en formato de 24 horas.
+    - **Transport**:
+    - **World**:
+- Views
+    - **World View**: Es la clase responsable de la presentación del mundo. Esto incluye la visualizacion del mapa, la limpieza de la pantalla, mostrar la hora actual, el momento del día y las entidades.
+
+- Enums
+    - **CharacterType**: Define tipos de personajes, en estos momentos solo tenemos dos tipos de personajes, que son los jugables y los no jugables (NPCs).
+    - **TileTypes**: Define los diferentes tipos de tiles (baldosas) para el mundo. Cada tipo de tile tiene tres propiedades asociadas:
+        - Un número de tile (tileNumber).
+        - Un color ASCII (asciiColor).
+        - Un símbolo ASCII (asciiSymbol).
+    - **TimesOfDay**: Define diferentes momentos del día, los cuales son Mañana, Tarde, Atardecer y noche.
+    - **Transport Types**: Define los diferentes tipos de transportes que puede tener un personaje. Cada tipo de transporte tiene tres propiedades asociadas:
+        - Velocidad (speed).
+        - Símbolo ASCII (asciiSymbol).
+        - Lista de tipos de tiles (baldosas) por los que puede moverse (tilesItCanMoveThrough)
 
 
----------------
-
-Para la segunda version, se revisó el código y se volvió a revisar las clases creadas y 
-
-### Single Responsibility Principle
+#### Single Responsibility Principle
 
 Este principio lo podemos revisar en las siguientes clases:
 - FileReaderController, esta clase se encarga exclusivamente de leer archivos CSV desde una ruta de archivo especificada. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/FileReaderController.java).
@@ -75,39 +100,34 @@ Este principio lo podemos revisar en las siguientes clases:
 - TileFactory tambien tiene una única responsabilidadm que es crear objetos de tipo Tile. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Factories/TileFactory.java).
 
 
-### Open/Closed Principle
+#### Open/Closed Principle
+Este principio lo podemos revisar en las siguientes clases:
+- **Model/Entity**: Esta clase desde el inicio fué diseñada para ser extendida a cualquier tipo de entidad que pueda tener la aplicación. Todas aquellas clases que extiendan de Entity pueden agregar nuevas funcionalidades sin modificar la clase principal. Esto permite que la clase esté abierta para la extensión y cerrada para la modificación.
+
+- **Model/Point**: Esta clase tambien está diseñada para ser extendida. Se pueden agregar nuevas funcionalidades en subclases sin modificar la clase Point, hasta este momento no se encuentra ninguna extension, pero existe si se necesitara en un futuro, sería fácil de implementar.
+
+
+#### Liskov Substitution Principle
+Este principio lo podemos revisar en las siguientes clases:
+- **Model/Character**: Esta clase extiende Entity y no corrompe el comportamiento esperado de Entity. Cualquier instancia de Character puede ser utilizada donde se espera una Entity. (https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/4c39d60408e209750f7ceb51134306caf2c6baaf/src/Models/Character.java)
+
+
+
+
+#### Interface Segregation Principle
 Este principio lo podemos revisar en las siguientes clases:
 
 
-### Liskov Substitution Principle
+#### Dependency Inversion Principle
 Este principio lo podemos revisar en las siguientes clases:
 
+- **Model/Tiles**: La clase Tile depende de TileTypes, que es una abstracción para los tipos de baldosas definidos. Esto permite que Tile utilice las propiedades definidas en TileTypes sin acoplarse directamente a implementaciones concretas.
 
-### Interface Segregation Principle
-Este principio lo podemos revisar en las siguientes clases:
-
-
-### Dependency Inversion Principle
-Este principio lo podemos revisar en las siguientes clases:
-
-
-
-Y se dividió en los siguientes modulos:
-- Controladores
-    - 
-- Modelos
-    - Baldosa
-    - Punto
-    - Transporte
-- Vista
-    - Vista del Mundo
-- Enums
-    - Tipos de transportes
 
 
 Teniendo en cuenta toda la arquitectura planteada anteriormente y las presentaciones realizadas en clase, nos pudimos dar cuenta que intentar cumplir al completo todo el principio SOLID y modularizar demasiado la aplicación resultó ser un poco tedioso y no necesario para el alcance actual de la aplicación, por ello se realizaron los siguientes cambios:
 
-- x
+- Los modelos que se definieron dede etapa temprana del prouyecto se han mantenido muy similares a lo largo del tiempo, suponiendo que se realizó un buen analisis del proyecto.
 - x
 - x
 
