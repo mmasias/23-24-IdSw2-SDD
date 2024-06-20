@@ -41,7 +41,7 @@
 ### Diagramas
 [Historial de Diagramas de Aplicación](./DiagramaDeAplicacion(redaccion).md)
 
-## Version inicial (modelo vista controlador)
+## Versión inicial (modelo vista controlador)
 Para abordar la solución del proyecto, se optó por utilizar una arquitectura **MVC** (Modelo-Vista-Controlador) con la idea de **desarrollar un código reusable y adaptable a futuras implementaciones**. 
 
 Inicialmente, se creó un controlador para las clases más importantes de la solución, permitiendo tener un conjunto de clases con responsabilidades bien definidas. El diagrama de clases inicialmente propuesto puede encontrarse en [este commit](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/99a071a70c0c760b78c1e3a2f5536427a5419e9f).
@@ -58,7 +58,7 @@ Este fue un momento crucial en la vida del proyecto, ya que de no habernos dado 
 
 Esta fase finaliza con la presentación adecuada de los diagramas de la aplicación, encontrados [aquí](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/223607cb4002db26bcf9eafd7ae84e5f22b92be6).
 
-## Version modular (diseño modular y principios SOLID)
+## Versión modular (diseño modular y principios SOLID)
 Para la segunda versión del proyecto, se revisó a profundidad el código, tomando en cuenta las recomendaciones proporcionadas en clase. A continuación, podemos examinar la arquitectura de la aplicación y observar algunas clases que cumplen con el patrón SOLID.
 
 ### Modulos
@@ -140,7 +140,7 @@ Teniendo en cuenta toda la arquitectura planteada anteriormente y las presentaci
 - Se cambió el nombre del Enum *TimesOfDay* por *ImpreciseTime*, esto porque se encontró un nombre más descriptivo y detallado para su funcionamiento.
 - Se añadió la carpeta Data, donde se encuentra el mapa en formato *CSV*.
 
-## Version limpia (aplicación de clean code)
+## Versión limpia (aplicación de clean code)
 En la revisión del diseño de nuestro software, identificamos varios problemas relacionados con prácticas de 'code smells' que requerían atención. Por ejemplo, analizando el historial del diagrama de la aplicación, se puede apreciar que hubo momentos en que notamos una duplicación considerable de funcionalidades entre varias clases, lo que nos llevó a implementar una jerarquía de herencia más eficiente y a la introducción de interfaces para promover la reutilización del código. 
 
 - Un ejemplo de esto es lo que sucedía en [este commit](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/495203327decbc61e82819a08117934cd01c774f) donde las clases PlayableCharacter y NonPlayableCharacter heredaban de Character pero **duplicaban código**, cosa que se solucionó en [este commit](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/76ab2a1b8329cf38bb6606680c1a00e7d22f92ed) donde se convirtieron en un enum que pasó a ser atributo de la clase Character que dejó de ser abstracta. 
