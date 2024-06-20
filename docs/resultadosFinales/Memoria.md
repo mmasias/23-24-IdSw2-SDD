@@ -117,7 +117,7 @@ Este principio lo podemos revisar en las siguientes clases:
 
 #### Liskov Substitution Principle
 Este principio lo podemos revisar en las siguientes clases:
-- **Model/Character**: Esta clase extiende Entity y no corrompe el comportamiento esperado de Entity. Cualquier instancia de Character puede ser utilizada donde se espera una Entity. (https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/4c39d60408e209750f7ceb51134306caf2c6baaf/src/Models/Character.java)
+- **Model/Character**: Esta clase extiende Entity y no corrompe el comportamiento esperado de Entity. Cualquier instancia de Character puede ser utilizada donde se espera una Entity.
 
 
 #### Interface Segregation Principle
@@ -136,9 +136,8 @@ Este principio lo podemos revisar en las siguientes clases:
 Teniendo en cuenta toda la arquitectura planteada anteriormente y las presentaciones realizadas en clase, nos pudimos dar cuenta que intentar cumplir al completo todo el principio SOLID y modularizar demasiado la aplicación resultó ser un poco tedioso y no necesario para el alcance actual de la aplicación, por ello se realizaron los siguientes cambios:
 
 - Los modelos que se definieron desde etapa temprana del proyecto se han mantenido muy similares a lo largo del tiempo, suponiendo que se realizó un buen analisis del proyecto.
-- Se eliminaron las siguientes clases: TileFactory y todas aquellas que se encuentran en la carpeta *Legacy*.
-- Se añadió la clase Viewport, esto para mejorar la vista del mapa, y no mezclar estas funcionalidades con el mismo WordView, dado que se hubiera convertido en una clase demasiado extensa y con varias más responsabilidades.
-- Se cambió el nombre del Enum TimesOfDay por ImpreciseTime, esto porque se encontró un nombre más descriptivo y detallado para su funcionamiento.
+- Se eliminaron las siguientes clases: *TileFactory* y todas aquellas que se encuentran en la carpeta *Legacy*.
+- Se cambió el nombre del Enum *TimesOfDay* por *ImpreciseTime*, esto porque se encontró un nombre más descriptivo y detallado para su funcionamiento.
 - Se añadió la carpeta Data, donde se encuentra el mapa en formato *CSV*.
 
 ## Version limpia (aplicación de clean code)
