@@ -99,8 +99,8 @@ Este principio lo podemos observar en las siguientes clases:
 - **FileReaderController**: Esta clase se encarga exclusivamente de leer archivos CSV desde una ruta de archivo especificada. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/FileReaderController.java).
 - **TimeController**: Se encarga de gestionar el tiempo y actualizar el período del día (TimesOfDay) en función del tiempo actual. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/TimeController.java).
 - **TileFactory**: Esta clase crea objetos de tipo Tile. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Factories/TileFactory.java).
-- **Model/Point**: Tiene una responsabilidad clara: representar y gestionar un punto en un espacio bidimensional. No se mezcla con otras responsabilidades.
-- **Model/Word**: La clase World se encarga únicamente de representar el estado del mundo y proporcionar métodos para manipular el mapa, las entidades y el tiempo. No realiza funcionalidades adicionales que no correspondan a la gestión del mundo.
+- **Model/Point**: Gestiona un punto en un espacio bidimensional.
+- **Model/Word**: La clase World se encarga de representar el estado del mundo y proporcionar métodos para manipular el mapa, las entidades y el tiempo.
 
 
 #### Open/Closed Principle
