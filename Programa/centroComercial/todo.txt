@@ -1,0 +1,752 @@
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        ShoppingCenter shoppingCenter = new ShoppingCenter("09:00", "20:40");
+        CustomerQueue customerQueue = new CustomerQueue();
+        List<Cashier> cashiers = loadCashiers("./cashiers.json");
+        int maxCashRegisters = 6;
+        CashRegister[] cashRegisters = new CashRegister[maxCashRegisters];
+        DataLog dataLog = new DataLog();
+        AttentionCenter attentionCenter = new AttentionCenter(customerQueue, cashRegisters, cashiers, dataLog);
+        initializeCashRegisters(maxCashRegisters, cashRegisters, cashiers, attentionCenter);
+
+        simulateDay(shoppingCenter, customerQueue, cashRegisters, attentionCenter, dataLog);
+    }
+
+    private static void initializeCashRegisters(int maxCashRegisters, CashRegister[] cashRegisters,
+            List<Cashier> cashiers, AttentionCenter attentionCenter) {
+        for (int i = 0; i < maxCashRegisters; i++) {
+            cashRegisters[i] = new CashRegister(i + 1, attentionCenter);
+            cashRegisters[i].setCurrentCashier(cashiers.get(i));
+        }
+    }
+
+    private static void simulateDay(ShoppingCenter shoppingCenter, CustomerQueue customerQueue,
+            CashRegister[] cashRegisters, AttentionCenter attentionCenter, DataLog dataLog) {
+        Time time = new Time(8, 55);
+        boolean spawnCustomers = true;
+
+        while (true) {
+            String currentTime = time.getCurrentTime();
+            shoppingCenter.updateStatus(currentTime);
+            processShoppingCenterOperations(shoppingCenter, customerQueue, attentionCenter, dataLog, currentTime,
+                    spawnCustomers);
+
+            if (time.getMinute() % 1 == 0) {
+                printCurrentState(shoppingCenter, customerQueue, attentionCenter, currentTime);
+            }
+
+            time.incrementTime();
+            pauseSimulation();
+
+            if (currentTime.equals("21:00")) {
+                System.out.println("PUERTAS CERRADAS");
+                spawnCustomers = false;
+            }
+
+            if (!spawnCustomers && shoppingCenter.getCustomersInside().size() <= 0) {
+                shoppingCenter.closeCenter();
+                dataLog.printStatistics(customerQueue);
+                break;
+            }
+        }
+    }
+
+    private static void processShoppingCenterOperations(ShoppingCenter shoppingCenter, CustomerQueue customerQueue,
+            AttentionCenter attentionCenter, DataLog dataLog, String currentTime, boolean spawnCustomers) {
+        if (shoppingCenter.isOpen()) {
+            maybeSpawnCustomers(shoppingCenter, customerQueue, dataLog, spawnCustomers);
+            attentionCenter.checkAndInitiateBreaks(currentTime);
+            attentionCenter.handleShiftChanges(currentTime);
+            attentionCenter.assignCustomersToCashRegisters();
+            attentionCenter.processCustomersInCashRegisters(shoppingCenter);
+
+            if (spawnCustomers) {
+                attentionCenter.closeCashRegisters();
+            }
+
+            updateCashRegisterBreaks(attentionCenter);
+        }
+    }
+
+    private static void maybeSpawnCustomers(ShoppingCenter shoppingCenter, CustomerQueue customerQueue, DataLog dataLog,
+            boolean spawnCustomers) {
+        if (Math.random() <= 0.45 && spawnCustomers) {
+            Customer newCustomer = new Customer((int) (Math.random() * 1000), (int) (Math.random() * 10) + 5);
+            shoppingCenter.addCustomer(newCustomer);
+            customerQueue.addCustomer(newCustomer);
+            dataLog.incrementCustomersServed();
+            dataLog.addItemsSold(newCustomer.getNumberOfItemPacks());
+        }
+        if (customerQueue.getSize() == 0) {
+            dataLog.incrementMinutesWithZeroQueue();
+        }
+    }
+
+    private static void updateCashRegisterBreaks(AttentionCenter attentionCenter) {
+        for (CashRegister cashRegister : attentionCenter.getCashRegisters()) {
+            if (!cashRegister.isOpen() && cashRegister.getBreakCounter() > 0) {
+                cashRegister.setBreakCounter(cashRegister.getBreakCounter() - 1);
+                if (cashRegister.getBreakCounter() == 0) {
+                    cashRegister.endBreak();
+                }
+            }
+        }
+    }
+
+    private static void pauseSimulation() {
+        try {
+            Thread.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static List<Cashier> loadCashiers(String filePath) {
+        try (FileReader reader = new FileReader(filePath)) {
+            Gson gson = new Gson();
+            Type cashierListType = new TypeToken<List<Cashier>>() {
+            }.getType();
+            return gson.fromJson(reader, cashierListType);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void printCurrentState(ShoppingCenter shoppingCenter, CustomerQueue customerQueue,
+            AttentionCenter attentionCenter, String currentTime) {
+        System.out.println("=====================================================================");
+        System.out.println(currentTime + " - Estado actual del Supermercado");
+        System.out.println("Clientes totales: " + shoppingCenter.getCustomersInside().size() + " - En Cola: "
+                + customerQueue.getSize() + " - En Caja: " + getTotalCustomersInCashRegisters(attentionCenter));
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+
+        System.out.println("Clientes dentro de Supermercado:");
+        if (shoppingCenter.getCustomersInside().isEmpty()) {
+            System.out.print("[-]");
+        } else {
+            for (Customer customer : shoppingCenter.getCustomersInside()) {
+                System.out.print("[Cliente" + customer.getId() + ": " + customer.getNumberOfItemPacks() + "]");
+            }
+        }
+        System.out.println();
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+
+        System.out.println("Clientes en cola:");
+        if (customerQueue.getSize() == 0) {
+            System.out.print("[-]");
+        } else {
+            for (Customer customer : customerQueue.getCustomers()) {
+                System.out.print("[Cliente" + customer.getId() + ": " + customer.getNumberOfItemPacks() + "]");
+            }
+        }
+        System.out.println();
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+
+        CashRegister[] cashRegisters = attentionCenter.getCashRegisters();
+        for (CashRegister cashRegister : cashRegisters) {
+            if (cashRegister.isOccupied()) {
+                System.out.println("CAJA" + cashRegister.getId() + " : [" + cashRegister.getCurrentCashier().getName()
+                        + "] | Cliente" + cashRegister.getCurrentCustomer().getId() + " ["
+                        + cashRegister.getCurrentCustomer().getNumberOfItemPacks() + "]");
+            } else if (cashRegister.isOpen()) {
+                System.out.println(
+                        "CAJA" + cashRegister.getId() + " : [" + cashRegister.getCurrentCashier().getName() + "]");
+            } else if (cashRegister.getBreakCounter() > 0) {
+                System.out.println(
+                        "CAJA" + cashRegister.getId() + " : [DESCANSO " + cashRegister.getBreakCounter() + " mins]");
+            } else {
+                System.out.println("CAJA" + cashRegister.getId() + " : [CERRADA]");
+            }
+        }
+        System.out.println("=====================================================================");
+    }
+
+    private static int getTotalCustomersInCashRegisters(AttentionCenter attentionCenter) {
+        int total = 0;
+        for (CashRegister cashRegister : attentionCenter.getCashRegisters()) {
+            if (cashRegister.isOccupied()) {
+                total++;
+            }
+        }
+        return total;
+    }
+}
+import java.util.List;
+
+public class AttentionCenter {
+    private CustomerQueue customerQueue;
+    private CashRegister[] cashRegisters;
+    private List<Cashier> allCashiers;
+    private DataLog dataLog;
+
+    public AttentionCenter(CustomerQueue customerQueue, CashRegister[] cashRegisters, List<Cashier> allCashiers,
+            DataLog dataLog) {
+        this.customerQueue = customerQueue;
+        this.cashRegisters = cashRegisters;
+        this.allCashiers = allCashiers;
+        this.dataLog = dataLog;
+    }
+
+    public void assignCustomersToCashRegisters() {
+        if (!cashRegisters[0].isOpen() && cashRegisters[0].getBreakCounter() <= 0) {
+            cashRegisters[0].getCurrentCashier().startShift();
+            cashRegisters[0].openRegister();
+        }
+        if (!cashRegisters[1].isOpen() && cashRegisters[1].getBreakCounter() <= 0) {
+            cashRegisters[1].getCurrentCashier().startShift();
+            cashRegisters[1].openRegister();
+        }
+
+        int requiredQueueLength = 10;
+        for (int i = 1; i < cashRegisters.length; i++) {
+            if (!cashRegisters[i].isOpen() && customerQueue.getSize() >= requiredQueueLength
+                    && cashRegisters[i].getBreakCounter() <= 0) {
+                cashRegisters[i].getCurrentCashier().startShift();
+                cashRegisters[i].openRegister();
+            }
+            requiredQueueLength += 5;
+        }
+
+        for (CashRegister cashRegister : cashRegisters) {
+            if (cashRegister.isOpen() && !cashRegister.isOccupied() && customerQueue.getSize() > 0) {
+                Customer customer = customerQueue.peekCustomer();
+                cashRegister.serveCustomer(customer);
+                customerQueue.removeCustomer();
+            }
+        }
+    }
+
+    public void processCustomersInCashRegisters(ShoppingCenter shoppingCenter) {
+        for (CashRegister cashRegister : cashRegisters) {
+            if (cashRegister.isOccupied()) {
+                cashRegister.processCustomer(shoppingCenter);
+            }
+        }
+    }
+
+    public void closeCashRegisters() {
+        int requiredQueueLength = 10;
+        boolean closedOne = false;
+
+        for (int i = 1; i < cashRegisters.length && !closedOne; i++) {
+            if (cashRegisters[i].isOpen() && !cashRegisters[i].isOccupied() &&
+                    cashRegisters[i].getServedCustomers() >= 5 &&
+                    customerQueue.getSize() < requiredQueueLength) {
+                cashRegisters[i].closeRegister();
+                dataLog.registerCashRegisterClosure(); 
+                closedOne = true;
+            }
+            requiredQueueLength += 5;
+        }
+    }
+
+    public void updateOpenMinutes() {
+        for (CashRegister cashRegister : cashRegisters) {
+            if (cashRegister.isOpen()) {
+                dataLog.incrementOpenMinutes(cashRegister.getId());
+            }
+        }
+    }
+
+    public void handleShiftChanges(String currentTime) {
+        if (currentTime.equals("15:00")) {
+            for (CashRegister cashRegister : cashRegisters) {
+                Cashier currentCashier = cashRegister.getCurrentCashier();
+                if (currentCashier != null && currentCashier.getWorkShift().startsWith("09")) {
+                    if (!cashRegister.isOccupied()) {
+                        changeCashier(cashRegister);
+                    } else {
+                        cashRegister.setPendingShiftChange(true);
+                    }
+                }
+            }
+        }
+    }
+
+    public void changeCashier(CashRegister cashRegister) {
+        Cashier currentCashier = cashRegister.getCurrentCashier();
+        if (currentCashier != null) {
+            currentCashier.endShift();
+        }
+
+        for (Cashier cashier : allCashiers) {
+            if (cashier.getWorkShift().startsWith("15") && !cashier.isServing()) {
+                cashRegister.setCurrentCashier(cashier);
+                cashier.startShift();
+                System.out.println(
+                        "Shift changed at cash register " + cashRegister.getId() + " to cashier " + cashier.getName());
+                break;
+            }
+        }
+    }
+
+    public void checkAndInitiateBreaks(String currentTime) {
+        for (CashRegister cashRegister : cashRegisters) {
+            System.out.println(
+                    "Checking break for cashier at register " + cashRegister.getId() + " at time " + currentTime);
+            if (cashRegister.isOpen() && cashRegister.getCurrentCashier() != null) {
+                System.out.println("Register open: " + cashRegister.isOpen());
+                System.out.println("Current time: " + currentTime + ", Work break time: "
+                        + cashRegister.getCurrentCashier().getWorkBreak());
+                System.out.println("Pending shift change: " + cashRegister.isPendingShiftChange() + "t/f: "
+                        + currentTime.equals(cashRegister.getCurrentCashier().getWorkBreak()));
+
+                if (currentTime.equals(cashRegister.getCurrentCashier().getWorkBreak())
+                        && !cashRegister.isPendingShiftChange()) {
+                    cashRegister.startBreak();
+                }
+
+                if (cashRegister.isPendingBreak()) {
+                    cashRegister.startBreak();
+                }
+            }
+        }
+    }
+
+    public CashRegister[] getCashRegisters() {
+        return cashRegisters;
+    }
+}
+public class Cashier {
+    private int id;
+    private String name;
+    private String workShift;
+    private String workBreak;
+    private boolean isServing;
+
+    public Cashier(int id, String name, String workShift, String workBreak) {
+        this.id = id;
+        this.name = name;
+        this.workShift = workShift;
+        this.workBreak = workBreak;
+        this.isServing = false;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getWorkShift() {
+        return workShift;
+    }
+
+    public void setWorkShift(String workShift) {
+        this.workShift = workShift;
+    }
+
+    public String getWorkBreak() {
+        return workBreak;
+    }
+
+    public void setWorkBreak(String workBreak) {
+        this.workBreak = workBreak;
+    }
+
+    public boolean isServing() {
+        return isServing;
+    }
+
+    public void setServing(boolean serving) {
+        isServing = serving;
+    }
+
+    public void startShift() {
+        this.isServing = true;
+        System.out.println("Cashier " + this.name + " has started their shift.");
+    }
+
+    public void endShift() {
+        this.isServing = false;
+        System.out.println("Cashier " + this.name + " has ended their shift.");
+    }
+}
+public class CashRegister {
+    private int id;
+    private Cashier currentCashier;
+    private Customer currentCustomer;
+    private boolean isOpen;
+    private boolean isOccupied;
+    private int servedCustomers;
+    private boolean pendingShiftChange;
+    private boolean pendingBreak;
+    private int breakCounter;
+    private AttentionCenter attentionCenter;
+
+    public CashRegister(int id, AttentionCenter attentionCenter) {
+        this.id = id;
+        this.isOpen = false;
+        this.isOccupied = false;
+        this.servedCustomers = 0;
+        this.pendingShiftChange = false;
+        this.pendingBreak = false;
+        this.breakCounter = 0;
+        this.attentionCenter = attentionCenter;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public boolean isOccupied() {
+        return isOccupied;
+    }
+
+    public Cashier getCurrentCashier() {
+        return currentCashier;
+    }
+
+    public void setCurrentCashier(Cashier currentCashier) {
+        this.currentCashier = currentCashier;
+    }
+
+    public Customer getCurrentCustomer() {
+        return currentCustomer;
+    }
+
+    public int getServedCustomers() {
+        return servedCustomers;
+    }
+
+    public int getBreakCounter() {
+        return breakCounter;
+    }
+
+    public void setBreakCounter(int breakCounter) {
+        this.breakCounter = breakCounter;
+    }
+
+    public void openRegister() {
+        this.isOpen = true;
+        this.servedCustomers = 0;
+        this.breakCounter = 0;
+        System.out.println("Cash register " + this.id + " is now open.");
+    }
+
+    public void closeRegister() {
+        if (!this.isOccupied) {
+            this.isOpen = false;
+            System.out.println("Cash register " + this.id + " is now closed.");
+            this.servedCustomers = 0;
+        }
+    }
+
+    public void serveCustomer(Customer customer) {
+        if (!this.isOccupied && this.currentCashier != null && this.currentCashier.isServing()) {
+            this.isOccupied = true;
+            this.currentCustomer = customer;
+            this.servedCustomers++;
+            System.out.println("Serving customer " + customer.getId() + " at cash register " + this.id);
+        }
+    }
+
+    public void processCustomer(ShoppingCenter shoppingCenter) {
+        if (this.isOccupied && this.currentCustomer != null) {
+            int remainingItems = this.currentCustomer.getNumberOfItemPacks() - 1;
+            this.currentCustomer.setNumberOfItemPacks(remainingItems);
+            if (remainingItems <= 0) {
+                shoppingCenter.removeCustomer(this.currentCustomer);
+                finishServingCustomer();
+            }
+        }
+    }
+
+    public void finishServingCustomer() {
+        if (this.currentCustomer != null) {
+            System.out.println(
+                    "Finished serving customer " + this.currentCustomer.getId() + " at cash register " + this.id);
+        }
+        this.isOccupied = false;
+        this.currentCustomer = null;
+        System.out.println("Cash register " + this.id + " is now free.");
+
+        if (this.pendingShiftChange) {
+            this.pendingShiftChange = false;
+            attentionCenter.changeCashier(this);
+        }
+    }
+
+    public boolean isPendingShiftChange() {
+        return pendingShiftChange;
+    }
+
+    public boolean isPendingBreak() {
+        return pendingBreak;
+    }
+
+    public void setPendingShiftChange(boolean pendingShiftChange) {
+        this.pendingShiftChange = pendingShiftChange;
+    }
+
+    public void startBreak() {
+        if (this.isOccupied) {
+            this.pendingBreak = true;
+            System.out.println("break " + this.currentCashier.getName());
+        }
+        if (pendingBreak && !this.isOccupied) {
+            System.out.println("break begin" + this.currentCashier.getName());
+            beginBreak();
+        }
+    }
+
+    private void beginBreak() {
+        this.isOpen = false;
+        System.out.println("Cash register " + this.id + " is closed for a break.");
+        this.breakCounter = 15; 
+    }
+
+    public void endBreak() {
+        this.isOpen = true;
+        this.pendingBreak = false;
+        System.out.println("Cash register " + this.id + " is now open after break.");
+    }
+
+}
+public class Customer {
+    private int id;
+    private int numberOfItemPacks;
+
+    public Customer(int id, int numberOfItemPacks) {
+        this.id = id;
+        this.numberOfItemPacks = numberOfItemPacks;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getNumberOfItemPacks() {
+        return numberOfItemPacks;
+    }
+
+    public void setNumberOfItemPacks(int numberOfItemPacks) {
+        this.numberOfItemPacks = numberOfItemPacks;
+    }
+}
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class CustomerQueue {
+    private Queue<Customer> customers;
+    private int maxQueueLength = 0;
+
+    public CustomerQueue() {
+        this.customers = new LinkedList<>();
+    }
+
+    public int getSize() {
+        return customers.size();
+    }
+
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
+        maxQueueLength = Math.max(maxQueueLength, customers.size());
+        System.out.println("Customer with ID " + customer.getId() + " added to the queue.");
+    }
+
+    public void removeCustomer() {
+        if (!this.customers.isEmpty()) {
+            Customer servedCustomer = this.customers.poll();
+            System.out.println("Customer with ID " + servedCustomer.getId() + " served and removed from the queue.");
+        }
+    }
+
+    public Customer peekCustomer() {
+        return this.customers.peek();
+    }
+
+    public Queue<Customer> getCustomers() {
+        return customers;
+    }
+
+    public int getMaxQueueLength() {
+        return maxQueueLength;
+    }
+}
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class DataLog {
+    private List<String> logEntries;
+    private int totalCustomersServed;
+    private int totalItemsSold;
+    private int minutesWithZeroQueue;
+    private int totalCashRegisterClosures = 0;
+    private Map<Integer, Integer> openMinutesPerCashRegister = new HashMap<>();
+
+    public DataLog() {
+        this.logEntries = new ArrayList<>();
+        this.totalCustomersServed = 0;
+        this.totalItemsSold = 0;
+        this.minutesWithZeroQueue = 0;
+
+    }
+
+    public void logEvent(String event) {
+        logEntries.add(event);
+        System.out.println(event);
+    }
+
+    public void incrementCustomersServed() {
+        totalCustomersServed++;
+    }
+
+    public void addItemsSold(int items) {
+        totalItemsSold += items;
+    }
+
+    public void incrementMinutesWithZeroQueue() {
+        minutesWithZeroQueue++;
+    }
+
+    public void registerCashRegisterClosure() {
+        totalCashRegisterClosures++;
+    }
+
+    public void incrementOpenMinutes(int cashRegisterId) {
+        openMinutesPerCashRegister.put(cashRegisterId, openMinutesPerCashRegister.getOrDefault(cashRegisterId, 0) + 1);
+    }
+
+    public void printStatistics(CustomerQueue customerQueue) {
+        System.out.println("======================================================================");
+        System.out.println("RESUMEN");
+        System.out.println("======================================================================");
+        System.out.println("Minutos con cola en cero\t: " + minutesWithZeroQueue);
+        System.out.println("Personas atendidas en el dia\t: " + totalCustomersServed);
+        System.out.println("Artículos vendidos en el dia\t: " + totalItemsSold);
+        System.out.println("Máximo número de clientes en cola: " + customerQueue.getMaxQueueLength());
+        System.out.println("Número de cierres de caja al día: " + totalCashRegisterClosures);
+        openMinutesPerCashRegister.forEach((id, minutes) -> {
+            System.out.println("Minutos abiertos para la caja " + id + ": " + minutes);
+        });
+        System.out.println("======================================================================");
+    }
+
+    public List<String> getLogEntries() {
+        return logEntries;
+    }
+}
+import java.util.ArrayList;
+import java.util.List;
+
+public class ShoppingCenter {
+    private String openingHour;
+    private String closingHour;
+    private boolean isOpen;
+    private List<Customer> customersInside;
+
+    public ShoppingCenter(String openingHour, String closingHour) {
+        this.openingHour = openingHour;
+        this.closingHour = closingHour;
+        this.isOpen = false;
+        this.customersInside = new ArrayList<>();
+    }
+
+    
+    public String getOpeningHour() {
+        return openingHour;
+    }
+
+    public void setOpeningHour(String openingHour) {
+        this.openingHour = openingHour;
+    }
+
+    public String getClosingHour() {
+        return closingHour;
+    }
+
+    public void setClosingHour(String closingHour) {
+        this.closingHour = closingHour;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setOpen(boolean open) {
+        isOpen = open;
+    }
+
+    public List<Customer> getCustomersInside() {
+        return customersInside;
+    }
+
+    public void addCustomer(Customer customer) {
+        customersInside.add(customer);
+    }
+
+    public void removeCustomer(Customer customer) {
+        customersInside.remove(customer);
+    }
+
+    public void openCenter() {
+        this.isOpen = true;
+        System.out.println("09:00 - ABRE EL SUPERMERCADO");
+    }
+
+    public void closeCenter() {
+        this.isOpen = false;
+        System.out.println("EL SUPERMERCADO HA CERRADO");
+    }
+
+    
+    public void updateStatus(String currentTime) {
+        if (currentTime.equals(this.openingHour) && !this.isOpen) {
+            openCenter();
+        }
+    }
+}
+public class Time {
+    private int hour;
+    private int minute;
+
+    public Time(int hour, int minute) {
+        this.hour = hour;
+        this.minute = minute;
+    }
+
+    public void incrementTime() {
+        this.minute++;
+        if (this.minute >= 60) {
+            this.minute = 0;
+            this.hour++;
+        }
+    }
+
+    public String getCurrentTime() {
+        return String.format("%02d:%02d", this.hour, this.minute);
+    }
+
+    public int getMinute() {
+        return this.minute;
+    }
+}

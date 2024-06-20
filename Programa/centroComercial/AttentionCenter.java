@@ -1,18 +1,34 @@
 import java.util.List;
 
 public class AttentionCenter {
-    private CustomerQueue queue;
+    private CustomerQueue customerQueue;
     private CashRegister[] cashRegisters;
     private List<Cashier> allCashiers;
     private DataLog dataLog;
 
-    public AttentionCenter(CustomerQueue queue, CashRegister[] cashRegisters, List<Cashier> allCashiers,
+    public AttentionCenter(CustomerQueue customerQueue, CashRegister[] cashRegisters, List<Cashier> allCashiers,
             DataLog dataLog) {
-        this.queue = queue;
+        this.customerQueue = customerQueue;
         this.cashRegisters = cashRegisters;
         this.allCashiers = allCashiers;
         this.dataLog = dataLog;
     }
+
+    public void processNextCustomer() {
+        if (!customerQueue.isEmpty()) {
+            Customer customer = customerQueue.serveNextCustomer();
+            if (customer != null) {
+                System.out.println("Processing customer: " + customer.getId());
+            }
+        }
+    }
+    public void manageQueue() {
+        while (!customerQueue.isEmpty()) {
+            processNextCustomer();
+        }
+    }
+
+
 
     public void assignCustomersToCashRegisters() {
         if (!cashRegisters[0].isOpen() && cashRegisters[0].getBreakCounter() <= 0) {
@@ -26,7 +42,7 @@ public class AttentionCenter {
 
         int requiredQueueLength = 10;
         for (int i = 1; i < cashRegisters.length; i++) {
-            if (!cashRegisters[i].isOpen() && queue.getSize() >= requiredQueueLength
+            if (!cashRegisters[i].isOpen() && customerQueue.getSize() >= requiredQueueLength
                     && cashRegisters[i].getBreakCounter() <= 0) {
                 cashRegisters[i].getCurrentCashier().startShift();
                 cashRegisters[i].openRegister();
@@ -35,10 +51,10 @@ public class AttentionCenter {
         }
 
         for (CashRegister cashRegister : cashRegisters) {
-            if (cashRegister.isOpen() && !cashRegister.isOccupied() && queue.getSize() > 0) {
-                Customer customer = queue.peekCustomer();
+            if (cashRegister.isOpen() && !cashRegister.isOccupied() && customerQueue.getSize() > 0) {
+                Customer customer = customerQueue.peekCustomer();
                 cashRegister.serveCustomer(customer);
-                queue.removeCustomer();
+                customerQueue.removeCustomer();
             }
         }
     }
@@ -58,9 +74,9 @@ public class AttentionCenter {
         for (int i = 1; i < cashRegisters.length && !closedOne; i++) {
             if (cashRegisters[i].isOpen() && !cashRegisters[i].isOccupied() &&
                     cashRegisters[i].getServedCustomers() >= 5 &&
-                    queue.getSize() < requiredQueueLength) {
+                    customerQueue.getSize() < requiredQueueLength) {
                 cashRegisters[i].closeRegister();
-                dataLog.registerCashRegisterClosure(); // Registrar el cierre de la caja
+                dataLog.registerCashRegisterClosure(); 
                 closedOne = true;
             }
             requiredQueueLength += 5;
