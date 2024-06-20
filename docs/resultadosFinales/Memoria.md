@@ -96,10 +96,10 @@ La aplicación se repartió en los siguientes archivos para un flujo más claro 
 #### Single Responsibility Principle
 
 Este principio lo podemos observar en las siguientes clases:
-- **FileReaderController**: esta clase se encarga exclusivamente de leer archivos CSV desde una ruta de archivo especificada. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/FileReaderController.java).
-- **TimeController**: se encarga de gestionar el tiempo, avanzarlo, reiniciarlo y actualizar el período del día (TimesOfDay) en función del tiempo actual. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/TimeController.java).
-- **TileFactory**: Esta clase tambien tiene una única responsabilidadm que es crear objetos de tipo Tile. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Factories/TileFactory.java).
-- **Model/Point**: tiene una responsabilidad clara: representar y gestionar un punto en un espacio bidimensional. No se mezcla con otras responsabilidades.
+- **FileReaderController**: Esta clase se encarga exclusivamente de leer archivos CSV desde una ruta de archivo especificada. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/FileReaderController.java).
+- **TimeController**: Se encarga de gestionar el tiempo y actualizar el período del día (TimesOfDay) en función del tiempo actual. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Controllers/TimeController.java).
+- **TileFactory**: Esta clase crea objetos de tipo Tile. Lo podemos revisar en el siguiente [enlace](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/blob/ab2cbba4f062d0ee2dccfe25824332cbbdc55d6e/legacy/Factories/TileFactory.java).
+- **Model/Point**: Tiene una responsabilidad clara: representar y gestionar un punto en un espacio bidimensional. No se mezcla con otras responsabilidades.
 - **Model/Word**: La clase World se encarga únicamente de representar el estado del mundo y proporcionar métodos para manipular el mapa, las entidades y el tiempo. No realiza funcionalidades adicionales que no correspondan a la gestión del mundo.
 
 
