@@ -39,6 +39,9 @@
 **[Print only the field of vision so that the map doesnt take up space](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/issues/44)**
 - [Commit de Resolución](https://github.com/VeronikaEspa/23-24-IdSw2-SDD/commit/26d8731f9f00e7a9f7874455a01134d0e3d95bac)
 
+### Diagramas
+[Historial de Diagramas de Aplicación](./DiagarmaDeAplicacion(redaccion).md)
+
 ## Version inicial (modelo vista controlador)
 Para abordar la solución del proyecto, se optó por utilizar una arquitectura **MVC** (Modelo-Vista-Controlador) con la idea de **desarrollar un código reusable y adaptable a futuras implementaciones**. 
 
