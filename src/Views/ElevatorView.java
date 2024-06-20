@@ -18,12 +18,11 @@ public class ElevatorView {
     public String[] render() {
         ArrayList<String[]> renderedElevators = new ArrayList<String[]>();
         for (Elevator elevator : elevators) {
-            String view[] = getElevatorView(elevator).split("\n");
+            String[] view = getElevatorView(elevator).split("\n");
             renderedElevators.add(view);
         }
 
-        String[] view = mergeElevatorsViews(renderedElevators);
-        return view;
+        return mergeElevatorsViews(renderedElevators);
     }
 
     private String getElevatorView(Elevator elevator) {

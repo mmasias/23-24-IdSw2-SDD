@@ -12,9 +12,7 @@ public class FloorView {
     }
 
     public String[] render() {
-        String view[] = getFloorView().split("\n");
-
-        return view;
+        return getFloorView().split("\n");
     }
 
     private String getFloorView() {
