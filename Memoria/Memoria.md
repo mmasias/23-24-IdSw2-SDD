@@ -1137,10 +1137,3 @@ Incorporación de Modos Multijugador: Añadir modos de juego multijugador podrí
 
 
 Este proyecto ha representado una valiosa ocasión para poner en práctica nuestros conocimientos en programación y diseño de software. Nos ha revelado la relevancia de crear código que no solo opere correctamente, sino que también sea sencillo de mantener y expandir. A medida que sigamos perfeccionando el sistema, estas metodologías nos facilitarán realizar modificaciones de manera más efectiva y con una menor cantidad de errores.
-
-
-
-
-
-
-
